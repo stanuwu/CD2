@@ -25,7 +25,7 @@ namespace CD2_Bot
         {
             _client.MessageReceived += HandleCommandAsync;
             await _commands.AddModulesAsync(assembly: Assembly.GetEntryAssembly(), services: null);
-            Console.WriteLine("Loaded Commands");
+            await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Info, "Command Handler", "Loaded Commands"));
         }
 
         private async Task HandleCommandAsync(SocketMessage messageParam)
@@ -39,6 +39,8 @@ namespace CD2_Bot
                 message.HasMentionPrefix(_client.CurrentUser, ref argPos)) ||
                 message.Author.IsBot)
                 return;
+
+            await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Info, "Command Handler", $"Running Command: \"{message}\""));
 
             var context = new SocketCommandContext(_client, message);
 

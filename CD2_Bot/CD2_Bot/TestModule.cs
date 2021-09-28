@@ -13,13 +13,13 @@ namespace CD2_Bot
         [Summary("Test if the bot is working.")]
         public async Task TestAsync(string arg = null, [Remainder] string xargs = null)
         {
-            await ReplyAsync("The bot is working!");
             switch (arg)
             {
                 case null:
+                    await ReplyAsync("No Arguments Given!");
                     break;
                 default:
-                    await Context.Channel.SendMessageAsync(arg);
+                    await Context.Channel.SendMessageAsync($"Argument: {arg}\nXArgs: {xargs}");
                     break;
             }
         }

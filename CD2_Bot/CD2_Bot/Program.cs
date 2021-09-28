@@ -17,6 +17,8 @@ namespace CD2_Bot
         private DiscordSocketClient _client;
         public async Task MainAsync()
         {
+            File.Create("log.txt").Close();
+
             _client = new DiscordSocketClient();
             _client.Log += Log;
 
@@ -38,9 +40,15 @@ namespace CD2_Bot
 
             await Task.Delay(-1);
         }
-        private Task Log(LogMessage msg)
+        public static Task Log(LogMessage msg)
         {
-            Console.WriteLine(msg.ToString());
+            string txt = $"@{DateTime.Now} [{(msg.Severity.ToString() + "]").PadRight(9, ' ')} {msg.Source.PadRight(15, ' ').Substring(0, 15)} -> {msg.Message}";
+
+            using (var sw = new StreamWriter("log.txt", true))
+            {
+                sw.WriteLine(txt);
+            }
+            Console.WriteLine(txt);
             return Task.CompletedTask;
         }
     }
