@@ -19,7 +19,7 @@ namespace CD2_Bot
                     await ReplyAsync("No Arguments Given!");
                     break;
                 default:
-                    await Context.Channel.SendMessageAsync($"Argument: {arg}\nXArgs: {xargs}");
+                    await ReplyAsync($"Argument: {arg}\nXArgs: {xargs}");
                     break;
             }
         }
