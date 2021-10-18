@@ -21,6 +21,7 @@ namespace CD2_Bot
             {
                 tempstorage.characters.Add(new CharacterStructure(charname.Substring(0, 20), Context.User.Id));
                 Utils.DebugLog(charname.Substring(0, 20));
+                await ReplyAsync($"Character {charname.Substring(0, 20)} created!");
             }
         }
     }
