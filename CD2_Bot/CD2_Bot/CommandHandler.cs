@@ -11,7 +11,7 @@ namespace CD2_Bot
 {
     public class CommandHandler
     {
-        private readonly DiscordSocketClient _client;
+        public readonly DiscordSocketClient _client;
         private readonly CommandService _commands;
         private readonly char commandPrefix = Defaults.dPrefix;
 
