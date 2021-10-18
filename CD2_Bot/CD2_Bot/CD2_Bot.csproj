@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="AdminModule.cs" />
     <Compile Include="CharacterManagement.cs" />
+    <Compile Include="CharacterStructure.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Defaults.cs" />
     <Compile Include="Program.cs" />

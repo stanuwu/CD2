@@ -7,20 +7,20 @@ using Discord.Commands;
 
 namespace CD2_Bot
 {
-    class CharacterManagement : ModuleBase<SocketCommandContext>
+    public class CharacterManagement : ModuleBase<SocketCommandContext>
     {
         [Command("start")]
         [Summary("Creates a character to start the game with.")]
-        public async Task StartAsync(string charname = null, [Remainder] string xargs = null)
+        public async Task StartAsync([Remainder] string charname = null)
         {
-            switch (string.IsNullOrWhiteSpace(charname))
+            if (string.IsNullOrWhiteSpace(charname))
             {
-                case true:
-                    await ReplyAsync("Please enter a name for your character!");
-                    break;
-                default:
-                    tempstorage.characters.Add(new CharacterManagement())
-                    break;
+                await ReplyAsync("Please enter a name for your character!");
+            }
+            else
+            {
+                tempstorage.characters.Add(new CharacterStructure(charname.Substring(0, 20), Context.User.Id));
+                Utils.DebugLog(charname.Substring(0, 20));
             }
         }
     }

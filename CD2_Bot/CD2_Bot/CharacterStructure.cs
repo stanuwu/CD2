@@ -8,20 +8,21 @@ namespace CD2_Bot
 {
     class CharacterStructure
     {
-        public CharacterStructure(string characterName, string title, string description, string characterClass, int money, int eXP, int hP, string weapon, string armor, string extra, Dictionary<string, int> inventory, double statMultiplier)
+        public CharacterStructure(string characterName, ulong playerID)
         {
             CharacterName = characterName;
-            Title = title;
-            Description = description;
-            CharacterClass = characterClass;
-            Money = money;
-            EXP = eXP;
-            HP = hP;
-            Weapon = weapon;
-            Armor = armor;
-            Extra = extra;
-            Inventory = inventory;
-            StatMultiplier = statMultiplier;
+            Title = "Player";
+            Description = "";
+            CharacterClass = "";
+            Money = 0;
+            EXP = 0;
+            HP = 0;
+            Weapon = "";
+            Armor = "";
+            Extra = "";
+            Inventory = new Dictionary<string, int> { };
+            StatMultiplier = 1;
+            PlayerID = playerID;
         }
 
         public string CharacterName { get; private set; }
@@ -36,5 +37,6 @@ namespace CD2_Bot
         public string Extra { get; private set; }
         public Dictionary<string, int> Inventory { get; private set; }
         public double StatMultiplier { get; private set; }
+        public ulong PlayerID { get; private set; }
     }
 }
