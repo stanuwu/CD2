@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Discord.Commands;
+using Npgsql;
 
 namespace CD2_Bot
 {
@@ -27,7 +28,16 @@ namespace CD2_Bot
                 {
                     charname = charname.Substring(0, 20);
                 }
-                tempstorage.characters.Add(new CharacterStructure(charname, Context.User.Id));
+
+                NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.\"Character\" VALUES (@id, '', 'Player', '', 0, 0, '', 0, '', '', '', ARRAY[]::varchar[], 1);", db.dbc);
+                cmd.Parameters.AddWithValue("@id", (Int64)Context.User.Id);
+                db.CommandVoid(cmd);
+
+                tempstorage.characters.Add(new CharacterStructure(Context.User.Id));
+                CharacterStructure stats = (from user in tempstorage.characters
+                                            where user.PlayerID == Context.User.Id
+                                            select user).SingleOrDefault();
+                stats.CharacterName = charname;
                 await ReplyAsync($"Character {charname} created!");
             }
 
@@ -41,7 +51,6 @@ namespace CD2_Bot
             CharacterStructure stats = (from user in tempstorage.characters
                                        where user.PlayerID == Context.User.Id
                                        select user).SingleOrDefault();
-            Utils.DebugLog("Servus");
 
             if (stats == null)
             {
