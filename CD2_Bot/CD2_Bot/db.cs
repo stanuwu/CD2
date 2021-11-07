@@ -14,18 +14,15 @@ namespace CD2_Bot
 
         static NpgsqlConnection dbc = new NpgsqlConnection($"Host=localhost;Username=postgres;Password={dbpassword};Database=CD2");
 
-        static public void Init()
+        static public async void Init()
         {
             dbc.Open();
-            Utils.DebugLog(CommandString("SELECT version()"));
-
+            await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Info, "Database", "Loaded Database: " + CommandString("SELECT version()")));
         }
 
         static public string CommandString(string cmd)
         {
             return new NpgsqlCommand(cmd, dbc).ExecuteScalar().ToString();
         }
-
-
     }
 }
