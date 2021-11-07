@@ -74,7 +74,8 @@ namespace CD2_Bot
                 db.CommandVoid(cmd);
             }
         }
-        public int Money {
+        public int Money 
+        {
             get
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT money FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
