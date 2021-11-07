@@ -38,6 +38,7 @@ namespace CD2_Bot
             CommandHandler commandHandler = new CommandHandler(_client, _commands);
             await commandHandler.InstallCommandsAsync();
             Defaults.CLIENT = _client;
+            db.Init();
             await Task.Delay(-1);
         }
         public static Task Log(LogMessage msg)
