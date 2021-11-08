@@ -47,32 +47,63 @@ namespace CD2_Bot
 
         [Command("character")]
         [Summary("View your character.")]
-        public async Task CharacterAsync([Remainder] string xargs = null)
+        public async Task CharacterAsync(ulong uid = 0, [Remainder] string xargs = null)
         {
+            if (uid == 0){
 
-            CharacterStructure stats = (from user in tempstorage.characters
-                                       where user.PlayerID == Context.User.Id
-                                       select user).SingleOrDefault();
+                CharacterStructure stats = (from user in tempstorage.characters
+                                            where user.PlayerID == Context.User.Id
+                                            select user).SingleOrDefault();
 
-            if (stats == null)
-            {
-                await ReplyAsync("You don't have a character! Create one with <start.");
+                if (stats == null)
+                {
+                    await ReplyAsync("You don't have a character! Create one with <start.");
+                }
+                else
+                {
+                    await ReplyAsync($"Name: {stats.CharacterName} \n" +
+                        $"Title: {stats.Title} \n" +
+                        $"Description: {stats.Description} \n" +
+                        $"Class: {stats.CharacterClass} \n" +
+                        $"Money: {stats.Money} \n" +
+                        $"EXP: {stats.EXP} \n" +
+                        $"HP: {stats.HP} \n" +
+                        $"Weapon: {stats.Weapon} \n" +
+                        $"Armor: {stats.Armor} \n" +
+                        $"Extra: {stats.Extra} \n" +
+                        $"Inventory: {stats.Inventory} \n" +
+                        $"Stat Multiplier: {stats.StatMultiplier} \n" +
+                        $"Image: {Context.User.GetAvatarUrl()}");
+                }
             }
             else
             {
-                await ReplyAsync($"Name: {stats.CharacterName} \n" +
-                    $"Title: {stats.Title} \n" +
-                    $"Description: {stats.Description} \n" +
-                    $"Class: {stats.CharacterClass} \n" +
-                    $"Money: {stats.Money} \n" +
-                    $"EXP: {stats.EXP} \n" +
-                    $"HP: {stats.HP} \n" +
-                    $"Weapon: {stats.Weapon} \n" +
-                    $"Armor: {stats.Armor} \n" +
-                    $"Extra: {stats.Extra} \n" +
-                    $"Inventory: {stats.Inventory} \n" +
-                    $"Stat Multiplier: {stats.StatMultiplier} \n" +
-                    $"Image: {Context.User.GetAvatarUrl()}");
+                CharacterStructure stats = (from user in tempstorage.characters
+                                            where user.PlayerID == uid
+                                            select user).SingleOrDefault();
+
+                IUser founduser = Defaults.CLIENT.GetUser(uid);
+
+                if (stats == null)
+                {
+                    await ReplyAsync("There is no character with this ID.");
+                }
+                else
+                {
+                    await ReplyAsync($"Name: {stats.CharacterName} \n" +
+                        $"Title: {stats.Title} \n" +
+                        $"Description: {stats.Description} \n" +
+                        $"Class: {stats.CharacterClass} \n" +
+                        $"Money: {stats.Money} \n" +
+                        $"EXP: {stats.EXP} \n" +
+                        $"HP: {stats.HP} \n" +
+                        $"Weapon: {stats.Weapon} \n" +
+                        $"Armor: {stats.Armor} \n" +
+                        $"Extra: {stats.Extra} \n" +
+                        $"Inventory: {stats.Inventory} \n" +
+                        $"Stat Multiplier: {stats.StatMultiplier} \n" +
+                        $"Image: {founduser.GetAvatarUrl()}");
+                }
             }
         }
 
