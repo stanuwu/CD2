@@ -14,7 +14,7 @@ namespace CD2_Bot
         public async Task GuildsAsync([Remainder] string xargs = null)
         {
             if (!Defaults.STAFF.Contains(Context.User.Id)) { return; }
-            await ReplyAsync(Convert.ToString(await Utils.GuildCount(Context)));
+            await ReplyAsync(embed: Utils.QuickEmbedNormal("Guilds", Convert.ToString(await Utils.GuildCount(Context))));
         }
 
         [Command("users")]
@@ -22,7 +22,7 @@ namespace CD2_Bot
         public async Task UsersAsync([Remainder] string xargs = null)
         {
             if (!Defaults.STAFF.Contains(Context.User.Id)) { return; }
-            await ReplyAsync(Convert.ToString(await Utils.UniqueUserCount(Context)));
+            await ReplyAsync(embed: Utils.QuickEmbedNormal("Users", Convert.ToString(await Utils.UniqueUserCount(Context))));
         }
 
         [Command("reload")]
@@ -31,7 +31,7 @@ namespace CD2_Bot
         {
             if (!Defaults.STAFF.Contains(Context.User.Id)) { return; }
             Utils.RestartClient(Context);
-            await ReplyAsync("Reloaded!");
+            await ReplyAsync(embed: Utils.QuickEmbedNormal("Reloaded!", ""));
         }
 
         [Command("status")]
@@ -41,11 +41,11 @@ namespace CD2_Bot
             if (!Defaults.STAFF.Contains(Context.User.Id)) { return; }
             if (String.IsNullOrEmpty(xargs))
             {
-                await ReplyAsync("Provide a status to set!");
+                await ReplyAsync(embed: Utils.QuickEmbedError("Provide a status to set!"));
             } else
             {
                 Utils.UpdateStatus(xargs);
-                await ReplyAsync("Status Updated!");
+                await ReplyAsync(embed: Utils.QuickEmbedNormal("Status updated!", ""));
             }
             
         }
@@ -57,12 +57,12 @@ namespace CD2_Bot
             if (!Defaults.STAFF.Contains(Context.User.Id)) { return; }
             if (String.IsNullOrEmpty(xargs))
             {
-                await ReplyAsync("Enter a message to send out!");
+                await ReplyAsync(embed: Utils.QuickEmbedError("Enter a message to send out!"));
             }
             else
             {
                 Utils.SendBroadcast(Context, xargs);
-                await ReplyAsync("Sent Broadcast!");
+                await ReplyAsync(embed: Utils.QuickEmbedNormal("Sent broadcast!", ""));
             }
 
         }

@@ -18,11 +18,11 @@ namespace CD2_Bot
         {
             if (string.IsNullOrWhiteSpace(charname))
             {
-                await ReplyAsync("Please enter a name for your character!");
+                await ReplyAsync(embed: Utils.QuickEmbedError("Please enter a name for your character."));
             }
             else if(tempstorage.characters.Any(x => x.PlayerID == Context.User.Id))
             {
-                await ReplyAsync("You already have a character! \n If you want to delete this character and create a new one, use <reset.");
+                await ReplyAsync(embed: Utils.QuickEmbedError("You already have a character! \n If you want to delete this character and create a new one, use <reset."));
             }
             else
             {
@@ -31,7 +31,7 @@ namespace CD2_Bot
                     charname = charname.Substring(0, 20);
                 }
 
-                NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.\"Character\" VALUES (@id, '', 'Player', '', 0, 0, '', 0, '', '', '', ARRAY[]::varchar[], 1);", db.dbc);
+                NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.\"Character\" VALUES (@id, '', 'Player', 'Commoner', 0, 0, '', 0, 'Stick', 'None', 'None', ARRAY[]::varchar[], 1);", db.dbc);
                 cmd.Parameters.AddWithValue("@id", (Int64)Context.User.Id);
                 db.CommandVoid(cmd);
 
@@ -40,7 +40,7 @@ namespace CD2_Bot
                                             where user.PlayerID == Context.User.Id
                                             select user).SingleOrDefault();
                 stats.CharacterName = charname;
-                await ReplyAsync($"Character {charname} created!");
+                await ReplyAsync(embed: Utils.QuickEmbedNormal("Character created", $"Your character {charname} has been created!"));
             }
 
         }
@@ -49,63 +49,50 @@ namespace CD2_Bot
         [Summary("View your character.")]
         public async Task CharacterAsync(ulong uid = 0, [Remainder] string xargs = null)
         {
-            if (uid == 0){
+            string avatarurl = "";
 
-                CharacterStructure stats = (from user in tempstorage.characters
-                                            where user.PlayerID == Context.User.Id
-                                            select user).SingleOrDefault();
-
-                if (stats == null)
-                {
-                    await ReplyAsync("You don't have a character! Create one with <start.");
-                }
-                else
-                {
-                    await ReplyAsync($"Name: {stats.CharacterName} \n" +
-                        $"Title: {stats.Title} \n" +
-                        $"Description: {stats.Description} \n" +
-                        $"Class: {stats.CharacterClass} \n" +
-                        $"Money: {stats.Money} \n" +
-                        $"EXP: {stats.EXP} \n" +
-                        $"HP: {stats.HP} \n" +
-                        $"Weapon: {stats.Weapon} \n" +
-                        $"Armor: {stats.Armor} \n" +
-                        $"Extra: {stats.Extra} \n" +
-                        $"Inventory: {stats.Inventory} \n" +
-                        $"Stat Multiplier: {stats.StatMultiplier} \n" +
-                        $"Image: {Context.User.GetAvatarUrl()}");
-                }
+            if (uid == 0) {
+                avatarurl = Context.User.GetAvatarUrl();
+                uid = Context.User.Id;
             }
             else
             {
-                CharacterStructure stats = (from user in tempstorage.characters
+                IUser founduser = Defaults.CLIENT.GetUser(uid);
+                avatarurl = founduser.GetAvatarUrl();
+            }
+
+            CharacterStructure stats = (from user in tempstorage.characters
                                             where user.PlayerID == uid
                                             select user).SingleOrDefault();
 
-                IUser founduser = Defaults.CLIENT.GetUser(uid);
+            if (stats == null)
+            {
+                await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character! Create one with <start."));
+            }
+            else
+            {
+                var embed = new EmbedBuilder
+                {
+                    Title = stats.CharacterName,
+                    Description = stats.Description,
+                    ThumbnailUrl = avatarurl
+                };
 
-                if (stats == null)
-                {
-                    await ReplyAsync("There is no character with this ID.");
-                }
-                else
-                {
-                    await ReplyAsync($"Name: {stats.CharacterName} \n" +
-                        $"Title: {stats.Title} \n" +
-                        $"Description: {stats.Description} \n" +
-                        $"Class: {stats.CharacterClass} \n" +
-                        $"Money: {stats.Money} \n" +
-                        $"EXP: {stats.EXP} \n" +
-                        $"HP: {stats.HP} \n" +
-                        $"Weapon: {stats.Weapon} \n" +
-                        $"Armor: {stats.Armor} \n" +
-                        $"Extra: {stats.Extra} \n" +
-                        $"Inventory: {stats.Inventory} \n" +
-                        $"Stat Multiplier: {stats.StatMultiplier} \n" +
-                        $"Image: {founduser.GetAvatarUrl()}");
-                }
+                embed.AddField("Title", Convert.ToString(stats.Title));
+                embed.AddField("Class", $"{Convert.ToString(stats.CharacterClass)} ");
+                embed.AddField("Money", Convert.ToString(stats.Money));
+                embed.AddField("EXP", Convert.ToString(stats.EXP));
+                embed.AddField("HP", Convert.ToString(stats.HP));
+                embed.AddField("Weapon", $"{Convert.ToString(stats.Weapon)} ");
+                embed.AddField("Armor", $"{Convert.ToString(stats.Armor)} ");
+                embed.AddField("Extra", $"{Convert.ToString(stats.Extra)} ");
+                embed.AddField("Stat Multiplier", Convert.ToString(stats.StatMultiplier));
+                embed.WithColor(Color.DarkMagenta);
+                await ReplyAsync(embed: embed.Build());
             }
         }
+
+
 
         [Command("reset")]
         [Summary("Deletes your character after asking for confirmation.")]
@@ -117,11 +104,11 @@ namespace CD2_Bot
 
             if (stats == null)
             {
-                await ReplyAsync("You don't have a character to delete.");
+                await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character to delete."));
                 return;
             }
 
-            IUserMessage msg = (IUserMessage) await ReplyAsync("Are you sure you want to reset your character? **This will delete ALL your data.** \nTo confirm, react with :white_check_mark: (Expires in 5 seconds)");
+            IUserMessage msg = await ReplyAsync(embed: Utils.QuickEmbedNormal("Confirmation", "Are you sure you want to reset your character? **This will delete ALL your data.** \nTo confirm, react with :white_check_mark: (Expires in 5 seconds)"));
             await msg.AddReactionAsync(new Emoji("✅"));
             await Task.Delay(5000);
             List<IUser> reacted = (await msg.GetReactionUsersAsync(new Emoji("✅"), 5).FlattenAsync()).ToList();
@@ -131,7 +118,7 @@ namespace CD2_Bot
                 cmd.Parameters.AddWithValue("@id", (Int64)Context.User.Id);
                 db.CommandVoid(cmd);
                 tempstorage.characters.RemoveAll(c => c.PlayerID == Context.User.Id);
-                await ReplyAsync("Successfully deleted character.");
+                await ReplyAsync(embed: Utils.QuickEmbedNormal("Success", "Successfully deleted character."));
             }
             else
             {
@@ -145,7 +132,7 @@ namespace CD2_Bot
         {
             if (string.IsNullOrWhiteSpace(charname))
             {
-                await ReplyAsync("Please enter a name for your character!");
+                await ReplyAsync(embed: Utils.QuickEmbedError("Please enter a name for your character!"));
             }
             else if (tempstorage.characters.Any(x => x.PlayerID == Context.User.Id))
             {
@@ -158,11 +145,11 @@ namespace CD2_Bot
                                             where user.PlayerID == Context.User.Id
                                             select user).SingleOrDefault();
                 stats.CharacterName = charname;
-                await ReplyAsync($"Your character has been renamed to {charname}!");
+                await ReplyAsync(embed: Utils.QuickEmbedNormal("Success", $"Your character has been renamed to {charname}!"));
             }
             else
             {
-                await ReplyAsync("You don't have a character yet! Create one with <start.");
+                await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character yet! Create one with <start."));
             }
         }
 
@@ -172,7 +159,7 @@ namespace CD2_Bot
         {
             if (string.IsNullOrWhiteSpace(chardesc))
             {
-                await ReplyAsync("Please enter a description!");
+                await ReplyAsync(embed: Utils.QuickEmbedError("Please enter a description."));
             }
             else if (tempstorage.characters.Any(x => x.PlayerID == Context.User.Id))
             {
@@ -185,11 +172,11 @@ namespace CD2_Bot
                                             where user.PlayerID == Context.User.Id
                                             select user).SingleOrDefault();
                 stats.Description = chardesc;
-                await ReplyAsync("A new description has been set!");
+                await ReplyAsync(embed: Utils.QuickEmbedNormal("Success", "A new description has been set!"));
             }
             else
             {
-                await ReplyAsync("You don't have a character yet! Create one with <start.");
+                await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character yet! Create one with <start."));
             }
         }
 
@@ -256,19 +243,19 @@ namespace CD2_Bot
                     }
                     else
                     {
-                        await ReplyAsync("Invalid argument");
+                        await ReplyAsync(embed: Utils.QuickEmbedError("Invalid argument"));
                         return;
                     }
-                    await ReplyAsync("Successfully changed");
+                    await ReplyAsync(embed: Utils.QuickEmbedNormal("Success", "Stat changed"));
                 }
                 else
                 {
-                    await ReplyAsync("Invalid User");
+                    await ReplyAsync(embed: Utils.QuickEmbedError("Invalid User"));
                 }
             }
             else
             {
-                await ReplyAsync("Missing Arguments");
+                await ReplyAsync(embed: Utils.QuickEmbedError("Missing Arguments"));
             }
         }
     }

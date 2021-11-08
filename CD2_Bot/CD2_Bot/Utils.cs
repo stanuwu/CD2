@@ -63,5 +63,84 @@ namespace CD2_Bot
             }
 
         }
+
+        public static Embed QuickEmbedNormal(string title, string description)
+        {
+            var embed = new EmbedBuilder
+            {
+                Title = title,
+                Description = description
+            };
+
+            embed.WithColor(Color.Teal);
+            embed.WithFooter(Defaults.FOOTER);
+
+            return embed.Build();
+        }
+
+        public static Embed QuickEmbedError(string description)
+        {
+            var embed = new EmbedBuilder
+            {
+                Title = "Error",
+                Description = description
+            };
+
+            embed.WithColor(Color.DarkRed);
+            embed.WithFooter(Defaults.FOOTER);
+
+            return embed.Build();
+        }
+
+        public static Embed QuickEmbedBotinfo()
+        {
+            var embed = new EmbedBuilder
+            {
+                Title = "CustomDungeons 2 - Info",
+                Description = "This bot.",
+                ThumbnailUrl = Defaults.BOTIMG
+            };
+
+            embed.WithColor(Color.Purple);
+            embed.WithFooter(Defaults.FOOTER);
+
+            return embed.Build();
+        }
+        public static Embed QuickEmbedMenu(Dictionary<string, string> menuitems)
+        {
+            var embed = new EmbedBuilder
+            {
+                Title = "Menu",
+                Description = "Basic menu"
+            };
+
+            foreach (string k in menuitems.Keys)
+            {
+                embed.AddField(k, menuitems[k], true);
+            }
+
+            embed.WithColor(Color.Gold);
+            embed.WithFooter(Defaults.FOOTER);
+
+            return embed.Build();
+        }
+
+        public static Embed QuickEmbedList(List<string> listitems)
+        {
+            var embed = new EmbedBuilder
+            {
+                Title = "List"
+            };
+
+            foreach (string l in listitems)
+            {
+                embed.Description += $"- {l}\n";
+            }
+
+            embed.WithColor(Color.Magenta);
+            embed.WithFooter(Defaults.FOOTER);
+
+            return embed.Build();
+        }
     }
 }
