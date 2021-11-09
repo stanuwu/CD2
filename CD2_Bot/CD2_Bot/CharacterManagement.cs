@@ -75,18 +75,18 @@ namespace CD2_Bot
                 {
                     Title = stats.CharacterName,
                     Description = stats.Description,
-                    ThumbnailUrl = avatarurl
+                    ThumbnailUrl = avatarurl,
                 };
 
-                embed.AddField("Title", Convert.ToString(stats.Title));
-                embed.AddField("Class", $"{Convert.ToString(stats.CharacterClass)} ");
-                embed.AddField("Money", Convert.ToString(stats.Money));
-                embed.AddField("EXP", Convert.ToString(stats.EXP));
-                embed.AddField("HP", Convert.ToString(stats.HP));
-                embed.AddField("Weapon", $"{Convert.ToString(stats.Weapon)} ");
-                embed.AddField("Armor", $"{Convert.ToString(stats.Armor)} ");
-                embed.AddField("Extra", $"{Convert.ToString(stats.Extra)} ");
-                embed.AddField("Stat Multiplier", Convert.ToString(stats.StatMultiplier));
+                embed.AddField("Title", Convert.ToString(stats.Title), true);
+                embed.AddField("Class", $"{Convert.ToString(stats.CharacterClass)} ", true);
+                embed.AddField("Money", Convert.ToString(stats.Money), true);
+                embed.AddField("EXP", Convert.ToString(stats.EXP), true);
+                embed.AddField("HP", Convert.ToString(stats.HP), true);
+                embed.AddField("Weapon", $"{Convert.ToString(stats.Weapon)} ", true);
+                embed.AddField("Armor", $"{Convert.ToString(stats.Armor)} ", true);
+                embed.AddField("Extra", $"{Convert.ToString(stats.Extra)} ", true);
+                embed.AddField("Stat Multiplier", Convert.ToString(stats.StatMultiplier), true);
                 embed.WithColor(Color.DarkMagenta);
                 await ReplyAsync(embed: embed.Build());
             }
