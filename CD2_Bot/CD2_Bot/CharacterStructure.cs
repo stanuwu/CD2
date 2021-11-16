@@ -28,6 +28,13 @@ namespace CD2_Bot
                 db.CommandVoid(cmd);
             }
         }
+        public int Lvl
+        {
+            get
+            {
+                return (int)Math.Floor(Math.Sqrt(EXP / 10) / 2);
+            }
+        }
         public string Title {
             get
             {
@@ -105,12 +112,21 @@ namespace CD2_Bot
                 db.CommandVoid(cmd);
             }
         }
-        public int HP {
+        public int MaxHP {
             get
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT hp FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
-                return Convert.ToInt32(db.CommandString(cmd));
+                int hpadded = 0;
+                if( Lvl > 50)
+                {
+                    hpadded = 983 + 5 * (Lvl - 50); // 983 ist die HP-Anzahl, die bei Level 50 erreicht wird.
+                }
+                else
+                {
+                    hpadded = (int)Math.Floor(100 + 0.05 * Math.Pow(Lvl, 2.5));
+                }
+                return Convert.ToInt32(db.CommandString(cmd)) + hpadded;
             }
             set
             {
@@ -118,6 +134,13 @@ namespace CD2_Bot
                 cmd.Parameters.AddWithValue("@hp", value);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
                 db.CommandVoid(cmd);
+            }
+        }
+        public int HP
+        {
+            get
+            {
+                return MaxHP-50; //Muss noch implementiert werden ::::((((
             }
         }
         public string Weapon {
@@ -198,7 +221,7 @@ namespace CD2_Bot
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT statmultiplier FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
-                return Convert.ToDouble(db.CommandString(cmd));
+                return Convert.ToDouble(db.CommandString(cmd)) + 1 + 0.01*Lvl;
             }
             set
             {
