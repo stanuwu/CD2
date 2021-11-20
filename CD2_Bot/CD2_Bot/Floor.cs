@@ -25,7 +25,7 @@ namespace CD2_Bot
             int minutesago = (int) Math.Floor((DateTime.Now - stats.LastFloor).TotalMinutes);
             if (minutesago < Defaults.FLOORCOOLDOWN)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError($"You are on cooldown for {15-minutesago}min."));
+                await ReplyAsync(embed: Utils.QuickEmbedError($"You are on cooldown for {Defaults.FLOORCOOLDOWN-minutesago}min."));
                 return;
             }
 
