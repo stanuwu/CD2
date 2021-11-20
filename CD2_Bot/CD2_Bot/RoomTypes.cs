@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace CD2_Bot
 {
-    class FloorTypes
+    enum RoomTypes
     {
+        Fight,
+        Chest,
+        Random,
+        Merchant,
+        Trap,
+        Quest
     }
 }

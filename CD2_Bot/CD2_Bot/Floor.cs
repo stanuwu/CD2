@@ -35,7 +35,7 @@ namespace CD2_Bot
             MessageComponent menu = new ComponentBuilder()
                 .WithSelectMenu(new SelectMenuBuilder()
                 .WithPlaceholder("Select a Room!")
-                .WithCustomId("floorselectroom;"+Context.User.Id.ToString())
+                .WithCustomId("floorroomselect;" + Context.User.Id.ToString())
                 .WithMinValues(1)
                 .WithMaxValues(1)
                 .AddOption("Test Room", "r1", "Test Text")
