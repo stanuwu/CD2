@@ -23,6 +23,11 @@ namespace CD2_Bot
                 await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character yet. Create one with <start!"));
                 return;
             }
+            if (stats.HP < stats.MaxHP/4)
+            {
+                await ReplyAsync(embed: Utils.QuickEmbedError("You don't have enough health."));
+                return;
+            }
             int minutesago = (int) Math.Floor((DateTime.Now - stats.LastFloor).TotalMinutes);
             if (minutesago < Defaults.FLOORCOOLDOWN)
             {
