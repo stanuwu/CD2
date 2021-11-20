@@ -113,8 +113,10 @@
     <Compile Include="Defaults.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Floor.cs" />
+    <Compile Include="FloorTypes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectionHandler.cs" />
     <Compile Include="tempstorage.cs" />
     <Compile Include="TestModule.cs" />
     <Compile Include="Utils.cs" />
