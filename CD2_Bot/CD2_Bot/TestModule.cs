@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
+using Discord.WebSocket;
 
 namespace CD2_Bot
 {
@@ -20,8 +21,10 @@ namespace CD2_Bot
                     await ReplyAsync(embed: Utils.QuickEmbedError("Missing arguments"));
                     break;
                 default:
-                    MessageComponent btn = (new ComponentBuilder().WithButton("test", "testbtn1", ButtonStyle.Primary)).Build();
-                    await ReplyAsync(embed: Utils.QuickEmbedNormal("Success", $"Arg: {arg}, Xargs: {xargs}"), component:btn);
+                    ComponentBuilder btnb = new ComponentBuilder().WithButton("test", "testbtn1;"+ Context.User.Id.ToString(), ButtonStyle.Primary);
+                    
+                    MessageComponent btn = btnb.Build();
+                    await ReplyAsync(embed: Utils.QuickEmbedNormal("Success", $"Arg: {arg}, Xargs: {xargs}"), component: btn);
                     break;
             }
         }
