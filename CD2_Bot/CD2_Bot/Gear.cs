@@ -29,7 +29,7 @@ namespace CD2_Bot
         string CustomEffectDescription { get; set; }
     }
 
-    public class Weapon : IGearStats, ICloneable
+    public class Weapon : IGearStats
     {
         public Weapon(string name, string description, int damage, int exp, string customeffectname, string customeffectdesc, Rarity rarity)
         {
@@ -59,9 +59,13 @@ namespace CD2_Bot
                     break;
             }
         }
+        public Weapon Clone()
+        {
+            return (Weapon)this.MemberwiseClone();
+        }
     }
 
-    public class Armor : IGearStats, ICloneable
+    public class Armor : IGearStats
     {
         public Armor(string name, string description, int resistance, int exp, string customeffectname, string customeffectdesc, Rarity rarity)
         {
@@ -90,9 +94,13 @@ namespace CD2_Bot
                     break;
             }
         }
+        public Armor Clone()
+        {
+            return (Armor)this.MemberwiseClone();
+        }
     }
     
-    public class Extra : IGearStats, ICloneable
+    public class Extra : IGearStats
     {
         public Extra(string name, string description, int damage, int heal, int exp, string customeffectname, string customeffectdesc, Rarity rarity)
         {
@@ -126,6 +134,10 @@ namespace CD2_Bot
                     break;
             }
         }
+        public Extra Clone()
+        {
+            return (Extra)this.MemberwiseClone();
+        }
     }
 
     public static class Gear
@@ -144,9 +156,26 @@ namespace CD2_Bot
 
         public static List<Extra> Extras = new List<Extra>
         {
+            // commons
             new Extra("Pendant", "A small, ochre amulet.", 1, 2, 0, null, null, Rarity.Common),
-            new Extra("Firefly", "Little insect buddy that seems to follow you wherever you go.", 1, 5, 0, null, null, Rarity.Common),
-            new Extra("Scarf", "This classy piece of fabric makes you stronger purely by proxy of feeling cooler with it.", 2,),
+            new Extra("Firefly", "Little insect buddy that seems to follow you wherever you go.", 1, 4, 0, null, null, Rarity.Common),
+            new Extra("Scarf", "This classy piece of fabric makes you stronger purely by proxy of feeling cooler with it.", 2, 2, 0, null, null, Rarity.Common),
+            new Extra("Water Flask", "Refreshes the soul just enough to let you fight a little longer.", 0, 6, 0, null, null, Rarity.Common),
+            // uncommons
+            new Extra("Blade Sharpener", "Gives you that little edge.", 4, 0, 0, null, null, Rarity.Uncommon),
+            new Extra("Turbo Shroom", "Tastes horrible, but it's healthy!", 2, 3, 0, null, null, Rarity.Uncommon)
+            // rares
+
+            // epics
+
+            // legendarys
+
+            // unstables
+
+            // corrupteds
+
+            // uniques
+
         };
     }
 }
