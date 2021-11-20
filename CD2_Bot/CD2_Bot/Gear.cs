@@ -44,7 +44,7 @@ namespace CD2_Bot
         public string Name { get; set; }
         public string Description { get; set; }
         public int BaseDamage { get; set; }
-        public int Damage { get { return BaseDamage * (Level/50 + 10); } }
+        public int Damage { get { return BaseDamage * (Level/50 + 1); } }
         public int Level { get { return (int)Math.Floor((double)this.EXP / 250); } }
         public int EXP { get; set; }
         public string CustomEffectName { get; set; }
@@ -117,7 +117,7 @@ namespace CD2_Bot
         public string Name { get; set; }
         public string Description { get; set; }
         public int BaseDamage { get; set; }
-        public int Damage { get { return BaseDamage * (Level / 50 + 10); } }
+        public int Damage { get { return BaseDamage * (Level / 50 + 1); } }
         public int BaseHeal { get; set; }
         public int Heal { get { return BaseHeal * (Level / 500 + 1); } }
         public int Level { get { return (int)Math.Floor((double)this.EXP / 250); } }
