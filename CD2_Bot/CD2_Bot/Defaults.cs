@@ -16,7 +16,7 @@ namespace CD2_Bot
         public static readonly string VERSION = "0.1.2";
         public static readonly string FOOTER = $"CustomDungeons 2 - Ver. {VERSION}";
         public static readonly string BOTIMG = "https://cdn.discordapp.com/avatars/887247576297013288/ab077ae898cf9ca26c3f035c5ebf15a2.webp?size=1024";
-        public static int FLOORCOOLDOWN = 15;
+        public static int FLOORCOOLDOWN = 0;
         public static Random GRandom = new Random();
     }
 }
