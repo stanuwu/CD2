@@ -17,19 +17,42 @@ namespace CD2_Bot
             "rTrap",
             "rQuest",
         };
-        public static Embed ExecuteRoom(string roomtype)
+        public static Embed ExecuteRoom(string roomtype, ulong uid)
         {
             Embed embed;
+            CharacterStructure stats = (from user in tempstorage.characters
+                                         where user.PlayerID == uid
+                                         select user).SingleOrDefault();
             switch (roomtype)
             {
                 case "rFight":
                     embed = Utils.QuickEmbedNormal("Fight", "The room contains a Monster!");
                     break;
                 case "rMoney":
-                    embed = Utils.QuickEmbedNormal("Lucky!", "You found some coins!");
+                    int mfound = 300 + stats.Lvl * 30;
+                    stats.Money += mfound;
+                    embed = Utils.QuickEmbedNormal("Room", $"Lucky! You found {mfound} coins!");
+                    break;
+                case "rChest":
+                    embed = Utils.QuickEmbedNormal("Room", "Chests not Implemented yet.");
+                    break;
+                case "rMerchant":
+                    embed = Utils.QuickEmbedNormal("Room", "Merchants not Implemented yet.");
+                    break;
+                case "rTrap":
+                    int mlost = 50 + stats.Lvl * 20;
+                    if (stats.Money < mlost)
+                    {
+                        mlost = stats.Money;
+                    }
+                    stats.Money -= mlost;
+                    embed = Utils.QuickEmbedNormal("Room", $"A Trap! You lost {mlost} coins.");
+                    break;
+                case "rQuest":
+                    embed = Utils.QuickEmbedNormal("Room", "Quests not Implemented yet.");
                     break;
                 case "rRandom":
-                    embed = ExecuteRoom(RoomTypes[Defaults.GRandom.Next(RoomTypes.Count)]);
+                    embed = ExecuteRoom(RoomTypes[Defaults.GRandom.Next(RoomTypes.Count)], uid);
                     break;
                 default:
                     embed = Utils.QuickEmbedNormal("Room", roomtype);

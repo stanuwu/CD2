@@ -29,7 +29,7 @@ namespace CD2_Bot
             if (userid == sel.User.Id)
             {
                 string selOpt = string.Join(", ", sel.Data.Values);
-                Embed results = Rooms.ExecuteRoom(selOpt);
+                Embed results = Rooms.ExecuteRoom(selOpt, userid);
                 await sel.UpdateAsync(x => { x.Components = null; x.Embed = results; });
             } else
             {
