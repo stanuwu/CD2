@@ -35,14 +35,14 @@ namespace CD2_Bot
             MessageComponent menu = new ComponentBuilder()
                 .WithSelectMenu(new SelectMenuBuilder()
                 .WithPlaceholder("Select a Room!")
-                .WithCustomId("floorselectroom;"+Context.User.Id.ToString())
+                .WithCustomId("floorroomselect;" + Context.User.Id.ToString())
                 .WithMinValues(1)
                 .WithMaxValues(1)
-                .AddOption("Test Room", "r1", "Test Text")
+                .AddOption("Fight", "rFight", "This room has a monster in it.")
                 .AddOption("Test Room 2", "r2", "Text Test and more!")
                 .AddOption("Test Room 3", "r3", "Text Test and more adn even more?!")).Build();
 
-            await ReplyAsync(embed: Utils.QuickEmbedNormal("Floor", "You entered a new floor and are presented with 3 rooms. What one will you open?"), component:menu);
+            await ReplyAsync(embed: Utils.QuickEmbedNormal("Floor", $"{stats.CharacterName} enters a new floor and is presented with 3 rooms.\nWhat one will you open?"), component:menu);
         }
     }
 }
