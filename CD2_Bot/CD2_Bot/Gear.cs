@@ -29,7 +29,7 @@ namespace CD2_Bot
         string CustomEffectDescription { get; set; }
     }
 
-    public class Weapon : IGearStats
+    public class Weapon : IGearStats, ICloneable
     {
         public Weapon(string name, string description, int damage, int exp, string customeffectname, string customeffectdesc, Rarity rarity)
         {
@@ -61,7 +61,7 @@ namespace CD2_Bot
         }
     }
 
-    public class Armor : IGearStats
+    public class Armor : IGearStats, ICloneable
     {
         public Armor(string name, string description, int resistance, int exp, string customeffectname, string customeffectdesc, Rarity rarity)
         {
@@ -92,7 +92,7 @@ namespace CD2_Bot
         }
     }
     
-    public class Extra : IGearStats
+    public class Extra : IGearStats, ICloneable
     {
         public Extra(string name, string description, int damage, int heal, int exp, string customeffectname, string customeffectdesc, Rarity rarity)
         {
@@ -146,6 +146,7 @@ namespace CD2_Bot
         {
             new Extra("Pendant", "A small, ochre amulet.", 1, 2, 0, null, null, Rarity.Common),
             new Extra("Firefly", "Little insect buddy that seems to follow you wherever you go.", 1, 5, 0, null, null, Rarity.Common),
+            new Extra("Scarf", "This classy piece of fabric makes you stronger purely by proxy of feeling cooler with it.", 2,),
         };
     }
 }
