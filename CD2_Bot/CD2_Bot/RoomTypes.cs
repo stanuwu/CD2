@@ -26,7 +26,22 @@ namespace CD2_Bot
             switch (roomtype)
             {
                 case "rFight":
-                    embed = Utils.QuickEmbedNormal("Fight", "The room contains a Monster!");
+                    Enemy opponent = EnemyGen.RandomEnemy(stats.Lvl);
+
+                    EmbedBuilder embedB = new EmbedBuilder
+                    {
+                        Title = "Fight",
+                        Description = $"{stats.CharacterName} vs. {opponent.Type}  [LVL {opponent.Level}]"
+                    };
+
+                    embedB.AddField("HP", Convert.ToString(stats.HP)+"/"+Convert.ToString(stats.MaxHP), true);
+                    embedB.AddField("Enemy HP", Convert.ToString(opponent.HP), true);
+                    embedB.AddField("Enemy Damage", Convert.ToString(opponent.Damage));
+
+                    embedB.WithColor(Color.DarkOrange);
+                    embedB.WithFooter(Defaults.FOOTER);
+
+                    embed = embedB.Build(); ;
                     break;
                 case "rMoney":
                     int mfound = 300 + stats.Lvl * 30;
