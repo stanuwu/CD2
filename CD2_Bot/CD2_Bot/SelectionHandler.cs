@@ -1,4 +1,5 @@
-﻿using Discord.WebSocket;
+﻿using Discord;
+using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +29,8 @@ namespace CD2_Bot
             if (userid == sel.User.Id)
             {
                 string selOpt = string.Join(", ", sel.Data.Values);
-                await sel.UpdateAsync(x => x.Components = null);
-                await sel.UpdateAsync(x => x.Embed = Utils.QuickEmbedNormal("Floor", $"You selected: {selOpt}"));
+                Embed results = Rooms.ExecuteRoom(selOpt);
+                await sel.UpdateAsync(x => { x.Components = null; x.Embed = results; });
             } else
             {
                 await sel.RespondAsync(embed: Utils.QuickEmbedError("This is not your floor!"), ephemeral: true);
