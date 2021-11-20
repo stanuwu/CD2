@@ -88,6 +88,7 @@ namespace CD2_Bot
                 embed.AddField("Extra", $"{Convert.ToString(stats.Extra)} ", true);
                 embed.AddField("Stat Multiplier", Convert.ToString(stats.StatMultiplier));
                 embed.WithColor(Color.DarkMagenta);
+                embed.WithFooter(Defaults.FOOTER);
                 await ReplyAsync(embed: embed.Build());
             }
         }

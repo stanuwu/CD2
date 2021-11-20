@@ -12,7 +12,10 @@ namespace CD2_Bot
         public CharacterStructure(ulong playerID)
         {
             PlayerID = playerID;
+            LastFloor = DateTime.MinValue;
         }
+
+        public DateTime LastFloor { get; set; }
 
         public string CharacterName {
             get {
