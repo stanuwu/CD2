@@ -23,6 +23,11 @@ namespace CD2_Bot
                 await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character yet. Create one with <start!"));
                 return;
             }
+            if (stats.HP < stats.MaxHP/4)
+            {
+                await ReplyAsync(embed: Utils.QuickEmbedError("You don't have enough health."));
+                return;
+            }
             int minutesago = (int) Math.Floor((DateTime.Now - stats.LastFloor).TotalMinutes);
             if (minutesago < Defaults.FLOORCOOLDOWN)
             {
@@ -32,16 +37,7 @@ namespace CD2_Bot
 
             stats.LastFloor = DateTime.Now;
 
-            MessageComponent menu = new ComponentBuilder()
-                .WithSelectMenu(new SelectMenuBuilder()
-                .WithPlaceholder("Select a Room!")
-                .WithCustomId("floorroomselect;" + Context.User.Id.ToString())
-                .WithMinValues(1)
-                .WithMaxValues(1)
-                .AddOption("Fight", "rFight", "This room has a monster in it.")
-                .AddOption("Test Room 2", "r2", "Text Test and more!")
-                .AddOption("Test Room 3", "r3", "Text Test and more adn even more?!")).Build();
-
+            MessageComponent menu = Rooms.getRoomSelection(Context.User.Id);
             await ReplyAsync(embed: Utils.QuickEmbedNormal("Floor", $"{stats.CharacterName} enters a new floor and is presented with 3 rooms.\nWhat one will you open?"), component:menu);
         }
     }
