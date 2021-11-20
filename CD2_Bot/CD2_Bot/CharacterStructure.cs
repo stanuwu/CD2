@@ -155,47 +155,56 @@ namespace CD2_Bot
                 db.CommandVoid(cmd);
             }
         }
-        public string Weapon {
+        public Weapon Weapon {
             get
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT weapon FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
-                return db.CommandString(cmd);
+                Weapon thisweapon = (from w in Gear.Weapons
+                                        where w.Name == db.CommandString(cmd)
+                                        select w).SingleOrDefault();
+                return thisweapon;
             }
             set
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.\"Character\" SET weapon = @weapon WHERE \"UserID\" = @id;", db.dbc);
-                cmd.Parameters.AddWithValue("@weapon", value);
+                cmd.Parameters.AddWithValue("@weapon", value.Name);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
                 db.CommandVoid(cmd);
             }
         }
-        public string Armor {
+        public Armor Armor {
             get
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT armor FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
-                return db.CommandString(cmd);
+                Armor thisarmor = (from a in Gear.Armors
+                                        where a.Name == db.CommandString(cmd)
+                                        select a).SingleOrDefault();
+                return thisarmor;
             }
             set
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.\"Character\" SET armor = @armor WHERE \"UserID\" = @id;", db.dbc);
-                cmd.Parameters.AddWithValue("@armor", value);
+                cmd.Parameters.AddWithValue("@armor", value.Name);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
                 db.CommandVoid(cmd);
             }
         }
-        public string Extra {
+        public Extra Extra {
             get
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT extra FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
-                return db.CommandString(cmd);
+                Extra thisextra = (from e in Gear.Extras
+                                        where e.Name == db.CommandString(cmd)
+                                        select e).SingleOrDefault();
+                return thisextra;
             }
             set
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.\"Character\" SET extra = @extra WHERE \"UserID\" = @id;", db.dbc);
-                cmd.Parameters.AddWithValue("@extra", value);
+                cmd.Parameters.AddWithValue("@extra", value.Name);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
                 db.CommandVoid(cmd);
             }

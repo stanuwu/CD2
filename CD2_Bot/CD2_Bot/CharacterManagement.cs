@@ -43,7 +43,7 @@ namespace CD2_Bot
                  charname = charname.Substring(0, 20);
              }
 
-             NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.\"Character\" VALUES (@id, '', 'Player', 'Commoner', 0, 0, '', 0, 'Stick', 'None', 'None', ARRAY[]::varchar[], 0, false, 100);", db.dbc);
+             NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.\"Character\" VALUES (@id, '', 'Player', 'Commoner', 0, 0, '', 0, 'Stick', 'Rags', 'Pendant', ARRAY[]::varchar[], 0, false, 100);", db.dbc);
              cmd.Parameters.AddWithValue("@id", (Int64)Context.User.Id);
              db.CommandVoid(cmd);
 
@@ -94,9 +94,9 @@ namespace CD2_Bot
                 embed.AddField("Money", Convert.ToString(stats.Money),true);
                 embed.AddField("EXP", Convert.ToString(stats.EXP), true);
                 embed.AddField("HP", Convert.ToString(stats.HP) + "/" + Convert.ToString(stats.MaxHP), true);
-                embed.AddField("Weapon", $"{Convert.ToString(stats.Weapon)} ", true);
-                embed.AddField("Armor", $"{Convert.ToString(stats.Armor)} ", true);
-                embed.AddField("Extra", $"{Convert.ToString(stats.Extra)} ", true);
+                embed.AddField("Weapon", $"{Convert.ToString(stats.Weapon.Name)} ", true);
+                embed.AddField("Armor", $"{Convert.ToString(stats.Armor.Name)} ", true);
+                embed.AddField("Extra", $"{Convert.ToString(stats.Extra.Name)} ", true);
                 embed.AddField("Stat Multiplier", Convert.ToString(stats.StatMultiplier));
                 embed.WithColor(Color.DarkMagenta);
                 embed.WithFooter(Defaults.FOOTER);
@@ -234,18 +234,18 @@ namespace CD2_Bot
                     {
                         stats.MaxHP = Convert.ToInt32(xargs);
                     }
-                    else if (toedit == "weapon")
-                    {
-                        stats.Weapon = xargs;
-                    }
-                    else if (toedit == "armor")
-                    {
-                        stats.Armor = xargs;
-                    }
-                    else if (toedit == "extra")
-                    {
-                        stats.Extra = xargs;
-                    }
+                    // else if (toedit == "weapon")
+                    // {
+                    //     stats.Weapon = xargs;
+                    // }
+                    // else if (toedit == "armor")
+                    // {
+                    //     stats.Armor = xargs;
+                    // }
+                    // else if (toedit == "extra")
+                    // {
+                    //     stats.Extra = xargs;
+                    // }
                     else if (toedit == "statmultiplier")
                     {
                         stats.StatMultiplier = Convert.ToDouble(xargs);
