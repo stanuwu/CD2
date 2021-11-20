@@ -143,7 +143,16 @@ namespace CD2_Bot
         {
             get
             {
-                return MaxHP-50; //Muss noch implementiert werden ::::((((
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT currhp FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
+                cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                return Convert.ToInt32(db.CommandString(cmd));
+            } 
+            set
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.\"Character\" SET currhp = @hp WHERE \"UserID\" = @id;", db.dbc);
+                cmd.Parameters.AddWithValue("@hp", value);
+                cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                db.CommandVoid(cmd);
             }
         }
         public string Weapon {
@@ -229,6 +238,23 @@ namespace CD2_Bot
             set
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.\"Character\" SET statmultiplier = @statmultiplier WHERE \"UserID\" = @id;", db.dbc);
+                cmd.Parameters.AddWithValue("@statmultiplier", value);
+                cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                db.CommandVoid(cmd);
+            }
+        }
+
+        public bool Deleted
+        {
+            get
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT deleted FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
+                cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                return Convert.ToBoolean(db.CommandString(cmd));
+            }
+            set
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.\"Character\" SET deleted = @statmultiplier WHERE \"UserID\" = @id;", db.dbc);
                 cmd.Parameters.AddWithValue("@statmultiplier", value);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
                 db.CommandVoid(cmd);

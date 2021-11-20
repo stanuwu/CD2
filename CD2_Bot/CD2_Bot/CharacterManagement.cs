@@ -22,28 +22,39 @@ namespace CD2_Bot
             }
             else if(tempstorage.characters.Any(x => x.PlayerID == Context.User.Id))
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("You already have a character! \n If you want to delete this character and create a new one, use <reset."));
-            }
-            else
-            {
-                if(charname.Length > 20)
-                {
-                    charname = charname.Substring(0, 20);
-                }
-
-                NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.\"Character\" VALUES (@id, '', 'Player', 'Commoner', 0, 0, '', 0, 'Stick', 'None', 'None', ARRAY[]::varchar[], 0);", db.dbc);
-                cmd.Parameters.AddWithValue("@id", (Int64)Context.User.Id);
-                db.CommandVoid(cmd);
-
-                tempstorage.characters.Add(new CharacterStructure(Context.User.Id));
-                CharacterStructure stats = (from user in tempstorage.characters
+                CharacterStructure statst = (from user in tempstorage.characters
                                             where user.PlayerID == Context.User.Id
                                             select user).SingleOrDefault();
-                stats.CharacterName = charname;
-                await ReplyAsync(embed: Utils.QuickEmbedNormal("Character created", $"Your character {charname} has been created!"));
+                if (statst.Deleted == true)
+                {
+                    NpgsqlCommand cmd2 = new NpgsqlCommand("DELETE FROM public.\"Character\" WHERE \"UserID\" = @id", db.dbc);
+                    cmd2.Parameters.AddWithValue("@id", (Int64)Context.User.Id);
+                    db.CommandVoid(cmd2);
+                    tempstorage.characters.RemoveAll(c => c.PlayerID == Context.User.Id);
+                }
+                else
+                {
+                    await ReplyAsync(embed: Utils.QuickEmbedError("You already have a character! \n If you want to delete this character and create a new one, use <reset."));
+                    return;
+                }
             }
+             if(charname.Length > 20)
+             {
+                 charname = charname.Substring(0, 20);
+             }
 
-        }
+             NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.\"Character\" VALUES (@id, '', 'Player', 'Commoner', 0, 0, '', 0, 'Stick', 'None', 'None', ARRAY[]::varchar[], 0, false, 100);", db.dbc);
+             cmd.Parameters.AddWithValue("@id", (Int64)Context.User.Id);
+             db.CommandVoid(cmd);
+
+             tempstorage.characters.Add(new CharacterStructure(Context.User.Id));
+             CharacterStructure stats = (from user in tempstorage.characters
+                                         where user.PlayerID == Context.User.Id
+                                         select user).SingleOrDefault();
+             stats.CharacterName = charname;
+             await ReplyAsync(embed: Utils.QuickEmbedNormal("Character created", $"Your character {charname} has been created!"));
+         }
+
 
         [Command("character")]
         [Summary("View your character.")]
@@ -65,7 +76,7 @@ namespace CD2_Bot
                                             where user.PlayerID == uid
                                             select user).SingleOrDefault();
 
-            if (stats == null)
+            if (stats == null || stats.Deleted == true)
             {
                 await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character! Create one with <start."));
             }
@@ -103,7 +114,7 @@ namespace CD2_Bot
                                         where user.PlayerID == Context.User.Id
                                         select user).SingleOrDefault();
 
-            if (stats == null)
+            if (stats == null || stats.Deleted == true)
             {
                 await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character to delete."));
                 return;
@@ -115,10 +126,7 @@ namespace CD2_Bot
             List<IUser> reacted = (await msg.GetReactionUsersAsync(new Emoji("✅"), 5).FlattenAsync()).ToList();
             if (reacted.Select(user => user.Id).Contains(Context.User.Id))
             {
-                NpgsqlCommand cmd = new NpgsqlCommand("DELETE FROM public.\"Character\" WHERE \"UserID\" = @id", db.dbc);
-                cmd.Parameters.AddWithValue("@id", (Int64)Context.User.Id);
-                db.CommandVoid(cmd);
-                tempstorage.characters.RemoveAll(c => c.PlayerID == Context.User.Id);
+                stats.Deleted = true;
                 await ReplyAsync(embed: Utils.QuickEmbedNormal("Success", "Successfully deleted character."));
             }
             else
@@ -241,6 +249,14 @@ namespace CD2_Bot
                     else if (toedit == "statmultiplier")
                     {
                         stats.StatMultiplier = Convert.ToDouble(xargs);
+                    }
+                    else if (toedit == "deleted")
+                    {
+                        stats.Deleted = Convert.ToBoolean(xargs);
+                    }
+                    else if (toedit == "currhp")
+                    {
+                        stats.HP = Convert.ToInt32(xargs);
                     }
                     else
                     {

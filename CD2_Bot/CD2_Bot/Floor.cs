@@ -17,7 +17,7 @@ namespace CD2_Bot
                                         where user.PlayerID == Context.User.Id
                                         select user).SingleOrDefault();
 
-            if (stats == null)
+            if (stats == null || stats.Deleted == true)
             {
                 await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character yet. Create one with <start!"));
                 return;
