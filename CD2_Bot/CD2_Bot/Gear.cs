@@ -44,7 +44,7 @@ namespace CD2_Bot
         public string Name { get; set; }
         public string Description { get; set; }
         public int BaseDamage { get; set; }
-        public int Damage { get { return BaseDamage * (Level/50 + 1); } }
+        public decimal Damage { get { return (decimal)(BaseDamage * (Level / 50 + 1.1)); } }
         public int Level { get { return (int)Math.Floor((double)this.EXP / 250); } }
         public int EXP { get; set; }
         public string CustomEffectName { get; set; }
@@ -117,9 +117,9 @@ namespace CD2_Bot
         public string Name { get; set; }
         public string Description { get; set; }
         public int BaseDamage { get; set; }
-        public int Damage { get { return BaseDamage * (Level / 50 + 1); } }
+        public decimal Damage { get { return (decimal)(BaseDamage * (Level / 50 + 1.1)); } }
         public int BaseHeal { get; set; }
-        public int Heal { get { return BaseHeal * (Level / 500 + 1); } }
+        public int Heal { get { return (int)(BaseHeal * (Level / 500 + 1)); } }
         public int Level { get { return (int)Math.Floor((double)this.EXP / 250); } }
         public int EXP { get; set; }
         public string CustomEffectName { get; set; }
@@ -171,7 +171,7 @@ namespace CD2_Bot
             new Extra("Wand of Healing", "Allows you to access your intrinsic healing abilities.", 0, 14, 0, null, null, Rarity.Rare),
             new Extra("Wand of Strength", "Magically boosts your fighting prowess.", 8, 0, 0, null, null, Rarity.Rare),
             new Extra("Wand of Balance", "Every part of you feels stronger... but only slightly.", 5, 6, 0, null, null, Rarity.Rare),
-            new Extra("Black Cat", "A small familiar, helping you in every fight.", 7, 4, 0, null, null, Rarity.Rare),
+            new Extra("Black Cat", "A small familiar that helps you in every fight.", 7, 4, 0, null, null, Rarity.Rare),
 
             // epics
 
