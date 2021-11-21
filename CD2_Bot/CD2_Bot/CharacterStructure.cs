@@ -160,9 +160,12 @@ namespace CD2_Bot
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT weapon FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                NpgsqlCommand cmd2 = new NpgsqlCommand("SELECT weaponxp FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
+                cmd2.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
                 Weapon thisweapon = (from w in Gear.Weapons
                                         where w.Name == db.CommandString(cmd)
-                                        select w).SingleOrDefault();
+                                        select w).SingleOrDefault().Clone();
+                thisweapon.EXP = Convert.ToInt32(db.CommandString(cmd2));
                 return thisweapon;
             }
             set
@@ -171,6 +174,10 @@ namespace CD2_Bot
                 cmd.Parameters.AddWithValue("@weapon", value.Name);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
                 db.CommandVoid(cmd);
+                NpgsqlCommand cmd2 = new NpgsqlCommand("UPDATE public.\"Character\" SET weaponxp = @weaponxp WHERE \"UserID\" = @id;", db.dbc);
+                cmd2.Parameters.AddWithValue("@weaponxp", value.EXP);
+                cmd2.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                db.CommandVoid(cmd2);
             }
         }
         public Armor Armor {
@@ -178,9 +185,12 @@ namespace CD2_Bot
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT armor FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
-                Armor thisarmor = (from a in Gear.Armors
-                                        where a.Name == db.CommandString(cmd)
-                                        select a).SingleOrDefault();
+                NpgsqlCommand cmd2 = new NpgsqlCommand("SELECT armorxp FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
+                cmd2.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                Armor thisarmor = (from w in Gear.Armors
+                                     where w.Name == db.CommandString(cmd)
+                                     select w).SingleOrDefault().Clone();
+                thisarmor.EXP = Convert.ToInt32(db.CommandString(cmd2));
                 return thisarmor;
             }
             set
@@ -189,6 +199,10 @@ namespace CD2_Bot
                 cmd.Parameters.AddWithValue("@armor", value.Name);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
                 db.CommandVoid(cmd);
+                NpgsqlCommand cmd2 = new NpgsqlCommand("UPDATE public.\"Character\" SET armorxp = @armorxp WHERE \"UserID\" = @id;", db.dbc);
+                cmd2.Parameters.AddWithValue("@armorxp", value.EXP);
+                cmd2.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                db.CommandVoid(cmd2);
             }
         }
         public Extra Extra {
@@ -196,43 +210,89 @@ namespace CD2_Bot
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT extra FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
-                Extra thisextra = (from e in Gear.Extras
-                                        where e.Name == db.CommandString(cmd)
-                                        select e).SingleOrDefault();
+                NpgsqlCommand cmd2 = new NpgsqlCommand("SELECT extraxp FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
+                cmd2.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                Extra thisextra = (from w in Gear.Extras
+                                     where w.Name == db.CommandString(cmd)
+                                     select w).SingleOrDefault().Clone();
+                thisextra.EXP = Convert.ToInt32(db.CommandString(cmd2));
                 return thisextra;
             }
             set
             {
-                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.\"Character\" SET extra = @extra WHERE \"UserID\" = @id;", db.dbc);
-                cmd.Parameters.AddWithValue("@extra", value.Name);
+                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.\"Character\" SET extra = @weapon WHERE \"UserID\" = @id;", db.dbc);
+                cmd.Parameters.AddWithValue("@weapon", value.Name);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
                 db.CommandVoid(cmd);
+                NpgsqlCommand cmd2 = new NpgsqlCommand("UPDATE public.\"Character\" SET extraxp = @extraxp WHERE \"UserID\" = @id;", db.dbc);
+                cmd2.Parameters.AddWithValue("@extraxp", value.EXP);
+                cmd2.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                db.CommandVoid(cmd2);
             }
         }
-        public Dictionary<string, int> Inventory {
+
+        public int WeaponXP
+        {
+            get
+            {
+                NpgsqlCommand cmd2 = new NpgsqlCommand("SELECT weaponxp FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
+                cmd2.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                return Convert.ToInt32(db.CommandString(cmd2));
+            }
+            set
+            {
+                NpgsqlCommand cmd2 = new NpgsqlCommand("UPDATE public.\"Character\" SET weaponxp = @xp WHERE \"UserID\" = @id;", db.dbc);
+                cmd2.Parameters.AddWithValue("@xp", value);
+                cmd2.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                db.CommandVoid(cmd2);
+            }
+        }
+
+        public int ArmorXP
+        {
+            get
+            {
+                NpgsqlCommand cmd2 = new NpgsqlCommand("SELECT armorxp FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
+                cmd2.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                return Convert.ToInt32(db.CommandString(cmd2));
+            }
+            set
+            {
+                NpgsqlCommand cmd2 = new NpgsqlCommand("UPDATE public.\"Character\" SET armorxp = @xp WHERE \"UserID\" = @id;", db.dbc);
+                cmd2.Parameters.AddWithValue("@xp", value);
+                cmd2.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                db.CommandVoid(cmd2);
+            }
+        }
+
+        public int ExtraXP
+        {
+            get
+            {
+                NpgsqlCommand cmd2 = new NpgsqlCommand("SELECT extraxp FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
+                cmd2.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                return Convert.ToInt32(db.CommandString(cmd2));
+            }
+            set
+            {
+                NpgsqlCommand cmd2 = new NpgsqlCommand("UPDATE public.\"Character\" SET extraxp = @xp WHERE \"UserID\" = @id;", db.dbc);
+                cmd2.Parameters.AddWithValue("@xp", value);
+                cmd2.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                db.CommandVoid(cmd2);
+            }
+        }
+
+        public string Inventory {
             get
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT inventory FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
                 string output = db.CommandString(cmd);
-                Dictionary<string, int> dinv = new Dictionary<string, int> { };
-                if (!String.IsNullOrEmpty(output))
-                {
-                    foreach (string s in output.Split(','))
-                    {
-                        dinv[s.Split(';')[0]] = Convert.ToInt32(s.Split(';')[1]);
-                    }
-                }
-                return dinv;
+                return output;
             }
             set
             {
-                string dv = "";
-                foreach(string s in value.Keys)
-                {
-                    dv += "'" + s + ";" + Convert.ToString(value[s]) + "',";
-                }
-                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.\"Character\" SET inventory = " + "ARRAY["+dv+"]" + " WHERE \"UserID\" = @id;", db.dbc);
+                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.\"Character\" SET inventory = ARRAY [" + value + "]" + " WHERE \"UserID\" = @id;", db.dbc);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
                 db.CommandVoid(cmd);
             }
