@@ -17,7 +17,7 @@ namespace CD2_Bot
             "rTrap",
             "rQuest",
         };
-        public static Embed ExecuteRoom(string roomtype, ulong uid)
+        public static Embed ExecuteRoom(string roomtype, ulong uid, ulong gid)
         {
             Embed embed;
             CharacterStructure stats = (from user in tempstorage.characters
@@ -54,11 +54,16 @@ namespace CD2_Bot
                     embed = Utils.QuickEmbedNormal("Room", "Quests not Implemented yet.");
                     break;
                 case "rRandom":
-                    embed = ExecuteRoom(RoomTypes[Defaults.GRandom.Next(RoomTypes.Count)], uid);
+                    embed = ExecuteRoom(RoomTypes[Defaults.GRandom.Next(RoomTypes.Count)], uid, gid);
                     break;
                 default:
                     embed = Utils.QuickEmbedNormal("Room", roomtype);
                     break;
+            }
+            //update guild stats
+            if (roomtype != "rRandom")
+            {
+                tempstorage.guilds.Find(g => g.GuildID == gid).DoorsOpened += 1;
             }
             return embed;
         }

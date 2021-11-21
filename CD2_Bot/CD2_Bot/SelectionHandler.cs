@@ -28,8 +28,9 @@ namespace CD2_Bot
             ulong userid = (ulong)Convert.ToInt64(sel.Data.CustomId.Split(';')[1]);
             if (userid == sel.User.Id)
             {
+                ulong gid = ((SocketGuildUser)sel.User).Guild.Id;
                 string selOpt = string.Join(", ", sel.Data.Values);
-                Embed results = Rooms.ExecuteRoom(selOpt, userid);
+                Embed results = Rooms.ExecuteRoom(selOpt, userid, gid);
                 await sel.UpdateAsync(x => { x.Components = null; x.Embed = results; });
             } else
             {

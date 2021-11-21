@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
+using Discord.WebSocket;
+using Npgsql;
 
 namespace CD2_Bot
 {
@@ -164,6 +166,17 @@ namespace CD2_Bot
             }
             dv = dv.Remove(dv.Length - 1);
             stats.Inventory = dv;
+        }
+
+        public static void GuildToDB(SocketGuild guild)
+        {
+            if (!tempstorage.guilds.Any(x => x.GuildID == guild.Id))
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.\"Server\" VALUES (@id, 0, 0, 0);", db.dbc);
+                cmd.Parameters.AddWithValue("@id", (Int64)guild.Id);
+                db.CommandVoid(cmd);
+                tempstorage.guilds.Add(new GuildStructure(guild.Id));
+            }
         }
     }
 }

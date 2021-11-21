@@ -14,14 +14,10 @@ namespace CD2_Bot
             //set win default
             bool win = false;
 
-            try
-            {
-                //create copies of weapons to apply effects to
-                Weapon tweapon = stats.Weapon.Clone();
-                Armor tarmor = stats.Armor.Clone();
-                Extra textra = stats.Extra.Clone();
-            
-            
+            //create copies of weapons to apply effects to
+            Weapon tweapon = stats.Weapon.Clone();
+            Armor tarmor = stats.Armor.Clone();
+            Extra textra = stats.Extra.Clone();
 
             //apply weapon effects
             tweapon.CustomEffect(stats.PlayerID, enemy);
@@ -123,12 +119,6 @@ namespace CD2_Bot
 
             //return room screen
             return embedB.Build();
-            }
-            catch (Exception e)
-            {
-                Utils.DebugLog(e.Message);
-                return null;
-            }
         }
     }
 }

@@ -114,6 +114,9 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="Floor.cs" />
     <Compile Include="Gear.cs" />
+    <Compile Include="GuildStructure.cs" />
+    <Compile Include="Init.cs" />
+    <Compile Include="JoinHandler.cs" />
     <Compile Include="RoomTypes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

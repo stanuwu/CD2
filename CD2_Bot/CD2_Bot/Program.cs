@@ -39,8 +39,9 @@ namespace CD2_Bot
             await commandHandler.InstallCommandsAsync();
             _client.ButtonExecuted += ButtonHandler.HandleButtonAsync;
             _client.SelectMenuExecuted += SelectionHandler.HandleSelectionAsync;
+            _client.JoinedGuild += JoinHandler.OnGuildJoin;
+            _client.Connected += Init.Initialize;
             Defaults.CLIENT = _client;
-            db.Init();
             await Task.Delay(-1);
         }
         public static Task Log(LogMessage msg)

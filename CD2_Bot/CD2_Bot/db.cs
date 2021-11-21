@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Discord;
+using Discord.WebSocket;
 using Npgsql;
 
 namespace CD2_Bot
@@ -27,6 +29,21 @@ namespace CD2_Bot
                 }
                 await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Info, "Database", "Loaded Characters from DB"));
             }
+
+            using (NpgsqlDataReader gids = new NpgsqlCommand("SELECT \"ServerID\" from Public.\"Server\"", dbc).ExecuteReader())
+            {
+                while (gids.Read())
+                {
+                    tempstorage.guilds.Add(new GuildStructure((ulong)gids.GetInt64(0)));
+                }
+                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Info, "Database", "Loaded Guilds from DB"));
+            }
+
+            foreach (IGuild g in await ((IDiscordClient)Defaults.CLIENT).GetGuildsAsync())
+            {
+                Utils.GuildToDB((SocketGuild)g);
+            }
+            await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Info, "Database", "Added new guilds to DB"));
         }
 
         static public string CommandString(NpgsqlCommand cmd)
