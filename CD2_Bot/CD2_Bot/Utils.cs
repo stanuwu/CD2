@@ -8,7 +8,7 @@ using Discord.Commands;
 
 namespace CD2_Bot
 {
-    public static class Utils
+    static class Utils
     {
         public static async void DebugLog(string msg)
         {
@@ -141,6 +141,29 @@ namespace CD2_Bot
             embed.WithFooter(Defaults.FOOTER);
 
             return embed.Build();
+        }
+
+        public static Dictionary<string,int> InvAsDict(CharacterStructure stats)
+        {
+            Dictionary<string, int> dinv = new Dictionary<string, int> { };
+            if (!String.IsNullOrEmpty(stats.Inventory))
+            {
+                foreach (string s in stats.Inventory.Split(','))
+                {
+                    dinv[s.Split(';')[0]] = Convert.ToInt32(s.Split(';')[1]);
+                }
+            }
+            return dinv;
+        }
+        public static void SaveInv(CharacterStructure stats, Dictionary<string, int> dinv)
+        {
+            string dv = "";
+            foreach (string s in dinv.Keys)
+            {
+                dv += "'" + s + ";" + Convert.ToString(dinv[s]) + "',";
+            }
+            dv = dv.Remove(dv.Length - 1);
+            stats.Inventory = dv;
         }
     }
 }

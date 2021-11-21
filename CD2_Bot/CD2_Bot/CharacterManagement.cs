@@ -43,7 +43,7 @@ namespace CD2_Bot
                  charname = charname.Substring(0, 20);
              }
 
-             NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.\"Character\" VALUES (@id, '', 'Player', 'Commoner', 0, 0, '', 0, 'Stick', 'Rags', 'Pendant', ARRAY[]::varchar[], 0, false, 100);", db.dbc);
+             NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.\"Character\" VALUES (@id, '', 'Player', 'Commoner', 0, 0, '', 0, 'Stick', 'Rags', 'Pendant', ARRAY[]::varchar[], 0, false, 100, 0, 0, 0);", db.dbc);
              cmd.Parameters.AddWithValue("@id", (Int64)Context.User.Id);
              db.CommandVoid(cmd);
 
@@ -69,7 +69,13 @@ namespace CD2_Bot
             else
             {
                 IUser founduser = Defaults.CLIENT.GetUser(uid);
-                avatarurl = founduser.GetAvatarUrl();
+                if (founduser != null) {
+                    avatarurl = founduser.GetAvatarUrl();
+                } else
+                {
+                    avatarurl = Defaults.CLIENT.CurrentUser.GetDefaultAvatarUrl();
+                }
+                
             }
 
             CharacterStructure stats = (from user in tempstorage.characters
@@ -104,6 +110,106 @@ namespace CD2_Bot
             }
         }
 
+
+        [Command("stats")]
+        [Summary("View your gear.")]
+        public async Task StatsAsync(ulong uid = 0, [Remainder] string xargs = null)
+        {
+            string avatarurl = "";
+
+            if (uid == 0)
+            {
+                avatarurl = Context.User.GetAvatarUrl();
+                uid = Context.User.Id;
+            }
+            else
+            {
+                IUser founduser = Defaults.CLIENT.GetUser(uid);
+                if (founduser != null)
+                {
+                    avatarurl = founduser.GetAvatarUrl();
+                }
+                else
+                {
+                    avatarurl = Defaults.CLIENT.CurrentUser.GetDefaultAvatarUrl();
+                }
+            }
+
+            CharacterStructure stats = (from user in tempstorage.characters
+                                        where user.PlayerID == uid
+                                        select user).SingleOrDefault();
+
+            if (stats == null || stats.Deleted == true)
+            {
+                await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character! Create one with <start."));
+            }
+            else
+            {
+                var embed = new EmbedBuilder
+                {
+                    Title = $"{stats.CharacterName} - Gear",
+                    Description = "",
+                    ThumbnailUrl = avatarurl,
+                };
+
+                embed.Description += "**Weapon**:\n" +
+                    $"Name: {stats.Weapon.Name}\n" +
+                    $"EXP: {stats.Weapon.EXP}\n" +
+                    $"Level: {stats.Weapon.Level}\n" +
+                    $"Damage: {stats.Weapon.Damage}\n\n";
+
+                embed.Description += "**Armor**:\n" +
+                    $"Name: {stats.Armor.Name}\n" +
+                    $"EXP: {stats.Armor.EXP}\n" +
+                    $"Level: {stats.Armor.Level}\n" +
+                    $"Resistance: {stats.Armor.Resistance}\n\n";
+
+                embed.Description += "**Extra**:\n" +
+                    $"Name: {stats.Extra.Name}\n" +
+                    $"EXP: {stats.Extra.EXP}\n" +
+                    $"Level: {stats.Extra.Level}\n" +
+                    $"Damage: {stats.Extra.Damage}\n" +
+                    $"Heal: {stats.Extra.Heal}";
+                embed.WithColor(Color.DarkMagenta);
+                embed.WithFooter(Defaults.FOOTER);
+                await ReplyAsync(embed: embed.Build());
+            }
+        }
+
+
+        [Command("inventory")]
+        [Summary("View your inventory.")]
+        public async Task InventoryAsync([Remainder] string xargs = null)
+        {
+            string avatarurl = Context.User.GetAvatarUrl();
+            ulong uid = Context.User.Id;
+
+            CharacterStructure stats = (from user in tempstorage.characters
+                                        where user.PlayerID == uid
+                                        select user).SingleOrDefault();
+
+            if (stats == null || stats.Deleted == true)
+            {
+                await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character! Create one with <start."));
+            }
+            else
+            {
+                var embed = new EmbedBuilder
+                {
+                    Title = $"{stats.CharacterName} - Inventory",
+                    Description = "",
+                    ThumbnailUrl = avatarurl,
+                };
+                Dictionary<string, int> inv = Utils.InvAsDict(stats);
+                foreach (string k in inv.Keys)
+                {
+                    embed.Description += $"{inv[k]}x {k}\n";
+                }
+                embed.WithColor(Color.DarkMagenta);
+                embed.WithFooter(Defaults.FOOTER);
+                await ReplyAsync(embed: embed.Build());
+            }
+        }
 
 
         [Command("reset")]

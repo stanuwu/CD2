@@ -97,7 +97,10 @@ namespace CD2_Bot
             {
             List<Enemy> possibleEnemies = (from e in Enemies where e.Minlevel <= level select e).ToList();
             Enemy selectedEnemy = possibleEnemies[Defaults.GRandom.Next(possibleEnemies.Count())];
-            level = Math.Abs(level + Defaults.GRandom.Next(-5, 5));
+            if (level > 6)
+            {
+                level = Math.Abs(level + Defaults.GRandom.Next(-5, 5));
+            }
             int hpadded = 0;
             if (level > 50)
             {
@@ -145,7 +148,7 @@ namespace CD2_Bot
             new Enemy("Black Dragon", "A dragon who has been ousted by its family when it was young. It survived, only motiviated by its anger.", 150, 0, 70, 20, 40, null, null, new EnemyDrops("Scale", 3, 1, 10)),
             new Enemy("Banished Reaper", "A taker of souls who enjoyed their profession for the wrong reasons.", 100, 0, 100, 20, 50, null, null, null),
             new Enemy("Fallen Angel", "Deserters, who could not longer bear the ignorance of their maker. They were granted to roam the world of the living, but only to be punished with ill thoughts after arriving.", 120, 0, 100, 20, 40, null, null, null),
-            new Enemy("Devil's Minion", "Asked and granted to bring fear into the lives of the living by the devil himself.", 90, 0, 80, 0, 45, null, null, null),
+            new Enemy("Devil's Minion", "Asked and granted to bring fear into the lives of the living by the devil himself.", 90, 0, 80, 25, 45, null, null, null),
             new Enemy("Corrupted Spirit", "The soul of a person who killed before when they were alive. Sadly, the don't use their second chance for a betterment.", 100, 0, 50, 25, 60, null, null, null)
         };
         }
