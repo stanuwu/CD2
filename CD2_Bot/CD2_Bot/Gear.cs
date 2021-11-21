@@ -3,21 +3,58 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Discord;
 
 namespace CD2_Bot
 {
     public enum Rarity
     {
-        Common = 1,
-        Uncommon = 2,
-        Rare = 3,
-        Epic = 4,
-        Legendary = 5,
-        Unstable = 6,
-        Corrupted = 7,
-        Unique = 8
+        Common,
+        Uncommon,
+        Rare,
+        Epic,
+        Legendary,
+        Unstable,
+        Corrupted,
+        Unique
     }
 
+    public static class Prices
+    {
+        public static Dictionary<Rarity, int> sell = new Dictionary<Rarity, int> {
+            { Rarity.Common, 50 },
+            { Rarity.Uncommon, 100 },
+            { Rarity.Rare, 1000 },
+            { Rarity.Epic, 2500 },
+            { Rarity.Legendary, 10000 },
+            { Rarity.Unstable, 25000 },
+            { Rarity.Corrupted, 500000 },
+            { Rarity.Unique, 100000 }
+        };
+       
+
+        public static Dictionary<Rarity, int> buy = new Dictionary<Rarity, int> {
+            { Rarity.Common, 100 },
+            { Rarity.Uncommon, 500 },
+            { Rarity.Rare, 5000 },
+            { Rarity.Epic, 10000 },
+            { Rarity.Legendary, 30000 },
+            { Rarity.Unstable, 50000 },
+            { Rarity.Corrupted, 100000 },
+        };
+
+        public static Dictionary<Rarity, int> infuse = new Dictionary<Rarity, int> {
+            { Rarity.Common, 15 },
+            { Rarity.Uncommon, 25 },
+            { Rarity.Rare, 250 },
+            { Rarity.Epic, 650 },
+            { Rarity.Legendary, 2500 },
+            { Rarity.Unstable, 6500 },
+            { Rarity.Corrupted, 15000 },
+            { Rarity.Unique, 25000 }
+        };
+
+    }
     interface IGearStats
     {
         string Name { get; set; }
@@ -142,6 +179,12 @@ namespace CD2_Bot
 
     public static class Gear
     {
+
+        public static Embed RandomDrop()
+        {
+            return null;
+        }
+
         public static List<Weapon> Weapons = new List<Weapon>
         {
             // common

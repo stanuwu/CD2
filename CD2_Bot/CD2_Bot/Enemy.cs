@@ -126,7 +126,7 @@ namespace CD2_Bot
         public static List<Enemy> Enemies = new List<Enemy>
         {
             new Enemy("Slime", "A mindless creature, formed through strange goo flowing out of the walls of certain caves. Comes in a variety of colours.", 50, 0, 100, 0, 7 , null, null, null),
-            new Enemy("Crazy Monk", "A monk whose mind has been corrupted by only the sins of their own clergy. Attacks random travelers to cleanse their souls.", 25, 0, 100, 0, 12 , null, null, new EnemyDrops("Torn Bible", 1, 0, 10)),
+            new Enemy("Crazy Monk", "A monk whose mind has been corrupted by only the sins of their own clergy. Attacks random travelers to cleanse their soul.", 25, 0, 100, 0, 12 , null, null, new EnemyDrops("Torn Bible", 1, 0, 10)),
             new Enemy("Cursed Rock", "A rock that has been cursed to roll forever, crushing everything in its path.", 70, 0, 80, 0, 5, null, null, new EnemyDrops("Stone", 2, 1, 40)),
             new Enemy("Wild Hound", "A stray dog, craving only food, not affection.", 50, 0, 100, 0, 10, null, null, null),
             new Enemy("Red Lizard", "A common reptile, often mistaken for a young dragon.", 40, 0, 100, 0, 9, null, null, new EnemyDrops("Scale", 1, 0, 20)),
@@ -140,8 +140,8 @@ namespace CD2_Bot
             new Enemy("Ice Wizard of the Order", "A member of an evil organisation who specializes in ice spells.", 55, 0, 120, 10, 20, null, null, null),
             new Enemy("Fire Wizard of the Order", "A member of an evil organisation who specializes in fire spells.", 55, 0, 100, 10, 30, null, null, null),
             new Enemy("Grand Wizard of the Order", "An officer of an evil organisation who specializes in a variety of spells.", 70, 0, 110, 12, 25, null, null, null),
-            new Enemy("Fire Golem", "They look Like their cousin the Stone Golem, but are covered in fire and found in volcanoes rather than normal mountains.", 110, 0, 80, 15, 40, null, null, null),
-            new Enemy("Wolverine Spider", "An agressive arachne, crawling in the deepest of caves. They got their name from its deadly bite bite strenght.", 50, 0, 100, 15, 50, null, null, null),
+            new Enemy("Fire Golem", "They look Like their cousin the stone golem, but are covered in fire and found in volcanoes rather than normal mountains.", 110, 0, 80, 15, 40, null, null, null),
+            new Enemy("Wolverine Spider", "An agressive arachne, crawling in the deepest of caves. They got their name from its deadly bite strength.", 50, 0, 100, 15, 50, null, null, null),
             new Enemy("Lost Spirit", "The ghost of a human who found a horrifying death, trapped in the world of the living until the kill another unfortunate soul.", 50, 0, 50, 15, 40, null, null, null),
             new Enemy("Ancient Spirit", "The ghost of a human who has forgotten their own death. Some say the ony kill in order to remember how they died.", 40, 0, 50, 16, 45, null, null, null),
             new Enemy("Hungry Vampire", "A vampire who has lost their mind through starving for too long. They may never recover again, even if they manage to drink blood.", 50, 0, 120, 15, 50, null, null, null),
