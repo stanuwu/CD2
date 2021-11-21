@@ -177,6 +177,24 @@ namespace CD2_Bot
         }
 
 
+        [Command("server")]
+        [Summary("View ythe server you are currently in.")]
+        public async Task ServerAsync([Remainder] string xargs = null)
+        {
+            GuildStructure gstats = tempstorage.guilds.Find(g => g.GuildID == Context.Guild.Id);
+
+            var embed = new EmbedBuilder
+            {
+                Title = $"{Context.Guild.Name} - Stats",
+                Description = $"Doors Opened: {gstats.DoorsOpened}\nBosses Slain: {gstats.BossesSlain}\nQuests Finished: {gstats.QuestsFinished}",
+                ThumbnailUrl = Context.Guild.IconUrl,
+            };
+            embed.WithColor(Color.DarkMagenta);
+            embed.WithFooter(Defaults.FOOTER);
+            await ReplyAsync(embed: embed.Build());
+        }
+
+
         [Command("inventory")]
         [Summary("View your inventory.")]
         public async Task InventoryAsync([Remainder] string xargs = null)
