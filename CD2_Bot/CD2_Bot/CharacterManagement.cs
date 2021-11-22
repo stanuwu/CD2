@@ -245,20 +245,14 @@ namespace CD2_Bot
                 await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character to delete."));
                 return;
             }
+            MessageComponent btnb = new ComponentBuilder()
+                        .WithButton("Delete", "delchar;confirm;" + Context.User.Id.ToString(), ButtonStyle.Danger)
+                        .WithButton("Cancel", "delchar;cancel;" + Context.User.Id.ToString(), ButtonStyle.Secondary)
+                        .Build();
 
-            IUserMessage msg = await ReplyAsync(embed: Utils.QuickEmbedNormal("Confirmation", "Are you sure you want to reset your character? **This will delete ALL your data.** \nTo confirm, react with :white_check_mark: (Expires in 5 seconds)"));
-            await msg.AddReactionAsync(new Emoji("✅"));
-            await Task.Delay(5000);
-            List<IUser> reacted = (await msg.GetReactionUsersAsync(new Emoji("✅"), 5).FlattenAsync()).ToList();
-            if (reacted.Select(user => user.Id).Contains(Context.User.Id))
-            {
-                stats.Deleted = true;
-                await ReplyAsync(embed: Utils.QuickEmbedNormal("Success", "Successfully deleted character."));
-            }
-            else
-            {
-                await msg.RemoveReactionAsync(new Emoji("✅"), Defaults.CLIENT.CurrentUser);
-            }
+            await ReplyAsync(embed: Utils.QuickEmbedNormal("Confirmation", "Are you sure you want to reset your character?\n" +
+                "**This will delete ALL your data!**" +
+                "\nExpires in 5 minutes."), component: btnb);
         }
 
         [Command("rename")]
