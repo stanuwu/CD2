@@ -1,4 +1,5 @@
 ﻿using Discord;
+using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,15 @@ namespace CD2_Bot
         {
             "rMoney",
             "rChest",
-            "rMerchant",
+            //"rMerchant",
             "rTrap",
-            "rQuest",
+            //"rQuest",
         };
-        public static Embed ExecuteRoom(string roomtype, ulong uid, ulong gid)
+        public static Tuple<Embed, Optional<MessageComponent>> ExecuteRoom(string roomtype, ulong uid, ulong gid, ISocketMessageChannel channel)
         {
-            Embed embed;
+            Embed embed = null;
+            Optional<MessageComponent> msgc = null;
+            Tuple<Embed, Optional<MessageComponent>> tosend = new Tuple<Embed, Optional<MessageComponent>>(null, null);
             CharacterStructure stats = (from user in tempstorage.characters
                                          where user.PlayerID == uid
                                          select user).SingleOrDefault();
@@ -29,6 +32,12 @@ namespace CD2_Bot
                     Enemy opponent = EnemyGen.RandomEnemy(stats.Lvl);
 
                     embed = SimulateFight.Sim(opponent, stats);
+
+                    int gearroll = Defaults.GRandom.Next(1, Defaults.GEARDROPCHANCE);
+                    if (embed.Color == Color.Green && gearroll == Defaults.GEARDROPCHANCE)
+                    {
+                        Gear.RandomDrop(stats.PlayerID, channel);
+                    }
                     break;
                 case "rMoney":
                     int mfound = 300 + stats.Lvl * 30;
@@ -36,7 +45,25 @@ namespace CD2_Bot
                     embed = Utils.QuickEmbedNormal("Room", $"Lucky! You found {mfound} coins!");
                     break;
                 case "rChest":
-                    embed = Utils.QuickEmbedNormal("Room", "Chests not Implemented yet.");
+                    Rarity chestrarity = Prices.buy.Keys.ToList()[Defaults.GRandom.Next(Prices.buy.Count)];
+                    string item = "";
+                    int itemchance = Defaults.GRandom.Next(0, 2);
+                    switch (itemchance)
+                    {
+                        case 0:
+                            item = "weapon";
+                            break;
+                        case 1:
+                            item = "armor";
+                            break;
+                        case 2:
+                            item = "extra";
+                            break;
+                    }
+                    MessageComponent btn = new ComponentBuilder()
+                        .WithButton("Open", "chestopen;" + uid + ";" + chestrarity.ToString() + ";" + item, ButtonStyle.Success).Build();
+                    msgc = btn;
+                    embed = Utils.QuickEmbedNormal($"You found: {chestrarity.ToString()} {char.ToUpper(item[0]) + item.Substring(1)} Chest", $"You can open this chest for {Prices.buy[chestrarity]} coins.\nThis chest will expire in 15 minutes.");
                     break;
                 case "rMerchant":
                     embed = Utils.QuickEmbedNormal("Room", "Merchants not Implemented yet.");
@@ -54,7 +81,7 @@ namespace CD2_Bot
                     embed = Utils.QuickEmbedNormal("Room", "Quests not Implemented yet.");
                     break;
                 case "rRandom":
-                    embed = ExecuteRoom(RoomTypes[Defaults.GRandom.Next(RoomTypes.Count)], uid, gid);
+                    tosend = ExecuteRoom(RoomTypes[Defaults.GRandom.Next(RoomTypes.Count)], uid, gid, channel);
                     break;
                 default:
                     embed = Utils.QuickEmbedNormal("Room", roomtype);
@@ -63,9 +90,10 @@ namespace CD2_Bot
             //update guild stats
             if (roomtype != "rRandom")
             {
+                tosend = new Tuple<Embed, Optional<MessageComponent>>(embed, msgc);
                 tempstorage.guilds.Find(g => g.GuildID == gid).DoorsOpened += 1;
             }
-            return embed;
+            return tosend;
         }
         public static MessageComponent getRoomSelection(ulong uid)
         {

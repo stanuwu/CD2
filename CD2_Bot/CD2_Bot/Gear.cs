@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Discord;
+using Discord.WebSocket;
 
 namespace CD2_Bot
 {
@@ -16,7 +17,8 @@ namespace CD2_Bot
         Legendary,
         Unstable,
         Corrupted,
-        Unique
+        Unique,
+        Random
     }
 
     public static class Prices
@@ -52,6 +54,16 @@ namespace CD2_Bot
             { Rarity.Unstable, 6500 },
             { Rarity.Corrupted, 15000 },
             { Rarity.Unique, 25000 }
+        };
+
+        public static Dictionary<Rarity, int> dropchance = new Dictionary<Rarity, int> { //out of 10000
+            { Rarity.Common, 6850 },
+            { Rarity.Uncommon, 7850 },
+            { Rarity.Rare, 8850 },
+            { Rarity.Epic, 9600 },
+            { Rarity.Legendary, 9850 },
+            { Rarity.Unstable, 9950 },
+            { Rarity.Corrupted, 10000 },
         };
 
     }
@@ -180,9 +192,69 @@ namespace CD2_Bot
     public static class Gear
     {
 
-        public static Embed RandomDrop()
+        public static async void RandomDrop(ulong uid, ISocketMessageChannel channel, Rarity droprarity = Rarity.Random, string type = "random")
         {
-            return null;
+            //set rarity to random if not specified
+            if (droprarity == Rarity.Random)
+            {
+                int roll = Defaults.GRandom.Next(0, 10000);
+                if (roll < Prices.dropchance[Rarity.Common]) { droprarity = Rarity.Common; }
+                else if (roll < Prices.dropchance[Rarity.Uncommon]) { droprarity = Rarity.Uncommon; }
+                else if (roll < Prices.dropchance[Rarity.Rare]) { droprarity = Rarity.Rare; }
+                else if (roll < Prices.dropchance[Rarity.Epic]) { droprarity = Rarity.Epic; }
+                else if (roll < Prices.dropchance[Rarity.Legendary]) { droprarity = Rarity.Legendary; }
+                else if (roll < Prices.dropchance[Rarity.Unstable]) { droprarity = Rarity.Unstable; }
+                else { droprarity = Rarity.Corrupted; }
+            }
+
+            //determien type if not selected
+            if (type == "random")
+            {
+                switch (Defaults.GRandom.Next(0, 2))
+                {
+                    case 0:
+                        type = "weapon";
+                        break;
+                    case 1:
+                        type = "armor";
+                        break;
+                    case 2:
+                        type = "extra";
+                        break;
+                }
+            }
+
+            string recievedname = "";
+            switch(type)
+            {
+                case "weapon":
+                    recievedname = Gear.Weapons.FindAll(g => g.Rarity == droprarity)[Defaults.GRandom.Next(Gear.Weapons.FindAll(g => g.Rarity == droprarity).Count)].Name;
+                    break;
+                case "armor":
+                    recievedname = Gear.Armors.FindAll(g => g.Rarity == droprarity)[Defaults.GRandom.Next(Gear.Armors.FindAll(g => g.Rarity == droprarity).Count)].Name;
+                    break;
+                case "extra":
+                    recievedname = Gear.Extras.FindAll(g => g.Rarity == droprarity)[Defaults.GRandom.Next(Gear.Extras.FindAll(g => g.Rarity == droprarity).Count)].Name;
+                    break;
+            }
+
+            var embed = new EmbedBuilder
+            {
+                Title = $"You found: **{droprarity.ToString()} {recievedname}**",
+            };
+            embed.WithColor(Color.Green);
+            embed.WithFooter(Defaults.FOOTER);
+
+            embed.Description = $"**Warning:** Claiming will replace your {type}.\n\nSell: **{Prices.sell[droprarity]}** coins.\nInfuse: **{Prices.infuse[droprarity]}** {type} exp.\nThis drop will expire after 15 minutes.";
+
+            Embed e = embed.Build();
+
+            ComponentBuilder btna = new ComponentBuilder()
+                .WithButton("Claim", "dropaction;claim;" + uid + ";" + type + ";" + recievedname, ButtonStyle.Success)
+                .WithButton("Sell", "dropaction;sell;" + uid + ";" + type + ";" + recievedname, ButtonStyle.Danger)
+                .WithButton("Infuse", "dropaction;infuse;" + uid + ";" + type + ";" + recievedname, ButtonStyle.Secondary);
+
+            await channel.SendMessageAsync(embed: e, component: btna.Build());
         }
 
         public static List<Weapon> Weapons = new List<Weapon>
@@ -191,17 +263,17 @@ namespace CD2_Bot
             new Weapon("Stick", "A simple wooden stick.", 5, 0, null, null, Rarity.Common),
             new Weapon("Shortsword", "A basic blade crafted with simple iron.", 8, 0, null, null, Rarity.Common),
             // uncommon
-
+            new Weapon("Placeholder", "placeholder.", 0, 0, null, null, Rarity.Uncommon),
             // rare
-
+            new Weapon("Placeholder2", "placeholder.", 0, 0, null, null, Rarity.Rare),
             // epic
-
+            new Weapon("Placeholder3", "placeholder.", 0, 0, null, null, Rarity.Epic),
             // legendary
-
+            new Weapon("Placeholder4", "placeholder.", 0, 0, null, null, Rarity.Legendary),
             // unstable
-
+            new Weapon("Placeholder5", "placeholder.", 0, 0, null, null, Rarity.Unstable),
             // corrupted
-
+            new Weapon("Placeholder6", "placeholder.", 0, 0, null, null, Rarity.Corrupted),
             // unique
         };
 
@@ -211,17 +283,17 @@ namespace CD2_Bot
             new Armor("Rags", "Really dirty and torn apart.", 100, 0, null, null, Rarity.Common),
             new Armor("Socks", "Knee-high socks to protect the wearer from dirt and nothing else.", 99, 0, null, null, Rarity.Common),
             // uncommon
-
+            new Armor("Placeholder", "placeholder.", 100, 0, null, null, Rarity.Uncommon),
             // rare
-
+            new Armor("Placeholder2", "placeholder.", 100, 0, null, null, Rarity.Rare),
             // epic
-
+            new Armor("Placeholder3", "placeholder.", 100, 0, null, null, Rarity.Epic),
             // legendary
-
+            new Armor("Placeholder4", "placeholder.", 100, 0, null, null, Rarity.Legendary),
             // unstable
-
+            new Armor("Placeholder5", "placeholder.", 100, 0, null, null, Rarity.Unstable),
             // corrupted
-
+            new Armor("Placeholder6", "placeholder.", 100, 0, null, null, Rarity.Corrupted),
             // unique
         };
 

@@ -21,10 +21,21 @@ namespace CD2_Bot
                     await ReplyAsync(embed: Utils.QuickEmbedError("Missing arguments"));
                     break;
                 default:
-                    ComponentBuilder btnb = new ComponentBuilder().WithButton("test", "testbtn1;"+ Context.User.Id.ToString(), ButtonStyle.Primary);
+                    try
+                    {
+                        ComponentBuilder btnb = new ComponentBuilder()
+                        .WithButton("test", "testbtn1;" + Context.User.Id.ToString(), ButtonStyle.Primary)
+                        .WithButton("test2", "testbtn2;" + Context.User.Id.ToString(), ButtonStyle.Danger);
+
+                        MessageComponent btn = btnb.Build();
+
+                        await ReplyAsync(embed: Utils.QuickEmbedNormal("Success", $"Arg: {arg}, Xargs: {xargs}"), component: btn);
+                    }
+                    catch (Exception e)
+                    {
+                        Utils.DebugLog(e.Message);
+                    }
                     
-                    MessageComponent btn = btnb.Build();
-                    await ReplyAsync(embed: Utils.QuickEmbedNormal("Success", $"Arg: {arg}, Xargs: {xargs}"), component: btn);
                     break;
             }
         }

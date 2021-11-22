@@ -11,6 +11,7 @@ namespace CD2_Bot
         public static async Task Initialize()
         {
             db.Init();
+            Utils.UpdateStatus($"Version {Defaults.VERSION}");
         }
     }
 }
