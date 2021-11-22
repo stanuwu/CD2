@@ -270,14 +270,14 @@ namespace CD2_Bot
             new Weapon("Hunting Bow", "Shoots powerful steel arrows.", 17, 0, null, null, Rarity.Uncommon),
             new Weapon("Mana Catalyst", "Absorbs the mana around you and channels it into magic.", 16, 0, null, null, Rarity.Uncommon),
             new Weapon("Dreihander", "A sword so heavy that two hands aren't enough to carry it.", 18, 0, null, null, Rarity.Uncommon),
-            new Weapon("Hunting Bow", "Shoots powerful steel arrows.", 17, 0, null, null, Rarity.Uncommon),
+            new Weapon("Big Cannon", "Watch out for the recoil.", 17, 0, null, null, Rarity.Rare),
             // rare
             new Weapon("Vampire Tooth", "Steal your opponents' life by slashing them apart.", 25, 0, null, null, Rarity.Rare), // Custom Effect: Replenishes some health after a fight.
             new Weapon("Darkened Lucerne", "The blood on this halberd has turned its color to a dark red.", 31, 0, null, null, Rarity.Rare),
             new Weapon("Spiked Brass Knuckles", "Punch your enemy into the ground, leaving no room for parries.", 29, 0, null, null, Rarity.Rare),
             new Weapon("Kusarigama", "A chain sickle to wrap and slice your enemies up with.", 29, 0, null, null, Rarity.Rare),
             new Weapon("Flaming Scimitar", "This lightweight, curved blade burns your enemies with a slash.", 30, 0, null, null, Rarity.Rare),
-            new Weapon("Big Cannon", "Watch out for the recoil.", 27, 0, null, null, Rarity.Rare),
+            new Weapon("Electric Crossbow", "Shoots electrically-charged, hefty bolts.", 27, 0, null, null, Rarity.Rare),
             // epic
             new Weapon("Crystalrend", "The reflection of their faces on this gleaming blade is the last thing the enemy'll see.", 48, 0, null, null, Rarity.Epic),
             new Weapon("Staff of the Elements", "Channel the eternal strength of nature and force it upon your foes.", 50, 0, null, null, Rarity.Epic),
@@ -289,7 +289,7 @@ namespace CD2_Bot
             new Weapon("Ancient Root Hammer", "Birthed from an ancient, evergrowing tree, this hammer is nearly indestructible.", 71, 0, null, null, Rarity.Legendary), // Custom Effect: Chance to stun opponents. (Turn damage to zero for one turn)
             new Weapon("Runed Greatshield", "A gigantic shield to protect you from attacks - or bash in some heads.", 69, 0, null, null, Rarity.Legendary), // Custom Effect: Increases Resistance
             new Weapon("Erebus Gauntlets", "Gauntlets imbued with the power of the underworld.", 73, 0, null, null, Rarity.Legendary), // Custom Effect: Crit Chance
-            new Weapon("Lightrays", "Beam your enemies away with the sun's shining light.", 74, 0, null, null, Rarity.Legendary), // Custom Effect: Chance to heal on attack
+            new Weapon("Lightray Bowgun", "Beam your enemies away with the sun's shining light.", 74, 0, null, null, Rarity.Legendary), // Custom Effect: Chance to heal on attack
             // unstable
             new Weapon("Pulsar Breaker", "Can break a star in half with magnetic powers.", 94, 0, null, null, Rarity.Unstable),
             new Weapon("Soultracer", "Slice the edges of your opponent's soul.", 90, 0, null, null, Rarity.Unstable), // Custom Effect: Crit Chance
@@ -297,12 +297,12 @@ namespace CD2_Bot
             new Weapon("Ebony Cloud", "Thunder and lightning are yours to control.", 95, 0, null, null, Rarity.Unstable),
             new Weapon("Sphere of the Abyss", "Absorbs the light to bring about eternal darkness.", 98, 0, null, null, Rarity.Unstable), 
             // corrupted
-            new Weapon("Nocturnal Scythe", "Only those who were shortly ended by it have ever taken a glance at it.", 130, 0, null, null, Rarity.Corrupted),
+            new Weapon("Nocturnal Scythe", "Can taint the entire sky a deep, abyssal dark.", 130, 0, null, null, Rarity.Corrupted),
             new Weapon("Syzygy", "A pair of celestial swords, the sun and the moon, aligning with your very being.", 126, 0, null, null, Rarity.Corrupted),
             new Weapon("Scepter of Cores", "The inferno of the planet's core is at your disposal.", 120, 0, null, null, Rarity.Corrupted),
             new Weapon("Dogma", "Unending, unfinite, this gauntlet of pure plasma deletes anything it grazes from existence.", 125, 0, null, null, Rarity.Corrupted),
             new Weapon("Hammer of Tabula Rasa", "Can flatten entire cities with one attack.", 122, 0, null, null, Rarity.Corrupted),
-            new Weapon("Armed Railgun", "Destroy everything with gargantuan lasers.", 124, 0, null, null, Rarity.Corrupted),
+            new Weapon("Astral Binding Bow", "Bound to the stars, this weapon can light up the whole night sky.", 124, 0, null, null, Rarity.Corrupted),
             // unique
         };
 
@@ -311,18 +311,36 @@ namespace CD2_Bot
             // common
             new Armor("Rags", "Really dirty and torn apart.", 100, 0, null, null, Rarity.Common),
             new Armor("Socks", "Knee-high socks to protect the wearer from dirt and nothing else.", 99, 0, null, null, Rarity.Common),
+            new Armor("Top Hat", "Stylish, but doesn't really shield all that much.", 98, 0, null, null, Rarity.Common),
             // uncommon
-            new Armor("Placeholder", "placeholder.", 100, 0, null, null, Rarity.Uncommon),
+            new Armor("Chainmail", "A little rusty, but it does the job.", 95, 0, null, null, Rarity.Uncommon),
+            new Armor("Rock Helmet", "Good against concussions.", 96, 0, null, null, Rarity.Uncommon),
+            new Armor("Brass Armor", "This gilden Chestplate is prettier than it's actually useful.", 94, 0, null, null, Rarity.Uncommon),
+            new Armor("Steel Armor", "Quite hefty - good defense, but you look sort of stupid with it.", 91, 0, null, null, Rarity.Uncommon), 
             // rare
-            new Armor("Placeholder2", "placeholder.", 100, 0, null, null, Rarity.Rare),
+            new Armor("Thin Crystal Armor", "Shiny AND quite sturdy!", 85, 0, null, null, Rarity.Rare),
+            new Armor("Volcano Rock Cuirass", "Made of volcanic rocks, lava veins are still visible.", 87, 0, null, null, Rarity.Rare), // Custom Effect: burns enemies?
+            new Armor("Dragon Crown", "The horns of a young dragon.", 90, 0, null, null, Rarity.Rare), // Custom Effect: Increases damage by 10.
+            new Armor("Archer's Vest", "Makes you swift, but lacking in defense.", 88, 0, null, null, Rarity.Rare), // Custom Effect: Increases damage by 30% of weapon damage only if the equipped weapon has "Bow" in it's name.
             // epic
-            new Armor("Placeholder3", "placeholder.", 100, 0, null, null, Rarity.Epic),
+            new Armor("Golem Skin", "Made from the body of a rock creature.", 82, 0, null, null, Rarity.Epic),
+            new Armor("Bone Armor", "An armor-set made of skeleton bones.", 84, 0, null, null, Rarity.Epic),
+            new Armor("Deepforest Cloak", "Protective, but still meant for mobility. Comes with healing herbs.", 86, 0, null, null, Rarity.Epic), // Custom Effect: Increases healing by 20.
             // legendary
-            new Armor("Placeholder4", "placeholder.", 100, 0, null, null, Rarity.Legendary),
+            new Armor("Mask of the Purveyor", "Spread the truth you believe in.", 74, 0, null, null, Rarity.Legendary),
+            new Armor("Diamond Dust Cuirass", "You'll freeze a little bit, but it's worth the good defense.", 72, 0, null, null, Rarity.Legendary), // Custom Effect: Deals one damage per round to the wearer.
+            new Armor("Sage's Robe", "Really comfy. Strenghtens your natural healing powers.", 76, 0, null, null, Rarity.Legendary), // Custom Effect: Increase healing by 25.
+            new Armor("Goldwitch Overcoat", "Enchanted by witches, this piece of armor is sure to bring you financial luck.", 78, 0, null, null, Rarity.Legendary), // Custom Effect: Increases money gain by 10%.
             // unstable
-            new Armor("Placeholder5", "placeholder.", 100, 0, null, null, Rarity.Unstable),
+            new Armor("Gambler's Ruin", "It's all or nothing.", 100, 0, null, null, Rarity.Unstable), // Custom Effect: 50% chance to fully negate damage, returns 200% if negated.
+            new Armor("§!#+$=ERR", "This isn't supposed to happen...", 100, 0, null, null, Rarity.Unstable), // Custom Effect: Gives you a random damage buff between -5 and +10 and a random amount of resistance between 100 and 70. Changes after one battle.
+            new Armor("Vicuna Longcoat", "The fluffiest, most comfortable piece of clothing around.", 69, 0, null, null, Rarity.Unstable), // Custom Effect: Increases healing by 10%.
+            new Armor("Mecha Suit", "Technological advancements allow you to enhance yourself with this robotic suit. Prone to malfunction.", 72, 0, null, null, Rarity.Unstable), // Custom Effect: 10% Chance to deal 7% of health in damage to the wearer.
             // corrupted
-            new Armor("Placeholder6", "placeholder.", 100, 0, null, null, Rarity.Corrupted),
+            new Armor("Fibre of Hatred", "Focus on hurting your foes rather than defending.", 80, 0, null, null, Rarity.Corrupted), // Custom Effect: Increases damage by 40.
+            new Armor("Core Smelter Armor", "Made of the innermost layer of earth.", 70, 0, null, null, Rarity.Corrupted), // Custom Effect: Increases damage by 30.
+            new Armor("Wyvern's Aegis", "Able to withstand even meteorites.", 55, 0, null, null, Rarity.Corrupted),
+            new Armor("Adaptive Bioarmor", "Hi-tech, adapts to every situation that comes your way.", 75, 0, null, null, Rarity.Unstable), // Custom Effect: Increases damage and healing by 4*Number of rarity of sword and 6*Number of rarity of extra, respectively.
             // unique
         };
 
