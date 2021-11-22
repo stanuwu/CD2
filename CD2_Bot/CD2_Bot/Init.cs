@@ -8,10 +8,16 @@ namespace CD2_Bot
 {
     class Init
     {
+        public static bool hasbooted = false;
+
         public static async Task Initialize()
         {
-            db.Init();
-            Utils.UpdateStatus($"Version {Defaults.VERSION}");
+            if (hasbooted == false)
+            {
+                db.Init();
+                Utils.UpdateStatus($"Version {Defaults.VERSION}");
+                hasbooted = true;
+            }
         }
     }
 }
