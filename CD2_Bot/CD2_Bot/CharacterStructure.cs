@@ -143,6 +143,29 @@ namespace CD2_Bot
         {
             get
             {
+                NpgsqlCommand cmd2 = new NpgsqlCommand("SELECT lastheal FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
+                cmd2.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                DateTime lastheal = DateTime.Parse(db.CommandString(cmd2));
+
+                if ((DateTime.Now - lastheal).TotalSeconds > 60)
+                {
+                    NpgsqlCommand cmd3 = new NpgsqlCommand("UPDATE public.\"Character\" SET lastheal = @heal WHERE \"UserID\" = @id;", db.dbc);
+                    cmd3.Parameters.AddWithValue("@heal", DateTime.Now.ToString());
+                    cmd3.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                    db.CommandVoid(cmd3);
+
+                    int regen = (int)(DateTime.Now - lastheal).TotalMinutes * ((MaxHP / 20) + this.Extra.Heal);
+
+                    if(this.HP+regen > this.MaxHP)
+                    {
+                        this.HP = this.MaxHP;
+                    }
+                    else
+                    {
+                        this.HP += regen;
+                    }
+                }
+
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT currhp FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
                 return Convert.ToInt32(db.CommandString(cmd));
