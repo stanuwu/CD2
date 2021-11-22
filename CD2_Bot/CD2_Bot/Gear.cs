@@ -261,19 +261,48 @@ namespace CD2_Bot
         {
             // common
             new Weapon("Stick", "A simple wooden stick.", 5, 0, null, null, Rarity.Common),
+            new Weapon("Stone Hatchet", "A tool generally used for cutting wood.", 7, 0, null, null, Rarity.Common),
             new Weapon("Shortsword", "A basic blade crafted with simple iron.", 8, 0, null, null, Rarity.Common),
+            new Weapon("Wooden Wand", "Equipped to cast only the most basic of spells.", 7, 0, null, null, Rarity.Common),
+            new Weapon("Dagger", "A small dagger that can be hidden away in your sleeve.", 6, 0, null, null, Rarity.Common),
             // uncommon
-            new Weapon("Placeholder", "placeholder.", 0, 0, null, null, Rarity.Uncommon),
+            new Weapon("Bladed Boomerang", "Sharp and throwable.", 19, 0, null, null, Rarity.Uncommon),
+            new Weapon("Hunting Bow", "Shoots powerful steel arrows.", 17, 0, null, null, Rarity.Uncommon),
+            new Weapon("Mana Catalyst", "Absorbs the mana around you and channels it into magic.", 16, 0, null, null, Rarity.Uncommon),
+            new Weapon("Dreihander", "A sword so heavy that two hands aren't enough to carry it.", 18, 0, null, null, Rarity.Uncommon),
+            new Weapon("Hunting Bow", "Shoots powerful steel arrows.", 17, 0, null, null, Rarity.Uncommon),
             // rare
-            new Weapon("Placeholder2", "placeholder.", 0, 0, null, null, Rarity.Rare),
+            new Weapon("Vampire Tooth", "Steal your opponents' life by slashing them apart.", 25, 0, null, null, Rarity.Rare), // Custom Effect: Replenishes some health after a fight.
+            new Weapon("Darkened Lucerne", "The blood on this halberd has turned its color to a dark red.", 31, 0, null, null, Rarity.Rare),
+            new Weapon("Spiked Brass Knuckles", "Punch your enemy into the ground, leaving no room for parries.", 29, 0, null, null, Rarity.Rare),
+            new Weapon("Kusarigama", "A chain sickle to wrap and slice your enemies up with.", 29, 0, null, null, Rarity.Rare),
+            new Weapon("Flaming Scimitar", "This lightweight, curved blade burns your enemies with a slash.", 30, 0, null, null, Rarity.Rare),
+            new Weapon("Big Cannon", "Watch out for the recoil.", 27, 0, null, null, Rarity.Rare),
             // epic
-            new Weapon("Placeholder3", "placeholder.", 0, 0, null, null, Rarity.Epic),
+            new Weapon("Crystalrend", "The reflection of their faces on this gleaming blade is the last thing the enemy'll see.", 48, 0, null, null, Rarity.Epic),
+            new Weapon("Staff of the Elements", "Channel the eternal strength of nature and force it upon your foes.", 50, 0, null, null, Rarity.Epic),
+            new Weapon("Futurefinder", "A blade that is said to come from a time succeeding ours.", 44, 0, null, null, Rarity.Epic), // Custom Effect: idk lol irgndswas mit zukunft hihi
+            new Weapon("Lance of the Stars", "All the stars' fury gets cast upon an opponent pierced by this weapon.", 49, 0, null, null, Rarity.Epic),
+            new Weapon("Frostbite Tome", "Etches the arts of ice magic into your soul.", 42, 0, null, null, Rarity.Epic), // Custom Effect: irgendwas mit freezen von gegnern
             // legendary
-            new Weapon("Placeholder4", "placeholder.", 0, 0, null, null, Rarity.Legendary),
+            new Weapon("Link Breaker", "No trace of a connection remains once something is cut by this blade.", 75, 0, null, null, Rarity.Legendary),
+            new Weapon("Ancient Root Hammer", "Birthed from an ancient, evergrowing tree, this hammer is nearly indestructible.", 71, 0, null, null, Rarity.Legendary), // Custom Effect: Chance to stun opponents. (Turn damage to zero for one turn)
+            new Weapon("Runed Greatshield", "A gigantic shield to protect you from attacks - or bash in some heads.", 69, 0, null, null, Rarity.Legendary), // Custom Effect: Increases Resistance
+            new Weapon("Erebus Gauntlets", "Gauntlets imbued with the power of the underworld.", 73, 0, null, null, Rarity.Legendary), // Custom Effect: Crit Chance
+            new Weapon("Lightrays", "Beam your enemies away with the sun's shining light.", 74, 0, null, null, Rarity.Legendary), // Custom Effect: Chance to heal on attack
             // unstable
-            new Weapon("Placeholder5", "placeholder.", 0, 0, null, null, Rarity.Unstable),
+            new Weapon("Pulsar Breaker", "Can break a star in half with magnetic powers.", 94, 0, null, null, Rarity.Unstable),
+            new Weapon("Soultracer", "Slice the edges of your opponent's soul.", 90, 0, null, null, Rarity.Unstable), // Custom Effect: Crit Chance
+            new Weapon("Deep Ocean Geyser", "Command the waters and blast them at your foes.", 97, 0, null, null, Rarity.Unstable),
+            new Weapon("Ebony Cloud", "Thunder and lightning are yours to control.", 95, 0, null, null, Rarity.Unstable),
+            new Weapon("Sphere of the Abyss", "Absorbs the light to bring about eternal darkness.", 98, 0, null, null, Rarity.Unstable), 
             // corrupted
-            new Weapon("Placeholder6", "placeholder.", 0, 0, null, null, Rarity.Corrupted),
+            new Weapon("Nocturnal Scythe", "Only those who were shortly ended by it have ever taken a glance at it.", 130, 0, null, null, Rarity.Corrupted),
+            new Weapon("Syzygy", "A pair of celestial swords, the sun and the moon, aligning with your very being.", 126, 0, null, null, Rarity.Corrupted),
+            new Weapon("Scepter of Cores", "The inferno of the planet's core is at your disposal.", 120, 0, null, null, Rarity.Corrupted),
+            new Weapon("Dogma", "Unending, unfinite, this gauntlet of pure plasma deletes anything it grazes from existence.", 125, 0, null, null, Rarity.Corrupted),
+            new Weapon("Hammer of Tabula Rasa", "Can flatten entire cities with one attack.", 122, 0, null, null, Rarity.Corrupted),
+            new Weapon("Armed Railgun", "Destroy everything with gargantuan lasers.", 124, 0, null, null, Rarity.Corrupted),
             // unique
         };
 
