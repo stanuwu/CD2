@@ -23,6 +23,9 @@ namespace CD2_Bot
                 case "chestopen":
                     await ChestOpen(btn);
                     break;
+                case "delchar":
+                    await DelChar(btn);
+                    break;
             }
         }
 
@@ -113,12 +116,11 @@ namespace CD2_Bot
 
         static public async Task ChestOpen(SocketMessageComponent btn)
         {
-            Utils.DebugLog(btn.Data.CustomId);
             string[] btndata = btn.Data.CustomId.Split(';');
             ulong userid = (ulong)Convert.ToInt64(btndata[1]);
             CharacterStructure stats = (from user in tempstorage.characters
-                                         where user.PlayerID == userid
-                                         select user).SingleOrDefault();
+                                        where user.PlayerID == userid
+                                        select user).SingleOrDefault();
             if (userid == btn.User.Id)
             {
                 if ((DateTime.Now - btn.Message.Timestamp).TotalMinutes > 15)
@@ -127,13 +129,14 @@ namespace CD2_Bot
                     await btn.FollowupAsync(embed: Utils.QuickEmbedError("This chest is expired."), ephemeral: true);
                     return;
                 }
-                Rarity drarity = (Rarity) Enum.Parse(typeof(Rarity), btndata[2]);
+                Rarity drarity = (Rarity)Enum.Parse(typeof(Rarity), btndata[2]);
                 if (stats.Money >= Prices.buy[drarity])
                 {
                     await btn.UpdateAsync(x => x.Components = null);
                     stats.Money -= Prices.buy[drarity];
                     Gear.RandomDrop(userid, btn.Channel, drarity, btndata[3]);
-                } else
+                }
+                else
                 {
                     await btn.RespondAsync(embed: Utils.QuickEmbedError("You can not afford this chest."), ephemeral: true);
                 }
@@ -141,6 +144,34 @@ namespace CD2_Bot
             else
             {
                 await btn.RespondAsync(embed: Utils.QuickEmbedError("This is not your chest."), ephemeral: true);
+            }
+        }
+
+        static public async Task DelChar(SocketMessageComponent btn)
+        {
+            string[] btndata = btn.Data.CustomId.Split(';');
+            ulong userid = (ulong)Convert.ToInt64(btndata[2]);
+            CharacterStructure stats = (from user in tempstorage.characters
+                                        where user.PlayerID == userid
+                                        select user).SingleOrDefault();
+            if (userid == btn.User.Id)
+            {
+                if ((DateTime.Now - btn.Message.Timestamp).TotalMinutes > 5)
+                {
+                    await btn.UpdateAsync(x => x.Components = null);
+                    await btn.FollowupAsync(embed: Utils.QuickEmbedError("This prompt is expired."), ephemeral: true);
+                    return;
+                }
+                await btn.UpdateAsync(x => x.Components = null);
+                if (btndata[1] == "confirm")
+                {
+                    stats.Deleted = true;
+                    await btn.FollowupAsync(embed: Utils.QuickEmbedNormal("Success", "Your character was deleted!"), ephemeral: true);
+                }
+            }
+            else
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("This is not your prompt."), ephemeral: true);
             }
         }
     }
