@@ -25,22 +25,14 @@ namespace CD2_Bot
             textra.CustomEffect(stats.PlayerID, enemy);
 
             //calculate total damage to specific enemy
-            double tdamage = Convert.ToDouble(tweapon.Damage + textra.Damage) * stats.StatMultiplier * ((double)enemy.Resistance/100)+0.01d;
+            double tdamage = Convert.ToDouble(tweapon.Damage + textra.Damage) * stats.StatMultiplier * ((double)enemy.Resistance/100)+0.01;
             //calculate enemies damage to you with armor
-            double edamage = enemy.Damage * (tarmor.Resistance / 100)+0.01d;
+            double edamage = enemy.Damage * (tarmor.Resistance / 100)+0.01;
 
             //calculate player rounds to kill
-            int tdpr = (int) Math.Floor(enemy.HP / tdamage);
+            int tdpr = (int) Math.Ceiling(enemy.HP / tdamage);
             //calculate enemy rounds to kill
-            int edpr = (int) Math.Floor(stats.HP / edamage);
-
-            //prevent negative damage bug (hopefully)
-            if (tdpr < 1) {
-                tdpr = 1;
-            }
-            if (edpr > 1) {
-                edpr = 1;
-            }
+            int edpr = (int) Math.Ceiling(stats.HP / edamage);
 
             //determine win and set hp to get removed to damage recieved and how much damage the enemy took and other statics
             int xgained = 0;

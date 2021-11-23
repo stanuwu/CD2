@@ -28,12 +28,12 @@ namespace CD2_Bot
             ulong userid = (ulong)Convert.ToInt64(sel.Data.CustomId.Split(';')[1]);
             if (userid == sel.User.Id)
             {
-                if ((DateTime.Now - sel.Message.Timestamp).TotalMinutes > Defaults.FLOORCOOLDOWN-1)
-                {
-                    await sel.Message.DeleteAsync();
-                    await sel.RespondAsync(embed: Utils.QuickEmbedError("This floor is expired."), ephemeral: true);
-                    return;
-                }
+                //if ((DateTime.Now - sel.Message.Timestamp).TotalMinutes > Defaults.FLOORCOOLDOWN-1)
+                //{
+                //    await sel.Message.DeleteAsync();
+                //    await sel.RespondAsync(embed: Utils.QuickEmbedError("This floor is expired."), ephemeral: true);
+                //    return;
+                //}
                 try
                 {
                     ulong gid = ((SocketGuildUser)sel.User).Guild.Id;
