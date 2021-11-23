@@ -33,8 +33,9 @@ namespace CD2_Bot
 
                     embed = SimulateFight.Sim(opponent, stats);
 
-                    int gearroll = Defaults.GRandom.Next(1, Defaults.GEARDROPCHANCE);
-                    if (embed.Color == Color.Green && gearroll == Defaults.GEARDROPCHANCE)
+                    int gearroll = Defaults.GRandom.Next(1, Defaults.GEARDROPCHANCE);;
+                    //creative way to check for win (dont ask lol)
+                    if (embed.Color.ToString() == "#2ECC71" && gearroll == 1)
                     {
                         Gear.RandomDrop(stats.PlayerID, channel);
                     }
