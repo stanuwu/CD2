@@ -44,10 +44,10 @@ namespace CD2_Bot
             if (tdpr < edpr)
             {
                 win = true;
-                hptoremove = (int) Math.Floor(stats.HP - (edamage * tdpr));
+                hptoremove = (int) Math.Round(stats.HP - (edamage * tdpr));
                 mfound = 200 + enemy.Level * 50;
                 xgained = 50 + enemy.Level * 5;
-                wxgained = (int)Math.Floor((double)xgained / 4);
+                wxgained = (int)Math.Round((double)xgained / 4);
                 stats.Money += mfound;
                 stats.EXP += xgained;
                 stats.WeaponXP += wxgained;
