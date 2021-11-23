@@ -30,8 +30,8 @@ namespace CD2_Bot
             {
                 if ((DateTime.Now - sel.Message.Timestamp).TotalMinutes > Defaults.FLOORCOOLDOWN-1)
                 {
-                    await sel.UpdateAsync(x => x.Components = null);
-                    await sel.FollowupAsync(embed: Utils.QuickEmbedError("This floor is expired."), ephemeral: true);
+                    await sel.Message.DeleteAsync();
+                    await sel.RespondAsync(embed: Utils.QuickEmbedError("This floor is expired."), ephemeral: true);
                     return;
                 }
                 try
@@ -39,7 +39,8 @@ namespace CD2_Bot
                     ulong gid = ((SocketGuildUser)sel.User).Guild.Id;
                 string selOpt = string.Join(", ", sel.Data.Values);
                 Tuple<Embed, Optional<MessageComponent>> results = Rooms.ExecuteRoom(selOpt, userid, gid, sel.Channel);
-                await sel.UpdateAsync(x => { x.Components = results.Item2; x.Embed = results.Item1; });
+                await sel.Message.DeleteAsync();
+                await sel.RespondAsync(component: results.Item2.Value, embed: results.Item1 );
                 }
                 catch (Exception r) { Utils.DebugLog(r.Message);  }
             } else

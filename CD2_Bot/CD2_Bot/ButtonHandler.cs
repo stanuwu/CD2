@@ -34,8 +34,8 @@ namespace CD2_Bot
         static public async Task BtnTest(SocketMessageComponent btn)
         {
             ulong userid = (ulong)Convert.ToInt64(btn.Data.CustomId.Split(';')[1]);
-            await btn.UpdateAsync(x => x.Components = null);
-            await btn.FollowupAsync("Hi", ephemeral: true);
+            await btn.Message.DeleteAsync();
+            await btn.RespondAsync("Hi", ephemeral: true);
         }
 
         static public async Task DropAction(SocketMessageComponent btn)
@@ -47,7 +47,7 @@ namespace CD2_Bot
                                          select user).SingleOrDefault();
             if (userid == btn.User.Id)
             {
-                await btn.UpdateAsync(x => x.Components = null);
+                await btn.Message.DeleteAsync();
 
                 if ((DateTime.Now - btn.Message.Timestamp).TotalMinutes > 15)
                 {
@@ -125,14 +125,14 @@ namespace CD2_Bot
             {
                 if ((DateTime.Now - btn.Message.Timestamp).TotalMinutes > 15)
                 {
-                    await btn.UpdateAsync(x => x.Components = null);
-                    await btn.FollowupAsync(embed: Utils.QuickEmbedError("This chest is expired."), ephemeral: true);
+                    await btn.Message.DeleteAsync();
+                    await btn.RespondAsync(embed: Utils.QuickEmbedError("This chest is expired."), ephemeral: true);
                     return;
                 }
                 Rarity drarity = (Rarity)Enum.Parse(typeof(Rarity), btndata[2]);
                 if (stats.Money >= Prices.buy[drarity])
                 {
-                    await btn.UpdateAsync(x => x.Components = null);
+                    await btn.Message.DeleteAsync();
                     stats.Money -= Prices.buy[drarity];
                     Gear.RandomDrop(userid, btn.Channel, drarity, btndata[3]);
                 }
@@ -158,11 +158,11 @@ namespace CD2_Bot
             {
                 if ((DateTime.Now - btn.Message.Timestamp).TotalMinutes > 5)
                 {
-                    await btn.UpdateAsync(x => x.Components = null);
+                    await btn.Message.DeleteAsync();
                     await btn.FollowupAsync(embed: Utils.QuickEmbedError("This prompt is expired."), ephemeral: true);
                     return;
                 }
-                await btn.UpdateAsync(x => x.Components = null);
+                await btn.Message.DeleteAsync(); ;
                 if (btndata[1] == "confirm")
                 {
                     stats.Deleted = true;
