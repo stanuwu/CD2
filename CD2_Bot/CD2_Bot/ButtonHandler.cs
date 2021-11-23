@@ -106,7 +106,7 @@ namespace CD2_Bot
                         }
                         break;
                 }
-                await btn.FollowupAsync(embed: Utils.QuickEmbedNormal("Drop", dmsg), ephemeral: true);
+                await btn.RespondAsync(embed: Utils.QuickEmbedNormal("Drop", dmsg), ephemeral: true);
             }
             else
             {
@@ -159,14 +159,14 @@ namespace CD2_Bot
                 if ((DateTime.Now - btn.Message.Timestamp).TotalMinutes > 5)
                 {
                     await btn.Message.DeleteAsync();
-                    await btn.FollowupAsync(embed: Utils.QuickEmbedError("This prompt is expired."), ephemeral: true);
+                    await btn.RespondAsync(embed: Utils.QuickEmbedError("This prompt is expired."), ephemeral: true);
                     return;
                 }
                 await btn.Message.DeleteAsync(); ;
                 if (btndata[1] == "confirm")
                 {
                     stats.Deleted = true;
-                    await btn.FollowupAsync(embed: Utils.QuickEmbedNormal("Success", "Your character was deleted!"), ephemeral: true);
+                    await btn.RespondAsync(embed: Utils.QuickEmbedNormal("Success", "Your character was deleted!"), ephemeral: true);
                 }
             }
             else
