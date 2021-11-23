@@ -27,7 +27,7 @@ namespace CD2_Bot
             //calculate total damage to specific enemy
             double tdamage = Convert.ToDouble(tweapon.Damage + textra.Damage) * stats.StatMultiplier * ((double)enemy.Resistance/100)+0.01;
             //calculate enemies damage to you with armor
-            double edamage = enemy.Damage * (tarmor.Resistance / 100)+0.01;
+            double edamage = enemy.Damage * ((double)tarmor.Resistance / 100)+0.01;
 
             //calculate player rounds to kill
             int tdpr = (int) Math.Ceiling(enemy.HP / tdamage);
@@ -45,26 +45,37 @@ namespace CD2_Bot
             {
                 win = true;
                 hptoremove = (int) Math.Round(stats.HP - (edamage * tdpr));
-                mfound = 200 + enemy.Level * 50;
-                xgained = 50 + enemy.Level * 5;
-                wxgained = (int)Math.Round((double)xgained / 4);
-                stats.Money += mfound;
-                stats.EXP += xgained;
-                stats.WeaponXP += wxgained;
-                stats.ArmorXP += wxgained;
-                stats.ExtraXP += wxgained;
             }
             else
             {
                 win = false;
                 hptoremove = stats.HP;
-                enemyhp = (int) Math.Floor(enemy.HP - (tdamage * edpr));
+                enemyhp = (int) Math.Round(enemy.HP - (tdamage * edpr));
+            }
+
+            if (hptoremove >= stats.HP)
+            {
+                win = false;
+            }
+
+            if (win == true) {
+                mfound = 200 + enemy.Level * 50;
+                xgained = 50 + enemy.Level * 5;
+                wxgained = (int)Math.Floor((double)xgained / 4);
+                stats.Money += mfound;
+                stats.EXP += xgained;
+                stats.WeaponXP += wxgained;
+                stats.ArmorXP += wxgained;
+                stats.ExtraXP += wxgained;
+            } else
+            {
                 mlost = (500 + stats.Lvl * 50);
                 if (stats.Money < mlost)
                 {
                     mlost = stats.Money;
                     stats.Money = 0;
-                } else
+                }
+                else
                 {
                     stats.Money -= mlost;
                 }
