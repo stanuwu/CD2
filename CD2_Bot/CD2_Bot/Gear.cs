@@ -290,6 +290,7 @@ namespace CD2_Bot
             new Weapon("Runed Greatshield", "A gigantic shield to protect you from attacks - or bash in some heads.", 69, 0, null, null, Rarity.Legendary), // Custom Effect: Increases Resistance
             new Weapon("Erebus Gauntlets", "Gauntlets imbued with the power of the underworld.", 73, 0, null, null, Rarity.Legendary), // Custom Effect: Crit Chance
             new Weapon("Lightray Bowgun", "Beam your enemies away with the sun's shining light.", 74, 0, null, null, Rarity.Legendary), // Custom Effect: Chance to heal on attack
+            new Weapon("Propeller Blade", "Has three modes. Can be really strong ONLY if you're lucky.", 0, 0, null, null, Rarity.Legendary), // Custom Effect: Chance on hit to either do 55, 75 or 90 damage on hit (Each 33.3% chance).
             // unstable
             new Weapon("Pulsar Breaker", "Can break a star in half with magnetic powers.", 94, 0, null, null, Rarity.Unstable),
             new Weapon("Soultracer", "Slice the edges of your opponent's soul.", 90, 0, null, null, Rarity.Unstable), // Custom Effect: Crit Chance
