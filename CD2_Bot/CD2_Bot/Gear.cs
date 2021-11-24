@@ -293,6 +293,8 @@ namespace CD2_Bot
             // unstable
             new Weapon("Pulsar Breaker", "Can break a star in half with magnetic powers.", 94, 0, null, null, Rarity.Unstable),
             new Weapon("Soultracer", "Slice the edges of your opponent's soul.", 90, 0, null, null, Rarity.Unstable), // Custom Effect: Crit Chance
+            new Weapon("Heartstopper", "These claws are infamous for making opponents freeze in fear merely at a glance.", 90, 0, null, null, Rarity.Unstable), // Custom Effect: Lowers enemy resistance.
+            new Weapon("Bodybreaker", "Pulverize your opponent's bones through mere punches.", 90, 0, null, null, Rarity.Unstable), // Custom Effect: Chance to make the enemy not attack.
             new Weapon("Deep Ocean Geyser", "Command the waters and blast them at your foes.", 97, 0, null, null, Rarity.Unstable),
             new Weapon("Ebony Cloud", "Thunder and lightning are yours to control.", 95, 0, null, null, Rarity.Unstable),
             new Weapon("Sphere of the Abyss", "Absorbs the light to bring about eternal darkness.", 98, 0, null, null, Rarity.Unstable), 
@@ -302,7 +304,7 @@ namespace CD2_Bot
             new Weapon("Scepter of Cores", "The inferno of the planet's core is at your disposal.", 120, 0, null, null, Rarity.Corrupted),
             new Weapon("Dogma", "Unending, unfinite, this gauntlet of pure plasma deletes anything it grazes from existence.", 125, 0, null, null, Rarity.Corrupted),
             new Weapon("Hammer of Tabula Rasa", "Can flatten entire cities with one attack.", 122, 0, null, null, Rarity.Corrupted),
-            new Weapon("Astral Binding Bow", "Bound to the stars, this weapon can light up the whole night sky.", 124, 0, null, null, Rarity.Corrupted),
+            new Weapon("Astral Binding Bow", "Bound to the stars, this weapon can light up the night sky.", 124, 0, null, null, Rarity.Corrupted),
             // unique
         };
 
