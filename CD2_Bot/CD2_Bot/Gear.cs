@@ -328,7 +328,9 @@ namespace CD2_Bot
             new Armor("Golem Skin", "Made from the body of a rock creature.", 82, 0, null, null, Rarity.Epic),
             new Armor("Bone Armor", "An armor-set made of skeleton bones.", 84, 0, null, null, Rarity.Epic),
             new Armor("Deepforest Cloak", "Protective, but still meant for mobility. Comes with healing herbs.", 86, 0, null, null, Rarity.Epic), // Custom Effect: Increases healing by 20.
+            new Armor("Aquatic Robe", "Cloak yourself in flowing waters.", 85, 0, null, null, Rarity.Epic), // Custom Effect: Increases HP by 5%.
             // legendary
+            new Armor("Berserker's Guard", "Focus fully on fighting with little regard for your survival.", 75, 0, null, null, Rarity.Legendary), // Custom Effect: Decrease HP by 50%. Add a percentile of the HP taken away to damage.
             new Armor("Mask of the Purveyor", "Spread the truth you believe in.", 74, 0, null, null, Rarity.Legendary),
             new Armor("Diamond Dust Cuirass", "You'll freeze a little bit, but it's worth the good defense.", 72, 0, null, null, Rarity.Legendary), // Custom Effect: Deals one damage per round to the wearer.
             new Armor("Sage's Robe", "Really comfy. Strenghtens your natural healing powers.", 76, 0, null, null, Rarity.Legendary), // Custom Effect: Increase healing by 25.
@@ -361,16 +363,17 @@ namespace CD2_Bot
             new Extra("Mirror", "Blind your enemies, giving you more time to plan your next move.", 1, 7, 0, null, null, Rarity.Uncommon),
             // rare
             new Extra("Wand of Healing", "Allows you to access your intrinsic healing abilities.", 0, 15, 0, null, null, Rarity.Rare),
-            new Extra("Wand of Strength", "Magically boosts your fighting prowess.", 8, 0, 0, null, null, Rarity.Rare),
+            new Extra("Wand of Strength", "Magically boosts your fighting prowess.", 9, 0, 0, null, null, Rarity.Rare),
             new Extra("Wand of Balance", "Every part of you feels stronger... but only slightly.", 5, 8, 0, null, null, Rarity.Rare),
             new Extra("Black Cat", "A small familiar that helps you in every fight.", 7, 4, 0, null, null, Rarity.Rare),
             new Extra("Caster Amulet", "A pendant imbued with powerful sorcery.", 6, 5, 0, null, null, Rarity.Rare),
             // epic
             new Extra("Royal Emblem", "A certain royal family's crest - wearing it makes people think you're important.", 10, 10, 0, null, null, Rarity.Epic), // Custom Effect: Decreases Shop Prices by 5%
-            new Extra("Tortuga Talisman", "Made of a hard, nearly indestructible shell, this charm saves you from harm.", 5, 25, 0, null, null, Rarity.Epic), // Custom Effect: Increases Resistance
+            new Extra("Tortuga Talisman", "Made of a hard, nearly indestructible shell, this charm saves you from harm.", 5, 20, 0, null, null, Rarity.Epic), // Custom Effect: Increases Resistance
             new Extra("Ambrosia", "A meal of gods, giving you incredible health.", 0, 30, 0, null, null, Rarity.Epic ),
             new Extra("Siren's Song", "Heed the call of the sirens.", 8, 15, 0, null, null, Rarity.Epic),
             new Extra("Dreamcatcher", "Casts the evil thoughts gathered in your sleep unto your enemies.", 16, 0, 0, null, null, Rarity.Epic),
+            new Extra("Petrified Leaf", "You can still see a little of its auburn color. ", 10, 20, 0, null, null, Rarity.Epic),
             // legendary
             new Extra("Phoenix Feather", "The plume of a mystical bird, said to be able to bring back those fallen in battle.", 0, 50, 0, null, null, Rarity.Legendary), // Custom Effect: Can rescue you from death once a fight (maybe)
             new Extra("Sliver of Darkness", "A shard of unknown origin, said to be made of pure, deep darkness.", 25, 0, 0, null, null, Rarity.Legendary), // Custom Effect: Decreases the enemies HP by a certain amount
@@ -384,6 +387,7 @@ namespace CD2_Bot
             new Extra("Beckoning Cat", "A cat statue said to bring good luck to the one who holds it.", 30, 50, 0, null, null, Rarity.Unstable), // Custom Effect: Increases the money you get by 50%
             new Extra("Crescent Mask", "A Crescent-shaped Mask, said to come from worshippers of an ancient moon god.", 20, 80, 0, null, null, Rarity.Unstable),
             new Extra("Fragmented Effigy", "A once beautiful depiction of the moon god, now blemished and broken.", 25, 65, 0, null, null, Rarity.Unstable),
+            new Extra("Sash of Valor", "A sash meant for those with great courage and incredible strength.", 40, 30, 0, null, null, Rarity.Unstable), // Custom Effect: The lower your HP is, the more increased your damage is.
             // corrupted
             new Extra("Black Magic Wand", "Achieve true strength by succumbing to darkness.", 90, 0, 0, null, null, Rarity.Corrupted), // Custom Effect: Halves your HP
             new Extra("Fire Orb", "Light up the fire in your soul to burn away your enemies.", 70, 10, 0, null, null, Rarity.Corrupted),
