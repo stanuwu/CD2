@@ -280,10 +280,11 @@ namespace CD2_Bot
             new Weapon("Electric Crossbow", "Shoots electrically-charged, hefty bolts.", 27, 0, null, null, Rarity.Rare),
             // epic
             new Weapon("Crystalrend", "The reflection of their faces on this gleaming blade is the last thing the enemy'll see.", 48, 0, null, null, Rarity.Epic),
-            new Weapon("Staff of the Elements", "Channel the eternal strength of nature and force it upon your foes.", 50, 0, null, null, Rarity.Epic),
+            new Weapon("Staff of the Elements", "Channel the eternal strength of nature and force it upon your foes.", 47, 0, null, null, Rarity.Epic),
             new Weapon("Futurefinder", "A blade that is said to come from a time succeeding ours.", 44, 0, null, null, Rarity.Epic), // Custom Effect: idk lol irgndswas mit zukunft hihi
             new Weapon("Lance of the Stars", "All the stars' fury gets cast upon an opponent pierced by this weapon.", 49, 0, null, null, Rarity.Epic),
-            new Weapon("Frostbite Tome", "Etches the arts of ice magic into your soul.", 42, 0, null, null, Rarity.Epic), // Custom Effect: irgendwas mit freezen von gegnern
+            new Weapon("Frostbite Tome", "Etches the arts of ice magic into your soul.", 43, 0, null, null, Rarity.Epic), // Custom Effect: irgendwas mit freezen von gegnern
+            new Weapon("Long-sunken Anchor", "Reclaimed by oceanic wildlife, but still hits like a truck.", 48, 0, null, null, Rarity.Epic) 
             // legendary
             new Weapon("Link Breaker", "No trace of a connection remains once something is cut by this blade.", 75, 0, null, null, Rarity.Legendary),
             new Weapon("Ancient Root Hammer", "Birthed from an ancient, evergrowing tree, this hammer is nearly indestructible.", 71, 0, null, null, Rarity.Legendary), // Custom Effect: Chance to stun opponents. (Turn damage to zero for one turn)
@@ -368,6 +369,7 @@ namespace CD2_Bot
             new Extra("Wand of Balance", "Every part of you feels stronger... but only slightly.", 5, 8, 0, null, null, Rarity.Rare),
             new Extra("Black Cat", "A small familiar that helps you in every fight.", 7, 4, 0, null, null, Rarity.Rare),
             new Extra("Caster Amulet", "A pendant imbued with powerful sorcery.", 6, 5, 0, null, null, Rarity.Rare),
+            new Extra("Friendly Wisp", "Keeps flying around you and making little noises. Kind of cute.", 4, 10, 0, null, null, Rarity.Rare),
             // epic
             new Extra("Royal Emblem", "A certain royal family's crest - wearing it makes people think you're important.", 10, 10, 0, null, null, Rarity.Epic), // Custom Effect: Decreases Shop Prices by 5%
             new Extra("Tortuga Talisman", "Made of a hard, nearly indestructible shell, this charm saves you from harm.", 5, 20, 0, null, null, Rarity.Epic), // Custom Effect: Increases Resistance
@@ -395,6 +397,7 @@ namespace CD2_Bot
             new Extra("Crystal Primrose", "A flower said to stand for eternal love, crystallized by an unknown force.", 10, 90, 0, null, null, Rarity.Corrupted),
             new Extra("Greater Will", "The ethos that keeps together the world given form.", 60, 40, 0, null, null, Rarity.Corrupted), // Custom Effect: Increases your HP by 10% 
             new Extra("The Fool's Errand", "Only a madman would accept the challenge.", 20, 20, 0, null, null, Rarity.Corrupted) //  Custom Effect: Doubles EXP gained by winning fights
+            new Extra("Nuclear Fishing Pole", "There probably aren't many sea creatures willing to be caught with this.", 55, 0, null, null, Rarity.Corrupted) // Custom Effect: Deals damage to you AND the enemy every turn.
             // unique
         };
     }
