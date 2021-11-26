@@ -284,7 +284,7 @@ namespace CD2_Bot
             new Weapon("Futurefinder", "A blade that is said to come from a time succeeding ours.", 44, 0, null, null, Rarity.Epic), // Custom Effect: idk lol irgndswas mit zukunft hihi
             new Weapon("Lance of the Stars", "All the stars' fury gets cast upon an opponent pierced by this weapon.", 49, 0, null, null, Rarity.Epic),
             new Weapon("Frostbite Tome", "Etches the arts of ice magic into your soul.", 43, 0, null, null, Rarity.Epic), // Custom Effect: irgendwas mit freezen von gegnern
-            new Weapon("Long-sunken Anchor", "Reclaimed by oceanic wildlife, but still hits like a truck.", 48, 0, null, null, Rarity.Epic) 
+            new Weapon("Long-sunken Anchor", "Reclaimed by oceanic wildlife, but still hits like a truck.", 48, 0, null, null, Rarity.Epic),
             // legendary
             new Weapon("Link Breaker", "No trace of a connection remains once something is cut by this blade.", 75, 0, null, null, Rarity.Legendary),
             new Weapon("Ancient Root Hammer", "Birthed from an ancient, evergrowing tree, this hammer is nearly indestructible.", 71, 0, null, null, Rarity.Legendary), // Custom Effect: Chance to stun opponents. (Turn damage to zero for one turn)
@@ -396,8 +396,8 @@ namespace CD2_Bot
             new Extra("Fire Orb", "Light up the fire in your soul to burn away your enemies.", 70, 10, 0, null, null, Rarity.Corrupted),
             new Extra("Crystal Primrose", "A flower said to stand for eternal love, crystallized by an unknown force.", 10, 90, 0, null, null, Rarity.Corrupted),
             new Extra("Greater Will", "The ethos that keeps together the world given form.", 60, 40, 0, null, null, Rarity.Corrupted), // Custom Effect: Increases your HP by 10% 
-            new Extra("The Fool's Errand", "Only a madman would accept the challenge.", 20, 20, 0, null, null, Rarity.Corrupted) //  Custom Effect: Doubles EXP gained by winning fights
-            new Extra("Nuclear Fishing Pole", "There probably aren't many sea creatures willing to be caught with this.", 55, 0, null, null, Rarity.Corrupted) // Custom Effect: Deals damage to you AND the enemy every turn.
+            new Extra("The Fool's Errand", "Only a madman would accept the challenge.", 20, 20, 0, null, null, Rarity.Corrupted), //  Custom Effect: Doubles EXP gained by winning fights
+            new Extra("Nuclear Fishing Pole", "There probably aren't many sea creatures willing to be caught with this.", 55, 55, 0, null, null, Rarity.Corrupted), // Custom Effect: Deals damage to you AND the enemy every turn.
             // unique
         };
     }
