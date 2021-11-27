@@ -48,7 +48,7 @@ namespace CD2_Bot
                 case "rChest":
                     Rarity chestrarity = Prices.buy.Keys.ToList()[Defaults.GRandom.Next(Prices.buy.Count)];
                     string item = "";
-                    int itemchance = Defaults.GRandom.Next(0, 2);
+                    int itemchance = Defaults.GRandom.Next(0, 3);
                     switch (itemchance)
                     {
                         case 0:

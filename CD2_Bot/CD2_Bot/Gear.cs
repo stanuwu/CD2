@@ -210,7 +210,7 @@ namespace CD2_Bot
             //determien type if not selected
             if (type == "random")
             {
-                switch (Defaults.GRandom.Next(0, 2))
+                switch (Defaults.GRandom.Next(0, 3))
                 {
                     case 0:
                         type = "weapon";
