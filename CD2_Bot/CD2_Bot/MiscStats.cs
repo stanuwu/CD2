@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.Commands;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -188,6 +189,208 @@ namespace CD2_Bot
                 embed.WithFooter(Defaults.FOOTER);
                 await ReplyAsync(embed: embed.Build());
             }
+        }
+
+        [Command("lvltop")]
+        [Summary("View the level leaderboard.")]
+        public async Task LevelTopAsync([Remainder] string xargs = null)
+        {
+            if (tempstorage.characters.Count < 3)
+            {
+                await ReplyAsync(embed: Utils.QuickEmbedError("There is not enough players to do this."));
+                return;
+            }
+
+            List<CharacterStructure> tco = tempstorage.characters.Where(x => x.Deleted == false).OrderByDescending(c => c.EXP).ToList();
+            List<CharacterStructure> t3c = tco.Take(3).ToList();
+
+            string avatarurl = "";
+            IUser founduser = await Defaults.CLIENT.GetUserAsync(t3c[0].PlayerID);
+            if (founduser != null)
+            {
+                avatarurl = founduser.GetAvatarUrl();
+            }
+            else
+            {
+                avatarurl = Defaults.CLIENT.CurrentUser.GetDefaultAvatarUrl();
+            }
+
+            EmbedBuilder embed = new EmbedBuilder
+            {
+                Title = "Level Leaderboard",
+                ThumbnailUrl = avatarurl,
+            };
+
+            embed.Description = "\n" +
+                $"**1: {t3c[0].CharacterName}**\n" +
+                $"Level: {t3c[0].Lvl} ({t3c[0].EXP}exp)\n\n" +
+                $"**2: {t3c[1].CharacterName}**\n" +
+                $"Level: {t3c[1].Lvl} ({t3c[1].EXP}exp)\n\n" +
+                $"**3: {t3c[2].CharacterName}**\n" +
+                $"Level: {t3c[2].Lvl} ({t3c[2].EXP}exp)\n\n";
+
+            CharacterStructure stats = (from user in tempstorage.characters
+                                        where user.PlayerID == Context.User.Id
+                                        select user).SingleOrDefault();
+
+            if (stats != null && stats.Deleted == false && !t3c.Any(x=>x.PlayerID == stats.PlayerID))
+            {
+                embed.Description += $"**Your Place:** {tco.IndexOf(stats)+1}";
+            }
+
+                embed.WithColor(Color.DarkMagenta);
+            embed.WithFooter(Defaults.FOOTER);
+            await ReplyAsync(embed: embed.Build());
+        }
+
+        [Command("moneytop")]
+        [Summary("View the money leaderboard.")]
+        public async Task MoneyTopAsync([Remainder] string xargs = null)
+        {
+            if (tempstorage.characters.Count < 3)
+            {
+                await ReplyAsync(embed: Utils.QuickEmbedError("There is not enough players to do this."));
+                return;
+            }
+
+            List<CharacterStructure> tco = tempstorage.characters.Where(x => x.Deleted == false).OrderByDescending(c => c.Money).ToList();
+            List<CharacterStructure> t3c = tco.Take(3).ToList();
+
+            string avatarurl = "";
+            IUser founduser = await Defaults.CLIENT.GetUserAsync(t3c[0].PlayerID);
+            if (founduser != null)
+            {
+                avatarurl = founduser.GetAvatarUrl();
+            }
+            else
+            {
+                avatarurl = Defaults.CLIENT.CurrentUser.GetDefaultAvatarUrl();
+            }
+
+            EmbedBuilder embed = new EmbedBuilder
+            {
+                Title = "Money Leaderboard",
+                ThumbnailUrl = avatarurl,
+            };
+
+            embed.Description = "\n" +
+                $"**1: {t3c[0].CharacterName}**\n" +
+                $"Money: {t3c[0].Money} coins\n\n" +
+                $"**2: {t3c[1].CharacterName}**\n" +
+                $"Money: {t3c[1].Money} coins\n\n" +
+                $"**3: {t3c[2].CharacterName}**\n" +
+                $"Money: {t3c[2].Money} coins\n\n";
+
+            CharacterStructure stats = (from user in tempstorage.characters
+                                        where user.PlayerID == Context.User.Id
+                                        select user).SingleOrDefault();
+
+            if (stats != null && stats.Deleted == false && !t3c.Any(x => x.PlayerID == stats.PlayerID))
+            {
+                embed.Description += $"**Your Place:** {tco.IndexOf(stats) + 1}";
+            }
+
+            embed.WithColor(Color.DarkMagenta);
+            embed.WithFooter(Defaults.FOOTER);
+            await ReplyAsync(embed: embed.Build());
+        }
+
+        [Command("geartop")]
+        [Summary("View the gear leaderboard.")]
+        public async Task GearTopAsync([Remainder] string xargs = null)
+        {
+            if (tempstorage.characters.Count < 3)
+            {
+                await ReplyAsync(embed: Utils.QuickEmbedError("There is not enough players to do this."));
+                return;
+            }
+
+            List<CharacterStructure> tco = tempstorage.characters.Where(x => x.Deleted == false).OrderByDescending(c => Prices.sell[c.Weapon.Rarity] + Prices.sell[c.Armor.Rarity] + Prices.sell[c.Extra.Rarity]).ToList();
+            List<CharacterStructure> t3c = tco.Take(3).ToList();
+
+            string avatarurl = "";
+            IUser founduser = await Defaults.CLIENT.GetUserAsync(t3c[0].PlayerID);
+            if (founduser != null)
+            {
+                avatarurl = founduser.GetAvatarUrl();
+            }
+            else
+            {
+                avatarurl = Defaults.CLIENT.CurrentUser.GetDefaultAvatarUrl();
+            }
+
+            EmbedBuilder embed = new EmbedBuilder
+            {
+                Title = "Gear Leaderboard",
+                ThumbnailUrl = avatarurl,
+            };
+
+            embed.Description = "\n" +
+                $"**1: {t3c[0].CharacterName}**\n" +
+                $"Weapon: {t3c[0].Weapon.Name}\nArmor: {t3c[0].Armor.Name}\nExtra: {t3c[0].Extra.Name} \n\n" +
+                $"**2: {t3c[1].CharacterName}**\n" +
+                $"Weapon: {t3c[1].Weapon.Name}\nArmor: {t3c[1].Armor.Name}\nExtra: {t3c[1].Extra.Name}\n\n" +
+                $"**3: {t3c[2].CharacterName}**\n" +
+                $"Weapon: {t3c[2].Weapon.Name}\nArmor: {t3c[2].Armor.Name}\nExtra: {t3c[2].Extra.Name}\n\n";
+
+            CharacterStructure stats = (from user in tempstorage.characters
+                                        where user.PlayerID == Context.User.Id
+                                        select user).SingleOrDefault();
+
+            if (stats != null && stats.Deleted == false && !t3c.Any(x => x.PlayerID == stats.PlayerID))
+            {
+                embed.Description += $"**Your Place:** {tco.IndexOf(stats) + 1}";
+            }
+
+            embed.WithColor(Color.DarkMagenta);
+            embed.WithFooter(Defaults.FOOTER);
+            await ReplyAsync(embed: embed.Build());
+        }
+
+        [Command("servertop")]
+        [Summary("View the server leaderboard.")]
+        public async Task ServerTopAsync([Remainder] string xargs = null)
+        {
+            if (tempstorage.guilds.Count < 3)
+            {
+                await ReplyAsync(embed: Utils.QuickEmbedError("There is not enough servers to do this."));
+                return;
+            }
+
+            List<GuildStructure> tco = tempstorage.guilds.OrderByDescending(c => c.DoorsOpened + (c.BossesSlain*10) + (c.QuestsFinished*5)).ToList();
+            List<GuildStructure> t3c = tco.Take(3).ToList();
+
+            string avatarurl = "";
+            IGuild foundguild = Defaults.CLIENT.GetGuild(t3c[0].GuildID);
+            IGuild foundguild2 = Defaults.CLIENT.GetGuild(t3c[1].GuildID);
+            IGuild foundguild3 = Defaults.CLIENT.GetGuild(t3c[2].GuildID);
+            if (foundguild != null)
+            {
+                avatarurl = foundguild.IconUrl;
+            }
+
+            EmbedBuilder embed = new EmbedBuilder
+            {
+                Title = "Gear Leaderboard",
+                ThumbnailUrl = avatarurl,
+            };
+
+            embed.Description = "\n" +
+                $"**1: {foundguild.Name}**\n" +
+                $"Doors: {t3c[0].DoorsOpened}\nBosses: {t3c[0].BossesSlain}\nQuests: {t3c[0].QuestsFinished} \n\n" +
+                $"**2: {foundguild2.Name}**\n" +
+                $"Doors: {t3c[1].DoorsOpened}\nBosses: {t3c[1].BossesSlain}\nQuests: {t3c[1].QuestsFinished}\n\n" +
+                $"**3: {foundguild3.Name}**\n" +
+                $"Doors: {t3c[2].DoorsOpened}\nBosses: {t3c[2].BossesSlain}\nQuests: {t3c[2].QuestsFinished}\n\n";
+
+            if (!t3c.Any(x => x.GuildID == Context.Guild.Id))
+            {
+                embed.Description += $"**Your Place:** {tco.IndexOf(tco.Where(x => x.GuildID == Context.Guild.Id).FirstOrDefault()) + 1}";
+            }
+
+            embed.WithColor(Color.DarkMagenta);
+            embed.WithFooter(Defaults.FOOTER);
+            await ReplyAsync(embed: embed.Build());
         }
     }
 }
