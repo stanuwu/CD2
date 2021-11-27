@@ -29,10 +29,10 @@ namespace CD2_Bot
             DropChance = dropChance;
         }
 
-        string Drop { get; set; }
-        int DropAmount { get; set; }
-        int DropVariation { get; set; }
-        int DropChance { get; set; }
+        public string Drop { get; set; }
+        public int DropAmount { get; set; }
+        public int DropVariation { get; set; }
+        public int DropChance { get; set; }
 
 
 

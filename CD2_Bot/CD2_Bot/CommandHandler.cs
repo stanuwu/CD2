@@ -37,7 +37,8 @@ namespace CD2_Bot
 
             if (!(message.HasCharPrefix(commandPrefix, ref argPos) ||
                 message.HasMentionPrefix(_client.CurrentUser, ref argPos)) ||
-                message.Author.IsBot || message.HasStringPrefix("<@", ref argPos))
+                message.Author.IsBot || message.HasStringPrefix("<@", ref argPos) || 
+                message.HasStringPrefix("<:", ref argPos))
                 return;
 
             await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Info, "Command Handler", $"Running Command: \"{message}\""));
