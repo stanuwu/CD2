@@ -69,7 +69,7 @@ namespace CD2_Bot
                                 statst.Armor = Gear.Armors.Find(w => w.Name == btndata[4]);
                                 break;
                             case "extra":
-                                statst.Armor = Gear.Armors.Find(w => w.Name == btndata[4]);
+                                statst.Extra = Gear.Extras.Find(w => w.Name == btndata[4]);
                                 break;
                         }
                         break;
@@ -85,7 +85,7 @@ namespace CD2_Bot
                                 statst.Money += Prices.sell[Gear.Armors.Find(w => w.Name == btndata[4]).Rarity];
                                 break;
                             case "extra":
-                                statst.Money += Prices.sell[Gear.Armors.Find(w => w.Name == btndata[4]).Rarity];
+                                statst.Money += Prices.sell[Gear.Extras.Find(w => w.Name == btndata[4]).Rarity];
                                 break;
                         }
                         break;
@@ -101,7 +101,7 @@ namespace CD2_Bot
                                 statst.ArmorXP += Prices.infuse[Gear.Armors.Find(w => w.Name == btndata[4]).Rarity];
                                 break;
                             case "extra":
-                                statst.ExtraXP += Prices.infuse[Gear.Armors.Find(w => w.Name == btndata[4]).Rarity];
+                                statst.ExtraXP += Prices.infuse[Gear.Extras.Find(w => w.Name == btndata[4]).Rarity];
                                 break;
                         }
                         break;
