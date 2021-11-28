@@ -376,7 +376,7 @@ namespace CD2_Bot
             new Extra("Ambrosia", "A meal of gods, giving you incredible health.", 0, 30, 0, null, null, Rarity.Epic ),
             new Extra("Siren's Song", "Heed the call of the sirens.", 8, 15, 0, null, null, Rarity.Epic),
             new Extra("Dreamcatcher", "Casts the evil thoughts gathered in your sleep unto your enemies.", 16, 0, 0, null, null, Rarity.Epic),
-            new Extra("Petrified Leaf", "You can still see a little of its auburn color. ", 10, 20, 0, null, null, Rarity.Epic),
+            new Extra("Petrified Leaf", "You can still see a little of its auburn color. ", 9, 12, 0, null, null, Rarity.Epic),
             // legendary
             new Extra("Phoenix Feather", "The plume of a mystical bird, said to be able to bring back those fallen in battle.", 0, 50, 0, null, null, Rarity.Legendary), // Custom Effect: Can rescue you from death once a fight (maybe)
             new Extra("Sliver of Darkness", "A shard of unknown origin, said to be made of pure, deep darkness.", 25, 0, 0, null, null, Rarity.Legendary), // Custom Effect: Decreases the enemies HP by a certain amount
