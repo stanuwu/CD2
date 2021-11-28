@@ -238,7 +238,7 @@ namespace CD2_Bot
                 embed.Description += $"**Your Place:** {tco.IndexOf(stats)+1}";
             }
 
-                embed.WithColor(Color.DarkMagenta);
+            embed.WithColor(Color.DarkMagenta);
             embed.WithFooter(Defaults.FOOTER);
             await ReplyAsync(embed: embed.Build());
         }
