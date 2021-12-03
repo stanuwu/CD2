@@ -19,14 +19,19 @@ namespace CD2_Bot
         {
             File.Create("log.txt").Close();
 
-            _client = new DiscordSocketClient();
+            DiscordSocketConfig sconf = new DiscordSocketConfig
+            {
+                UseInteractionSnowflakeDate = false
+            };
+
+            _client = new DiscordSocketClient(sconf);
             _client.Log += Log;
 
             CommandServiceConfig cconf = new CommandServiceConfig
             {
                 CaseSensitiveCommands = false,
                 DefaultRunMode = RunMode.Async,
-                IgnoreExtraArgs = false
+                IgnoreExtraArgs = false,
             };
             CommandService _commands = new CommandService(cconf);
 

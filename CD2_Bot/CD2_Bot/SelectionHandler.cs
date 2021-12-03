@@ -36,11 +36,11 @@ namespace CD2_Bot
                 }
                 try
                 {
+                    await sel.DeferAsync();
                     ulong gid = ((SocketGuildUser)sel.User).Guild.Id;
                     string selOpt = string.Join(", ", sel.Data.Values);
                     Tuple<Embed, Optional<MessageComponent>> results = Rooms.ExecuteRoom(selOpt, userid, gid, sel.Channel);
                     await sel.Message.DeleteAsync();
-                    await sel.DeferAsync();
                     await sel.FollowupAsync(component: results.Item2.Value, embed: results.Item1 );
                 }
                 catch (Exception r) { Utils.DebugLog(r.Message);  }
