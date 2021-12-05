@@ -24,6 +24,7 @@ namespace CD2_Bot
             tarmor.CustomEffect(stats, enemy, tweapon, textra);
             textra.CustomEffect(stats, enemy, tweapon, tarmor);
 
+            //apply enemy effects
             enemy.CustomEffect(stats, tweapon, tarmor, textra);
 
             //calculate total damage to specific enemy
