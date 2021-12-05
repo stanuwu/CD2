@@ -80,11 +80,12 @@ namespace CD2_Bot
 
             public virtual void CustomEffect(ulong playerID)
             {
-                switch (this.Type)
+                switch (this.CustomEffectName)
             {
                 case "Test":
 
                     break;
+
             }
             } 
 
@@ -122,11 +123,11 @@ namespace CD2_Bot
             Enemy generatedEnemy = new Enemy(selectedEnemy.Type, selectedEnemy.Description, hpadded, level, selectedEnemy.Resistance, selectedEnemy.Minlevel, damageadded, selectedEnemy.CustomEffectName, selectedEnemy.CustomEffectDescription, selectedEnemy.Drops);
             return generatedEnemy;
             }
-       
+
         public static List<Enemy> Enemies = new List<Enemy>
         {
             new Enemy("Slime", "A mindless creature, formed through strange goo flowing out of the walls of certain caves. Comes in a variety of colours.", 50, 0, 100, 0, 7 , null, null, null),
-            new Enemy("Gnawing Rat", "A rat who attacks and eats everything it sees, even other rats.", 20, 0, 90, 0, 5, null, null, null),
+            new Enemy("Gnawing Rat", "A rat who attacks and eats everything it sees, even other rats.", 20, 0, 90, 0, 5, "Light Bleeding", "Caused by a minor, but deep wound.", null),
             new Enemy("Crazy Monk", "A monk whose mind has been corrupted by only the sins of their own clergy. Attacks random travelers to cleanse their soul.", 25, 0, 100, 0, 12 , null, null, new EnemyDrops("Torn Bible", 1, 0, 10)),
             new Enemy("Cursed Rock", "A rock that has been cursed to roll forever, crushing everything in its path.", 70, 0, 80, 0, 5, null, null, new EnemyDrops("Stone", 2, 1, 40)),
             new Enemy("Wild Hound", "A stray dog, craving only food, not affection.", 50, 0, 100, 0, 10, null, null, null),
@@ -147,7 +148,7 @@ namespace CD2_Bot
             new Enemy("Bandit", "A human whose path led them to a life of crime.", 65, 0, 100, 10, 25, null, null, new EnemyDrops("Small Pouch", 1, 0, 10)),
             new Enemy("Bandit Leader", "The leader of a small group of bandits. Some are indepent, some are lieutenants of a larger bandit group.", 75, 0, 100, 11, 30, null, null, new EnemyDrops("Small Pouch", 1, 0, 15)),
             new Enemy("Wandering Tree", "A tree whose roots started to become legs to hunt the fiends who destroyed their habitat.", 80, 0, 90, 10, 20, null, null, new EnemyDrops("Wood", 3, 1, 30)),
-            new Enemy("Stone Golem", "A giant humanoid covered in a armor of stones and minerals. Often thought to be a defense mechanism of the mountains they roam.", 100, 0, 70, 10, 20, null, null,  new EnemyDrops("Stone", 4, 1, 20)),
+            new Enemy("Stone Golem", "A giant humanoid covered in a armor of stones and minerals. Often thought to be a defense mechanism of the mountains they roam.", 100, 0, 70, 10, 20, null, null, new EnemyDrops("Stone", 4, 1, 20)),
             new Enemy("Toxic Smoke", "A cloud o poisonous smoke which is controlled by an otherwise weak spirit.", 60, 0, 150, 10, 10, null, null, null),
             new Enemy("Ice Wizard of the Order", "A member of an evil organisation who specializes in ice spells.", 55, 0, 100, 10, 20, null, null, null),
             new Enemy("Fire Wizard of the Order", "A member of an evil organisation who specializes in fire spells.", 55, 0, 120, 10, 30, null, null, null),
