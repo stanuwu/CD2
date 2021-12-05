@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace CD2_Bot
 {
-    class CharacterStructure
+    public class CharacterStructure
     {
         public CharacterStructure(ulong playerID)
         {

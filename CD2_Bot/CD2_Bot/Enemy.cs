@@ -78,7 +78,7 @@ namespace CD2_Bot
             public string CustomEffectDescription { get; set; }
             public EnemyDrops Drops { get; set; }
 
-            public virtual void CustomEffect(ulong playerID)
+            public virtual void CustomEffect(CharacterStructure character, Weapon weapon, Armor armor, Extra extra)
             {
                 switch (this.CustomEffectName)
             {

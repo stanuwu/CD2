@@ -99,7 +99,7 @@ namespace CD2_Bot
         public string CustomEffectName { get; set; }
         public string CustomEffectDescription { get; set; }
         public Rarity Rarity { get; set; }
-        public void CustomEffect(ulong playerID, Enemy enemy)
+        public void CustomEffect(CharacterStructure character, Enemy enemy, Armor armor, Extra extra)
         {
             switch (this.Name)
             {
@@ -134,7 +134,7 @@ namespace CD2_Bot
         public string CustomEffectName { get; set; }
         public string CustomEffectDescription { get; set; }
         public Rarity Rarity { get; set; }
-        public void CustomEffect(ulong playerID, Enemy enemy)
+        public void CustomEffect(CharacterStructure character, Enemy enemy, Weapon weapon, Extra extra)
         {
             switch (this.Name)
             {
@@ -174,7 +174,7 @@ namespace CD2_Bot
         public string CustomEffectName { get; set; }
         public string CustomEffectDescription { get; set; }
         public Rarity Rarity { get; set; }
-        public void CustomEffect(ulong playerID, Enemy enemy)
+        public void CustomEffect(CharacterStructure character, Enemy enemy, Weapon weapon, Armor armor)
         {
             switch (this.Name)
             {
