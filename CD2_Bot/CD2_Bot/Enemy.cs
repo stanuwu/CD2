@@ -86,6 +86,20 @@ namespace CD2_Bot
 
                     break;
 
+                case "Light Bleeding":
+                    this.Damage += this.Damage/10;
+
+                    break;
+
+                case "Moderate Bleeding":
+                    this.Damage += this.Damage/20;
+
+                    break;
+
+                case "Severe Bleeding":
+                    this.Damage += this.Damage/30;
+
+                    break;
             }
             } 
 
