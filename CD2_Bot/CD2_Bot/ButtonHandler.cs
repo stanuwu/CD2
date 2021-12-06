@@ -30,6 +30,9 @@ namespace CD2_Bot
                 case "coinflip":
                     await DoCoinflip(btn);
                     break;
+                case "guide":
+                    await EditGuide(btn);
+                    break;
             }
         }
 
@@ -248,6 +251,37 @@ namespace CD2_Bot
             }
             await btn.Message.DeleteAsync();
             await btn.RespondAsync(embed: embed.Build());
+        }
+        public static async Task EditGuide(SocketMessageComponent btn)
+        {
+            string[] btndata = btn.Data.CustomId.Split(';');
+            switch (btndata[1])
+            {
+                case "start":
+                    Embed guideembed = Utils.QuickEmbedNormal("Guide", "Welcome to Custom Dungeons 2!\n In this text based RPG you can create your own character and explore a never ending dungeon, filled with monsters and riches. Level your character, slay bosses and always strive for the best loot, but be aware that enemies wil also become stronger alongside you.");
+                    await btn.UpdateAsync(x => x.Embed = guideembed);
+                    break;
+                case "character":
+                    Embed guideembedchar = Utils.QuickEmbedNormal("Guide", "Character\nYour character has a custom name, a custom description, a title, a selectable class, gear (weapon, armor and an extra), money and a stat multiplier which is calculated through your current level");
+                    await btn.UpdateAsync(x => x.Embed = guideembedchar);
+                    break;
+                case "gear":
+                    Embed guideembedgear = Utils.QuickEmbedNormal("Guide", "Gear\nYour character's gear consists of a weapon, an armor and an extra. All of them have different rarities, showing how strong and valuable they are, and some even have custom effects.");
+                    await btn.UpdateAsync(x => x.Embed = guideembedgear);
+                    break;
+                case "floor":
+                    Embed guideembedfloor = Utils.QuickEmbedNormal("Guide", "Floor\nThe main gameplay aspect. You can either encounter a monster, find money or even chests, or you may be unlucky and stumble into a trap, robbing you of your hard earned money.");
+                    await btn.UpdateAsync(x => x.Embed = guideembedfloor);
+                    break;
+                case "fight":
+                    Embed guideembedfight = Utils.QuickEmbedNormal("Guide", "Fight\nA fight against a single monster. You have to defeat it for a chance of getting (crafting) item drops and always an ammount of money. If it defeats you, you won't be able to proceed into antoher floor until you have enough health again.");
+                    await btn.UpdateAsync(x => x.Embed = guideembedfight);
+                    break;
+                case "chests":
+                    Embed guideembedchests = Utils.QuickEmbedNormal("Guide", "Chests\nChests containing gear drops, which can be stumpled upon in room of surprises. Depending on rarity, the price to open them can be harsh, but even when the player isn't happy with their lot, they can sell it right away.");
+                    await btn.UpdateAsync(x => x.Embed = guideembedchests);
+                    break;
+            }
         }
     }
 }
