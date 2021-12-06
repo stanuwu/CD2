@@ -137,6 +137,7 @@
     <Compile Include="Gear.cs" />
     <Compile Include="Guide.cs" />
     <Compile Include="GuildStructure.cs" />
+    <Compile Include="Help.cs" />
     <Compile Include="Init.cs" />
     <Compile Include="JoinHandler.cs" />
     <Compile Include="RoomTypes.cs" />

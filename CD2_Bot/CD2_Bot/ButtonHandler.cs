@@ -33,6 +33,9 @@ namespace CD2_Bot
                 case "guide":
                     await EditGuide(btn);
                     break;
+                case "help":
+                    await EditGuide(btn);
+                    break;
             }
         }
 
@@ -210,8 +213,8 @@ namespace CD2_Bot
                                         where user.PlayerID == userid
                                         select user).SingleOrDefault();
             CharacterStructure stats2 = (from user in tempstorage.characters
-                                        where user.PlayerID == userid2
-                                        select user).SingleOrDefault();
+                                         where user.PlayerID == userid2
+                                         select user).SingleOrDefault();
 
             if (stats == null || stats2 == null)
             {
@@ -280,6 +283,38 @@ namespace CD2_Bot
                 case "chests":
                     Embed guideembedchests = Utils.QuickEmbedNormal("Guide", "Chests\nChests containing gear drops, which can be stumpled upon in room of surprises. Depending on rarity, the price to open them can be harsh, but even when the player isn't happy with their lot, they can sell it right away.");
                     await btn.UpdateAsync(x => x.Embed = guideembedchests);
+                    break;
+            }
+        }
+
+        public static async Task EditHelp(SocketMessageComponent btn)
+        {
+            string[] btndata = btn.Data.CustomId.Split(';');
+            switch (btndata[1])
+            {
+                case "character":
+                    Embed helpembedchar = Utils.QuickEmbedNormal("Help", "``<start [Character Name]``\n Create a character with the given name (if you do not have one already). \n ``<character <[UID]>``\n Views your character (or someone elses, if given an ID). \n ``<stats <[UID]>``\n Views your character's gear (or someone elses, if given an ID). \n ``<inventory``\n Shows you your inventory. \n ``<reset``\n Deletes your character. \n ``<rename [Character Name]``\n Renames your character to the given name. \n ``<description``\n Gives your character the given description.");
+                    await btn.UpdateAsync(x => x.Embed = helpembedchar);
+                    break;
+                case "stats":
+                    Embed helpembedstats = Utils.QuickEmbedNormal("Help", "``<weapon [Weapon Name]``\n Views the stats of the given weapon. \n ``<armor [Armor Name]`` \n Views the stats of the given armor. \n ``<extra [Extra Name]`` \n Views the stats of the given extra. \n ``<monster [Monster Name]`` \n Views the stats of the given monster.");
+                    await btn.UpdateAsync(x => x.Embed = helpembedstats);
+                    break;
+                case "dungeons":
+                    Embed helpembeddungeons = Utils.QuickEmbedNormal("Help", "``<floor``\n Lets you choose a door to open in your server's dungeon.");
+                    await btn.UpdateAsync(x => x.Embed = helpembeddungeons);
+                    break;
+                case "money":
+                    Embed helpembedmoney = Utils.QuickEmbedNormal("Help", "``<coinflip [Amount of money bet]``\n Coinflip against an AI or another player for money. \n ``<slots [Amount of money bet]``\n Spin a slot machine for money.");
+                    await btn.UpdateAsync(x => x.Embed = helpembedmoney);
+                    break;
+                case "top":
+                    Embed helpembedtop = Utils.QuickEmbedNormal("Help", "``<lvltop``\n Showcases the top characters across all servers by level. \n ``<moneytop``\n Showcases the top characters across all servers by amount of money owned. \n ``<geartop``\n Showcases the top characters across all servers by gear equipped. \n ``<servertop``\n Showcases the top servers by various criterias.");
+                    await btn.UpdateAsync(x => x.Embed = helpembedtop);
+                    break;
+                case "misc":
+                    Embed helpembedmisc = Utils.QuickEmbedNormal("Help", "``<guide``\n A guidebook for every part of CD2. \n ``<server``");
+                    await btn.UpdateAsync(x => x.Embed = helpembedmisc);
                     break;
             }
         }
