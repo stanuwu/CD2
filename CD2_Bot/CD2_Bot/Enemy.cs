@@ -42,7 +42,7 @@ namespace CD2_Bot
             KeyValuePair<string, int> drops;
             if (Defaults.GRandom.Next(0, 100) <= this.DropChance)
             {
-                drops = new KeyValuePair<string, int>(this.Drop, Math.Abs(Defaults.GRandom.Next(this.DropVariation * -1, this.DropVariation) + this.DropAmount));
+                drops = new KeyValuePair<string, int>(this.Drop, Math.Abs(Defaults.GRandom.Next(this.DropVariation * -1, this.DropVariation+1) + this.DropAmount));
             }
             else
             {
@@ -199,7 +199,7 @@ namespace CD2_Bot
             Enemy selectedEnemy = possibleEnemies[Defaults.GRandom.Next(possibleEnemies.Count())];
             if (level > 6)
             {
-                level = Math.Abs(level + Defaults.GRandom.Next(-5, 5));
+                level = Math.Abs(level + Defaults.GRandom.Next(-2, 3));
             }
             int hpadded = 0;
             if (level > 50)

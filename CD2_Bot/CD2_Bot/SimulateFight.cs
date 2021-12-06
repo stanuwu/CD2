@@ -64,9 +64,9 @@ namespace CD2_Bot
             }
 
             if (win == true) {
-                mfound = 200 + enemy.Level * 50;
-                xgained = 50 + enemy.Level * 5;
-                wxgained = (int)Math.Floor((double)xgained / 4);
+                mfound = 50 + enemy.Level * 20;
+                xgained = 10 + enemy.Level * 4;
+                wxgained = (int)Math.Floor((double)xgained / 2);
                 stats.Money += mfound;
                 stats.EXP += xgained;
                 stats.WeaponXP += wxgained;
@@ -74,7 +74,7 @@ namespace CD2_Bot
                 stats.ExtraXP += wxgained;
             } else
             {
-                mlost = (500 + stats.Lvl * 50);
+                mlost = (100 + stats.Lvl * 20);
                 if (stats.Money < mlost)
                 {
                     mlost = stats.Money;
