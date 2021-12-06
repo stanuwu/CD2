@@ -10,7 +10,7 @@ using Npgsql;
 
 namespace CD2_Bot
 {
-    class Help : ModuleBase<SocketCommandContext>
+    public class Help : ModuleBase<SocketCommandContext>
     {
         [Command("help")]
         [Summary("Opens the help menu.")]
