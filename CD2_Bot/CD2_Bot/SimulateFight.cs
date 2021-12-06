@@ -20,17 +20,19 @@ namespace CD2_Bot
             Extra textra = stats.Extra.Clone();
 
             //apply weapon effects
-            tweapon.CustomEffect(stats, enemy, tarmor, textra);
-            tarmor.CustomEffect(stats, enemy, tweapon, textra);
-            textra.CustomEffect(stats, enemy, tweapon, tarmor);
+            double tdmge = tweapon.CustomEffect(stats, enemy, tarmor, textra);
+            tdmge += tarmor.CustomEffect(stats, enemy, tweapon, textra);
+            tdmge += textra.CustomEffect(stats, enemy, tweapon, tarmor);
 
             //apply enemy effects
-            enemy.CustomEffect(stats, tweapon, tarmor, textra);
+            double edmge = enemy.CustomEffect(stats, tweapon, tarmor, textra);
 
             //calculate total damage to specific enemy
             double tdamage = Convert.ToDouble(tweapon.Damage + textra.Damage) * stats.StatMultiplier * ((double)enemy.Resistance/100)+0.01;
+            tdamage += tdmge;
             //calculate enemies damage to you with armor
             double edamage = enemy.Damage * ((double)tarmor.Resistance / 100)+0.01;
+            edamage += edmge;
 
             //calculate player rounds to kill
             int tdpr = (int) Math.Ceiling(enemy.HP / tdamage);
