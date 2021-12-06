@@ -34,7 +34,7 @@ namespace CD2_Bot
                     await EditGuide(btn);
                     break;
                 case "help":
-                    await EditGuide(btn);
+                    await EditHelp(btn);
                     break;
             }
         }
