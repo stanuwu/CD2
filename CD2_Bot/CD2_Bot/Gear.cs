@@ -99,14 +99,74 @@ namespace CD2_Bot
         public string CustomEffectName { get; set; }
         public string CustomEffectDescription { get; set; }
         public Rarity Rarity { get; set; }
-        public void CustomEffect(CharacterStructure character, Enemy enemy, Armor armor, Extra extra)
+        public double CustomEffect(CharacterStructure character, Enemy enemy, Armor armor, Extra extra)
         {
-            switch (this.Name)
+            switch (this.CustomEffectName)
             {
-                case "TestWaffa":
+                case "Lifesteal":
+                    character.HP += (int)this.Damage;
+                    break;
 
+                case "Future Sight":
+                    enemy.Damage -= enemy.Damage/15;
+                    break;
+
+                case "Freeze":
+                    enemy.Damage -= enemy.Damage/25;
+                    enemy.Resistance += 3;
+                    break;
+
+                case "Stun":
+                    enemy.Damage -= enemy.Damage/10;
+                    break;
+
+                case "Heavy Stun":
+                    enemy.Damage -= enemy.Damage/20;
+                    break;
+
+                case "Fortified":
+                    armor.Resistance -= 5;
+                    break;
+
+                case "Critical Eye":
+                    if (Defaults.GRandom.Next(20) == 1)
+                    {
+                        this.BaseDamage = this.BaseDamage * 2;
+                    }
+                    break;
+
+                case "Weakness Exploit":
+                    enemy.Resistance += 5;
+                    break;
+                
+                case "Guide to the Afterlife":
+                    if (Defaults.GRandom.Next(100) == 1)
+                    {
+                        return int.MaxValue;
+                    }
+                    break;
+
+                case "Motor Function":
+                    if (Defaults.GRandom.Next(0, 3) == 0)
+                    {
+                        this.BaseDamage = 55;
+                    }
+                    else if (Defaults.GRandom.Next(0, 3) == 1)
+                    {
+                        this.BaseDamage = 75;
+                    }
+                    else if (Defaults.GRandom.Next(0, 3) == 2)
+                    {
+                        this.BaseDamage = 90;
+                    }
+                    break;
+
+                case "Blessing Light":
+                    character.HP += (int)(((double)this.Damage)*1.5);
                     break;
             }
+
+            return 0;
         }
         public Weapon Clone()
         {
@@ -134,14 +194,148 @@ namespace CD2_Bot
         public string CustomEffectName { get; set; }
         public string CustomEffectDescription { get; set; }
         public Rarity Rarity { get; set; }
-        public void CustomEffect(CharacterStructure character, Enemy enemy, Weapon weapon, Extra extra)
+        public double CustomEffect(CharacterStructure character, Enemy enemy, Weapon weapon, Extra extra)
         {
-            switch (this.Name)
+            switch (this.CustomEffectName)
             {
-                case "TestRusta":
+                case "Light Burn":
+                    enemy.Damage -= enemy.Damage/20;
+                    return enemy.HP/50;
 
+                case "Strength":
+                    weapon.BaseDamage += 10;
+                    break;
+
+                case "Archer's Blessing":
+                    if (weapon.Name.Contains("Bow") || weapon.Name.Contains("Crossbow") || weapon.Name.Contains("Bowgun"))
+                    {
+                        weapon.BaseDamage += weapon.BaseDamage/5;
+                    }
+                    break;
+
+                case "Healthy Herbs":
+                    extra.BaseHeal += extra.BaseHeal/10;
+                    break;
+
+                case "Calming Waters":
+                    character.HP += character.MaxHP/20;
+                    break;
+
+                case "Berserker's Fury":
+                    character.HP = character.MaxHP/2;
+                    weapon.BaseDamage += character.HP/20;
+                    break;
+
+                case "Chilly":
+                    character.HP -= 10;
+                    break;
+
+                case "Sage Magic":
+                    extra.BaseHeal += extra.BaseHeal/5;
+                    break;
+
+                case "Moneymaker":
+                    character.Money += enemy.Level*10;
+                    break;
+
+                case "Fault in the System":
+                    this.Resistance = Defaults.GRandom.Next(70, 90);
+                    weapon.BaseDamage += Defaults.GRandom.Next(-5, 10);
+                    break;
+
+                case "Comfy Cotton":
+                    extra.BaseHeal += extra.BaseHeal/4;
+                    break;
+
+                case "Safety Hazard":
+                    if (Defaults.GRandom.Next(10) == 1)
+                    {
+                        character.HP -= (character.HP/100)*Defaults.GRandom.Next(10);
+                    }
+                    break;
+
+                case "Power of Hatred":
+                    weapon.BaseDamage += weapon.BaseDamage/4;
+                    break;
+
+                case "Core's Heat":
+                    weapon.BaseDamage += weapon.BaseDamage/4;
+                    break;
+
+                case "Modifier":
+                    switch (weapon.Rarity)
+                    {
+                        case Rarity.Common:
+                            weapon.BaseDamage += 4;
+                            break;
+
+                        case Rarity.Uncommon:
+                            weapon.BaseDamage += 8;
+                            break;
+
+                        case Rarity.Rare:
+                            weapon.BaseDamage += 12;
+                            break;
+
+                        case Rarity.Epic:
+                            weapon.BaseDamage += 16;
+                            break;
+
+                        case Rarity.Legendary:
+                            weapon.BaseDamage += 20;
+                            break;
+
+                        case Rarity.Unstable:
+                            weapon.BaseDamage += 24;
+                            break;
+
+                        case Rarity.Corrupted:
+                            weapon.BaseDamage += 28;
+                            break;
+
+                        case Rarity.Unique:
+                            weapon.BaseDamage += 24;
+                            break;
+                    }
+
+                    switch (extra.Rarity)
+                    {
+                        case Rarity.Common:
+                            extra.BaseHeal += 6;
+                            break;
+
+                        case Rarity.Uncommon:
+                            extra.BaseHeal += 12;
+                            break;
+
+                        case Rarity.Rare:
+                            extra.BaseHeal += 18;
+                            break;
+
+                        case Rarity.Epic:
+                            extra.BaseHeal += 24;
+                            break;
+
+                        case Rarity.Legendary:
+                            extra.BaseHeal += 30;
+                            break;
+
+                        case Rarity.Unstable:
+                            extra.BaseHeal += 36;
+                            break;
+
+                        case Rarity.Corrupted:
+                            extra.BaseHeal += 42;
+                            break;
+
+                        case Rarity.Unique:
+                            extra.BaseHeal += 36;
+                            break;
+                    }
                     break;
             }
+
+            return 0;
         }
         public Armor Clone()
         {
@@ -174,14 +368,86 @@ namespace CD2_Bot
         public string CustomEffectName { get; set; }
         public string CustomEffectDescription { get; set; }
         public Rarity Rarity { get; set; }
-        public void CustomEffect(CharacterStructure character, Enemy enemy, Weapon weapon, Armor armor)
+        public double CustomEffect(CharacterStructure character, Enemy enemy, Weapon weapon, Armor armor)
         {
-            switch (this.Name)
+            switch (this.CustomEffectName)
             {
                 case "TestExtra":
+                    break;
 
+                case "Turtle Spirit":
+                    armor.Resistance -= 5;
+                    break;
+
+                case "Phoenix' Embrace":
+                    if (Defaults.GRandom.Next(200) == 1)
+                    {
+                        character.HP += 500;
+                    }
+                    break;
+
+                case "Life Decrease":
+                    enemy.HP -= enemy.HP/10;
+                    break;
+
+                case "Lifelight":
+                    character.HP = character.MaxHP;
+                    break;
+
+                case "Gemstone Delight":
+                    character.Money += 1000;
+                    break;
+
+                case "Piercing Defenses":
+                    enemy.Resistance += 5;
+                    break;
+
+                case "Moonshine":
+                    this.BaseHeal += this.BaseHeal / 5;
+                    break;
+
+                case "Money Machine":
+                    if (Defaults.GRandom.Next(50) == 1)
+                    {
+                        character.Money += 3000;
+                    }
+                    break;
+
+                case "Valorous Offensive":
+                    if (character.HP / character.MaxHP > 80)
+                    {
+                        weapon.BaseDamage += weapon.BaseDamage / 20;
+                    }
+                    else if (character.HP / character.MaxHP > 60 && character.HP / character.MaxHP <= 80)
+                    {
+                        weapon.BaseDamage += weapon.BaseDamage / 10;
+                    }
+                    else if (character.HP / character.MaxHP > 40 && character.HP / character.MaxHP <= 60)
+                    {
+                        weapon.BaseDamage += (int)(weapon.BaseDamage / 7);
+                    }
+                    else if (character.HP / character.MaxHP > 20 && character.HP / character.MaxHP <= 40)
+                    {
+                        weapon.BaseDamage += weapon.BaseDamage / 5;
+                    }
+                    break;
+
+                case "Black Magic":
+                    weapon.BaseDamage = weapon.BaseDamage * 2;
+                    character.HP = character.HP / 2;
+                    break;
+
+                case "Guts":
+                    character.EXP += Prices.infuse[Rarity.Epic];
+                    break;
+
+                case "Radiation":
+                    character.HP -= character.HP/10;
+                    enemy.HP -= enemy.HP/10;
                     break;
             }
+
+            return 0;
         }
         public Extra Clone()
         {
@@ -207,7 +473,7 @@ namespace CD2_Bot
                 else { droprarity = Rarity.Corrupted; }
             }
 
-            //determien type if not selected
+            //determine type if not selected
             if (type == "random")
             {
                 switch (Defaults.GRandom.Next(0, 3))
@@ -272,7 +538,7 @@ namespace CD2_Bot
             new Weapon("Dreihander", "A sword so heavy that two hands aren't enough to carry it.", 18, 0, null, null, Rarity.Uncommon),
             new Weapon("Big Cannon", "Watch out for the recoil.", 17, 0, null, null, Rarity.Uncommon),
             // rare
-            new Weapon("Vampire Tooth", "Steal your opponents' life by slashing them apart.", 25, 0, null, null, Rarity.Rare), // Custom Effect: Replenishes some health after a fight.
+            new Weapon("Vampire Tooth", "Steal your opponents' life by slashing them apart.", 25, 0, "Lifesteal", "Heals for twice your damage before the start of the battle.", Rarity.Rare),
             new Weapon("Darkened Lucerne", "The blood on this halberd has turned its color to a dark red.", 31, 0, null, null, Rarity.Rare),
             new Weapon("Spiked Brass Knuckles", "Punch your enemy into the ground, leaving no room for parries.", 29, 0, null, null, Rarity.Rare),
             new Weapon("Kusarigama", "A chain sickle to wrap and slice your enemies up with.", 29, 0, null, null, Rarity.Rare),
@@ -281,22 +547,23 @@ namespace CD2_Bot
             // epic
             new Weapon("Crystalrend", "The reflection of their faces on this gleaming blade is the last thing the enemy'll see.", 48, 0, null, null, Rarity.Epic),
             new Weapon("Staff of the Elements", "Channel the eternal strength of nature and force it upon your foes.", 47, 0, null, null, Rarity.Epic),
-            new Weapon("Futurefinder", "A blade that is said to come from a time succeeding ours.", 44, 0, null, null, Rarity.Epic), // Custom Effect: idk lol irgndswas mit zukunft hihi
+            new Weapon("Futurefinder", "A blade that is said to come from a time succeeding ours.", 45, 0, "Future Sight", "Has a chance to predict an enemy's attack, completely avoiding it.", Rarity.Epic), 
             new Weapon("Lance of the Stars", "All the stars' fury gets cast upon an opponent pierced by this weapon.", 49, 0, null, null, Rarity.Epic),
-            new Weapon("Frostbite Tome", "Etches the arts of ice magic into your soul.", 43, 0, null, null, Rarity.Epic), // Custom Effect: irgendwas mit freezen von gegnern
+            new Weapon("Frostbite Tome", "Etches the arts of ice magic into your soul.", 44, 0, "Freeze", "Decreases damage and resistance of the enemy.", Rarity.Epic), 
             new Weapon("Long-sunken Anchor", "Reclaimed by oceanic wildlife, but still hits like a truck.", 48, 0, null, null, Rarity.Epic),
             // legendary
             new Weapon("Link Breaker", "No trace of a connection remains once something is cut by this blade.", 75, 0, null, null, Rarity.Legendary),
-            new Weapon("Ancient Root Hammer", "Birthed from an ancient, evergrowing tree, this hammer is nearly indestructible.", 71, 0, null, null, Rarity.Legendary), // Custom Effect: Chance to stun opponents. (Turn damage to zero for one turn)
-            new Weapon("Runed Greatshield", "A gigantic shield to protect you from attacks - or bash in some heads.", 69, 0, null, null, Rarity.Legendary), // Custom Effect: Increases Resistance
-            new Weapon("Erebus Gauntlets", "Gauntlets imbued with the power of the underworld.", 73, 0, null, null, Rarity.Legendary), // Custom Effect: Crit Chance
-            new Weapon("Lightray Bowgun", "Beam your enemies away with the sun's shining light.", 74, 0, null, null, Rarity.Legendary), // Custom Effect: Chance to heal on attack
-            new Weapon("Propeller Blade", "Has three modes. Can be really strong ONLY if you're lucky.", 0, 0, null, null, Rarity.Legendary), // Custom Effect: Chance on hit to either do 55, 75 or 90 damage on hit (Each 33.3% chance).
+            new Weapon("Ancient Root Hammer", "Birthed from an ancient, evergrowing tree, this hammer is nearly indestructible.", 71, 0, "Stun", "Small chance for the enemy to not attack you.", Rarity.Legendary),
+            new Weapon("Runed Greatshield", "A gigantic shield to protect you from attacks - or bash in some heads.", 69, 0, "Fortified", "Increases your Resistance.", Rarity.Legendary),
+            new Weapon("Erebus Gauntlets", "Gauntlets imbued with the power of the underworld.", 73, 0, "Critical Eye", "Chance to critically hit an enemy.", Rarity.Legendary),
+            new Weapon("Lightray Bowgun", "Beam your enemies away with the sun's shining light.", 74, 0, "Blessing Light", "Heals you on attack.", Rarity.Legendary),
+            new Weapon("Propeller Blade", "Has three modes. Can be really strong ONLY if you're lucky.", 75, 0, "Motor Function", "Chance on hit to either do 55, 75 or 90 damage on hit (Each 33.3% chance).", Rarity.Legendary),
+            new Weapon("Scythe of the Young Reaper", "Used to take away the souls of the deceased - but doesn't always work.", 20, 0, "Guide to the Afterlife", "Tiny chance to instantly kill an enemy.", Rarity.Legendary),
             // unstable
             new Weapon("Pulsar Breaker", "Can break a star in half with magnetic powers.", 94, 0, null, null, Rarity.Unstable),
-            new Weapon("Soultracer", "Slice the edges of your opponent's soul.", 90, 0, null, null, Rarity.Unstable), // Custom Effect: Crit Chance
-            new Weapon("Heartstopper", "These claws are infamous for making opponents freeze in fear merely at a glance.", 90, 0, null, null, Rarity.Unstable), // Custom Effect: Lowers enemy resistance.
-            new Weapon("Bodybreaker", "Pulverize your opponent's bones through mere punches.", 90, 0, null, null, Rarity.Unstable), // Custom Effect: Chance to make the enemy not attack.
+            new Weapon("Soultracer", "Slice the edges of your opponent's soul.", 90, 0, "Critical Eye", "Chance to critically hit an enemy.", Rarity.Unstable), 
+            new Weapon("Heartstopper", "These claws are infamous for making opponents freeze in fear merely at a glance.", 90, 0, "Weakness Exploit", "Weakens the enemies Resistance.", Rarity.Unstable),
+            new Weapon("Bodybreaker", "Pulverize your opponent's bones through mere punches.", 90, 0, "Stun", "Small chance for the enemy to not attack you.", Rarity.Unstable),
             new Weapon("Deep Ocean Geyser", "Command the waters and blast them at your foes.", 97, 0, null, null, Rarity.Unstable),
             new Weapon("Ebony Cloud", "Thunder and lightning are yours to control.", 95, 0, null, null, Rarity.Unstable),
             new Weapon("Sphere of the Abyss", "Absorbs the light to bring about eternal darkness.", 98, 0, null, null, Rarity.Unstable), 
@@ -304,7 +571,7 @@ namespace CD2_Bot
             new Weapon("Nocturnal Scythe", "Can taint the entire sky a deep, abyssal dark.", 130, 0, null, null, Rarity.Corrupted),
             new Weapon("Syzygy", "A pair of celestial swords, the sun and the moon, aligning with your very being.", 126, 0, null, null, Rarity.Corrupted),
             new Weapon("Scepter of Cores", "The inferno of the planet's core is at your disposal.", 120, 0, null, null, Rarity.Corrupted),
-            new Weapon("Dogma", "Unending, unfinite, this gauntlet of pure plasma deletes anything it grazes from existence.", 125, 0, null, null, Rarity.Corrupted),
+            new Weapon("Dogma", "Gauntlets of plasma that destroy everything that come accross their path.", 125, 0, "Heavy Stun", "Medium chance for the enemy to not attack you.", Rarity.Corrupted),
             new Weapon("Hammer of Tabula Rasa", "Can flatten entire cities with one attack.", 122, 0, null, null, Rarity.Corrupted),
             new Weapon("Astral Binding Bow", "Bound to the stars, this weapon can light up the night sky.", 124, 0, null, null, Rarity.Corrupted),
             // unique
@@ -323,30 +590,30 @@ namespace CD2_Bot
             new Armor("Steel Armor", "Quite hefty - good defense, but you look sort of stupid with it.", 91, 0, null, null, Rarity.Uncommon), 
             // rare
             new Armor("Thin Crystal Armor", "Shiny AND quite sturdy!", 85, 0, null, null, Rarity.Rare),
-            new Armor("Volcano Rock Cuirass", "Made of volcanic rocks, lava veins are still visible.", 87, 0, null, null, Rarity.Rare), // Custom Effect: burns enemies?
-            new Armor("Dragon Crown", "The horns of a young dragon.", 90, 0, null, null, Rarity.Rare), // Custom Effect: Increases damage by 10.
-            new Armor("Archer's Vest", "Makes you swift, but lacking in defense.", 88, 0, null, null, Rarity.Rare), // Custom Effect: Increases damage by 30% of weapon damage only if the equipped weapon has "Bow" in it's name.
+            new Armor("Volcano Rock Cuirass", "Made of volcanic rocks, lava veins are still visible.", 87, 0, "Light Burn", "Causes slight extra damage depending on the strength of the enemy and decreases their accuracy.", Rarity.Rare),
+            new Armor("Dragon Crown", "The horns of a young dragon.", 88, 0, "Strength", "Increases your damage by 10.", Rarity.Rare),
+            new Armor("Archer's Vest", "Makes you swift, but lacking in defense.", 90, 0, "Archer's Blessing", "If your weapon is a bow, a crossbow or a bowgun, increase damage by 20%.", Rarity.Rare),
             // epic
             new Armor("Golem Skin", "Made from the body of a rock creature.", 82, 0, null, null, Rarity.Epic),
             new Armor("Bone Armor", "An armor-set made of skeleton bones.", 84, 0, null, null, Rarity.Epic),
-            new Armor("Deepforest Cloak", "Protective, but still meant for mobility. Comes with healing herbs.", 86, 0, null, null, Rarity.Epic), // Custom Effect: Increases healing by 20.
-            new Armor("Aquatic Robe", "Cloak yourself in flowing waters.", 85, 0, null, null, Rarity.Epic), // Custom Effect: Increases HP by 5%.
+            new Armor("Deepforest Cloak", "Protective, but still meant for mobility. Comes with healing herbs.", 86, 0, "Healthy Herbs", "Increases your healing by 10%.", Rarity.Epic),
+            new Armor("Aquatic Robe", "Cloak yourself in flowing waters.", 85, 0, "Calming Waters", "Increases HP by 5%.", Rarity.Epic),
             // legendary
-            new Armor("Berserker's Guard", "Focus fully on fighting with little regard for your survival.", 75, 0, null, null, Rarity.Legendary), // Custom Effect: Decrease HP by 50%. Add a percentile of the HP taken away to damage.
+            new Armor("Berserker's Guard", "Focus fully on fighting with little regard for your survival.", 75, 0, "Berserker's Fury", "Decreases your HP by 50%, but increases your damage by 5% of that.", Rarity.Legendary),
             new Armor("Mask of the Purveyor", "Spread the truth you believe in.", 74, 0, null, null, Rarity.Legendary),
-            new Armor("Diamond Dust Cuirass", "You'll freeze a little bit, but it's worth the good defense.", 72, 0, null, null, Rarity.Legendary), // Custom Effect: Deals one damage per round to the wearer.
-            new Armor("Sage's Robe", "Really comfy. Strenghtens your natural healing powers.", 76, 0, null, null, Rarity.Legendary), // Custom Effect: Increase healing by 25.
-            new Armor("Goldwitch Overcoat", "Enchanted by witches, this piece of armor is sure to bring you financial luck.", 78, 0, null, null, Rarity.Legendary), // Custom Effect: Increases money gain by 10%.
+            new Armor("Diamond Dust Cuirass", "You'll freeze a little bit, but it's worth the good defense.", 71, 0, "Chilly", "The cold hurts you a little bit every fight.", Rarity.Legendary),
+            new Armor("Sage's Robe", "Really comfy. Strenghtens your natural healing powers.", 76, 0, "Sage Magic", "Increase your healing by 20%.", Rarity.Legendary),
+            new Armor("Goldwitch Overcoat", "Enchanted by witches, this piece of armor is sure to bring you financial luck.", 78, 0, "Moneymaker", "Increases gained money per fight.", Rarity.Legendary),
             // unstable
-            new Armor("Gambler's Ruin", "It's all or nothing.", 100, 0, null, null, Rarity.Unstable), // Custom Effect: 50% chance to fully negate damage, returns 200% if negated.
-            new Armor("§!#+$=ERR", "This isn't supposed to happen...", 100, 0, null, null, Rarity.Unstable), // Custom Effect: Gives you a random damage buff between -5 and +10 and a random amount of resistance between 100 and 70. Changes after one battle.
-            new Armor("Vicuna Longcoat", "The fluffiest, most comfortable piece of clothing around.", 69, 0, null, null, Rarity.Unstable), // Custom Effect: Increases healing by 10%.
-            new Armor("Mecha Suit", "Technological advancements allow you to enhance yourself with this robotic suit. Prone to malfunction.", 72, 0, null, null, Rarity.Unstable), // Custom Effect: 10% Chance to deal 7% of health in damage to the wearer.
+            new Armor("Gambler's Ruin", "It's all or nothing.", 100, 0, null, null, Rarity.Unstable), // Custom Effect: 50% chance to fully negate damage, returns 200% if negated. // Bro Wie?
+            new Armor("§!#+$=ERR", "This isn't supposed to happen...", 100, 0, "Fault in the System", "Gives you a random resistance and a random damage buff every fight", Rarity.Unstable),
+            new Armor("Pima Longcoat", "The fluffiest, most comfortable piece of clothing around.", 65, 0, "Comfy Cotton", "Increases your healing by 25%.", Rarity.Unstable),
+            new Armor("Mecha Suit", "Technological advancements allow you to enhance yourself with this robotic suit. Prone to malfunction.", 68, 0, "Safety Hazard", "Chance to hurt you every fight.", Rarity.Unstable),
             // corrupted
-            new Armor("Fibre of Hatred", "Focus on hurting your foes rather than defending.", 80, 0, null, null, Rarity.Corrupted), // Custom Effect: Increases damage by 40.
-            new Armor("Core Smelter Armor", "Made of the innermost layer of earth.", 70, 0, null, null, Rarity.Corrupted), // Custom Effect: Increases damage by 30.
+            new Armor("Fibre of Hatred", "Focus on hurting your foes rather than defending.", 75, 0, "Power of Hatred", "Increases your weapon's damage by a quarter.", Rarity.Corrupted),
+            new Armor("Core Smelter Armor", "Made of the innermost layer of earth.", 65, 0, "Core's Heat", "Increases your weapon's damage by 25.", Rarity.Corrupted),
             new Armor("Wyvern's Aegis", "Able to withstand even meteorites.", 55, 0, null, null, Rarity.Corrupted),
-            new Armor("Adaptive Bioarmor", "Hi-tech, adapts to every situation that comes your way.", 75, 0, null, null, Rarity.Unstable), // Custom Effect: Increases damage and healing by 4*Number of rarity of sword and 6*Number of rarity of extra, respectively.
+            new Armor("Adaptive Bioarmor", "Hi-tech, adapts to every situation that comes your way.", 75, 0, "Modifier", "Increases your damage and your healing depending on the rarity of your weapon and your extra.", Rarity.Corrupted),
             // unique
         };
 
@@ -371,33 +638,33 @@ namespace CD2_Bot
             new Extra("Caster Amulet", "A pendant imbued with powerful sorcery.", 6, 5, 0, null, null, Rarity.Rare),
             new Extra("Friendly Wisp", "Keeps flying around you and making little noises. Kind of cute.", 4, 10, 0, null, null, Rarity.Rare),
             // epic
-            new Extra("Royal Emblem", "A certain royal family's crest - wearing it makes people think you're important.", 10, 10, 0, null, null, Rarity.Epic), // Custom Effect: Decreases Shop Prices by 5%
-            new Extra("Tortuga Talisman", "Made of a hard, nearly indestructible shell, this charm saves you from harm.", 5, 20, 0, null, null, Rarity.Epic), // Custom Effect: Increases Resistance
+            new Extra("Royal Emblem", "A certain royal family's crest - wearing it makes people think you're important.", 10, 10, 0, null, null, Rarity.Epic),
+            new Extra("Tortuga Talisman", "Made of a hard, nearly indestructible shell, this charm saves you from harm.", 5, 20, 0, "Turtle Spirit", "Increases your Resistance.", Rarity.Epic),
             new Extra("Ambrosia", "A meal of gods, giving you incredible health.", 0, 30, 0, null, null, Rarity.Epic ),
             new Extra("Siren's Song", "Heed the call of the sirens.", 8, 15, 0, null, null, Rarity.Epic),
             new Extra("Dreamcatcher", "Casts the evil thoughts gathered in your sleep unto your enemies.", 16, 0, 0, null, null, Rarity.Epic),
             new Extra("Petrified Leaf", "You can still see a little of its auburn color. ", 9, 12, 0, null, null, Rarity.Epic),
             // legendary
-            new Extra("Phoenix Feather", "The plume of a mystical bird, said to be able to bring back those fallen in battle.", 0, 50, 0, null, null, Rarity.Legendary), // Custom Effect: Can rescue you from death once a fight (maybe)
-            new Extra("Sliver of Darkness", "A shard of unknown origin, said to be made of pure, deep darkness.", 25, 0, 0, null, null, Rarity.Legendary), // Custom Effect: Decreases the enemies HP by a certain amount
-            new Extra("Magnificent Wish", "A mystical wish for salvation embedded deeply into you.", 5, 40, 0, null, null, Rarity.Legendary), // Custom Effect: Has a chance to fully heal you after a fight
-            new Extra("Fractured Gem", "A dark gem with but a single crack exposing it's beautiful, gleaming core.", 28, 0, 0, null, null, Rarity.Legendary), // Custom Effect: Increases the coins you gain by winning a fight by 50%
+            new Extra("Phoenix Feather", "The plume of a mystical bird, said to be able to bring back those fallen in battle.", 0, 50, 0, "Phoenix' Embrace", "Miniscule Chance to give you enough HP to completely survive a fight.", Rarity.Legendary),
+            new Extra("Sliver of Darkness", "A shard of unknown origin, said to be made of pure, deep darkness.", 25, 0, 0, "Life Decrease", "Decreases the enemies' HP.", Rarity.Legendary),
+            new Extra("Magnificent Wish", "A mystical wish for salvation embedded deeply into you.", 5, 40, 0, "Lifelight", "Tiny chance to completely heal you before a fight starts.", Rarity.Legendary),
+            new Extra("Fractured Gem", "A dark gem with but a single crack exposing it's beautiful, gleaming core.", 28, 0, 0, "Gemstone Delight", "Gives you some extra money after a fight.", Rarity.Legendary),
             new Extra("Nebula Key", "Shrouded in mystery, the owner of this key is said to be able to understand the mysteries of space.", 19, 15, 0, null, null, Rarity.Legendary), // Custom Effect: Lets you interact with a specific NPC to start a questline
-            new Extra("Overgrown Horn", "The horn of a long-extinct beast, taken over by the floral wildlife.", 20, 10, 0, null, null, Rarity.Legendary), // Custom Effect: Decreases your enemies resistance by 15%
+            new Extra("Overgrown Horn", "The horn of a long-extinct beast, taken over by the floral wildlife.", 20, 10, 0, "Piercing Defenses", "Decreases your enemies' Resistance.", Rarity.Legendary),
             // unstable
-            new Extra("Moon Refractor", "Absorb the moon's light and utilize its might.", 50, 15, 0, null, null, Rarity.Unstable), // Custom Effect: Increases your healing by 20%
+            new Extra("Moon Refractor", "Absorb the moon's light and utilize its might.", 50, 15, 0, "Moonshine", "Increases your healing by 20%.", Rarity.Unstable),
             new Extra("Spirit Replica", "A ghostly clone of your weapon, attacking in tandem with you.", 60, 0, 0, null, null, Rarity.Unstable),
-            new Extra("Beckoning Cat", "A cat statue said to bring good luck to the one who holds it.", 30, 50, 0, null, null, Rarity.Unstable), // Custom Effect: Increases the money you get by 50%
+            new Extra("Beckoning Cat", "A cat statue said to bring good luck to the one who holds it.", 30, 50, 0, "Money Machine", "Chance to give you quite a bit of extra money after a fight.", Rarity.Unstable),
             new Extra("Crescent Mask", "A Crescent-shaped Mask, said to come from worshippers of an ancient moon god.", 20, 80, 0, null, null, Rarity.Unstable),
             new Extra("Fragmented Effigy", "A once beautiful depiction of the moon god, now blemished and broken.", 25, 65, 0, null, null, Rarity.Unstable),
-            new Extra("Sash of Valor", "A sash meant for those with great courage and incredible strength.", 40, 30, 0, null, null, Rarity.Unstable), // Custom Effect: The lower your HP is, the more increased your damage is.
+            new Extra("Sash of Valor", "A sash meant for those with great courage and incredible strength.", 40, 30, 0, "Valorous Offensive", "The lower your HP currently is, the more damage you deal.", Rarity.Unstable),
             // corrupted
-            new Extra("Black Magic Wand", "Achieve true strength by succumbing to darkness.", 90, 0, 0, null, null, Rarity.Corrupted), // Custom Effect: Halves your HP
+            new Extra("Black Magic Wand", "Achieve true strength by succumbing to darkness.", 10, 0, 0, "Black Magic", "Doubles your damage, halves your health.", Rarity.Corrupted),
             new Extra("Fire Orb", "Light up the fire in your soul to burn away your enemies.", 70, 10, 0, null, null, Rarity.Corrupted),
             new Extra("Crystal Primrose", "A flower said to stand for eternal love, crystallized by an unknown force.", 10, 90, 0, null, null, Rarity.Corrupted),
-            new Extra("Greater Will", "The ethos that keeps together the world given form.", 60, 40, 0, null, null, Rarity.Corrupted), // Custom Effect: Increases your HP by 10% 
-            new Extra("The Fool's Errand", "Only a madman would accept the challenge.", 20, 20, 0, null, null, Rarity.Corrupted), //  Custom Effect: Doubles EXP gained by winning fights
-            new Extra("Nuclear Fishing Pole", "There probably aren't many sea creatures willing to be caught with this.", 55, 55, 0, null, null, Rarity.Corrupted), // Custom Effect: Deals damage to you AND the enemy every turn.
+            new Extra("Greater Will", "The ethos that keeps together the world given form.", 40, 100, 0, null, null, Rarity.Corrupted),
+            new Extra("The Fool's Errand", "Only a madman would accept the challenge.", 20, 20, 0, "Guts", "Doubles EXP gained from fights.", Rarity.Corrupted),
+            new Extra("Nuclear Fishing Pole", "There probably aren't many sea creatures willing to be caught with this.", 55, 55, 0, "Radiation", "Deals damage to you and your enemy.", Rarity.Corrupted),
             // unique
         };
     }
