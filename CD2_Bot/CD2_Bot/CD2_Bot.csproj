@@ -135,6 +135,7 @@
     <Compile Include="Floor.cs" />
     <Compile Include="Gambling.cs" />
     <Compile Include="Gear.cs" />
+    <Compile Include="Guide.cs" />
     <Compile Include="GuildStructure.cs" />
     <Compile Include="Init.cs" />
     <Compile Include="JoinHandler.cs" />

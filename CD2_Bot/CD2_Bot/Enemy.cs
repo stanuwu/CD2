@@ -78,7 +78,7 @@ namespace CD2_Bot
             public string CustomEffectDescription { get; set; }
             public EnemyDrops Drops { get; set; }
 
-            public virtual void CustomEffect(CharacterStructure character, Weapon weapon, Armor armor, Extra extra)
+            public virtual double CustomEffect(CharacterStructure character, Weapon weapon, Armor armor, Extra extra)
             {
                 switch (this.CustomEffectName)
             {
@@ -99,19 +99,19 @@ namespace CD2_Bot
                     break;
 
                 case "Light Burn":
-                    base.Damage -= base.Damage/20;
+                    weapon.BaseDamage -= weapon.BaseDamage / 20;
                     return character.MaxHP/50;
                     
                     break;
 
                  case "Moderate Burn":
-                    base.Damage -= base.Damage/20;
+                    weapon.BaseDamage -= weapon.BaseDamage / 20;
                     return character.MaxHP/25;
 
                     break;
 
                  case "Severe Burn":
-                    base.Damage -= base.Damage/20;
+                    weapon.BaseDamage -= weapon.BaseDamage / 20;
                     return character.MaxHP/15;
 
                     break;
@@ -135,7 +135,7 @@ namespace CD2_Bot
                     break;
 
                  case "Stun":
-                    base.Damage -= base.Damage/10;
+                    weapon.BaseDamage -= weapon.BaseDamage / 10;
 
                     break;
 
@@ -145,7 +145,7 @@ namespace CD2_Bot
                     break;
 
                 case "Freeze":
-                    base.Damage -= base.Damage/25;
+                    weapon.BaseDamage -= weapon.BaseDamage / 25;
                     armor.Resistance += 3;
 
                     break;
@@ -156,7 +156,7 @@ namespace CD2_Bot
                     break;
 
                 case "Disgusting Appearance":
-                    base.Damage += base.Damage+5;
+                    weapon.BaseDamage += weapon.BaseDamage + 5;
                    
                     break;
 
@@ -185,6 +185,7 @@ namespace CD2_Bot
 
                     break;
             }
+            return 0;
             } 
 
             
@@ -230,7 +231,7 @@ namespace CD2_Bot
             new Enemy("Cursed Rock", "A rock that has been cursed to roll forever, crushing everything in its path.", 70, 0, 80, 0, 5, null, null, new EnemyDrops("Stone", 2, 1, 40)),
             new Enemy("Wild Hound", "A stray dog, craving only food, not affection.", 50, 0, 100, 0, 10, null, null, null),
             new Enemy("Red Lizard", "A common reptile, often mistaken for a young dragon.", 40, 0, 100, 0, 9, null, null, new EnemyDrops("Scale", 1, 0, 20)),
-            new Enemy("Glowing Bug", "A flesh-eating insect, using its yellowish skin to reflect light.", 35, 0, 150, 0, 10, "Stun", "Causes a small chance for the player to miss.", null)
+            new Enemy("Glowing Bug", "A flesh-eating insect, using its yellowish skin to reflect light.", 35, 0, 150, 0, 10, "Stun", "Causes a small chance for the player to miss.", null),
             new Enemy("Blorb", "Bloated, fallen off flesh from another monster, which somehow formed a life of its own. Sometimes it even grows limbs, wobbling around and being a disgusting sight to behold.", 40, 0, 100, 0, 7, "Disgusting Appearance", "Increases the damage the player deals", null),
             new Enemy("Black-Gilled Piranha", "A predator found in many rivers and streams. There black gills give off an awful stench.", 30, 0, 85, 0, 8, null, null, new EnemyDrops("Fish Scale", 1, 0, 20)),
             new Enemy("Eye-Eating Crow", "A crow who lives around cemeterys, attacking the grieving when there is no corpse to eat.", 35, 0, 85, 0, 7, null, null, new EnemyDrops("Feather", 1, 0, 20)),
