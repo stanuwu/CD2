@@ -371,7 +371,7 @@ namespace CD2_Bot
 
             EmbedBuilder embed = new EmbedBuilder
             {
-                Title = "Gear Leaderboard",
+                Title = "Server Leaderboard",
                 ThumbnailUrl = avatarurl,
             };
 
