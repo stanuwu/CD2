@@ -301,35 +301,35 @@ namespace CD2_Bot
                     switch (extra.Rarity)
                     {
                         case Rarity.Common:
-                            extra.BaseHeal += 6;
+                            character.HP += 6;
                             break;
 
                         case Rarity.Uncommon:
-                            extra.BaseHeal += 12;
+                            character.HP += 12;
                             break;
 
                         case Rarity.Rare:
-                            extra.BaseHeal += 18;
+                            character.HP += 18;
                             break;
 
                         case Rarity.Epic:
-                            extra.BaseHeal += 24;
+                            character.HP += 24;
                             break;
 
                         case Rarity.Legendary:
-                            extra.BaseHeal += 30;
+                            character.HP += 30;
                             break;
 
                         case Rarity.Unstable:
-                            extra.BaseHeal += 36;
+                            character.HP += 36;
                             break;
 
                         case Rarity.Corrupted:
-                            extra.BaseHeal += 42;
+                            character.HP += 42;
                             break;
 
                         case Rarity.Unique:
-                            extra.BaseHeal += 36;
+                            character.HP += 36;
                             break;
                     }
                     break;
@@ -531,12 +531,15 @@ namespace CD2_Bot
             new Weapon("Shortsword", "A basic blade crafted with simple iron.", 8, 0, null, null, Rarity.Common),
             new Weapon("Wooden Wand", "Equipped to cast only the most basic of spells.", 7, 0, null, null, Rarity.Common),
             new Weapon("Dagger", "A small dagger that can be hidden away in your sleeve.", 6, 0, null, null, Rarity.Common),
+            new Weapon("Claymore", "A large but heavy blade.", 11, 0, null, null, Rarity.Common),
+            new Weapon("Miniature Lance", "A shortened lance for short range stabbing.", 8, 0, null, null, Rarity.Common),
             // uncommon
             new Weapon("Bladed Boomerang", "Sharp and throwable.", 19, 0, null, null, Rarity.Uncommon),
             new Weapon("Hunting Bow", "Shoots powerful steel arrows.", 17, 0, null, null, Rarity.Uncommon),
             new Weapon("Mana Catalyst", "Absorbs the mana around you and channels it into magic.", 16, 0, null, null, Rarity.Uncommon),
             new Weapon("Dreihander", "A sword so heavy that two hands aren't enough to carry it.", 18, 0, null, null, Rarity.Uncommon),
             new Weapon("Big Cannon", "Watch out for the recoil.", 17, 0, null, null, Rarity.Uncommon),
+            new Weapon("Morning Star", "A big spikey ball on a stick.", 21, 0, null, null, Rarity.Uncommon),
             // rare
             new Weapon("Vampire Tooth", "Steal your opponents' life by slashing them apart.", 25, 0, "Lifesteal", "Heals for twice your damage before the start of the battle.", Rarity.Rare),
             new Weapon("Darkened Lucerne", "The blood on this halberd has turned its color to a dark red.", 31, 0, null, null, Rarity.Rare),
@@ -584,12 +587,15 @@ namespace CD2_Bot
             new Armor("Rags", "Really dirty and torn apart.", 100, 0, null, null, Rarity.Common),
             new Armor("Socks", "Knee-high socks to protect the wearer from dirt and nothing else.", 99, 0, null, null, Rarity.Common),
             new Armor("Top Hat", "Stylish, but doesn't really shield all that much.", 98, 0, null, null, Rarity.Common),
+            new Armor("Cape", "Makes you look like a superhero, a naked superhero...", 99, 0, null, null, Rarity.Common),
+            new Armor("\"Heavy Plated Armor\"", "Armor made out of paper and painted, no wonder it was so cheap.", 97, 0, null, null, Rarity.Common),
             // uncommon
             new Armor("Chainmail", "A little rusty, but it does the job.", 95, 0, null, null, Rarity.Uncommon),
             new Armor("Rock Helmet", "Good against concussions.", 96, 0, null, null, Rarity.Uncommon),
             new Armor("Fishscale Mail", "Really shiny.", 93, 0, null, null, Rarity.Uncommon),
             new Armor("Brass Armor", "This gilden Chestplate is prettier than it's actually useful.", 94, 0, null, null, Rarity.Uncommon),
-            new Armor("Steel Armor", "Quite hefty - good defense, but you look sort of stupid with it.", 91, 0, null, null, Rarity.Uncommon), 
+            new Armor("Steel Armor", "Quite hefty - good defense, but you look sort of stupid with it.", 91, 0, null, null, Rarity.Uncommon),
+            new Armor("Hardened Clar Armor", "A layer burnt onto your body in exactly the right shape.", 93, 0, null, null, Rarity.Uncommon), 
             // rare
             new Armor("Thin Crystal Armor", "Shiny AND quite sturdy!", 85, 0, null, null, Rarity.Rare),
             new Armor("Volcano Rock Cuirass", "Made of volcanic rocks, lava veins are still visible.", 87, 0, "Light Burn", "Causes slight extra damage depending on the strength of the enemy and decreases their accuracy.", Rarity.Rare),
@@ -628,12 +634,16 @@ namespace CD2_Bot
             new Extra("Firefly", "Little insect buddy that seems to follow you wherever you go.", 1, 4, 0, null, null, Rarity.Common),
             new Extra("Scarf", "This classy piece of fabric makes you stronger purely by proxy of feeling cooler with it.", 2, 2, 0, null, null, Rarity.Common),
             new Extra("Water Flask", "Refreshes the soul just enough to let you fight a little longer.", 0, 6, 0, null, null, Rarity.Common),
+            new Extra("Magic Powder", "Just a few grains of this can enhance your physical ability beyond normal levels. About 1% beyond normal levels.", 2, 3, 0, null, null, Rarity.Common),
+            new Extra("Tiny Horn", "Its sound prepares you for battle.", 3, 0, 0, null, null, Rarity.Common),
+            new Extra("Memory Fragment", "A little bit of knowledge on how to fight, hidden in your own mind.", 2, 1, 0, null, null, Rarity.Common),
             // uncommon
             new Extra("Blade Sharpener", "Gives you that little edge.", 5, 0, 0, null, null, Rarity.Uncommon),
             new Extra("Turbo Shroom", "Tastes horrible, but it's healthy!", 3, 3, 0, null, null, Rarity.Uncommon),
             new Extra("Honeybee", "Brings you some refreshing honey every so often.", 2, 5, 0, null, null, Rarity.Uncommon),
             new Extra("Buckler", "A small shield, only meant for quick parries.", 4, 1, 0, null, null, Rarity.Uncommon),
             new Extra("Mirror", "Blind your enemies, giving you more time to plan your next move.", 1, 7, 0, null, null, Rarity.Uncommon),
+            new Extra("Modular Holster", "A little contraption that allows you to pull your weapon faster than ever.", 4, 0, 0, null, null, Rarity.Uncommon),
             // rare
             new Extra("Wand of Healing", "Allows you to access your intrinsic healing abilities.", 0, 15, 0, null, null, Rarity.Rare),
             new Extra("Wand of Strength", "Magically boosts your fighting prowess.", 9, 0, 0, null, null, Rarity.Rare),
