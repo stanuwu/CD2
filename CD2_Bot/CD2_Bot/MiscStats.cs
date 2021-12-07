@@ -23,7 +23,7 @@ namespace CD2_Bot
 
             Weapon thisweapon = (from w in Gear.Weapons
                                  where w.Name.ToLower().Contains(tv.ToLower())
-                                 select w).SingleOrDefault();
+                                 select w).FirstOrDefault();
             if (thisweapon == null)
             {
                 await ReplyAsync(embed: Utils.QuickEmbedError("No weapon with this name was found."));
@@ -64,7 +64,7 @@ namespace CD2_Bot
 
             Armor thisarmor = (from w in Gear.Armors
                                  where w.Name.ToLower().Contains(tv.ToLower())
-                                 select w).SingleOrDefault();
+                                 select w).FirstOrDefault();
             if (thisarmor == null)
             {
                 await ReplyAsync(embed: Utils.QuickEmbedError("No armor with this name was found."));
@@ -106,7 +106,7 @@ namespace CD2_Bot
 
             Extra thisextra = (from w in Gear.Extras
                                  where w.Name.ToLower().Contains(tv.ToLower())
-                                 select w).SingleOrDefault();
+                                 select w).FirstOrDefault();
             if (thisextra == null)
             {
                 await ReplyAsync(embed: Utils.QuickEmbedError("No extra with this name was found."));
@@ -149,7 +149,8 @@ namespace CD2_Bot
 
             Enemy thisenemy = (from w in EnemyGen.Enemies
                                where w.Type.ToLower().Contains(tv.ToLower())
-                               select w).SingleOrDefault();
+                               select w).FirstOrDefault();
+
             if (thisenemy == null)
             {
                 await ReplyAsync(embed: Utils.QuickEmbedError("No enemy with this name was found."));
@@ -159,7 +160,7 @@ namespace CD2_Bot
                 EmbedBuilder embed = new EmbedBuilder
                 {
                     Title = thisenemy.Type,
-                    Description =thisenemy.Description,
+                    Description = thisenemy.Description,
                 };
 
                 embed.Description += "\n\n" +

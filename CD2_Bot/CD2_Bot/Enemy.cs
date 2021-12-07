@@ -195,32 +195,32 @@ namespace CD2_Bot
         {
             public static Enemy RandomEnemy(int level)
             {
-            List<Enemy> possibleEnemies = (from e in Enemies where e.Minlevel <= level select e).ToList();
-            Enemy selectedEnemy = possibleEnemies[Defaults.GRandom.Next(possibleEnemies.Count())];
-            if (level > 6)
-            {
-                level = Math.Abs(level + Defaults.GRandom.Next(-2, 3));
-            }
-            int hpadded = 0;
-            if (level > 50)
-            {
-                hpadded = ((int)Math.Floor(selectedEnemy.HP + 0.05 * Math.Pow(50, 2.5))) + (5 * (level - 50));
-            }
-            else
-            {
-                hpadded = (int)Math.Floor(selectedEnemy.HP + 0.05 * Math.Pow(level, 2.5));
-            }
-            int damageadded = 0;
-            if (level > 50)
-            {
-                damageadded = ((int)Math.Floor(selectedEnemy.Damage + 0.003 * Math.Pow(50, 2.5))) + (5 * (level - 50));
-            }
-            else
-            {
-                damageadded = (int)Math.Floor(selectedEnemy.Damage + 0.003 * Math.Pow(level, 2.5));
-            }
-            Enemy generatedEnemy = new Enemy(selectedEnemy.Type, selectedEnemy.Description, hpadded, level, selectedEnemy.Resistance, selectedEnemy.Minlevel, damageadded, selectedEnemy.CustomEffectName, selectedEnemy.CustomEffectDescription, selectedEnemy.Drops);
-            return generatedEnemy;
+                List<Enemy> possibleEnemies = (from e in Enemies where e.Minlevel <= level select e).ToList();
+                Enemy selectedEnemy = possibleEnemies[Defaults.GRandom.Next(possibleEnemies.Count())];
+                if (level > 6)
+                {
+                    level = Math.Abs(level + Defaults.GRandom.Next(-2, 3));
+                }
+                int hpadded = 0;
+                if (level > 50)
+                {
+                    hpadded = ((int)Math.Floor(selectedEnemy.HP + 0.05 * Math.Pow(50, 2.5))) + (5 * (level - 50));
+                }
+                else
+                {
+                    hpadded = (int)Math.Floor(selectedEnemy.HP + 0.05 * Math.Pow(level, 2.5));
+                }
+                int damageadded = 0;
+                if (level > 50)
+                {
+                    damageadded = ((int)Math.Floor(selectedEnemy.Damage + 0.003 * Math.Pow(50, 2.5))) + (5 * (level - 50));
+                }
+                else
+                {
+                    damageadded = (int)Math.Floor(selectedEnemy.Damage + 0.003 * Math.Pow(level, 2.5));
+                }
+                Enemy generatedEnemy = new Enemy(selectedEnemy.Type, selectedEnemy.Description, hpadded, level, selectedEnemy.Resistance, selectedEnemy.Minlevel, damageadded, selectedEnemy.CustomEffectName, selectedEnemy.CustomEffectDescription, selectedEnemy.Drops);
+                return generatedEnemy;
             }
 
             public static List<Enemy> Enemies = new List<Enemy>
