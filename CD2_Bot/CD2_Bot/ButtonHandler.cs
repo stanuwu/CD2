@@ -305,7 +305,7 @@ namespace CD2_Bot
                     await btn.UpdateAsync(x => x.Embed = helpembeddungeons);
                     break;
                 case "money":
-                    Embed helpembedmoney = Utils.QuickEmbedNormal("Help", "``<coinflip [Amount of money bet]``\n Coinflip against an AI or another player for money. \n ``<slots [Amount of money bet]``\n Spin a slot machine for money.");
+                    Embed helpembedmoney = Utils.QuickEmbedNormal("Help", "``<coinflip [Amount of money bet] <[Opponent's UID]>``\n Coinflip against an AI or another player for money. \n ``<slots [Amount of money bet]``\n Spin a slot machine for money.");
                     await btn.UpdateAsync(x => x.Embed = helpembedmoney);
                     break;
                 case "top":
@@ -313,7 +313,7 @@ namespace CD2_Bot
                     await btn.UpdateAsync(x => x.Embed = helpembedtop);
                     break;
                 case "misc":
-                    Embed helpembedmisc = Utils.QuickEmbedNormal("Help", "``<guide``\n A guidebook for every part of CD2. \n ``<server``");
+                    Embed helpembedmisc = Utils.QuickEmbedNormal("Help", "``<guide``\n A guidebook for every part of CD2. \n ``<server``\n Showcases how many doors have been opened, bosses have been slain and quests have been finished on your server.");
                     await btn.UpdateAsync(x => x.Embed = helpembedmisc);
                     break;
             }
