@@ -591,11 +591,11 @@ namespace CD2_Bot
             new Armor("\"Heavy Plated Armor\"", "Armor made out of paper and painted, no wonder it was so cheap.", 97, 0, null, null, Rarity.Common),
             // uncommon
             new Armor("Chainmail", "A little rusty, but it does the job.", 95, 0, null, null, Rarity.Uncommon),
-            new Armor("Rock Helmet", "Good against concussions.", 96, 0, null, null, Rarity.Uncommon),
+            new Armor("Rock Helmet", "Good against concussions.", 94, 0, null, null, Rarity.Uncommon),
             new Armor("Fishscale Mail", "Really shiny.", 93, 0, null, null, Rarity.Uncommon),
             new Armor("Brass Armor", "This gilden Chestplate is prettier than it's actually useful.", 94, 0, null, null, Rarity.Uncommon),
             new Armor("Steel Armor", "Quite hefty - good defense, but you look sort of stupid with it.", 91, 0, null, null, Rarity.Uncommon),
-            new Armor("Hardened Clar Armor", "A layer burnt onto your body in exactly the right shape.", 93, 0, null, null, Rarity.Uncommon), 
+            new Armor("Hardened Clay Armor", "A layer burnt onto your body in exactly the right shape.", 93, 0, null, null, Rarity.Uncommon), 
             // rare
             new Armor("Thin Crystal Armor", "Shiny AND quite sturdy!", 85, 0, null, null, Rarity.Rare),
             new Armor("Volcano Rock Cuirass", "Made of volcanic rocks, lava veins are still visible.", 87, 0, "Light Burn", "Causes slight extra damage depending on the strength of the enemy and decreases their accuracy.", Rarity.Rare),
