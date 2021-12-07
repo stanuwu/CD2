@@ -265,23 +265,23 @@ namespace CD2_Bot
                     await btn.UpdateAsync(x => x.Embed = guideembed);
                     break;
                 case "character":
-                    Embed guideembedchar = Utils.QuickEmbedNormal("Guide", "Character\nYour character has a custom name, a custom description, a title, a selectable class, gear (weapon, armor and an extra), money and a stat multiplier which is calculated through your current level");
+                    Embed guideembedchar = Utils.QuickEmbedNormal("Guide - Character", "Character\nYour character has a custom name, a custom description, a title, a selectable class, gear (weapon, armor and an extra), money and a stat multiplier which is calculated through your current level");
                     await btn.UpdateAsync(x => x.Embed = guideembedchar);
                     break;
                 case "gear":
-                    Embed guideembedgear = Utils.QuickEmbedNormal("Guide", "Gear\nYour character's gear consists of a weapon, an armor and an extra. All of them have different rarities, showing how strong and valuable they are, and some even have custom effects.");
+                    Embed guideembedgear = Utils.QuickEmbedNormal("Guide - Gear", "Gear\nYour character's gear consists of a weapon, an armor and an extra. All of them have different rarities, showing how strong and valuable they are, and some even have custom effects.");
                     await btn.UpdateAsync(x => x.Embed = guideembedgear);
                     break;
                 case "floor":
-                    Embed guideembedfloor = Utils.QuickEmbedNormal("Guide", "Floor\nThe main gameplay aspect. You can either encounter a monster, find money or even chests, or you may be unlucky and stumble into a trap, robbing you of your hard earned money.");
+                    Embed guideembedfloor = Utils.QuickEmbedNormal("Guide - Floor", "Floor\nThe main gameplay aspect. You can either encounter a monster, find money or even chests, or you may be unlucky and stumble into a trap, robbing you of your hard earned money.");
                     await btn.UpdateAsync(x => x.Embed = guideembedfloor);
                     break;
                 case "fight":
-                    Embed guideembedfight = Utils.QuickEmbedNormal("Guide", "Fight\nA fight against a single monster. You have to defeat it for a chance of getting (crafting) item drops and always an ammount of money. If it defeats you, you won't be able to proceed into antoher floor until you have enough health again.");
+                    Embed guideembedfight = Utils.QuickEmbedNormal("Guide - Fight", "Fight\nA fight against a single monster. You have to defeat it for a chance of getting (crafting) item drops and always an ammount of money. If it defeats you, you won't be able to proceed into antoher floor until you have enough health again.");
                     await btn.UpdateAsync(x => x.Embed = guideembedfight);
                     break;
                 case "chests":
-                    Embed guideembedchests = Utils.QuickEmbedNormal("Guide", "Chests\nChests containing gear drops, which can be stumpled upon in room of surprises. Depending on rarity, the price to open them can be harsh, but even when the player isn't happy with their lot, they can sell it right away.");
+                    Embed guideembedchests = Utils.QuickEmbedNormal("Guide - Chests", "Chests\nChests containing gear drops, which can be stumpled upon in room of surprises. Depending on rarity, the price to open them can be harsh, but even when the player isn't happy with their lot, they can sell it right away.");
                     await btn.UpdateAsync(x => x.Embed = guideembedchests);
                     break;
             }
@@ -293,27 +293,27 @@ namespace CD2_Bot
             switch (btndata[1])
             {
                 case "character":
-                    Embed helpembedchar = Utils.QuickEmbedNormal("Help", "``<start [Character Name]``\n Create a character with the given name (if you do not have one already). \n ``<character <[UID]>``\n Views your character (or someone elses, if given an ID). \n ``<stats <[UID]>``\n Views your character's gear (or someone elses, if given an ID). \n ``<inventory``\n Shows you your inventory. \n ``<reset``\n Deletes your character. \n ``<rename [Character Name]``\n Renames your character to the given name. \n ``<description``\n Gives your character the given description.");
+                    Embed helpembedchar = Utils.QuickEmbedNormal("Help - Character", "``<start [Character Name]``\n Create a character with the given name (if you do not have one already). \n\n ``<character <[UID]>``\n Views your character (or someone elses, if given an ID). \n\n ``<stats <[UID]>``\n Views your character's gear (or someone elses, if given an ID). \n\n ``<inventory``\n Shows you your inventory. \n\n ``<reset``\n Deletes your character. \n\n ``<rename [Character Name]``\n Renames your character to the given name. \n\n ``<description``\n Gives your character the given description.");
                     await btn.UpdateAsync(x => x.Embed = helpembedchar);
                     break;
                 case "stats":
-                    Embed helpembedstats = Utils.QuickEmbedNormal("Help", "``<weapon [Weapon Name]``\n Views the stats of the given weapon. \n ``<armor [Armor Name]`` \n Views the stats of the given armor. \n ``<extra [Extra Name]`` \n Views the stats of the given extra. \n ``<monster [Monster Name]`` \n Views the stats of the given monster.");
+                    Embed helpembedstats = Utils.QuickEmbedNormal("Help - Stats", "``<weapon [Weapon Name]``\n Views the stats of the given weapon. \n\n ``<armor [Armor Name]`` \n Views the stats of the given armor. \n\n ``<extra [Extra Name]`` \n Views the stats of the given extra. \n\n ``<monster [Monster Name]`` \n Views the stats of the given monster. \n\n\n Ex.: <armor Bone");
                     await btn.UpdateAsync(x => x.Embed = helpembedstats);
                     break;
                 case "dungeons":
-                    Embed helpembeddungeons = Utils.QuickEmbedNormal("Help", "``<floor``\n Lets you choose a door to open in your server's dungeon.");
+                    Embed helpembeddungeons = Utils.QuickEmbedNormal("Help - Dungeons", "``<floor``\n Lets you choose a door to open in your server's dungeon.");
                     await btn.UpdateAsync(x => x.Embed = helpembeddungeons);
                     break;
                 case "money":
-                    Embed helpembedmoney = Utils.QuickEmbedNormal("Help", "``<coinflip [Amount of money bet] <[Opponent's UID]>``\n Coinflip against an AI or another player for money. \n ``<slots [Amount of money bet]``\n Spin a slot machine for money.");
+                    Embed helpembedmoney = Utils.QuickEmbedNormal("Help - Money", "``<coinflip [Amount of money bet] <[@Opponent]>``\n Coinflip against an AI or another player for money. \n\n Ex.: <coinflip 500 @stan  \n\n ``<slots [Amount of money bet]``\n Spin a slot machine for money. \n\n <slots 2000");
                     await btn.UpdateAsync(x => x.Embed = helpembedmoney);
                     break;
                 case "top":
-                    Embed helpembedtop = Utils.QuickEmbedNormal("Help", "``<lvltop``\n Showcases the top characters across all servers by level. \n ``<moneytop``\n Showcases the top characters across all servers by amount of money owned. \n ``<geartop``\n Showcases the top characters across all servers by gear equipped. \n ``<servertop``\n Showcases the top servers by various criterias.");
+                    Embed helpembedtop = Utils.QuickEmbedNormal("Help - Top", "``<lvltop``\n Showcases the top characters across all servers by level. \n\n ``<moneytop``\n Showcases the top characters across all servers by amount of money owned. \n\n ``<geartop``\n Showcases the top characters across all servers by gear equipped. \n\n ``<servertop``\n Showcases the top servers by various criterias.");
                     await btn.UpdateAsync(x => x.Embed = helpembedtop);
                     break;
                 case "misc":
-                    Embed helpembedmisc = Utils.QuickEmbedNormal("Help", "``<guide``\n A guidebook for every part of CD2. \n ``<server``\n Showcases how many doors have been opened, bosses have been slain and quests have been finished on your server.");
+                    Embed helpembedmisc = Utils.QuickEmbedNormal("Help - Misc.", "``<guide``\n A guidebook for every part of CD2. \n\n ``<server``\n Showcases how many doors have been opened, bosses have been slain and quests have been finished on your server.");
                     await btn.UpdateAsync(x => x.Embed = helpembedmisc);
                     break;
             }
