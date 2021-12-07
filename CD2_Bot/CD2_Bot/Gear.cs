@@ -551,6 +551,7 @@ namespace CD2_Bot
             new Weapon("Lance of the Stars", "All the stars' fury gets cast upon an opponent pierced by this weapon.", 49, 0, null, null, Rarity.Epic),
             new Weapon("Frostbite Tome", "Etches the arts of ice magic into your soul.", 44, 0, "Freeze", "Decreases damage and resistance of the enemy.", Rarity.Epic), 
             new Weapon("Long-sunken Anchor", "Reclaimed by oceanic wildlife, but still hits like a truck.", 48, 0, null, null, Rarity.Epic),
+            new Weapon("Darkwood Staff", "You can feel the forest's power flowing through it with every hit.", 47, 0, null, null, Rarity.Epic),
             // legendary
             new Weapon("Link Breaker", "No trace of a connection remains once something is cut by this blade.", 75, 0, null, null, Rarity.Legendary),
             new Weapon("Ancient Root Hammer", "Birthed from an ancient, evergrowing tree, this hammer is nearly indestructible.", 71, 0, "Stun", "Small chance for the enemy to not attack you.", Rarity.Legendary),
@@ -586,6 +587,7 @@ namespace CD2_Bot
             // uncommon
             new Armor("Chainmail", "A little rusty, but it does the job.", 95, 0, null, null, Rarity.Uncommon),
             new Armor("Rock Helmet", "Good against concussions.", 96, 0, null, null, Rarity.Uncommon),
+            new Armor("Fishscale Mail", "Really shiny.", 93, 0, null, null, Rarity.Uncommon),
             new Armor("Brass Armor", "This gilden Chestplate is prettier than it's actually useful.", 94, 0, null, null, Rarity.Uncommon),
             new Armor("Steel Armor", "Quite hefty - good defense, but you look sort of stupid with it.", 91, 0, null, null, Rarity.Uncommon), 
             // rare
@@ -596,6 +598,7 @@ namespace CD2_Bot
             // epic
             new Armor("Golem Skin", "Made from the body of a rock creature.", 82, 0, null, null, Rarity.Epic),
             new Armor("Bone Armor", "An armor-set made of skeleton bones.", 84, 0, null, null, Rarity.Epic),
+            new Armor("Moth Pelt Vest", "Makes you feel attracted to light.", 83, 0, null, null, Rarity.Epic),
             new Armor("Deepforest Cloak", "Protective, but still meant for mobility. Comes with healing herbs.", 86, 0, "Healthy Herbs", "Increases your healing by 10%.", Rarity.Epic),
             new Armor("Aquatic Robe", "Cloak yourself in flowing waters.", 85, 0, "Calming Waters", "Increases HP by 5%.", Rarity.Epic),
             // legendary
@@ -607,8 +610,9 @@ namespace CD2_Bot
             // unstable
             new Armor("Gambler's Ruin", "It's all or nothing.", 100, 0, null, null, Rarity.Unstable), // Custom Effect: 50% chance to fully negate damage, returns 200% if negated. // Bro Wie?
             new Armor("§!#+$=ERR", "This isn't supposed to happen...", 100, 0, "Fault in the System", "Gives you a random resistance and a random damage buff every fight", Rarity.Unstable),
-            new Armor("Pima Longcoat", "The fluffiest, most comfortable piece of clothing around.", 65, 0, "Comfy Cotton", "Increases your healing by 25%.", Rarity.Unstable),
-            new Armor("Mecha Suit", "Technological advancements allow you to enhance yourself with this robotic suit. Prone to malfunction.", 68, 0, "Safety Hazard", "Chance to hurt you every fight.", Rarity.Unstable),
+            new Armor("Pima Longcoat", "The fluffiest, most comfortable piece of clothing around.", 68, 0, "Comfy Cotton", "Increases your healing by 25%.", Rarity.Unstable),
+            new Armor("Blazing Fireguard", "The flames of this chestplate keep foes at bay.", 69, 0, null, null, Rarity.Unstable),
+            new Armor("Mecha Suit", "Technological advancements allow you to enhance yourself with this robotic suit. Prone to malfunction.", 66, 0, "Safety Hazard", "Chance to hurt you every fight.", Rarity.Unstable),
             // corrupted
             new Armor("Fibre of Hatred", "Focus on hurting your foes rather than defending.", 75, 0, "Power of Hatred", "Increases your weapon's damage by a quarter.", Rarity.Corrupted),
             new Armor("Core Smelter Armor", "Made of the innermost layer of earth.", 65, 0, "Core's Heat", "Increases your weapon's damage by 25.", Rarity.Corrupted),
