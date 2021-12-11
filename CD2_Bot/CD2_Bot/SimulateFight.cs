@@ -9,7 +9,7 @@ namespace CD2_Bot
 {
     static class SimulateFight
     {
-        public static Embed Sim(Enemy enemy, CharacterStructure stats)
+        public static Tuple<Embed,MessageComponent> Sim(Enemy enemy, CharacterStructure stats)
         {
             //set win default
             bool win = false;
@@ -133,8 +133,11 @@ namespace CD2_Bot
             
             embedB.WithFooter(Defaults.FOOTER);
 
+            //generate extra stats button
+            ComponentBuilder btnb = new ComponentBuilder().WithButton("Details", $"fightdetails;{tdamage};{edamage};{tdpr};{edpr};" + stats.PlayerID, ButtonStyle.Primary);
+
             //return room screen
-            return embedB.Build();
+            return new Tuple<Embed, MessageComponent> ( embedB.Build(), btnb.Build());
         }
     }
 }

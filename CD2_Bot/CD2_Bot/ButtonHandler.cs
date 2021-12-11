@@ -36,6 +36,9 @@ namespace CD2_Bot
                 case "help":
                     await EditHelp(btn);
                     break;
+                case "fightdetails":
+                    await FightDetails(btn);
+                    break;
             }
         }
 
@@ -316,6 +319,35 @@ namespace CD2_Bot
                     Embed helpembedmisc = Utils.QuickEmbedNormal("Help - Misc.", "``<guide``\n A guidebook for every part of CD2. \n\n ``<server``\n Showcases how many doors have been opened, bosses have been slain and quests have been finished on your server.");
                     await btn.UpdateAsync(x => x.Embed = helpembedmisc);
                     break;
+            }
+        }
+        public static async Task FightDetails(SocketMessageComponent btn)
+        {
+            string[] btndata = btn.Data.CustomId.Split(';');
+            ulong userid = (ulong)Convert.ToInt64(btndata[5]);
+            if (userid == btn.User.Id)
+            {
+                Embed om = btn.Message.Embeds.First();
+                EmbedBuilder newembed = om.ToEmbedBuilder();
+                newembed.AddField("Your Damage", btndata[1]);
+                newembed.AddField("Enemy Damage", btndata[2]);
+                if (newembed.Color.ToString() == "#2ECC71")
+                {
+                    newembed.AddField("Rounds", btndata[3]);
+                } else
+                {
+                    newembed.AddField("Rounds", btndata[4]);
+                }
+
+                await btn.UpdateAsync(x => { 
+                    x.Embed = newembed.Build();
+                    x.Components = null;
+                });
+            }
+            else
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("This is not your fight."), ephemeral: true);
+                return;
             }
         }
     }
