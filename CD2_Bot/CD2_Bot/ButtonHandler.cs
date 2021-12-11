@@ -301,7 +301,7 @@ namespace CD2_Bot
                     await btn.UpdateAsync(x => x.Embed = helpembedstats);
                     break;
                 case "dungeons":
-                    Embed helpembeddungeons = Utils.QuickEmbedNormal("Help - Dungeons", "``<floor``\n Lets you choose a door to open in your server's dungeon.");
+                    Embed helpembeddungeons = Utils.QuickEmbedNormal("Help - Dungeons", "``<floor``\n Lets you choose a door to open in your server's dungeon. \n\n ``<train <[Gear Type]>``\n Lets you train with your gear, gaining XP for it. Can be done for a specific piece or every piece at once.");
                     await btn.UpdateAsync(x => x.Embed = helpembeddungeons);
                     break;
                 case "money":

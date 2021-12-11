@@ -16,6 +16,7 @@ namespace CD2_Bot
         }
 
         public DateTime LastFloor { get; set; }
+        public DateTime LastTrain { get; set; }
 
         public string CharacterName {
             get {

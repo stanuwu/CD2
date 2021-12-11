@@ -148,6 +148,7 @@
     <Compile Include="MiscStats.cs" />
     <Compile Include="tempstorage.cs" />
     <Compile Include="TestModule.cs" />
+    <Compile Include="Train.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
