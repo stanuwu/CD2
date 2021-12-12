@@ -12,7 +12,7 @@ namespace CD2_Bot
     {
         [Command("train")]
         [Summary("Train with your gear to increase its level.")]
-        public async Task TrainAsync(string arg = null, [Remainder] string xargs = null)
+        public async Task TrainAsync(string arg = "", [Remainder] string xargs = null)
         {
             CharacterStructure stats = (from user in tempstorage.characters
                                         where user.PlayerID == Context.User.Id
@@ -37,7 +37,7 @@ namespace CD2_Bot
             switch (arg.ToLower())
             {
                 case "weapon":
-                    if (trainchance >= 90)
+                    if (trainchance >= 80)
                     {
                         stats.WeaponXP += 25;
                         await ReplyAsync(embed: Utils.QuickEmbedNormal("Train", $"Great success! Your {stats.Weapon.Name} earns 25 XP!"));
@@ -55,7 +55,7 @@ namespace CD2_Bot
                     break;
 
                 case "armor":
-                    if (trainchance >= 90)
+                    if (trainchance >= 80)
                     {
                         stats.ArmorXP += 25;
                         await ReplyAsync(embed: Utils.QuickEmbedNormal("Train", $"Great success! Your {stats.Armor.Name} earns 25 XP!"));
@@ -73,7 +73,7 @@ namespace CD2_Bot
                     break;
 
                 case "extra":
-                    if (trainchance >= 90)
+                    if (trainchance >= 80)
                     {
                         stats.ExtraXP += 25;
                         await ReplyAsync(embed: Utils.QuickEmbedNormal("Train", $"Great success! Your {stats.Extra.Name} earns 25 XP!"));
