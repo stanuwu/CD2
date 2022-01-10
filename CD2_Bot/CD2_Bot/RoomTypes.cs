@@ -26,10 +26,23 @@ namespace CD2_Bot
             CharacterStructure stats = (from user in tempstorage.characters
                                          where user.PlayerID == uid
                                          select user).SingleOrDefault();
+
+            string biome = "";
+            if (roomtype.Contains(";"))
+            {
+                string[] data = roomtype.Split(';');
+                roomtype = data[0];
+                biome = data[1];
+            }
             switch (roomtype)
             {
                 case "rFight":
-                    Enemy opponent = EnemyGen.RandomEnemy(stats.Lvl);
+                    Biome sbiome = Biome.Any;
+                    if (biome != "")
+                    {
+                        sbiome = (Biome) Enum.Parse(typeof (Biome), biome);
+                    }
+                    Enemy opponent = EnemyGen.RandomEnemy(stats.Lvl, sbiome);
 
                     Tuple<Embed,MessageComponent> fr = SimulateFight.Sim(opponent, stats);
                     embed = fr.Item1;
@@ -106,17 +119,41 @@ namespace CD2_Bot
                 .WithMinValues(1)
                 .WithMaxValues(1);
             string rType1 = RoomTypes[Defaults.GRandom.Next(RoomTypes.Count)];
-            List<string> rooms = new List<string> { "rRandom", "rFight", rType1 };
+            Biome biome1 = BiomesScaling.randomBiome();
+            Biome biome2 = BiomesScaling.randomBiome();
+            List<string> rooms = new List<string> { "rRandom", "rFight", rType1, "rFight", "rFight" };
+            int count = 0;
             foreach (string r in rooms)
             {
+                if (r == "rFight")
+                {
+                    count++;
+                }
                 string rName = "Default Room";
                 string rId = r;
+                if (count == 2)
+                {
+                    rId += (";" + biome1.ToString());
+                }
+                else if (count == 3)
+                {
+                    rId += (";" + biome2.ToString());
+                }
                 string rDesc = "...";
                 switch (r)
                 {
                     case "rFight":
                         rName = "Room of Encounters";
                         rDesc = "A Monster is waiting in this room for you.";
+                        if (count == 2)
+                        {
+                            rName = "Focused Room of Encounters";
+                            rDesc = "Biome: " + biome1.ToString();
+                        } else if (count == 3)
+                        {
+                            rName = "Focused Room of Encounters";
+                            rDesc = "Biome: " + biome2.ToString();
+                        }
                         break;
                     case "rMoney":
                         rName = "Room of Wealth";
@@ -146,6 +183,7 @@ namespace CD2_Bot
 
                 smb.AddOption(rName, rId, rDesc);
             }
+            smb.Options = smb.Options.OrderBy(o => o.GetHashCode()).ToList();
             return new ComponentBuilder().WithSelectMenu(smb).Build();
         }
     }

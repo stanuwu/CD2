@@ -37,6 +37,34 @@ namespace CD2_Bot
      Settlement
     }
 
+    public static class BiomesScaling
+    {
+        public static Dictionary<Biome, int> levels = new Dictionary<Biome, int>
+        {
+            { Biome.Any, 0 },
+            { Biome.Plains, -2 },
+            { Biome.Forest, -1 },
+            { Biome.Jungle, 1 },
+            { Biome.Cave, 1 },
+            { Biome.Crypt, 3 },
+            { Biome.Coast, 0 },
+            { Biome.Sea, 1 },
+            { Biome.Mountains, 1 },
+            { Biome.Volcano, 4 },
+            { Biome.Desert, 2 },
+            { Biome.Tundra, 0 },
+            { Biome.Swamp, 1 },
+            { Biome.Settlement, 0 },
+        };
+
+        public static Biome randomBiome()
+        {
+            List<Biome> biomes = ((Biome[]) (Enum.GetValues(typeof (Biome)))).ToList();
+            biomes.Remove(Biome.Any);
+            return biomes[Defaults.GRandom.Next(biomes.Count)];
+        }
+    }
+
     public class EnemyDrops
     {
         public EnemyDrops(string drop, int dropAmount, int dropVariation, int dropChance)
@@ -213,14 +241,24 @@ namespace CD2_Bot
         
         public static class EnemyGen
         {
-            public static Enemy RandomEnemy(int level)
+            public static Enemy RandomEnemy(int level, Biome b = Biome.Any)
             {
-                List<Enemy> possibleEnemies = (from e in Enemies where e.Minlevel <= level select e).ToList();
+                List<Enemy> possibleEnemies = new List<Enemy> { };
+                if (b != Biome.Any)
+                {
+                    possibleEnemies = (from e in Enemies where e.Minlevel <= level select e).ToList().FindAll(e => e.Biome == b || e.Biome == Biome.Any);
+                } else
+                {
+                    possibleEnemies = (from e in Enemies where e.Minlevel <= level select e).ToList();
+                }
+                
                 Enemy selectedEnemy = possibleEnemies[Defaults.GRandom.Next(possibleEnemies.Count())];
                 if (level > 6)
                 {
                     level = Math.Abs(level + Defaults.GRandom.Next(-2, 3));
                 }
+                level += BiomesScaling.levels[b];
+                if (level < 0) level = 0;
                 int hpadded = 0;
                 if (level > 50)
                 {
