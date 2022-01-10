@@ -240,7 +240,7 @@ namespace CD2_Bot
                 {
                     damageadded = (int)Math.Floor(selectedEnemy.Damage + 0.003 * Math.Pow(level, 2.5));
                 }
-                Enemy generatedEnemy = new Enemy(selectedEnemy.Type, selectedEnemy.Description, hpadded, level, selectedEnemy.Resistance, selectedEnemy.Minlevel, damageadded, selectedEnemy.CustomEffectName, selectedEnemy.CustomEffectDescription, selectedEnemy.Drops);
+                Enemy generatedEnemy = new Enemy(selectedEnemy.Type, selectedEnemy.Description, hpadded, level, selectedEnemy.Resistance, selectedEnemy.Minlevel, damageadded, selectedEnemy.CustomEffectName, selectedEnemy.CustomEffectDescription, selectedEnemy.Drops, selectedEnemy.Biome);
                 return generatedEnemy;
             }
 
@@ -249,13 +249,13 @@ namespace CD2_Bot
                 new Enemy("Slime", "A mindless creature, formed through strange goo flowing out of the walls of certain caves. Comes in a variety of colours.", 50, 0, 100, 0, 7 , null, null, null, Biome.Any),
                 new Enemy("Gnawing Rat", "A rat who attacks and eats everything it sees, even other rats.", 20, 0, 90, 0, 5, "Light Bleeding", "Causes sligth extra damage depending on the monster's strength, negating armor.", null, Biome.Cave),
                 new Enemy("Crazy Monk", "A monk whose mind has been corrupted by only the sins of their own clergy. Attacks random travelers to cleanse their soul.", 25, 0, 100, 0, 12 , null, null, new EnemyDrops("Torn Bible", 1, 0, 10), Biome.Settlement),
-                new Enemy("Cursed Rock", "A rock that has been cursed to roll forever, crushing everything in its path.", 70, 0, 80, 0, 5, null, null, new EnemyDrops("Stone", 2, 1, 40)), Biome.Mountains,
+                new Enemy("Cursed Rock", "A rock that has been cursed to roll forever, crushing everything in its path.", 70, 0, 80, 0, 5, null, null, new EnemyDrops("Stone", 2, 1, 40), Biome.Mountains),
                 new Enemy("Wild Hound", "A stray dog, craving only food, not affection.", 50, 0, 100, 0, 10, null, null, null, Biome.Any),
                 new Enemy("Red Lizard", "A common reptile, often mistaken for a young dragon.", 40, 0, 100, 0, 9, null, null, new EnemyDrops("Scale", 1, 0, 20), Biome.Any),
                 new Enemy("Glowing Bug", "A flesh-eating insect, using its yellowish skin to reflect light.", 35, 0, 150, 0, 10, "Stun", "Causes a small chance for the player to miss.", null, Biome.Cave),
                 new Enemy("Blorb", "Bloated, fallen off flesh from another monster, which somehow formed a life of its own. Sometimes it even grows limbs, wobbling around and being a disgusting sight to behold.", 40, 0, 100, 0, 7, "Disgusting Appearance", "Increases the damage the player deals", null, Biome.Any),
                 new Enemy("Black-Gilled Piranha", "A predator found in many rivers and streams. There black gills give off an awful stench.", 30, 0, 85, 0, 8, null, null, new EnemyDrops("Fish Scale", 1, 0, 20), Biome.Jungle),
-                new Enemy("Eye-Eating Crow", "A crow who lives around cemeterys, attacking the grieving when there is no corpse to eat.", 35, 0, 85, 0, 7, null, null, new EnemyDrops("Feather", 1, 0, 20) Biome.Any),
+                new Enemy("Eye-Eating Crow", "A crow who lives around cemeterys, attacking the grieving when there is no corpse to eat.", 35, 0, 85, 0, 7, null, null, new EnemyDrops("Feather", 1, 0, 20), Biome.Any),
                 new Enemy("Buzzing Dragonfly", "Bigger and more aggressive than normal dragonflys. Easy to kill, but their bites can cause grave wounds.", 20, 0, 150, 0, 30, null, null, null, Biome.Swamp),
                 new Enemy("Wooden Mimic", "A wooden chest corrupted by evil, engaging everyone who tries to open it", 50, 0, 95, 0, 9, "Small Money Drop", "The player gets a small amount of money", new EnemyDrops("Wood", 1, 0, 20), Biome.Any),
                 new Enemy("Goblin Bandit", "Hostile goblin wielding a melee weapon.", 50, 0, 100, 5, 15, "Small Money Drop", "The player gets a small amount of money", null, Biome.Any),
