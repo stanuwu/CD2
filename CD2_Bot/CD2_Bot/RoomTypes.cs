@@ -96,8 +96,9 @@ namespace CD2_Bot
                 case "rQuest":
                     if (stats.QuestData == "none")
                     {
-                        Quest randomQuest = Quests.questList[Defaults.GRandom.Next(Quests.questList.Count)];
-                        embed = Utils.QuickEmbedNormal("Quest Offer", randomQuest.ObtainingDialogue + "\nThis offer will expire after 15 minutes!");
+                        List<Quest> pq = Quests.questList.FindAll(q => q.LevelLimit <= stats.Lvl);
+                        Quest randomQuest = pq[Defaults.GRandom.Next(pq.Count)];
+                        embed = Utils.QuickEmbedNormal("Quest Offer", randomQuest.ObtainingDialogue + "\n" + randomQuest.ViewRewards() + "\nThis offer will expire after 15 minutes!");
                         msgc = new ComponentBuilder()
                             .WithButton("Accept", "questroom;accept;" + stats.PlayerID + ";" + randomQuest.Descriminator, ButtonStyle.Success)
                             .WithButton("Cancel", "questroom;deny;" + stats.PlayerID, ButtonStyle.Danger).Build();

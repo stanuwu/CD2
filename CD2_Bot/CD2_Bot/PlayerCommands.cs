@@ -82,6 +82,7 @@ namespace CD2_Bot
                     Title = q.Name,
                     Description = q.ShowProgress(stats)
                 };
+                embed.AddField("Rewards", q.ViewRewards());
                 TimeSpan timeleft = q.timeLeft(stats);
                 if (timeleft.TotalMilliseconds < 0)
                 {

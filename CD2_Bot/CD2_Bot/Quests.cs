@@ -99,6 +99,47 @@ namespace CD2_Bot
         {
             return this.Activate == source;
         }
+
+        public virtual string ViewRewards()
+        {
+            string tell = "";
+            if (this.MoneyReward > 0)
+            {
+                tell += $"{this.MoneyReward} Coins\n";
+            }
+
+            if (this.XpReward > 0)
+            {
+                tell += $"{this.XpReward} XP\n";
+            }
+
+            if (this.WeaponXpReward > 0)
+            {
+                tell += $"{this.WeaponXpReward} Weapon XP\n";
+            }
+
+            if (this.ArmorXpReward > 0)
+            {
+                tell += $"{this.ArmorXpReward} Armor XP\n";
+            }
+            if (this.ExtraXpReward > 0)
+            {
+                tell += $"{this.ExtraXpReward} Extra XP\n";
+            }
+            if (this.QuestReward != null)
+            {
+                tell += $"{this.QuestReward.Name} (new quest)\n";
+            }
+            if (this.DropReward != null)
+            {
+                tell += $"+{this.DropReward.DropAmount-this.DropReward.DropVariation}-{this.DropReward.DropAmount+this.DropReward.DropVariation}x {this.DropReward.Drop}\n ({this.DropReward.DropChance}%)";
+            }
+            if (tell == "")
+            {
+                tell = "No rewards.";
+            }
+            return tell;
+        }
         public virtual string GenerateRewards (CharacterStructure stats)
         {
             string tell = "";
@@ -298,6 +339,7 @@ namespace CD2_Bot
                     return true;
                 }
             }
+            return false;
         }
         public override bool isQuestCompleted(CharacterStructure stats)
         {
