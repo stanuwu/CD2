@@ -132,6 +132,7 @@
     <Compile Include="db.cs" />
     <Compile Include="Defaults.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="Farm.cs" />
     <Compile Include="Floor.cs" />
     <Compile Include="Gambling.cs" />
     <Compile Include="Gear.cs" />

@@ -13,10 +13,14 @@ namespace CD2_Bot
         {
             PlayerID = playerID;
             LastFloor = DateTime.MinValue;
+            LastTrain = DateTime.MinValue;
+            LastFarm = DateTime.MinValue;
         }
 
         public DateTime LastFloor { get; set; }
         public DateTime LastTrain { get; set; }
+
+        public DateTime LastFarm { get; set; }
 
         public string CharacterName {
             get {

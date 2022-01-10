@@ -181,7 +181,13 @@ namespace CD2_Bot
                 Dictionary<string,int> inv = Utils.InvAsDict(stats);
                 string drop = this.DropReward.getDrops().Key;
                 int am = this.DropReward.getDrops().Value;
-                inv.Add(drop, am);
+                if (inv.ContainsKey(drop))
+                {
+                    inv[drop] += am;
+                } else
+                {
+                    inv.Add(drop, am);
+                }
                 Utils.SaveInv(stats, inv);
                 tell += $"+{am}x {drop}\n";
             }
