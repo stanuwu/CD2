@@ -370,6 +370,14 @@ namespace CD2_Bot
                 db.CommandVoid(cmd);
             }
         }
+
+        public Quest Quest
+        {
+            get
+            {
+                return Quests.WhatQuest(this.QuestData);
+            }
+        }
         public ulong PlayerID { get; private set; }
     }
 }

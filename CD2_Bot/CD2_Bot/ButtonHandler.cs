@@ -45,6 +45,12 @@ namespace CD2_Bot
                 case "playerfight":
                     await InitPlayerFight(btn);
                     break;
+                case "questview":
+                    await QuestView(btn);
+                    break;
+                case "questroom":
+                    await QuestOffer(btn);
+                    break;
             }
         }
 
@@ -449,6 +455,74 @@ namespace CD2_Bot
 
             await btn.Message.DeleteAsync();
             await btn.RespondAsync(embed: simresult.Item1, components: simresult.Item2);
+        }
+
+        static public async Task QuestView(SocketMessageComponent btn)
+        {
+            string[] btndata = btn.Data.CustomId.Split(';');
+            ulong userid = (ulong)Convert.ToInt64(btndata[2]);
+            CharacterStructure stats = (from user in tempstorage.characters
+                                        where user.PlayerID == userid
+                                        select user).SingleOrDefault();
+
+            if (userid != btn.User.Id)
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("This is not your quest."), ephemeral: true);
+                return;
+            }
+
+            if (stats == null)
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("You do not have a character."), ephemeral: true);
+                return;
+            }
+
+            if (btndata[1] == "cancel")
+            {
+                stats.QuestData = "none";
+                await btn.RespondAsync(embed: Utils.QuickEmbedNormal("Quest", "Quest Cancelled!"));
+                return;
+            }
+        }
+
+        static public async Task QuestOffer(SocketMessageComponent btn)
+        {
+            string[] btndata = btn.Data.CustomId.Split(';');
+            ulong userid = (ulong)Convert.ToInt64(btndata[2]);
+            CharacterStructure stats = (from user in tempstorage.characters
+                                        where user.PlayerID == userid
+                                        select user).SingleOrDefault();
+
+            if (userid != btn.User.Id)
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("This is not your room."), ephemeral: true);
+                return;
+            }
+
+            if ((DateTime.Now - btn.Message.Timestamp).TotalMinutes > 15)
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("This offer is expired."), ephemeral: true);
+                return;
+            }
+
+            if (stats == null)
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("You do not have a character."), ephemeral: true);
+                return;
+            }
+
+            if (btndata[1] == "accept")
+            {
+                Quests.QuestFromDisc(btndata[3]).generateQuest(stats);
+                await btn.Message.DeleteAsync();
+                await btn.RespondAsync(embed: Utils.QuickEmbedNormal("Quest", "Quest Accepted!"));
+                return;
+            } else if (btndata[1] == "deny")
+            {
+                await btn.Message.DeleteAsync();
+                await btn.RespondAsync(embed: Utils.QuickEmbedNormal("Quest", "Quest Denied!"), ephemeral: true);
+                return;
+            }
         }
     }
 }

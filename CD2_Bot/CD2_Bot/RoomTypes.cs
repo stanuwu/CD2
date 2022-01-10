@@ -16,7 +16,7 @@ namespace CD2_Bot
             "rChest",
             //"rMerchant",
             "rTrap",
-            //"rQuest",
+            "rQuest",
         };
         public static Tuple<Embed, Optional<MessageComponent>> ExecuteRoom(string roomtype, ulong uid, ulong gid, ISocketMessageChannel channel)
         {
@@ -94,7 +94,37 @@ namespace CD2_Bot
                     embed = Utils.QuickEmbedNormal("Room", $"A Trap! You lost {mlost} coins.");
                     break;
                 case "rQuest":
-                    embed = Utils.QuickEmbedNormal("Room", "Quests not Implemented yet.");
+                    if (stats.QuestData == "none")
+                    {
+                        Quest randomQuest = Quests.questList[Defaults.GRandom.Next(Quests.questList.Count)];
+                        embed = Utils.QuickEmbedNormal("Quest Offer", randomQuest.ObtainingDialogue + "\nThis offer will expire after 15 minutes!");
+                        msgc = new ComponentBuilder()
+                            .WithButton("Accept", "questroom;accept;" + stats.PlayerID + ";" + randomQuest.Descriminator, ButtonStyle.Success)
+                            .WithButton("Cancel", "questroom;deny;" + stats.PlayerID, ButtonStyle.Danger).Build();
+                    } else
+                    {
+                        Quest q = Quests.WhatQuest(stats.QuestData);
+                        if (q.isQuestExpired(stats))
+                        {
+                            embed = Utils.QuickEmbedNormal("Quest Failed", q.QuestFailedDialogue);
+                            stats.QuestData = "none";
+                        }
+                        else if (q.isQuestCompleted(stats))
+                        {
+                            string qd = stats.QuestData;
+                            embed = Utils.QuickEmbedNormal("Quest Complete!", q.CompletionDialogue);
+                            EmbedBuilder b = embed.ToEmbedBuilder();
+                            b.Description += "\n" + q.GenerateRewards(stats);
+                            embed = b.Build();
+                            if (stats.QuestData == qd)
+                            {
+                                stats.QuestData = "none";
+                            } else
+                            {
+                                embed = Utils.QuickEmbedError("Your current quest is not completed.");
+                            }
+                        }
+                    }
                     break;
                 case "rRandom":
                     tosend = ExecuteRoom(RoomTypes[Defaults.GRandom.Next(RoomTypes.Count)], uid, gid, channel);
