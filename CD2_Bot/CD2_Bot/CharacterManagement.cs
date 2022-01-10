@@ -44,7 +44,7 @@ namespace CD2_Bot
                  charname = charname.Substring(0, 20);
              }
 
-             NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.\"Character\" VALUES (@id, '', 'Player', 'Commoner', 0, 0, '', 0, 'Stick', 'Rags', 'Pendant', ARRAY[]::varchar[], 0, false, 100, 0, 0, 0, @dt);", db.dbc);
+             NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.\"Character\" VALUES (@id, '', 'Player', 'Commoner', 0, 0, '', 0, 'Stick', 'Rags', 'Pendant', ARRAY[]::varchar[], 0, false, 100, 0, 0, 0, @dt, 'none');", db.dbc);
              cmd.Parameters.AddWithValue("@id", (Int64)Context.User.Id);
              cmd.Parameters.AddWithValue("@dt", DateTime.Now.ToString());
              db.CommandVoid(cmd);

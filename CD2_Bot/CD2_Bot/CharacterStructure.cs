@@ -347,8 +347,25 @@ namespace CD2_Bot
             }
             set
             {
-                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.\"Character\" SET deleted = @statmultiplier WHERE \"UserID\" = @id;", db.dbc);
-                cmd.Parameters.AddWithValue("@statmultiplier", value);
+                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.\"Character\" SET deleted = @deleted WHERE \"UserID\" = @id;", db.dbc);
+                cmd.Parameters.AddWithValue("@deleted", value);
+                cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                db.CommandVoid(cmd);
+            }
+        }
+
+        public string QuestData
+        {
+            get
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT quest FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
+                cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                return Convert.ToString(db.CommandString(cmd));
+            }
+            set
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.\"Character\" SET quest = @quest WHERE \"UserID\" = @id;", db.dbc);
+                cmd.Parameters.AddWithValue("@quest", value);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
                 db.CommandVoid(cmd);
             }
