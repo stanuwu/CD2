@@ -23,7 +23,8 @@ namespace CD2_Bot
                        .WithButton("Gear", "guide;gear", ButtonStyle.Primary, row:0)
                        .WithButton("Floor", "guide;floor", ButtonStyle.Primary, row:1)
                        .WithButton("Fight", "guide;fight", ButtonStyle.Primary, row:1)
-                       .WithButton("Chests", "guide;chests", ButtonStyle.Primary, row:1);
+                       .WithButton("Chests", "guide;chests", ButtonStyle.Primary, row:1)
+                       .WithButton("Quests", "guide;quests", ButtonStyle.Primary, row: 1);
 
 
             MessageComponent btn = guidebuttons.Build();

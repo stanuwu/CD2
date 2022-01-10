@@ -305,6 +305,10 @@ namespace CD2_Bot
                     Embed guideembedchests = Utils.QuickEmbedNormal("Guide - Chests", "Chests\nChests containing gear drops, which can be stumpled upon in room of surprises. Depending on rarity, the price to open them can be harsh, but even when the player isn't happy with their lot, they can sell it right away.");
                     await btn.UpdateAsync(x => x.Embed = guideembedchests);
                     break;
+                case "quests":
+                    Embed guideembedquests = Utils.QuickEmbedNormal("Guide - Quests", "Quests\nYou can obtain one of these tasks by entering a room of adventures and view your progress with the quest command. Be sure to complete them in time and visit the room of adventures again to recieve your reward.");
+                    await btn.UpdateAsync(x => x.Embed = guideembedquests);
+                    break;
             }
         }
 
@@ -322,7 +326,7 @@ namespace CD2_Bot
                     await btn.UpdateAsync(x => x.Embed = helpembedstats);
                     break;
                 case "dungeons":
-                    Embed helpembeddungeons = Utils.QuickEmbedNormal("Help - Dungeons", "``<floor``\n Lets you choose a door to open in your server's dungeon. \n\n ``<train <[Gear Type]>``\n Lets you train with your gear, gaining XP for it. Can be done for a specific piece or every piece at once.");
+                    Embed helpembeddungeons = Utils.QuickEmbedNormal("Help - Dungeons", "``<floor``\n Lets you choose a door to open in your server's dungeon. \n\n ``<train <[Gear Type]>``\n Lets you train with your gear, gaining XP for it. Can be done for a specific piece or every piece at once. \n\n ``<quest`` \nView your current quest, progress and how much time you have remaining.");
                     await btn.UpdateAsync(x => x.Embed = helpembeddungeons);
                     break;
                 case "money":
