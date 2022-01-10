@@ -164,6 +164,7 @@ namespace CD2_Bot
                 };
 
                 embed.Description += "\n\n" +
+                    $"**Biome:** {thisenemy.Biome.ToString()}\n" +
                     $"**Base HP:** {thisenemy.HP}\n" +
                     $"**Base Damage:** {thisenemy.Damage}\n" +
                     $"**Resistance:** {thisenemy.Resistance}\n" +
