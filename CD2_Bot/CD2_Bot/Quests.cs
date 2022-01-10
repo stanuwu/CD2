@@ -11,7 +11,13 @@ namespace CD2_Bot
         //add quests here
         public static List<Quest> questList = new List<Quest>
         {
-            new KillAnyMonstersQuest("Kill Random Monsters", "KRM", "Kill any monster in any place.", 7, 2, 1000, 250, 0, 0, 0, null, null, 2160, "These monsters have been annoying me, please kill some of any monster for me!", "Thanks for killing those monsters! Here is your reward!", "You were not able to kill the monsters? Sorry, but I can not offer you any reward.", "You have killed %current%/%goal% monsters so far.", 0, QuestActivations.DefeatMonster),
+            new KillAnyMonstersQuest("Kill Random Monsters", "KRM", "Kill any monster in any place.", 9, 1, 1000, 250, 0, 0, 0, null, null, 2160, "These monsters have been annoying me, please kill some of any monster for me!", "Thanks for killing those monsters! Here is your reward!", "You were not able to kill the monsters? Sorry, but I can not offer you any reward.", "You have killed %current%/%goal% monsters so far.", 0, QuestActivations.DefeatMonster),
+            new KillBiomeMonstersQuest("Kill Swamp Monsters", "KSWM", "Kill any monster from the swamp.", 7, 2, 1500, 350, 0, 0, 0, null, null, 2880, "The swamp is crawling with monsters.", "You've done well.", "You were awful.", "You have killed %current%/%goal% monsters so far.", 0, QuestActivations.DefeatMonster, Biome.Swamp),
+            new KillBiomeMonstersQuest("Kill Cave Monsters", "KCVM", "Kill any monster from the cave.", 7, 2, 1100, 280, 0, 0, 0, null, null, 2880, "The cave is crawling with monsters.", "You've done well.", "You were awful.", "You have killed %current%/%goal% monsters so far.", 0, QuestActivations.DefeatMonster, Biome.Cave),
+            new KillBiomeMonstersQuest("Kill Crypt Monsters", "KCPM", "Kill any monster from the crpyt.", 5, 2, 2500, 550, 0, 0, 0, null, null, 2880, "The crypt is crawling with monsters.", "You've done well.", "You were awful.", "You have killed %current%/%goal% monsters so far.", 5, QuestActivations.DefeatMonster, Biome.Crypt)
+
+            //new Quest("", "", "", 0, 0, 0, 0, 0, 0, 0, null, null, 0, "", "", "", "", 0, null),
+
         };
 
         //get what quest the player has from stored quest data value
@@ -209,6 +215,76 @@ namespace CD2_Bot
                 data.Item3++;
                 this.SaveProgress(stats, data.Item1, data.Item2, data.Item3, data.Item4);
                 return true;
+            }
+        }
+        public override bool isQuestCompleted(CharacterStructure stats)
+        {
+            return (((ValueTuple<string, DateTime, int, int>) this.LoadProgress(stats)).Item3) >= (((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item4);
+        }
+
+        public override bool isQuestExpired(CharacterStructure stats)
+        {
+            if ((DateTime.Now - ((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item2).TotalMinutes > this.CompletionTimeInMinutes) {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+
+        public override TimeSpan timeLeft(CharacterStructure stats)
+        {
+            return (TimeSpan.FromMinutes(this.CompletionTimeInMinutes)) - (DateTime.Now - ((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item2);
+        }
+    }
+
+     public class KillBiomeMonstersQuest : Quest
+    {
+        public KillBiomeMonstersQuest(string name, string descriminator, string description, int progress, int progressMargin, int moneyReward, int xpReward, int weaponXpReward, int armorXpReward, int extraXpReward, Quest questReward, EnemyDrops dropReward, int completionTimeInMinutes, string obtainingDialogue, string completionDialogue, string questFailedDialogue, string questGoalDialogue, int levelLimit, QuestActivations activate, Biome biome) : base(name, descriminator, description, progress, progressMargin, moneyReward, xpReward, weaponXpReward, armorXpReward, extraXpReward, questReward, dropReward, completionTimeInMinutes, obtainingDialogue, completionDialogue, questFailedDialogue, questGoalDialogue, levelLimit, activate)
+        {
+            Biome = biome;
+        }
+        public Biome Biome {get; set;} 
+
+        public override void generateQuest(CharacterStructure stats)
+        {
+            int margin = this.Progress + Defaults.GRandom.Next(this.ProgressMargin * -1, this.ProgressMargin);
+            stats.QuestData = $"{this.Descriminator};{DateTime.Now.ToString()};0;{margin.ToString()}";
+        }
+        public override string ShowProgress(CharacterStructure stats)
+        {
+            int progress = ((ValueTuple<string, DateTime, int, int>)LoadProgress(stats)).Item3;
+            int goal = ((ValueTuple<string, DateTime, int, int>)LoadProgress(stats)).Item4;
+            return this.QuestGoalDialogue.Replace("%current%", progress.ToString()).Replace("%goal%", goal.ToString());
+        }
+        public override object LoadProgress(CharacterStructure stats)
+        {
+            string[] data = stats.QuestData.Split(';');
+            ValueTuple<string, DateTime, int, int> rdata;
+            rdata.Item1 = data[0];
+            rdata.Item2 = DateTime.Parse(data[1]);
+            rdata.Item3 = Convert.ToInt32(data[2]);
+            rdata.Item4 = Convert.ToInt32(data[3]);
+            return rdata;
+        }
+        public void SaveProgress(CharacterStructure stats, string d, DateTime s, int p, int g)
+        {
+            stats.QuestData = $"{d};{s.ToString()};{p.ToString()};{g.ToString()}";
+        }
+        public override bool UpdateProgress(CharacterStructure stats, QuestActivations source, object param = null)
+        {
+            bool gainprogress = base.UpdateProgress(stats, source, param);
+            if (gainprogress == false)
+            {
+                return false;
+            } else
+            {
+                if (((Enemy) param).Biome == this.Biome) {
+                    ValueTuple<string, DateTime, int, int> data = (ValueTuple<string, DateTime, int, int>) this.LoadProgress(stats);
+                    data.Item3++;
+                    this.SaveProgress(stats, data.Item1, data.Item2, data.Item3, data.Item4);
+                    return true;
+                }
             }
         }
         public override bool isQuestCompleted(CharacterStructure stats)
