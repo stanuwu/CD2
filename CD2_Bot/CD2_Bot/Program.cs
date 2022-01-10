@@ -21,7 +21,9 @@ namespace CD2_Bot
 
             DiscordSocketConfig sconf = new DiscordSocketConfig
             {
-                UseInteractionSnowflakeDate = false
+                UseInteractionSnowflakeDate = false,
+                AlwaysDownloadUsers = true,
+                GatewayIntents = GatewayIntents.All,
             };
 
             _client = new DiscordSocketClient(sconf);

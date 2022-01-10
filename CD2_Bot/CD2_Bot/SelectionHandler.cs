@@ -41,7 +41,7 @@ namespace CD2_Bot
                     string selOpt = string.Join(", ", sel.Data.Values);
                     Tuple<Embed, Optional<MessageComponent>> results = Rooms.ExecuteRoom(selOpt, userid, gid, sel.Channel);
                     await sel.Message.DeleteAsync();
-                    await sel.FollowupAsync(component: results.Item2.Value, embed: results.Item1 );
+                    await sel.FollowupAsync(components: results.Item2.Value, embed: results.Item1 );
                 }
                 catch (Exception r) { Utils.DebugLog(r.Message);  }
             } else

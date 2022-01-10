@@ -28,7 +28,7 @@ namespace CD2_Bot
 
             MessageComponent btn = guidebuttons.Build();
 
-            await ReplyAsync(embed: guideembed,component: btn);
+            await ReplyAsync(embed: guideembed,components: btn);
         }
     }
 }

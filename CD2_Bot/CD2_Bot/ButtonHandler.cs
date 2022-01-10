@@ -39,6 +39,12 @@ namespace CD2_Bot
                 case "fightdetails":
                     await FightDetails(btn);
                     break;
+                case "playerfightdetails":
+                    await PlayerFightDetails(btn);
+                    break;
+                case "playerfight":
+                    await InitPlayerFight(btn);
+                    break;
             }
         }
 
@@ -226,6 +232,12 @@ namespace CD2_Bot
                 return;
             }
 
+            if (userid == userid2)
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("Can not coinflip with yourself."), ephemeral: true);
+                return;
+            }
+
             int wager = Convert.ToInt32(btndata[4]);
 
             if (stats.Money < wager || stats2.Money < wager)
@@ -349,6 +361,94 @@ namespace CD2_Bot
                 await btn.RespondAsync(embed: Utils.QuickEmbedError("This is not your fight."), ephemeral: true);
                 return;
             }
+        }
+        public static async Task PlayerFightDetails(SocketMessageComponent btn)
+        {
+            string[] btndata = btn.Data.CustomId.Split(';');
+            ulong userid = (ulong)Convert.ToInt64(btndata[7]);
+            ulong userid2 = (ulong)Convert.ToInt64(btndata[8]);
+            if (userid == btn.User.Id || userid2 == btn.User.Id)
+            {
+                Embed om = btn.Message.Embeds.First();
+                EmbedBuilder newembed = om.ToEmbedBuilder();
+                newembed.AddField($"{btndata[5]} Damage", btndata[1]);
+                newembed.AddField($"{btndata[6]} Damage", btndata[2]);
+                if (newembed.Color.ToString() == "#2ECC71")
+                {
+                    newembed.AddField("Rounds", btndata[3]);
+                }
+                else
+                {
+                    newembed.AddField("Rounds", btndata[4]);
+                }
+
+                await btn.UpdateAsync(x => {
+                    x.Embed = newembed.Build();
+                    x.Components = null;
+                });
+            }
+            else
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("This is not your fight."), ephemeral: true);
+                return;
+            }
+        }
+        static public async Task InitPlayerFight(SocketMessageComponent btn)
+        {
+            string[] btndata = btn.Data.CustomId.Split(';');
+            ulong userid = (ulong)Convert.ToInt64(btndata[2]);
+            ulong userid2 = (ulong)Convert.ToInt64(btndata[3]);
+
+            if ((DateTime.Now - btn.Message.Timestamp).TotalMinutes > 15)
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("This request is expired."), ephemeral: true);
+                return;
+            }
+
+            if(userid == userid2)
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("Can not fight yourself."), ephemeral: true);
+                return;
+            }
+
+            if (btndata[1] == "cancel" && (btn.User.Id == userid || btn.User.Id == userid2))
+            {
+                await btn.Message.DeleteAsync();
+                return;
+            }
+
+            if (btn.User.Id != userid2)
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("This is not your fight request."), ephemeral: true);
+                return;
+            }
+
+            CharacterStructure stats = (from user in tempstorage.characters
+                                        where user.PlayerID == userid
+                                        select user).SingleOrDefault();
+            CharacterStructure stats2 = (from user in tempstorage.characters
+                                         where user.PlayerID == userid2
+                                         select user).SingleOrDefault();
+
+            if (stats == null || stats2 == null)
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("One of you does not have a character."));
+                await btn.Message.DeleteAsync();
+                return;
+            }
+
+            int wager = Convert.ToInt32(btndata[4]);
+
+            if (stats.Money < wager || stats2.Money < wager)
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("One of you can not afford this fight."));
+                return;
+            }
+
+            Tuple<Embed, MessageComponent> simresult = SimulatePlayerFight.Sim(stats, stats2, wager);
+
+            await btn.Message.DeleteAsync();
+            await btn.RespondAsync(embed: simresult.Item1, components: simresult.Item2);
         }
     }
 }

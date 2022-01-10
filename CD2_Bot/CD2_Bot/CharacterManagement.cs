@@ -252,7 +252,7 @@ namespace CD2_Bot
 
             await ReplyAsync(embed: Utils.QuickEmbedNormal("Confirmation", "Are you sure you want to reset your character?\n" +
                 "**This will delete ALL your data!**" +
-                "\nExpires in 5 minutes."), component: btnb);
+                "\nExpires in 5 minutes."), components: btnb);
         }
 
         [Command("rename")]

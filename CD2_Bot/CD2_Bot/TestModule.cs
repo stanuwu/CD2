@@ -29,7 +29,7 @@ namespace CD2_Bot
 
                         MessageComponent btn = btnb.Build();
 
-                        await ReplyAsync(embed: Utils.QuickEmbedNormal("Success", $"Arg: {arg}, Xargs: {xargs}"), component: btn);
+                        await ReplyAsync(embed: Utils.QuickEmbedNormal("Success", $"Arg: {arg}, Xargs: {xargs}"), components: btn);
                     }
                     catch (Exception e)
                     {

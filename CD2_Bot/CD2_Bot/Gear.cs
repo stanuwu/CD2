@@ -520,7 +520,7 @@ namespace CD2_Bot
                 .WithButton("Sell", "dropaction;sell;" + uid + ";" + type + ";" + recievedname, ButtonStyle.Danger)
                 .WithButton("Infuse", "dropaction;infuse;" + uid + ";" + type + ";" + recievedname, ButtonStyle.Secondary);
 
-            await channel.SendMessageAsync(embed: e, component: btna.Build());
+            await channel.SendMessageAsync(embed: e, components: btna.Build());
         }
 
         public static List<Weapon> Weapons = new List<Weapon>
