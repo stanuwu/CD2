@@ -18,7 +18,8 @@ namespace CD2_Bot
         Unstable,
         Corrupted,
         Unique,
-        Random
+        Random,
+        Handmade,
     }
 
     public static class Prices
@@ -31,7 +32,8 @@ namespace CD2_Bot
             { Rarity.Legendary, 10000 },
             { Rarity.Unstable, 25000 },
             { Rarity.Corrupted, 500000 },
-            { Rarity.Unique, 100000 }
+            { Rarity.Unique, 100000 },
+            { Rarity.Handmade, 0 },
         };
        
 
@@ -43,6 +45,7 @@ namespace CD2_Bot
             { Rarity.Legendary, 30000 },
             { Rarity.Unstable, 50000 },
             { Rarity.Corrupted, 100000 },
+            { Rarity.Handmade, 0 },
         };
 
         public static Dictionary<Rarity, int> infuse = new Dictionary<Rarity, int> {
@@ -53,7 +56,8 @@ namespace CD2_Bot
             { Rarity.Legendary, 2500 },
             { Rarity.Unstable, 6500 },
             { Rarity.Corrupted, 15000 },
-            { Rarity.Unique, 25000 }
+            { Rarity.Unique, 25000 },
+            { Rarity.Handmade, 250 },
         };
 
         public static Dictionary<Rarity, int> dropchance = new Dictionary<Rarity, int> { //out of 10000
@@ -458,7 +462,7 @@ namespace CD2_Bot
     public static class Gear
     {
 
-        public static async void RandomDrop(ulong uid, ISocketMessageChannel channel, Rarity droprarity = Rarity.Random, string type = "random")
+        public static async void RandomDrop(ulong uid, ISocketMessageChannel channel, Rarity droprarity = Rarity.Random, string type = "random", string ovr = null, string ovrtype = null)
         {
             //set rarity to random if not specified
             if (droprarity == Rarity.Random)
@@ -502,6 +506,13 @@ namespace CD2_Bot
                 case "extra":
                     recievedname = Gear.Extras.FindAll(g => g.Rarity == droprarity)[Defaults.GRandom.Next(Gear.Extras.FindAll(g => g.Rarity == droprarity).Count)].Name;
                     break;
+            }
+
+            if (ovr != null)
+            {
+                recievedname = ovr;
+                droprarity = Rarity.Handmade;
+                type = ovrtype;
             }
 
             var embed = new EmbedBuilder
@@ -579,6 +590,9 @@ namespace CD2_Bot
             new Weapon("Hammer of Tabula Rasa", "Can flatten entire cities with one attack.", 122, 0, null, null, Rarity.Corrupted),
             new Weapon("Astral Binding Bow", "Bound to the stars, this weapon can light up the night sky.", 124, 0, null, null, Rarity.Corrupted),
             // unique
+
+            //handmade
+            new Weapon("Hardened Stone Sword", "Made out of an incredible amount of stone.", 50, 0, null, null, Rarity.Handmade),
         };
 
         public static List<Armor> Armors = new List<Armor>

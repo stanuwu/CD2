@@ -18,6 +18,9 @@ namespace CD2_Bot
                 case "floorroomselect":
                     await FloorSelect(sel);
                     break;
+                case "craft":
+                    await Crafting(sel);
+                    break;
             }
         }
 
@@ -47,6 +50,56 @@ namespace CD2_Bot
             } else
             {
                 await sel.RespondAsync(embed: Utils.QuickEmbedError("This is not your floor!"), ephemeral: true);
+            }
+        }
+
+        static public async Task Crafting(SocketMessageComponent sel)
+        {
+            ulong userid = (ulong)Convert.ToInt64(sel.Data.CustomId.Split(';')[1]);
+            CharacterStructure stats = (from user in tempstorage.characters
+                                        where user.PlayerID == userid
+                                        select user).SingleOrDefault();
+
+            if (userid == sel.User.Id)
+            {
+                if ((DateTime.Now - sel.Message.Timestamp).TotalMinutes > 15)
+                {
+                    await sel.Message.DeleteAsync();
+                    await sel.RespondAsync(embed: Utils.QuickEmbedError("This room is expired."), ephemeral: true);
+                    return;
+                }
+
+                string[] data = sel.Data.Values.FirstOrDefault().Split(';');
+                string item = data[0];
+                string mat = data[1];
+                int matcost = Convert.ToInt32(data[2]);
+                int coincost = Convert.ToInt32(data[3]);
+                string type = data[4];
+
+                Dictionary<string, int> inv = Utils.InvAsDict(stats);
+                if (inv.ContainsKey(mat) && inv[mat] >= matcost && stats.Money >= coincost)
+                {
+                    stats.Money -= coincost;
+                    inv[mat] -= matcost;
+                    if (inv[mat] < 1)
+                    {
+                        inv.Remove(mat);
+                    }
+                    Utils.SaveInv(stats, inv);
+                    await sel.Message.DeleteAsync();
+                    Gear.RandomDrop(userid, sel.Channel, ovr: item, ovrtype: type);
+                    return;
+                }
+                else
+                {
+                    await sel.RespondAsync(embed: Utils.QuickEmbedError("You can not afford to craft this!"), ephemeral: true);
+                    return;
+                }
+
+            }
+            else
+            {
+                await sel.RespondAsync(embed: Utils.QuickEmbedError("This is not your room!"), ephemeral: true);
             }
         }
     }

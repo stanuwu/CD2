@@ -143,6 +143,7 @@
     <Compile Include="JoinHandler.cs" />
     <Compile Include="PlayerCommands.cs" />
     <Compile Include="Quests.cs" />
+    <Compile Include="Recepies.cs" />
     <Compile Include="RoomTypes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

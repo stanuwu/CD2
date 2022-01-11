@@ -14,9 +14,10 @@ namespace CD2_Bot
         {
             "rMoney",
             "rChest",
-            //"rMerchant",
+            "rMerchant",
             "rTrap",
             "rQuest",
+            "rCraft",
         };
         public static Tuple<Embed, Optional<MessageComponent>> ExecuteRoom(string roomtype, ulong uid, ulong gid, ISocketMessageChannel channel)
         {
@@ -82,7 +83,36 @@ namespace CD2_Bot
                     embed = Utils.QuickEmbedNormal($"You found: {chestrarity.ToString()} {char.ToUpper(item[0]) + item.Substring(1)} Chest", $"You can open this chest for {Prices.buy[chestrarity]} coins.\nThis chest will expire in 15 minutes.");
                     break;
                 case "rMerchant":
-                    embed = Utils.QuickEmbedNormal("Room", "Merchants not Implemented yet.");
+                    Tuple<string, int, string, int> trade = Trades.list[Defaults.GRandom.Next(Trades.list.Count)];
+                    int order = Defaults.GRandom.Next(0, 1);
+                    string get = trade.Item1;
+                    int getam = trade.Item2;
+                    string give = trade.Item3;
+                    int giveam = trade.Item4;
+                    if(order == 0)
+                    {
+                        get = trade.Item3;
+                        getam = trade.Item4;
+                        give = trade.Item1;
+                        giveam = trade.Item2;
+                    }
+                    embed = Utils.QuickEmbedNormal("Room", $"You find a merchant that is willing to trade with you. \nHe wants {giveam}x {give} for his {getam}x {get}.\nThis offer will expire in 15 minutes.");
+                    msgc = new ComponentBuilder()
+                        .WithButton("Accept", "trade;accept;" + uid + ";" + get + ";" + getam + ";" + give + ";" + giveam, ButtonStyle.Success)
+                        .WithButton("Deny", "trade;decline;"+ uid, ButtonStyle.Danger).Build();
+                    break;
+                case "rCraft":
+                    embed = Utils.QuickEmbedNormal("Room", "Do you want to forge on of these items?");
+                    SelectMenuBuilder smb = new SelectMenuBuilder()
+                        .WithPlaceholder("Select an Item to craft!")
+                        .WithCustomId($"craft;{uid}")
+                        .WithMinValues(1)
+                        .WithMaxValues(1);
+                    foreach (Tuple<string, string, int, int, string> r in Crafting.list)
+                    {
+                        smb.AddOption(r.Item1, (r.Item1 + ";" + r.Item2 + ";" + r.Item3 + ";" + r.Item4 + ";" + r.Item5) , $"Costs: {r.Item3} {r.Item2} and {r.Item4} Coins.");
+                    }
+                    msgc = new ComponentBuilder().WithSelectMenu(smb).Build();
                     break;
                 case "rTrap":
                     int mlost = 50 + stats.Lvl * 20;
@@ -150,9 +180,9 @@ namespace CD2_Bot
                 .WithMinValues(1)
                 .WithMaxValues(1);
             string rType1 = RoomTypes[Defaults.GRandom.Next(RoomTypes.Count)];
+            string rType2 = RoomTypes.FindAll(x => x!=rType1)[Defaults.GRandom.Next(RoomTypes.FindAll(x => x != rType1).Count)];
             Biome biome1 = BiomesScaling.randomBiome();
-            Biome biome2 = BiomesScaling.randomBiome();
-            List<string> rooms = new List<string> { "rRandom", "rFight", rType1, "rFight", "rFight" };
+            List<string> rooms = new List<string> { "rRandom",  "rFight", rType1, rType2, "rFight" };
             int count = 0;
             foreach (string r in rooms)
             {
@@ -166,10 +196,6 @@ namespace CD2_Bot
                 {
                     rId += (";" + biome1.ToString());
                 }
-                else if (count == 3)
-                {
-                    rId += (";" + biome2.ToString());
-                }
                 string rDesc = "...";
                 switch (r)
                 {
@@ -180,10 +206,6 @@ namespace CD2_Bot
                         {
                             rName = "Focused Room of Encounters";
                             rDesc = "Biome: " + biome1.ToString();
-                        } else if (count == 3)
-                        {
-                            rName = "Focused Room of Encounters";
-                            rDesc = "Biome: " + biome2.ToString();
                         }
                         break;
                     case "rMoney":
@@ -209,6 +231,10 @@ namespace CD2_Bot
                     case "rQuest":
                         rName = "Room of Adventures";
                         rDesc = "This room may advance you in your Quest.";
+                        break;
+                    case "rCraft":
+                        rName = "Room of Forging";
+                        rDesc = "You can forge new gear in this room.";
                         break;
                 }
 

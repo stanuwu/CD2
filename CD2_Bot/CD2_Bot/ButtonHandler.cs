@@ -51,6 +51,9 @@ namespace CD2_Bot
                 case "questroom":
                     await QuestOffer(btn);
                     break;
+                case "trade":
+                    await Trade(btn);
+                    break;
             }
         }
 
@@ -525,6 +528,72 @@ namespace CD2_Bot
             {
                 await btn.Message.DeleteAsync();
                 await btn.RespondAsync(embed: Utils.QuickEmbedNormal("Quest", "Quest Denied!"), ephemeral: true);
+                return;
+            }
+        }
+
+        static public async Task Trade(SocketMessageComponent btn)
+        {
+            string[] btndata = btn.Data.CustomId.Split(';');
+            ulong userid = (ulong)Convert.ToInt64(btndata[2]);
+            CharacterStructure stats = (from user in tempstorage.characters
+                                        where user.PlayerID == userid
+                                        select user).SingleOrDefault();
+
+            if (userid != btn.User.Id)
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("This is not your room."), ephemeral: true);
+                return;
+            }
+
+            if ((DateTime.Now - btn.Message.Timestamp).TotalMinutes > 15)
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("This offer is expired."), ephemeral: true);
+                return;
+            }
+
+            if (stats == null)
+            {
+                await btn.RespondAsync(embed: Utils.QuickEmbedError("You do not have a character."), ephemeral: true);
+                return;
+            }
+
+            if (btndata[1] == "accept")
+            {
+                string get = btndata[3];
+                int getam = Convert.ToInt32(btndata[4]);
+                string give = btndata[5];
+                int giveam = Convert.ToInt32(btndata[6]);
+                Dictionary<string, int> inv = Utils.InvAsDict(stats);
+                if (inv.ContainsKey(give) && inv[give] >= giveam)
+                {
+                    inv[give] -= giveam;
+                    if (inv[give] < 1)
+                    {
+                        inv.Remove(give);
+                    }
+                    if (inv.ContainsKey(get))
+                    {
+                        inv[get] += getam;
+                    } else
+                    {
+                        inv.Add(get, getam);
+                    }
+                    Utils.SaveInv(stats, inv);
+                    await btn.Message.DeleteAsync();
+                    await btn.RespondAsync(embed: Utils.QuickEmbedNormal("Trade", $"Quest Accepted!\n-{giveam}x {give}\n+{getam}x {get}"));
+                    return;
+                }
+                else
+                {
+                    await btn.RespondAsync(embed: Utils.QuickEmbedError("You can not afford this trade!"), ephemeral: true);
+                    return;
+                }
+            }
+            else if (btndata[1] == "deny")
+            {
+                await btn.Message.DeleteAsync();
+                await btn.RespondAsync(embed: Utils.QuickEmbedNormal("Trade", "Trade Denied!"), ephemeral: true);
                 return;
             }
         }
