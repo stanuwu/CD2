@@ -336,7 +336,7 @@ namespace CD2_Bot
 
 
                 //Coast
-                new Enemy("Hungry Drowned", "An undead who met their demise at the bottom of the sea.", 30, 0, 0, 0, 8, null, null, null, null)
+                new Enemy("Hungry Drowned", "An undead who met their demise at the bottom of the sea.", 30, 0, 110, 0, 8, null, null, null, Biome.Coast),
                 new Enemy("Washed Up Pirate", "A pirate who was nearly killed in a storm, roaming the shores.", 60, 0, 100, 10, 28, "Small Money Drop", "The player gets a small amount of money", new EnemyDrops("Small Pouch", 1, 0, 10), Biome.Coast),
 
 
