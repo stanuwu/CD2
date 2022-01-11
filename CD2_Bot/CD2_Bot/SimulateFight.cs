@@ -50,6 +50,7 @@ namespace CD2_Bot
             {
                 win = true;
                 hptoremove = (int) Math.Round((edamage * tdpr));
+                enemyhp = (int)Math.Round(enemy.HP - (tdamage * tdpr));
             }
             else
             {
@@ -109,8 +110,11 @@ namespace CD2_Bot
             if (win == true)
             {
                 //quest trigger
-                stats.Quest.UpdateProgress(stats, QuestActivations.DefeatMonster, enemy);
-
+                if (stats.QuestData != "none")
+                {
+                    stats.Quest.UpdateProgress(stats, QuestActivations.DefeatMonster, enemy);
+                }
+                
                 embedB.WithColor(Color.Green);
                 embedB.AddField("Coins Earned", Convert.ToString(mfound));
                 embedB.AddField("XP Gained", Convert.ToString(xgained));
