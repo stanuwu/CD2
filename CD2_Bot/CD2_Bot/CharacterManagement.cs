@@ -18,7 +18,7 @@ namespace CD2_Bot
         {
             if (string.IsNullOrWhiteSpace(charname))
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("Please enter a name for your character."));
+                await ReplyAsync(embed: Utils.QuickEmbedError("Please enter a name for your character. \n(usage: `<start [Name]`)"));
                 return;
             }
             else if(tempstorage.characters.Any(x => x.PlayerID == Context.User.Id))
