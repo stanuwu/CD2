@@ -341,7 +341,7 @@ namespace CD2_Bot
                     await btn.UpdateAsync(x => x.Embed = helpembedtop);
                     break;
                 case "misc":
-                    Embed helpembedmisc = Utils.QuickEmbedNormal("Help - Misc.", "``<guide``\n A guidebook for every part of CD2. \n\n ``<server``\n Showcases how many doors have been opened, bosses have been slain and quests have been finished on your server. \n\n ``<pvp [@player] <[wager]>`` \nChallange another player to a fight and optionally wager coins. Currently does not support custom gear abilities. \n\n ``<farm [activity] Farm some crafting/trading items. Current activities: fishing, mining, foraging, harvesting, hunting.``");
+                    Embed helpembedmisc = Utils.QuickEmbedNormal("Help - Misc.", "``<guide``\n A guidebook for every part of CD2. \n\n ``<server``\n Showcases how many doors have been opened, bosses have been slain and quests have been finished on your server. \n\n ``<pvp [@player] <[wager]>`` \nChallange another player to a fight and optionally wager coins. Currently does not support custom gear abilities. \n\n ``<farm [activity]`` Farm some crafting/trading items. Current activities: fishing, mining, foraging, harvesting, hunting.");
                     await btn.UpdateAsync(x => x.Embed = helpembedmisc);
                     break;
             }
