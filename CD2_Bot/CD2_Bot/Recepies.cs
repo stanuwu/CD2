@@ -17,6 +17,7 @@ namespace CD2_Bot
     {
         public static List<Tuple<string, string, int, int, string>> list = new List<Tuple<string, string, int, int, string>> {
             new Tuple<string, string, int, int, string> ("Hardened Stone Sword", "Stone", 500, 1000, "weapon"),
+            new Tuple<string, string, int, int, string> ("Wooden Sword", "Wood", 5, 100, "weapon"),
         };
     }
 }

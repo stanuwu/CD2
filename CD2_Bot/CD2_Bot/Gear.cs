@@ -537,7 +537,7 @@ namespace CD2_Bot
         public static List<Weapon> Weapons = new List<Weapon>
         {
             // common
-            new Weapon("Stick", "A simple wooden stick.", 5, 0, null, null, Rarity.Common),
+            new Weapon("Stick", "A simple wooden stick.", 3, 0, null, null, Rarity.Common),
             new Weapon("Stone Hatchet", "A tool generally used for cutting wood.", 7, 0, null, null, Rarity.Common),
             new Weapon("Shortsword", "A basic blade crafted with simple iron.", 8, 0, null, null, Rarity.Common),
             new Weapon("Wooden Wand", "Equipped to cast only the most basic of spells.", 7, 0, null, null, Rarity.Common),
@@ -592,6 +592,7 @@ namespace CD2_Bot
             // unique
 
             //handmade
+            new Weapon("Wooden Sword", "Only made for combat training.", 5, 0, null, null, Rarity.Handmade),
             new Weapon("Hardened Stone Sword", "Made out of an incredible amount of stone.", 50, 0, null, null, Rarity.Handmade),
         };
 
