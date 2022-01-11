@@ -232,6 +232,15 @@ namespace CD2_Bot
                     character.Money += Prices.buy[Rarity.Legendary];
 
                     break;
+                case "Melting":
+                    if (weapon.CustomEffectName.Contains("Burn"))
+                    {
+                        this.Resistance = this.Resistance*2;
+                    }
+                    break;
+                case "Confusing Appearance":
+                    weapon.BaseDamage -= weapon.BaseDamage/2;
+                    break;
             }
             return 0;
             } 
@@ -327,6 +336,7 @@ namespace CD2_Bot
 
 
                 //Coast
+                new Enemy("Hungry Drowned", "An undead who met their demise at the bottom of the sea.", 30, 0, 0, 0, 8, null, null, null, null)
                 new Enemy("Washed Up Pirate", "A pirate who was nearly killed in a storm, roaming the shores.", 60, 0, 100, 10, 28, "Small Money Drop", "The player gets a small amount of money", new EnemyDrops("Small Pouch", 1, 0, 10), Biome.Coast),
 
 
@@ -354,7 +364,7 @@ namespace CD2_Bot
 
                 //Tundra
                 new Enemy("Ice Wizard of the Order", "A member of an evil organisation who specializes in ice spells.", 55, 0, 100, 10, 20, "Freeze", "Decreases damage and resistance of the player.", null, Biome.Tundra),
-
+                new Enemy("Snow Golem", "A giant humanoid made out of strange hardened snow.", 80, 0, 90, 10, 20, "Melting", "Receives more damage when hit with fire.", null, Biome.Tundra),
 
                 //Mountains
                 new Enemy("Cursed Rock", "A rock that has been cursed to roll forever, crushing everything in its path.", 70, 0, 80, 0, 5, null, null, new EnemyDrops("Stone", 2, 1, 40), Biome.Mountains),
@@ -375,14 +385,18 @@ namespace CD2_Bot
 
 
                 //Sea
+                new Enemy("Crying Siren", "A sea creature who shapeshifts into the most loved person of it's prey to lure them in.", 40, 0, 100, 10, 20, "Confusing Appearance", "Decreases the damage dealt by the the player", null, Biome.Sea),
                 new Enemy("Lion Shark", "A medium sized shark. Known for their yellow color.", 70, 0, 100, 15, 35, null, null, new EnemyDrops("Fish Scale", 3, 1, 15), Biome.Sea),
 
 
                 //Settlement
                 new Enemy("Crazy Monk", "A monk whose mind has been corrupted by only the sins of their own clergy. Attacks random travelers to cleanse their soul.", 25, 0, 100, 0, 12 , null, null, new EnemyDrops("Torn Bible", 1, 0, 10), Biome.Settlement),
+                new Enemy("Paranoid Escapee", "A prisoner who managed to flee from their cell, using a rather extreme method to ensure that there will be no witnesses.", 50, 0, 0, 5, 18, null, null, null, Biome.Settlement),
+                new Enemy("Corrupt Guard", "A corrupt member of the city guard.", 70, 0, 90, 10, 22, null, null, null, Biome.Settlement),
+                new Enemy("Corrupt Guard Officer", "A corrupt officer of the city guard.", 75, 0, 90, 11, 25, null, null, null, Biome.Settlement),
 
 
-                // new Enemy("", "", 0, 0, 0, 0, 0, null, null, null)
+                // new Enemy("", "", 0, 0, 0, 0, 0, null, null, null, null)
             };
         }
 }
