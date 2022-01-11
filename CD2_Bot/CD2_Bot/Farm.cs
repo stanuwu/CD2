@@ -66,6 +66,9 @@ namespace CD2_Bot
                         sreward = "Small Game Pelt";
                         rreward = "Bear Pelt";
                         break;
+                    default:
+                        await ReplyAsync(embed: Utils.QuickEmbedError("Please enter a valid category of farming."));
+                        return;
                 }
 
                 int sam = Defaults.GRandom.Next(1, 3);
