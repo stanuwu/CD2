@@ -61,6 +61,10 @@ namespace CD2_Bot
                         sreward = "Mushroom";
                         rreward = "Rare Root";
                         break;
+                    case "hunting":
+                        gtext = "You go hunting...";
+                        sreward = "Small Game Pelt";
+                        rreward = "Bear Pelt"
                 }
 
                 int sam = Defaults.GRandom.Next(1, 3);
