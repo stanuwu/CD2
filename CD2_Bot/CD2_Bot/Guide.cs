@@ -19,11 +19,11 @@ namespace CD2_Bot
             Embed guideembed = Utils.QuickEmbedNormal("Guide", "Select a guide page.");
             ComponentBuilder guidebuttons = new ComponentBuilder()
                        .WithButton("Start", "guide;start", ButtonStyle.Primary, row:0)
-                       .WithButton("Character", "guide;character", ButtonStyle.Primary, row:0)
-                       .WithButton("Gear", "guide;gear", ButtonStyle.Primary, row:0)
-                       .WithButton("Floor", "guide;floor", ButtonStyle.Primary, row:1)
-                       .WithButton("Fight", "guide;fight", ButtonStyle.Primary, row:1)
-                       .WithButton("Chests", "guide;chests", ButtonStyle.Primary, row:1)
+                       .WithButton("Floor", "guide;floor", ButtonStyle.Primary, row: 0)
+                       .WithButton("Fight", "guide;fight", ButtonStyle.Primary, row: 0)
+                       .WithButton("Grinding", "guide;grinding", ButtonStyle.Primary, row: 0)
+                       .WithButton("Character", "guide;character", ButtonStyle.Primary, row:1)
+                       .WithButton("Gear", "guide;gear", ButtonStyle.Primary, row:1)
                        .WithButton("Quests", "guide;quests", ButtonStyle.Primary, row: 1);
 
 

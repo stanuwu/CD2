@@ -264,7 +264,7 @@ namespace CD2_Bot
             embed.WithColor(Color.Green);
             switch (cfw)
             {
-                case 0:
+                case 1:
                     stats.Money += wager;
                     stats2.Money -= wager;
                     embed.Description = $"<@{userid}> takes {wager} coins from <@{userid2}>!";
@@ -285,31 +285,31 @@ namespace CD2_Bot
             switch (btndata[1])
             {
                 case "start":
-                    Embed guideembed = Utils.QuickEmbedNormal("Guide", "Welcome to Custom Dungeons 2!\n In this text based RPG you can create your own character and explore a never ending dungeon, filled with monsters and riches. Level your character, slay bosses and always strive for the best loot, but be aware that enemies wil also become stronger alongside you.");
+                    Embed guideembed = Utils.QuickEmbedNormal("Guide", Text.guide_page_start);
                     await btn.UpdateAsync(x => x.Embed = guideembed);
                     break;
                 case "character":
-                    Embed guideembedchar = Utils.QuickEmbedNormal("Guide - Character", "Character\nYour character has a custom name, a custom description, a title, a selectable class, gear (weapon, armor and an extra), money and a stat multiplier which is calculated through your current level");
+                    Embed guideembedchar = Utils.QuickEmbedNormal("Guide - Character", Text.guide_page_character);
                     await btn.UpdateAsync(x => x.Embed = guideembedchar);
                     break;
                 case "gear":
-                    Embed guideembedgear = Utils.QuickEmbedNormal("Guide - Gear", "Gear\nYour character's gear consists of a weapon, an armor and an extra. All of them have different rarities, showing how strong and valuable they are, and some even have custom effects.");
+                    Embed guideembedgear = Utils.QuickEmbedNormal("Guide - Gear", Text.guide_page_gear);
                     await btn.UpdateAsync(x => x.Embed = guideembedgear);
                     break;
                 case "floor":
-                    Embed guideembedfloor = Utils.QuickEmbedNormal("Guide - Floor", "Floor\nThe main gameplay aspect. You can either encounter a monster, find money or even chests, or you may be unlucky and stumble into a trap, robbing you of your hard earned money.");
+                    Embed guideembedfloor = Utils.QuickEmbedNormal("Guide - Floor", Text.guide_page_floors);
                     await btn.UpdateAsync(x => x.Embed = guideembedfloor);
                     break;
                 case "fight":
-                    Embed guideembedfight = Utils.QuickEmbedNormal("Guide - Fight", "Fight\nA fight against a single monster. You have to defeat it for a chance of getting (crafting) item drops and always an ammount of money. If it defeats you, you won't be able to proceed into antoher floor until you have enough health again.");
+                    Embed guideembedfight = Utils.QuickEmbedNormal("Guide - Fight", Text.guide_page_fights);
                     await btn.UpdateAsync(x => x.Embed = guideembedfight);
                     break;
-                case "chests":
-                    Embed guideembedchests = Utils.QuickEmbedNormal("Guide - Chests", "Chests\nChests containing gear drops, which can be stumpled upon in room of surprises. Depending on rarity, the price to open them can be harsh, but even when the player isn't happy with their lot, they can sell it right away.");
+                case "grinding":
+                    Embed guideembedchests = Utils.QuickEmbedNormal("Guide - Grinding", Text.guide_page_grinding);
                     await btn.UpdateAsync(x => x.Embed = guideembedchests);
                     break;
                 case "quests":
-                    Embed guideembedquests = Utils.QuickEmbedNormal("Guide - Quests", "Quests\nYou can obtain one of these tasks by entering a room of adventures and view your progress with the quest command. Be sure to complete them in time and visit the room of adventures again to recieve your reward.");
+                    Embed guideembedquests = Utils.QuickEmbedNormal("Guide - Quests", Text.guide_page_quests);
                     await btn.UpdateAsync(x => x.Embed = guideembedquests);
                     break;
             }
@@ -321,27 +321,27 @@ namespace CD2_Bot
             switch (btndata[1])
             {
                 case "character":
-                    Embed helpembedchar = Utils.QuickEmbedNormal("Help - Character", "``<start [Character Name]``\n Create a character with the given name (if you do not have one already). \n\n ``<character <[UID]>``\n Views your character (or someone elses, if given an ID). \n\n ``<stats <[UID]>``\n Views your character's gear (or someone elses, if given an ID). \n\n ``<inventory``\n Shows you your inventory. \n\n ``<reset``\n Deletes your character. \n\n ``<rename [Character Name]``\n Renames your character to the given name. \n\n ``<description``\n Gives your character the given description.");
+                    Embed helpembedchar = Utils.QuickEmbedNormal("Help - Character", Text.help_page_character);
                     await btn.UpdateAsync(x => x.Embed = helpembedchar);
                     break;
                 case "stats":
-                    Embed helpembedstats = Utils.QuickEmbedNormal("Help - Stats", "``<weapon [Weapon Name]``\n Views the stats of the given weapon. \n\n ``<armor [Armor Name]`` \n Views the stats of the given armor. \n\n ``<extra [Extra Name]`` \n Views the stats of the given extra. \n\n ``<monster [Monster Name]`` \n Views the stats of the given monster. \n\n\n Ex.: <armor Bone");
+                    Embed helpembedstats = Utils.QuickEmbedNormal("Help - Stats", Text.help_page_stats);
                     await btn.UpdateAsync(x => x.Embed = helpembedstats);
                     break;
-                case "dungeons":
-                    Embed helpembeddungeons = Utils.QuickEmbedNormal("Help - Dungeons", "``<floor``\n Lets you choose a door to open in your server's dungeon. \n\n ``<train <[Gear Type]>``\n Lets you train with your gear, gaining XP for it. Can be done for a specific piece or every piece at once. \n\n ``<quest`` \nView your current quest, progress and how much time you have remaining.");
+                case "play":
+                    Embed helpembeddungeons = Utils.QuickEmbedNormal("Help - Play", Text.help_page_play);
                     await btn.UpdateAsync(x => x.Embed = helpembeddungeons);
                     break;
                 case "money":
-                    Embed helpembedmoney = Utils.QuickEmbedNormal("Help - Money", "``<coinflip [Amount of money bet] <[@Opponent]>``\n Coinflip against an AI or another player for money. \n\n Ex.: <coinflip 500 @stan  \n\n ``<slots [Amount of money bet]``\n Spin a slot machine for money. \n\n <slots 2000");
+                    Embed helpembedmoney = Utils.QuickEmbedNormal("Help - Money", Text.help_page_money);
                     await btn.UpdateAsync(x => x.Embed = helpembedmoney);
                     break;
-                case "top":
-                    Embed helpembedtop = Utils.QuickEmbedNormal("Help - Top", "``<lvltop``\n Showcases the top characters across all servers by level. \n\n ``<moneytop``\n Showcases the top characters across all servers by amount of money owned. \n\n ``<geartop``\n Showcases the top characters across all servers by gear equipped. \n\n ``<servertop``\n Showcases the top servers by various criterias.");
+                case "rooms":
+                    Embed helpembedtop = Utils.QuickEmbedNormal("Help - Rooms", Text.help_page_rooms);
                     await btn.UpdateAsync(x => x.Embed = helpembedtop);
                     break;
                 case "misc":
-                    Embed helpembedmisc = Utils.QuickEmbedNormal("Help - Misc.", "``<guide``\n A guidebook for every part of CD2. \n\n ``<server``\n Showcases how many doors have been opened, bosses have been slain and quests have been finished on your server. \n\n ``<pvp [@player] <[wager]>`` \nChallange another player to a fight and optionally wager coins. Currently does not support custom gear abilities. \n\n ``<farm [activity]`` Farm some crafting/trading items. Current activities: fishing, mining, foraging, harvesting, hunting.");
+                    Embed helpembedmisc = Utils.QuickEmbedNormal("Help - Misc.", Text.help_page_misc);
                     await btn.UpdateAsync(x => x.Embed = helpembedmisc);
                     break;
             }

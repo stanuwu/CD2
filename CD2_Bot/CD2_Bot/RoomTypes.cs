@@ -152,7 +152,8 @@ namespace CD2_Bot
                             {
                                 stats.QuestData = "none";
                             }
-                        } else
+                        }
+                        else
                         {
                             embed = Utils.QuickEmbedError("Your current quest is not completed.");
                         }
