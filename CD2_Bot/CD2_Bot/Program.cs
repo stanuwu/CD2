@@ -23,7 +23,8 @@ namespace CD2_Bot
             {
                 UseInteractionSnowflakeDate = false,
                 AlwaysDownloadUsers = true,
-                GatewayIntents = GatewayIntents.All,
+                GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers,
+
             };
 
             _client = new DiscordSocketClient(sconf);
