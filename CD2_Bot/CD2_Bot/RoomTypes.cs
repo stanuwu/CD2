@@ -146,14 +146,15 @@ namespace CD2_Bot
                             embed = Utils.QuickEmbedNormal("Quest Complete!", q.CompletionDialogue);
                             EmbedBuilder b = embed.ToEmbedBuilder();
                             b.Description += "\n" + q.GenerateRewards(stats);
+                            tempstorage.guilds.Find(g => g.GuildID == gid).QuestsFinished += 1;
                             embed = b.Build();
                             if (stats.QuestData == qd)
                             {
                                 stats.QuestData = "none";
-                            } else
-                            {
-                                embed = Utils.QuickEmbedError("Your current quest is not completed.");
                             }
+                        } else
+                        {
+                            embed = Utils.QuickEmbedError("Your current quest is not completed.");
                         }
                     }
                     break;
