@@ -98,6 +98,7 @@ namespace CD2_Bot
                     }
                     rewards += $"+1x {rreward}";
                 }
+                Utils.SaveInv(stats, inv);
 
                 await ReplyAsync(embed: Utils.QuickEmbedNormal("Farm", gtext + "\n" + rewards ));
             }
