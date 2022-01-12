@@ -153,6 +153,7 @@
     <Compile Include="SimulatePlayerFight.cs" />
     <Compile Include="tempstorage.cs" />
     <Compile Include="TestModule.cs" />
+    <Compile Include="Text.cs" />
     <Compile Include="Train.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>

@@ -99,7 +99,7 @@ namespace CD2_Bot
                     embed = Utils.QuickEmbedNormal("Room", $"You find a merchant that is willing to trade with you. \nHe wants {giveam}x {give} for his {getam}x {get}.\nThis offer will expire in 15 minutes.");
                     msgc = new ComponentBuilder()
                         .WithButton("Accept", "trade;accept;" + uid + ";" + get + ";" + getam + ";" + give + ";" + giveam, ButtonStyle.Success)
-                        .WithButton("Deny", "trade;decline;"+ uid, ButtonStyle.Danger).Build();
+                        .WithButton("Deny", "trade;deny;"+ uid, ButtonStyle.Danger).Build();
                     break;
                 case "rCraft":
                     embed = Utils.QuickEmbedNormal("Room", "Do you want to forge on of these items?");
@@ -146,14 +146,16 @@ namespace CD2_Bot
                             embed = Utils.QuickEmbedNormal("Quest Complete!", q.CompletionDialogue);
                             EmbedBuilder b = embed.ToEmbedBuilder();
                             b.Description += "\n" + q.GenerateRewards(stats);
+                            tempstorage.guilds.Find(g => g.GuildID == gid).QuestsFinished += 1;
                             embed = b.Build();
                             if (stats.QuestData == qd)
                             {
                                 stats.QuestData = "none";
-                            } else
-                            {
-                                embed = Utils.QuickEmbedError("Your current quest is not completed.");
                             }
+                        }
+                        else
+                        {
+                            embed = Utils.QuickEmbedError("Your current quest is not completed.");
                         }
                     }
                     break;
