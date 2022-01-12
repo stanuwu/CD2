@@ -34,7 +34,6 @@ namespace CD2_Bot
                     await ReplyAsync(embed: Utils.QuickEmbedError($"You are on cooldown for {Defaults.FARMINGCOOLDOWN - minutesago} minutes."));
                     return;
                 }
-                stats.LastFarm = DateTime.Now;
 
                 string sreward = "";
                 string rreward = "";
@@ -70,6 +69,8 @@ namespace CD2_Bot
                         await ReplyAsync(embed: Utils.QuickEmbedError("Please enter a valid category of farming."));
                         return;
                 }
+
+                stats.LastFarm = DateTime.Now;
 
                 int sam = Defaults.GRandom.Next(1, 3);
                 string rewards = "";
