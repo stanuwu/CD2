@@ -84,7 +84,7 @@ namespace CD2_Bot
 
     public class Weapon : IGearStats
     {
-        public Weapon(string name, string description, int damage, int exp, string customeffectname, string customeffectdesc, Rarity rarity)
+        public Weapon(string name, string description, int damage, int exp, string customeffectname, string customeffectdesc, Rarity rarity, bool canDrop = true)
         {
             Name = name;
             Description = description;
@@ -103,6 +103,7 @@ namespace CD2_Bot
         public string CustomEffectName { get; set; }
         public string CustomEffectDescription { get; set; }
         public Rarity Rarity { get; set; }
+        public bool CanDrop { get; set; }
         public double CustomEffect(CharacterStructure character, Enemy enemy, Armor armor, Extra extra)
         {
             switch (this.CustomEffectName)
@@ -180,7 +181,7 @@ namespace CD2_Bot
 
     public class Armor : IGearStats
     {
-        public Armor(string name, string description, int resistance, int exp, string customeffectname, string customeffectdesc, Rarity rarity)
+        public Armor(string name, string description, int resistance, int exp, string customeffectname, string customeffectdesc, Rarity rarity, bool canDrop = true)
         {
             Name = name;
             Description = description;
@@ -198,6 +199,7 @@ namespace CD2_Bot
         public string CustomEffectName { get; set; }
         public string CustomEffectDescription { get; set; }
         public Rarity Rarity { get; set; }
+        public bool CanDrop { get; set; }
         public double CustomEffect(CharacterStructure character, Enemy enemy, Weapon weapon, Extra extra)
         {
             switch (this.CustomEffectName)
@@ -349,7 +351,7 @@ namespace CD2_Bot
     
     public class Extra : IGearStats
     {
-        public Extra(string name, string description, int damage, int heal, int exp, string customeffectname, string customeffectdesc, Rarity rarity)
+        public Extra(string name, string description, int damage, int heal, int exp, string customeffectname, string customeffectdesc, Rarity rarity, bool canDrop = true)
         {
             Name = name;
             Description = description;
@@ -359,6 +361,7 @@ namespace CD2_Bot
             CustomEffectName = customeffectname;
             CustomEffectDescription = customeffectdesc;
             Rarity = rarity;
+            CanDrop = canDrop;
         }
 
         public string Name { get; set; }
@@ -372,6 +375,7 @@ namespace CD2_Bot
         public string CustomEffectName { get; set; }
         public string CustomEffectDescription { get; set; }
         public Rarity Rarity { get; set; }
+        public bool CanDrop { get; set; }
         public double CustomEffect(CharacterStructure character, Enemy enemy, Weapon weapon, Armor armor)
         {
             switch (this.CustomEffectName)
@@ -498,13 +502,13 @@ namespace CD2_Bot
             switch(type)
             {
                 case "weapon":
-                    recievedname = Gear.Weapons.FindAll(g => g.Rarity == droprarity)[Defaults.GRandom.Next(Gear.Weapons.FindAll(g => g.Rarity == droprarity).Count)].Name;
+                    recievedname = Gear.Weapons.FindAll(g => g.Rarity == droprarity)[Defaults.GRandom.Next(Gear.Weapons.FindAll(g => g.Rarity == droprarity && g.CanDrop == true).Count)].Name;
                     break;
                 case "armor":
-                    recievedname = Gear.Armors.FindAll(g => g.Rarity == droprarity)[Defaults.GRandom.Next(Gear.Armors.FindAll(g => g.Rarity == droprarity).Count)].Name;
+                    recievedname = Gear.Armors.FindAll(g => g.Rarity == droprarity)[Defaults.GRandom.Next(Gear.Armors.FindAll(g => g.Rarity == droprarity && g.CanDrop == true).Count)].Name;
                     break;
                 case "extra":
-                    recievedname = Gear.Extras.FindAll(g => g.Rarity == droprarity)[Defaults.GRandom.Next(Gear.Extras.FindAll(g => g.Rarity == droprarity).Count)].Name;
+                    recievedname = Gear.Extras.FindAll(g => g.Rarity == droprarity)[Defaults.GRandom.Next(Gear.Extras.FindAll(g => g.Rarity == droprarity && g.CanDrop == true).Count)].Name;
                     break;
             }
 
@@ -592,8 +596,8 @@ namespace CD2_Bot
             // unique
 
             //handmade
-            new Weapon("Wooden Sword", "Only made for combat training.", 5, 0, null, null, Rarity.Handmade),
-            new Weapon("Hardened Stone Sword", "Made out of an incredible amount of stone.", 50, 0, null, null, Rarity.Handmade),
+            new Weapon("Wooden Sword", "Only made for combat training.", 5, 0, null, null, Rarity.Common, true),
+            new Weapon("Hardened Stone Sword", "Made out of an incredible amount of stone.", 50, 0, null, null, Rarity.Epic, true),
         };
 
         public static List<Armor> Armors = new List<Armor>

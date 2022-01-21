@@ -113,6 +113,13 @@ namespace CD2_Bot
                                         where user.PlayerID == userid
                                         select user).SingleOrDefault();
 
+            if ((DateTime.Now - sel.Message.Timestamp).TotalMinutes > 15)
+            {
+                await sel.Message.DeleteAsync();
+                await sel.RespondAsync(embed: Utils.QuickEmbedError("This room is expired."), ephemeral: true);
+                return;
+            }
+
             Biome sbiome = (Biome)Enum.Parse(typeof(Biome), sel.Data.Values.FirstOrDefault().Split(';')[0]);
             Enemy opponent = EnemyGen.RandomEnemy(stats.Lvl, sbiome);
 
