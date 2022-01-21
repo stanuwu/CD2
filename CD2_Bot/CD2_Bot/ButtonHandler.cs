@@ -54,6 +54,9 @@ namespace CD2_Bot
                 case "trade":
                     await Trade(btn);
                     break;
+                case "gboard":
+                    await DisplayGlobalLeaderBoard(btn);
+                    break;
             }
         }
 
@@ -488,6 +491,7 @@ namespace CD2_Bot
             {
                 stats.QuestData = "none";
                 await btn.RespondAsync(embed: Utils.QuickEmbedNormal("Quest", "Quest Cancelled!"));
+                await btn.Message.DeleteAsync();
                 return;
             }
         }
@@ -595,6 +599,179 @@ namespace CD2_Bot
                 await btn.Message.DeleteAsync();
                 await btn.RespondAsync(embed: Utils.QuickEmbedNormal("Trade", "Trade Denied!"), ephemeral: true);
                 return;
+            }
+        }
+
+        static public async Task DisplayGlobalLeaderBoard(SocketMessageComponent btn)
+        {
+            string[] btndata = btn.Data.CustomId.Split(';');
+            ulong userid = (ulong)Convert.ToInt64(btndata[2]);
+            
+            switch(btndata[1])
+            {
+                case "lvl":
+                    if (tempstorage.characters.Count < 3)
+                    {
+                        await btn.UpdateAsync(x => {
+                            x.Components = null;
+                            x.Embed = Utils.QuickEmbedError("There is not enough players to do this.");
+                        });
+                        return;
+                    }
+
+                    EmbedBuilder embed = new EmbedBuilder
+                    {
+                        Title = "Global Level Leaderboard"
+                    };
+
+                    List<CharacterStructure> tco = tempstorage.characters.Where(x => x.Deleted == false).OrderByDescending(c => c.EXP).ToList();
+                    List<CharacterStructure> t3c = tco.Take(3).ToList();
+
+                    string avatarurl = "";
+                    IUser founduser = await Defaults.CLIENT.GetUserAsync(t3c[0].PlayerID);
+                    if (founduser != null)
+                    {
+                        avatarurl = founduser.GetAvatarUrl();
+                    }
+                    else
+                    {
+                        avatarurl = Defaults.CLIENT.CurrentUser.GetDefaultAvatarUrl();
+                    }
+
+                    embed.ThumbnailUrl = avatarurl;
+
+                    embed.Description = "\n" +
+                        $"**1: {t3c[0].CharacterName}**\n" +
+                        $"Level: {t3c[0].Lvl} ({t3c[0].EXP}exp)\n\n" +
+                        $"**2: {t3c[1].CharacterName}**\n" +
+                        $"Level: {t3c[1].Lvl} ({t3c[1].EXP}exp)\n\n" +
+                        $"**3: {t3c[2].CharacterName}**\n" +
+                        $"Level: {t3c[2].Lvl} ({t3c[2].EXP}exp)\n\n";
+
+                    CharacterStructure stats = (from user in tempstorage.characters
+                                                where user.PlayerID == userid
+                                                select user).SingleOrDefault();
+
+                    if (stats != null && stats.Deleted == false && !t3c.Any(x => x.PlayerID == stats.PlayerID))
+                    {
+                        embed.Description += $"**Your Place:** {tco.IndexOf(stats) + 1}";
+                    }
+
+                    embed.WithColor(Color.DarkMagenta);
+                    embed.WithFooter(Defaults.FOOTER);
+                    await btn.UpdateAsync(x => { x.Embed = embed.Build(); x.Components = null; });
+
+                    break;
+
+                case "money":
+                    EmbedBuilder embedm = new EmbedBuilder
+                    {
+                        Title = "Global Money Leaderboard"
+                    };
+
+                    if (tempstorage.characters.Count < 3)
+                    {
+                        SocketMessage m = btn.Message;
+                        await btn.UpdateAsync(x => {
+                            x.Components = null;
+                            x.Embed = Utils.QuickEmbedError("There is not enough players to do this.");
+                            });
+                        return;
+                    }
+
+                    List<CharacterStructure> tcom = tempstorage.characters.Where(x => x.Deleted == false).OrderByDescending(c => c.Money).ToList();
+                    List<CharacterStructure> t3cm = tcom.Take(3).ToList();
+
+                    string avatarurlm = "";
+                    IUser founduserm = await Defaults.CLIENT.GetUserAsync(t3cm[0].PlayerID);
+                    if (founduserm != null)
+                    {
+                        avatarurlm = founduserm.GetAvatarUrl();
+                    }
+                    else
+                    {
+                        avatarurlm = Defaults.CLIENT.CurrentUser.GetDefaultAvatarUrl();
+                    }
+
+                    embedm.ThumbnailUrl = avatarurlm;
+
+                    embedm.Description = "\n" +
+                        $"**1: {t3cm[0].CharacterName}**\n" +
+                        $"Money: {t3cm[0].Money} coins\n\n" +
+                        $"**2: {t3cm[1].CharacterName}**\n" +
+                        $"Money: {t3cm[1].Money} coins\n\n" +
+                        $"**3: {t3cm[2].CharacterName}**\n" +
+                        $"Money: {t3cm[2].Money} coins\n\n";
+
+                    CharacterStructure statsm = (from user in tempstorage.characters
+                                                where user.PlayerID == userid
+                                                select user).SingleOrDefault();
+
+                    if (statsm != null && statsm.Deleted == false && !t3cm.Any(x => x.PlayerID == statsm.PlayerID))
+                    {
+                        embedm.Description += $"**Your Place:** {tcom.IndexOf(statsm) + 1}";
+                    }
+
+                    embedm.WithColor(Color.DarkMagenta);
+                    embedm.WithFooter(Defaults.FOOTER);
+                    await btn.UpdateAsync(x => { x.Embed = embedm.Build(); x.Components = null; });
+
+                    break;
+
+                case "gear":
+                    EmbedBuilder embedg = new EmbedBuilder
+                    {
+                        Title = "Global Money Leaderboard"
+                    };
+
+                    if (tempstorage.characters.Count < 3)
+                    {
+                        SocketMessage m = btn.Message;
+                        await btn.UpdateAsync(x => {
+                            x.Components = null;
+                            x.Embed = Utils.QuickEmbedError("There is not enough players to do this.");
+                        });
+                        return;
+                    }
+
+                    List<CharacterStructure> tcog = tempstorage.characters.Where(x => x.Deleted == false).OrderByDescending(c => Prices.sell[c.Weapon.Rarity] + Prices.sell[c.Armor.Rarity] + Prices.sell[c.Extra.Rarity]).ToList();
+                    List<CharacterStructure> t3cg = tcog.Take(3).ToList();
+
+                    string avatarurlg = "";
+                    IUser founduserg = await Defaults.CLIENT.GetUserAsync(t3cg[0].PlayerID);
+                    if (founduserg != null)
+                    {
+                        avatarurlg = founduserg.GetAvatarUrl();
+                    }
+                    else
+                    {
+                        avatarurlg = Defaults.CLIENT.CurrentUser.GetDefaultAvatarUrl();
+                    }
+
+                    embedg.ThumbnailUrl = avatarurlg;
+
+                    embedg.Description = "\n" +
+                        $"**1: {t3cg[0].CharacterName}**\n" +
+                        $"Weapon: {t3cg[0].Weapon.Name}\nArmor: {t3cg[0].Armor.Name}\nExtra: {t3cg[0].Extra.Name} \n\n" +
+                        $"**2: {t3cg[1].CharacterName}**\n" +
+                        $"Weapon: {t3cg[1].Weapon.Name}\nArmor: {t3cg[1].Armor.Name}\nExtra: {t3cg[1].Extra.Name}\n\n" +
+                        $"**3: {t3cg[2].CharacterName}**\n" +
+                        $"Weapon: {t3cg[2].Weapon.Name}\nArmor: {t3cg[2].Armor.Name}\nExtra: {t3cg[2].Extra.Name}\n\n";
+
+                    CharacterStructure statsg = (from user in tempstorage.characters
+                                                where user.PlayerID == userid
+                                                select user).SingleOrDefault();
+
+                    if (statsg != null && statsg.Deleted == false && !t3cg.Any(x => x.PlayerID == statsg.PlayerID))
+                    {
+                        embedg.Description += $"**Your Place:** {tcog.IndexOf(statsg) + 1}";
+                    }
+
+                    embedg.WithColor(Color.DarkMagenta);
+                    embedg.WithFooter(Defaults.FOOTER);
+                    await btn.UpdateAsync(x => { x.Embed = embedg.Build(); x.Components = null; });
+
+                    break;
             }
         }
     }

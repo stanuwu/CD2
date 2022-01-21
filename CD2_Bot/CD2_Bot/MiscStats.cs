@@ -197,13 +197,24 @@ namespace CD2_Bot
         [Summary("View the level leaderboard.")]
         public async Task LevelTopAsync([Remainder] string xargs = null)
         {
-            if (tempstorage.characters.Count < 3)
+            List<IGuildUser> tgp = (await Context.Guild.GetUsersAsync().FlattenAsync()).ToList().FindAll(u => tempstorage.characters.Exists(x => x.PlayerID == u.Id));
+            List<CharacterStructure> tgc = new List<CharacterStructure>() { };
+            tgp.ForEach(x => tgc.Add(tempstorage.characters.Find(p => p.PlayerID == x.Id)));
+
+            EmbedBuilder embed = new EmbedBuilder
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("There is not enough players to do this."));
-                return;
+                Title = "Level Leaderboard"
+            };
+
+            MessageComponent btn = new ComponentBuilder().WithButton("Global", "gboard;lvl;" + Context.User.Id , ButtonStyle.Primary).Build();
+
+            if (tgp.Count < 3)
+            {
+                embed.Description = "There is not enough players in this guild. You can view the global leaderboards instead.";
+                await ReplyAsync(embed: embed.Build(), components: btn);
             }
 
-            List<CharacterStructure> tco = tempstorage.characters.Where(x => x.Deleted == false).OrderByDescending(c => c.EXP).ToList();
+            List<CharacterStructure> tco = tgc.Where(x => x.Deleted == false).OrderByDescending(c => c.EXP).ToList();
             List<CharacterStructure> t3c = tco.Take(3).ToList();
 
             string avatarurl = "";
@@ -217,11 +228,7 @@ namespace CD2_Bot
                 avatarurl = Defaults.CLIENT.CurrentUser.GetDefaultAvatarUrl();
             }
 
-            EmbedBuilder embed = new EmbedBuilder
-            {
-                Title = "Level Leaderboard",
-                ThumbnailUrl = avatarurl,
-            };
+            embed.ThumbnailUrl = avatarurl;
 
             embed.Description = "\n" +
                 $"**1: {t3c[0].CharacterName}**\n" +
@@ -235,27 +242,38 @@ namespace CD2_Bot
                                         where user.PlayerID == Context.User.Id
                                         select user).SingleOrDefault();
 
-            if (stats != null && stats.Deleted == false && !t3c.Any(x=>x.PlayerID == stats.PlayerID))
+            if (stats != null && stats.Deleted == false && !t3c.Any(x => x.PlayerID == stats.PlayerID))
             {
-                embed.Description += $"**Your Place:** {tco.IndexOf(stats)+1}";
+                embed.Description += $"**Your Place:** {tco.IndexOf(stats) + 1}";
             }
 
             embed.WithColor(Color.DarkMagenta);
             embed.WithFooter(Defaults.FOOTER);
-            await ReplyAsync(embed: embed.Build());
+            await ReplyAsync(embed: embed.Build(), components: btn);
         }
 
         [Command("moneytop")]
         [Summary("View the money leaderboard.")]
         public async Task MoneyTopAsync([Remainder] string xargs = null)
         {
-            if (tempstorage.characters.Count < 3)
+            List<IGuildUser> tgp = (await Context.Guild.GetUsersAsync().FlattenAsync()).ToList().FindAll(u => tempstorage.characters.Exists(x => x.PlayerID == u.Id));
+            List<CharacterStructure> tgc = new List<CharacterStructure>() { };
+            tgp.ForEach(x => tgc.Add(tempstorage.characters.Find(p => p.PlayerID == x.Id)));
+
+            EmbedBuilder embed = new EmbedBuilder
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("There is not enough players to do this."));
-                return;
+                Title = "Money Leaderboard"
+            };
+
+            MessageComponent btn = new ComponentBuilder().WithButton("Global", "gboard;money;" + Context.User.Id, ButtonStyle.Primary).Build();
+
+            if (tgp.Count < 3)
+            {
+                embed.Description = "There is not enough players in this guild. You can view the global leaderboards instead.";
+                await ReplyAsync(embed: embed.Build(), components: btn);
             }
 
-            List<CharacterStructure> tco = tempstorage.characters.Where(x => x.Deleted == false).OrderByDescending(c => c.Money).ToList();
+            List<CharacterStructure> tco = tgc.Where(x => x.Deleted == false).OrderByDescending(c => c.Money).ToList();
             List<CharacterStructure> t3c = tco.Take(3).ToList();
 
             string avatarurl = "";
@@ -269,11 +287,7 @@ namespace CD2_Bot
                 avatarurl = Defaults.CLIENT.CurrentUser.GetDefaultAvatarUrl();
             }
 
-            EmbedBuilder embed = new EmbedBuilder
-            {
-                Title = "Money Leaderboard",
-                ThumbnailUrl = avatarurl,
-            };
+            embed.ThumbnailUrl = avatarurl;
 
             embed.Description = "\n" +
                 $"**1: {t3c[0].CharacterName}**\n" +
@@ -294,20 +308,32 @@ namespace CD2_Bot
 
             embed.WithColor(Color.DarkMagenta);
             embed.WithFooter(Defaults.FOOTER);
-            await ReplyAsync(embed: embed.Build());
+            await ReplyAsync(embed: embed.Build(), components: btn);
         }
 
         [Command("geartop")]
         [Summary("View the gear leaderboard.")]
         public async Task GearTopAsync([Remainder] string xargs = null)
         {
-            if (tempstorage.characters.Count < 3)
+            List<IGuildUser> tgp = (await Context.Guild.GetUsersAsync().FlattenAsync()).ToList().FindAll(u => tempstorage.characters.Exists(x => x.PlayerID == u.Id));
+            List<CharacterStructure> tgc = new List<CharacterStructure>() { };
+            tgp.ForEach(x => tgc.Add(tempstorage.characters.Find(p => p.PlayerID == x.Id)));
+
+            EmbedBuilder embed = new EmbedBuilder
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("There is not enough players to do this."));
-                return;
+                Title = "Gear Leaderboard"
+            };
+
+            MessageComponent btn = new ComponentBuilder().WithButton("Global", "gboard;gear;" + Context.User.Id, ButtonStyle.Primary).Build();
+
+            if (tgp.Count < 3)
+            {
+                embed.Description = "There is not enough players in this guild. You can view the global leaderboards instead.";
+                await ReplyAsync(embed: embed.Build(), components: btn);
             }
 
-            List<CharacterStructure> tco = tempstorage.characters.Where(x => x.Deleted == false).OrderByDescending(c => Prices.sell[c.Weapon.Rarity] + Prices.sell[c.Armor.Rarity] + Prices.sell[c.Extra.Rarity]).ToList();
+            //List<CharacterStructure> tco = tempstorage.characters.Where(x => x.Deleted == false).OrderByDescending(c => Prices.sell[c.Weapon.Rarity] + Prices.sell[c.Armor.Rarity] + Prices.sell[c.Extra.Rarity]).ToList();
+            List<CharacterStructure> tco = tgc.Where(x => x.Deleted == false).OrderByDescending(c => Prices.sell[c.Weapon.Rarity] + Prices.sell[c.Armor.Rarity] + Prices.sell[c.Extra.Rarity]).ToList();
             List<CharacterStructure> t3c = tco.Take(3).ToList();
 
             string avatarurl = "";
@@ -321,11 +347,7 @@ namespace CD2_Bot
                 avatarurl = Defaults.CLIENT.CurrentUser.GetDefaultAvatarUrl();
             }
 
-            EmbedBuilder embed = new EmbedBuilder
-            {
-                Title = "Gear Leaderboard",
-                ThumbnailUrl = avatarurl,
-            };
+            embed.ThumbnailUrl = avatarurl;
 
             embed.Description = "\n" +
                 $"**1: {t3c[0].CharacterName}**\n" +
@@ -346,7 +368,7 @@ namespace CD2_Bot
 
             embed.WithColor(Color.DarkMagenta);
             embed.WithFooter(Defaults.FOOTER);
-            await ReplyAsync(embed: embed.Build());
+            await ReplyAsync(embed: embed.Build(), components: btn);
         }
 
         [Command("servertop")]

@@ -82,26 +82,49 @@ namespace CD2_Bot
                     Title = q.Name,
                     Description = q.ShowProgress(stats)
                 };
-                embed.AddField("Rewards", q.ViewRewards());
-                TimeSpan timeleft = q.timeLeft(stats);
-                if (timeleft.TotalMilliseconds < 0)
+
+                if (q.isQuestExpired(stats))
                 {
-                    embed.AddField("Time Remaining", "Expired");
-                } else
-                {
-                    embed.AddField("Time Remaining", $"{timeleft.Days}d {timeleft.Hours}:{timeleft.Minutes}:{timeleft.Seconds}");
+                    Embed embedf = Utils.QuickEmbedNormal("Quest Failed", q.QuestFailedDialogue);
+                    stats.QuestData = "none";
+                    await ReplyAsync(embed: embedf);
                 }
-                embed.WithFooter(Defaults.FOOTER);
-                embed.WithColor(Color.Magenta);
+                else if (q.isQuestCompleted(stats))
+                {
+                    string qd = stats.QuestData;
+                    Embed embedf = Utils.QuickEmbedNormal("Quest Complete!", q.CompletionDialogue);
+                    EmbedBuilder b = embedf.ToEmbedBuilder();
+                    b.Description += "\n" + q.GenerateRewards(stats);
+                    tempstorage.guilds.Find(g => g.GuildID == Context.Guild.Id).QuestsFinished += 1;
+                    embedf = b.Build();
+                    if (stats.QuestData == qd)
+                    {
+                        stats.QuestData = "none";
+                    }
+                    await ReplyAsync(embed: embedf);
+                }
+                else
+                {
+                    embed.AddField("Rewards", q.ViewRewards());
+                    TimeSpan timeleft = q.timeLeft(stats);
+                    if (timeleft.TotalMilliseconds < 0)
+                    {
+                        embed.AddField("Time Remaining", "Expired");
+                    }
+                    else
+                    {
+                        embed.AddField("Time Remaining", $"{timeleft.Days}d {timeleft.Hours}:{timeleft.Minutes}:{timeleft.Seconds}");
+                    }
+                    embed.WithFooter(Defaults.FOOTER);
+                    embed.WithColor(Color.Magenta);
 
+                    ComponentBuilder btnb = new ComponentBuilder()
+                            .WithButton("Cancel", "questview;cancel;" + Context.User.Id.ToString(), ButtonStyle.Danger);
 
+                    MessageComponent btn = btnb.Build();
 
-                ComponentBuilder btnb = new ComponentBuilder()
-                        .WithButton("Cancel", "questview;cancel;" + Context.User.Id.ToString(), ButtonStyle.Danger);
-
-                MessageComponent btn = btnb.Build();
-
-                await ReplyAsync(embed: embed.Build(), components: btn);
+                    await ReplyAsync(embed: embed.Build(), components: btn);
+                }
             }
         }
     }

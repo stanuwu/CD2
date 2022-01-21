@@ -134,29 +134,7 @@ namespace CD2_Bot
                             .WithButton("Cancel", "questroom;deny;" + stats.PlayerID, ButtonStyle.Danger).Build();
                     } else
                     {
-                        Quest q = Quests.WhatQuest(stats.QuestData);
-                        if (q.isQuestExpired(stats))
-                        {
-                            embed = Utils.QuickEmbedNormal("Quest Failed", q.QuestFailedDialogue);
-                            stats.QuestData = "none";
-                        }
-                        else if (q.isQuestCompleted(stats))
-                        {
-                            string qd = stats.QuestData;
-                            embed = Utils.QuickEmbedNormal("Quest Complete!", q.CompletionDialogue);
-                            EmbedBuilder b = embed.ToEmbedBuilder();
-                            b.Description += "\n" + q.GenerateRewards(stats);
-                            tempstorage.guilds.Find(g => g.GuildID == gid).QuestsFinished += 1;
-                            embed = b.Build();
-                            if (stats.QuestData == qd)
-                            {
-                                stats.QuestData = "none";
-                            }
-                        }
-                        else
-                        {
-                            embed = Utils.QuickEmbedError("Your current quest is not completed.");
-                        }
+                        embed = Utils.QuickEmbedError("You already have a quest.");
                     }
                     break;
                 case "rRandom":
