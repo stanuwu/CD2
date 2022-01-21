@@ -33,7 +33,7 @@ namespace CD2_Bot
             { Rarity.Unstable, 25000 },
             { Rarity.Corrupted, 500000 },
             { Rarity.Unique, 100000 },
-            { Rarity.Handmade, 0 },
+            { Rarity.Handmade, 50 },
         };
        
 
@@ -45,7 +45,7 @@ namespace CD2_Bot
             { Rarity.Legendary, 30000 },
             { Rarity.Unstable, 50000 },
             { Rarity.Corrupted, 100000 },
-            { Rarity.Handmade, 0 },
+            { Rarity.Handmade, int.MaxValue },
         };
 
         public static Dictionary<Rarity, int> infuse = new Dictionary<Rarity, int> {
@@ -57,7 +57,7 @@ namespace CD2_Bot
             { Rarity.Unstable, 6500 },
             { Rarity.Corrupted, 15000 },
             { Rarity.Unique, 25000 },
-            { Rarity.Handmade, 250 },
+            { Rarity.Handmade, 15 },
         };
 
         public static Dictionary<Rarity, int> dropchance = new Dictionary<Rarity, int> { //out of 10000
