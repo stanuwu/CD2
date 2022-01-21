@@ -21,6 +21,9 @@ namespace CD2_Bot
                 case "craft":
                     await Crafting(sel);
                     break;
+                case "biomefight":
+                    await BiomeFight(sel);
+                    break;
             }
         }
 
@@ -101,6 +104,34 @@ namespace CD2_Bot
             {
                 await sel.RespondAsync(embed: Utils.QuickEmbedError("This is not your room!"), ephemeral: true);
             }
+        }
+
+        static public async Task BiomeFight(SocketMessageComponent sel)
+        {
+            ulong userid = (ulong)Convert.ToInt64(sel.Data.CustomId.Split(';')[1]);
+            CharacterStructure stats = (from user in tempstorage.characters
+                                        where user.PlayerID == userid
+                                        select user).SingleOrDefault();
+
+            Biome sbiome = (Biome)Enum.Parse(typeof(Biome), sel.Data.Values.FirstOrDefault().Split(';')[0]);
+            Enemy opponent = EnemyGen.RandomEnemy(stats.Lvl, sbiome);
+
+            Tuple<Embed, MessageComponent> fr = SimulateFight.Sim(opponent, stats);
+            Embed embed = fr.Item1;
+            MessageComponent msgc = fr.Item2;
+
+            int gearroll = Defaults.GRandom.Next(1, Defaults.GEARDROPCHANCE); ;
+            //creative way to check for win (dont ask lol)
+            if (embed.Color.ToString() == "#2ECC71" && gearroll == 1)
+            {
+                Gear.RandomDrop(stats.PlayerID, sel.Channel);
+            }
+
+            await sel.UpdateAsync(x =>
+            {
+                x.Embed = embed;
+                x.Components = msgc;
+            });
         }
     }
 }

@@ -18,6 +18,7 @@ namespace CD2_Bot
             "rTrap",
             "rQuest",
             "rCraft",
+            "rBiomeRoom",
         };
         public static Tuple<Embed, Optional<MessageComponent>> ExecuteRoom(string roomtype, ulong uid, ulong gid, ISocketMessageChannel channel)
         {
@@ -137,6 +138,22 @@ namespace CD2_Bot
                         embed = Utils.QuickEmbedError("You already have a quest.");
                     }
                     break;
+                case "rBiomeRoom":
+                    SelectMenuBuilder smb2 = new SelectMenuBuilder()
+                       .WithPlaceholder("Select a Room!")
+                       .WithCustomId($"biomefight;{uid}")
+                       .WithMinValues(1)
+                       .WithMaxValues(1);
+
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Biome b1 = BiomesScaling.randomBiome();
+                        smb2.AddOption(b1.ToString(), b1.ToString() + ";" + i, $"Difficulty: {BiomesScaling.levels[b1]}");
+                    }
+                    msgc = new ComponentBuilder().WithSelectMenu(smb2).Build();
+                    embed = Utils.QuickEmbedNormal("Biome Room", "Choose a biome.");
+
+                    break;
                 case "rRandom":
                     tosend = ExecuteRoom(RoomTypes[Defaults.GRandom.Next(RoomTypes.Count)], uid, gid, channel);
                     break;
@@ -161,32 +178,17 @@ namespace CD2_Bot
                 .WithMaxValues(1);
             string rType1 = RoomTypes[Defaults.GRandom.Next(RoomTypes.Count)];
             string rType2 = RoomTypes.FindAll(x => x!=rType1)[Defaults.GRandom.Next(RoomTypes.FindAll(x => x != rType1).Count)];
-            Biome biome1 = BiomesScaling.randomBiome();
-            List<string> rooms = new List<string> { "rRandom",  "rFight", rType1, rType2, "rFight" };
-            int count = 0;
+            List<string> rooms = new List<string> { "rRandom",  "rFight", rType1, rType2, "rBiomeRoom"};
             foreach (string r in rooms)
             {
-                if (r == "rFight")
-                {
-                    count++;
-                }
                 string rName = "Default Room";
                 string rId = r;
-                if (count == 2)
-                {
-                    rId += (";" + biome1.ToString());
-                }
                 string rDesc = "...";
                 switch (r)
                 {
                     case "rFight":
                         rName = "Room of Encounters";
                         rDesc = "A Monster is waiting in this room for you.";
-                        if (count == 2)
-                        {
-                            rName = "Focused Room of Encounters";
-                            rDesc = "Biome: " + biome1.ToString();
-                        }
                         break;
                     case "rMoney":
                         rName = "Room of Wealth";
@@ -215,6 +217,10 @@ namespace CD2_Bot
                     case "rCraft":
                         rName = "Room of Forging";
                         rDesc = "You can forge new gear in this room.";
+                        break;
+                    case "rBiomeRoom":
+                        rName = "Focused Room of Encounters";
+                        rDesc = "Pick a fight with a monster from a specific biome.";
                         break;
                 }
 
