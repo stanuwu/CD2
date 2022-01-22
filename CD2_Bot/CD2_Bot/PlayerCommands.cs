@@ -127,5 +127,41 @@ namespace CD2_Bot
                 }
             }
         }
+
+        [Command("vote")]
+        [Summary("View your current quest.")]
+        public async Task VoteAsync([Remainder] string xargs = null)
+        {
+            CharacterStructure stats = (from user in tempstorage.characters
+                                        where user.PlayerID == Context.User.Id
+                                        select user).SingleOrDefault();
+
+            if (stats == null || stats.Deleted == true)
+            {
+                await ReplyAsync(embed: Utils.QuickEmbedError("You do not have a character."));
+                return;
+            }
+
+            if ((await DBLRestClient.UserVotedStatus(stats.PlayerID)) == false)
+            {
+                MessageComponent btn = new ComponentBuilder()
+                        .WithButton("Vote", "none", ButtonStyle.Link, url: "https://top.gg/bot/717757487482273813").Build();
+                await ReplyAsync(embed: Utils.QuickEmbedNormal("Voting", "You have not voted yet. Vote every 12 hours on top.gg (DiscordBotList) below."), components: btn);
+                return;
+            }
+            else
+            {
+                if ((DateTime.Now - stats.LastVote).TotalMinutes < 720)
+                {
+                    await ReplyAsync(embed: Utils.QuickEmbedNormal("Voting", $"You already claimed your vote rewards for today.\nYou may vote again in {(DateTime.Now - stats.LastVote).TotalHours} hours."));
+                } else
+                {
+                    stats.LastVote = DateTime.Now;
+                    await ReplyAsync(embed: Utils.QuickEmbedNormal("Voting", "Claimed your voting rewards!\n+500 coins\n+50 exp"));
+                    stats.EXP += 50;
+                    stats.Money += 500;
+                }
+            }
+        }
     }
 }

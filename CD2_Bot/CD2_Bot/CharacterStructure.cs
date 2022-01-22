@@ -375,6 +375,23 @@ namespace CD2_Bot
             }
         }
 
+        public DateTime LastVote
+        {
+            get
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT last_vote FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
+                cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                return DateTime.Parse(Convert.ToString(db.CommandString(cmd)));
+            }
+            set
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.\"Character\" SET last_vote = @last_vote WHERE \"UserID\" = @id;", db.dbc);
+                cmd.Parameters.AddWithValue("@last_vote", value.ToString());
+                cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
+                db.CommandVoid(cmd);
+            }
+        }
+
         public Quest Quest
         {
             get
