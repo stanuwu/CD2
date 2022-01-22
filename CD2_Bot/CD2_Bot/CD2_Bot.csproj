@@ -155,6 +155,7 @@
     <Compile Include="TestModule.cs" />
     <Compile Include="Text.cs" />
     <Compile Include="Train.cs" />
+    <Compile Include="UserFetch.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>

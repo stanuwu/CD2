@@ -14,7 +14,7 @@ namespace CD2_Bot
         public async Task GuildsAsync([Remainder] string xargs = null)
         {
             if (!Defaults.STAFF.Contains(Context.User.Id)) { return; }
-            await ReplyAsync(embed: Utils.QuickEmbedNormal("Guilds", Convert.ToString(await Utils.GuildCount(Context))));
+            await ReplyAsync(embed: Utils.QuickEmbedNormal("Guilds", Convert.ToString(await Utils.GuildCount())));
         }
 
         [Command("users")]
@@ -22,7 +22,15 @@ namespace CD2_Bot
         public async Task UsersAsync([Remainder] string xargs = null)
         {
             if (!Defaults.STAFF.Contains(Context.User.Id)) { return; }
-            await ReplyAsync(embed: Utils.QuickEmbedNormal("Users", Convert.ToString(await Utils.UniqueUserCount(Context))));
+            string text = "";
+            if (Defaults.UUSERS == 0)
+            {
+                text = "Calculating...";
+            } else
+            {
+                text = "" + Defaults.UUSERS;
+            }
+            await ReplyAsync(embed: Utils.QuickEmbedNormal("Users", text));
         }
 
         [Command("reload")]

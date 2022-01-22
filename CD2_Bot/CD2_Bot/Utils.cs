@@ -17,16 +17,16 @@ namespace CD2_Bot
             await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Debug, "Debugging", msg));
         }
 
-        public static async Task<int> GuildCount(ICommandContext ctx)
+        public static async Task<int> GuildCount()
         {
-            IReadOnlyCollection<Discord.IGuild> guilds = await ctx.Client.GetGuildsAsync();
+            IReadOnlyCollection<IGuild> guilds = await ((IDiscordClient) Defaults.CLIENT).GetGuildsAsync();
             return guilds.Count;
 
         }
 
-        public static async Task<int> UniqueUserCount(ICommandContext ctx)
+        public static async Task<int> UniqueUserCount()
         {
-            IReadOnlyCollection<Discord.IGuild> guilds = await ctx.Client.GetGuildsAsync();
+            IReadOnlyCollection<Discord.IGuild> guilds = await ((IDiscordClient)Defaults.CLIENT).GetGuildsAsync();
             List<IUser> uusers = new List<IUser> { };
 
             foreach (IGuild g in guilds)
