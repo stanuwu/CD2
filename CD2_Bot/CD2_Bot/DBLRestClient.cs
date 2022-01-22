@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,11 +14,20 @@ namespace CD2_Bot
         static string auth = File.ReadAllText("dbltoken.txt");
         public static async void PostGuildCount(int count)
         {
-            HttpClient hc = new HttpClient();
-            hc.DefaultRequestHeaders.Add("Authorization", auth);
-            string jsoncontent = JsonConvert.SerializeObject(new { server_count = count });
-            HttpContent content = new StringContent(jsoncontent);
-            Utils.DebugLog((await hc.PostAsync($"https://top.gg/api/bots/{Defaults.CLIENT.CurrentUser.Id}/stats", content)).ToString());
+            Uri baseUrl = new Uri("https://top.gg/api/");
+            RestClient client = new RestClient(baseUrl);
+            RestRequest request = new RestRequest("post", Method.Post);
+            request.AddHeader("Authorization", auth);
+            request.AddJsonBody(new { server_count = count }, $"bots/{Defaults.CLIENT.CurrentUser.Id}/stats");
+            RestResponse response = await client.ExecuteAsync(request);
+
+            if (response.IsSuccessful)
+            {
+                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Info, "DBLRestClient", $"Successfully posted guild count! ({count})"));
+            } else
+            {
+                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "DBLRestClient", $"Posting guild count failed:\n{response.ErrorMessage}"));
+            }
         }
     }
 }
