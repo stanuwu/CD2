@@ -17,6 +17,7 @@ namespace CD2_Bot
                 db.Init();
                 Utils.UpdateStatus($"Version {Defaults.VERSION}");
                 UserFetch.FetchUniqueUsers();
+                GuildPostTask.StartPosting();
                 hasbooted = true;
             }
         }

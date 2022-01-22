@@ -19,6 +19,7 @@ namespace CD2_Bot
         public static readonly int FLOORCOOLDOWN = 10;
         public static readonly int FARMINGCOOLDOWN = 10;
         public static readonly int GEARDROPCHANCE = 25;
+        public static readonly int POSTGUILDCOUNTDELAY = 30;
         public static readonly int FETCHEXPENSIVEDELAY = 720;
         public static int UUSERS = 0;
         public static Random GRandom = new Random();
