@@ -14,11 +14,11 @@ namespace CD2_Bot
         static string auth = File.ReadAllText("dbltoken.txt");
         public static async void PostGuildCount(int count)
         {
-            Uri baseUrl = new Uri("https://top.gg/api/bots/{Defaults.CLIENT.CurrentUser.Id}/stats");
+            Uri baseUrl = new Uri("https://top.gg/api/bots/717757487482273813/stats");
             RestClient client = new RestClient(baseUrl);
             RestRequest request = new RestRequest("post", Method.Post);
             request.AddHeader("Authorization", auth);
-            request.AddJsonBody(new { server_count = count });
+            request.AddJsonBody(new { server_count = count }, "application/json");
             RestResponse response = await client.ExecuteAsync(request);
 
             if (response.IsSuccessful)
@@ -26,7 +26,7 @@ namespace CD2_Bot
                 await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Info, "DBLRestClient", $"Successfully posted guild count! ({count})"));
             } else
             {
-                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "DBLRestClient", $"Posting guild count failed:\n{response.ErrorException.Message}"));
+                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "DBLRestClient", $"Posting guild count failed: {response.ErrorException.Message}"));
             }
         }
     }
