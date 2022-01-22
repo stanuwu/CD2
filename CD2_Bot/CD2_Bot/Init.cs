@@ -18,7 +18,6 @@ namespace CD2_Bot
                 Utils.UpdateStatus($"Version {Defaults.VERSION}");
                 UserFetch.FetchUniqueUsers();
                 GuildPostTask.StartPosting();
-                await DBLRestClient.UserVotedStatus(623984743914012712);
                 hasbooted = true;
             }
         }

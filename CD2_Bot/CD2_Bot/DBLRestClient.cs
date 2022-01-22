@@ -40,8 +40,10 @@ namespace CD2_Bot
 
             if (response.IsSuccessful)
             {
-                Utils.DebugLog(response.Content);
-                return false;
+                if (response.Content == "{\"voted\":1}")
+                {
+                    return true;
+                } 
             }
             return false;
         }
