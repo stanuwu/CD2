@@ -18,7 +18,7 @@ namespace CD2_Bot
             hc.DefaultRequestHeaders.Add("Authorization", auth);
             string jsoncontent = JsonConvert.SerializeObject(new { server_count = count });
             HttpContent content = new StringContent(jsoncontent);
-            await hc.PostAsync($"https://top.gg/api/bots/{Defaults.CLIENT.CurrentUser.Id}/stats", content);
+            Utils.DebugLog((await hc.PostAsync($"https://top.gg/api/bots/{Defaults.CLIENT.CurrentUser.Id}/stats", content)).ToString());
         }
     }
 }
