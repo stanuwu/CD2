@@ -132,6 +132,7 @@ namespace CD2_Bot
         [Summary("Claim free rewards.")]
         public async Task VoteAsync([Remainder] string xargs = null)
         {
+            try {
             CharacterStructure stats = (from user in tempstorage.characters
                                         where user.PlayerID == Context.User.Id
                                         select user).SingleOrDefault();
@@ -160,6 +161,10 @@ namespace CD2_Bot
                     stats.EXP += 50;
                     stats.Money += 500;
                 }
+            }
+            }
+            catch (Exception e) {
+                Utils.DebugLog(e.StackTrace);
             }
         }
     }
