@@ -29,5 +29,21 @@ namespace CD2_Bot
                 await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "DBLRestClient", $"Posting guild count failed: {response.ErrorException.Message}"));
             }
         }
+
+        public static async Task<bool> UserVotedStatus(ulong uid)
+        {
+            RestClient client = new RestClient(new Uri("https://top.gg/api/"));
+            RestRequest request = new RestRequest($"bots/{Defaults.CLIENT.CurrentUser.Id}/check", Method.Get);
+            request.AddHeader("Authorization", auth);
+            request.AddParameter("userId", uid);
+            RestResponse response = await client.ExecuteAsync(request);
+
+            if (response.IsSuccessful)
+            {
+                Utils.DebugLog(response.Content);
+                return false;
+            }
+            return false;
+        }
     }
 }
