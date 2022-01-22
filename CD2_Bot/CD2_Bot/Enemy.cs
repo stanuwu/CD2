@@ -280,11 +280,11 @@ namespace CD2_Bot
                 int damageadded = 0;
                 if (level > 50)
                 {
-                    damageadded = ((int)Math.Floor(selectedEnemy.Damage + 0.003 * Math.Pow(50, 2.5))) + (5 * (level - 50));
+                    damageadded = ((int)Math.Floor(selectedEnemy.Damage + 0.004 * Math.Pow(50, 2.5))) + (5 * (level - 50));
                 }
                 else
                 {
-                    damageadded = (int)Math.Floor(selectedEnemy.Damage + 0.003 * Math.Pow(level, 2.5));
+                    damageadded = (int)Math.Floor(selectedEnemy.Damage + 0.004 * Math.Pow(level, 2.5));
                 }
                 Enemy generatedEnemy = new Enemy(selectedEnemy.Type, selectedEnemy.Description, hpadded, level, selectedEnemy.Resistance, selectedEnemy.Minlevel, damageadded, selectedEnemy.CustomEffectName, selectedEnemy.CustomEffectDescription, selectedEnemy.Drops, selectedEnemy.Biome);
                 return generatedEnemy;
