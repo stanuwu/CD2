@@ -19,7 +19,7 @@ namespace CD2_Bot
                     await FloorSelect(sel);
                     break;
                 case "craft":
-                    await Crafting(sel);
+                    await CraftingDrop(sel);
                     break;
                 case "biomefight":
                     await BiomeFight(sel);
@@ -56,7 +56,7 @@ namespace CD2_Bot
             }
         }
 
-        static public async Task Crafting(SocketMessageComponent sel)
+        static public async Task CraftingDrop(SocketMessageComponent sel)
         {
             ulong userid = (ulong)Convert.ToInt64(sel.Data.CustomId.Split(';')[1]);
             CharacterStructure stats = (from user in tempstorage.characters
@@ -74,19 +74,32 @@ namespace CD2_Bot
 
                 string[] data = sel.Data.Values.FirstOrDefault().Split(';');
                 string item = data[0];
-                string mat = data[1];
-                int matcost = Convert.ToInt32(data[2]);
-                int coincost = Convert.ToInt32(data[3]);
-                string type = data[4];
+                int coincost = Convert.ToInt32(data[1]);
+                string type = data[2];
 
                 Dictionary<string, int> inv = Utils.InvAsDict(stats);
-                if (inv.ContainsKey(mat) && inv[mat] >= matcost && stats.Money >= coincost)
+
+                bool canafford = true;
+                Tuple<string, Dictionary<string, int>, int, string> rcp = Crafting.list.Find(r => r.Item1 == item);
+
+                foreach (string k in rcp.Item2.Keys)
+                {
+                    if (!(inv.ContainsKey(k) && inv[k] >= rcp.Item2[k]))
+                    {
+                        canafford = false;
+                    }
+                }
+
+                if (canafford && stats.Money >= coincost)
                 {
                     stats.Money -= coincost;
-                    inv[mat] -= matcost;
-                    if (inv[mat] < 1)
+                    foreach (string k in rcp.Item2.Keys)
                     {
-                        inv.Remove(mat);
+                        inv[k] -= rcp.Item2[k];
+                        if (inv[k] < 1)
+                        {
+                            inv.Remove(k);
+                        }
                     }
                     Utils.SaveInv(stats, inv);
                     await sel.Message.DeleteAsync();

@@ -108,9 +108,15 @@ namespace CD2_Bot
                         .WithCustomId($"craft;{uid}")
                         .WithMinValues(1)
                         .WithMaxValues(1);
-                    foreach (Tuple<string, string, int, int, string> r in Crafting.list)
+                    foreach (Tuple<string, Dictionary<string, int>, int, string> r in Crafting.list)
                     {
-                        smb.AddOption(r.Item1, (r.Item1 + ";" + r.Item2 + ";" + r.Item3 + ";" + r.Item4 + ";" + r.Item5) , $"Costs: {r.Item3} {r.Item2} and {r.Item4} Coins.");
+                        string cost = "Costs:";
+                        foreach (string k in r.Item2.Keys)
+                        {
+                            cost += $" {r.Item2[k]} {k},";
+                        }
+
+                        smb.AddOption(r.Item1, (r.Item1 + ";" + r.Item3 + ";" + r.Item4 + ";") , $"{cost} {r.Item3} Coins.");
                     }
                     msgc = new ComponentBuilder().WithSelectMenu(smb).Build();
                     break;

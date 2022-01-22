@@ -15,9 +15,9 @@ namespace CD2_Bot
     }
     public static class Crafting
     {
-        public static List<Tuple<string, string, int, int, string>> list = new List<Tuple<string, string, int, int, string>> {
-            new Tuple<string, string, int, int, string> ("Hardened Stone Sword", "Stone", 500, 1000, "weapon"),
-            new Tuple<string, string, int, int, string> ("Wooden Sword", "Wood", 5, 100, "weapon"),
+        public static List<Tuple<string, Dictionary<string, int>, int, string>> list = new List<Tuple<string, Dictionary<string, int>, int, string>> {
+            new Tuple<string, Dictionary<string, int>, int, string> ("Hardened Stone Sword", new Dictionary<string, int> { { "Stone", 200 }, { "Diamond", 1 } }, 1000, "weapon"),
+            new Tuple<string, Dictionary<string, int>, int, string> ("Wooden Sword", new Dictionary<string, int> { { "Wood", 5 } }, 100, "weapon"),
         };
     }
 }

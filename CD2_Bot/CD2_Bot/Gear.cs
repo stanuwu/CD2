@@ -499,23 +499,36 @@ namespace CD2_Bot
             }
 
             string recievedname = "";
-            switch(type)
+            if (ovr == null)
             {
-                case "weapon":
-                    recievedname = Gear.Weapons.FindAll(g => g.Rarity == droprarity && g.CanDrop == true)[Defaults.GRandom.Next(Gear.Weapons.FindAll(g => g.Rarity == droprarity && g.CanDrop == true).Count)].Name;
-                    break;
-                case "armor":
-                    recievedname = Gear.Armors.FindAll(g => g.Rarity == droprarity && g.CanDrop == true)[Defaults.GRandom.Next(Gear.Armors.FindAll(g => g.Rarity == droprarity && g.CanDrop == true).Count)].Name;
-                    break;
-                case "extra":
-                    recievedname = Gear.Extras.FindAll(g => g.Rarity == droprarity && g.CanDrop == true)[Defaults.GRandom.Next(Gear.Extras.FindAll(g => g.Rarity == droprarity && g.CanDrop == true).Count)].Name;
-                    break;
+                switch (type)
+                {
+                    case "weapon":
+                        recievedname = Gear.Weapons.FindAll(g => g.Rarity == droprarity && g.CanDrop == true)[Defaults.GRandom.Next(Gear.Weapons.FindAll(g => g.Rarity == droprarity && g.CanDrop == true).Count)].Name;
+                        break;
+                    case "armor":
+                        recievedname = Gear.Armors.FindAll(g => g.Rarity == droprarity && g.CanDrop == true)[Defaults.GRandom.Next(Gear.Armors.FindAll(g => g.Rarity == droprarity && g.CanDrop == true).Count)].Name;
+                        break;
+                    case "extra":
+                        recievedname = Gear.Extras.FindAll(g => g.Rarity == droprarity && g.CanDrop == true)[Defaults.GRandom.Next(Gear.Extras.FindAll(g => g.Rarity == droprarity && g.CanDrop == true).Count)].Name;
+                        break;
+                }
             }
-
-            if (ovr != null)
+            else
             {
                 recievedname = ovr;
-                droprarity = Rarity.Handmade;
+                switch (type)
+                {
+                    case "weapon":
+                        droprarity = Gear.Weapons.Find(g => g.Name == ovr).Rarity;
+                        break;
+                    case "armor":
+                        droprarity = Gear.Armors.Find(g => g.Name == ovr).Rarity;
+                        break;
+                    case "extra":
+                        droprarity = Gear.Extras.Find(g => g.Name == ovr).Rarity;
+                        break;
+                }
                 type = ovrtype;
             }
 
