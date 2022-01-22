@@ -502,13 +502,13 @@ namespace CD2_Bot
             switch(type)
             {
                 case "weapon":
-                    recievedname = Gear.Weapons.FindAll(g => g.Rarity == droprarity)[Defaults.GRandom.Next(Gear.Weapons.FindAll(g => g.Rarity == droprarity && g.CanDrop == true).Count)].Name;
+                    recievedname = Gear.Weapons.FindAll(g => g.Rarity == droprarity && g.CanDrop == true)[Defaults.GRandom.Next(Gear.Weapons.FindAll(g => g.Rarity == droprarity && g.CanDrop == true).Count)].Name;
                     break;
                 case "armor":
-                    recievedname = Gear.Armors.FindAll(g => g.Rarity == droprarity)[Defaults.GRandom.Next(Gear.Armors.FindAll(g => g.Rarity == droprarity && g.CanDrop == true).Count)].Name;
+                    recievedname = Gear.Armors.FindAll(g => g.Rarity == droprarity && g.CanDrop == true)[Defaults.GRandom.Next(Gear.Armors.FindAll(g => g.Rarity == droprarity && g.CanDrop == true).Count)].Name;
                     break;
                 case "extra":
-                    recievedname = Gear.Extras.FindAll(g => g.Rarity == droprarity)[Defaults.GRandom.Next(Gear.Extras.FindAll(g => g.Rarity == droprarity && g.CanDrop == true).Count)].Name;
+                    recievedname = Gear.Extras.FindAll(g => g.Rarity == droprarity && g.CanDrop == true)[Defaults.GRandom.Next(Gear.Extras.FindAll(g => g.Rarity == droprarity && g.CanDrop == true).Count)].Name;
                     break;
             }
 
