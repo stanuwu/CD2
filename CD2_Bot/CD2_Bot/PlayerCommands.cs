@@ -146,18 +146,18 @@ namespace CD2_Bot
             {
                 MessageComponent btn = new ComponentBuilder()
                         .WithButton("Vote", "none", ButtonStyle.Link, url: "https://top.gg/bot/717757487482273813").Build();
-                await ReplyAsync(embed: Utils.QuickEmbedNormal("Voting", "You have not voted yet. Vote every 12 hours on top.gg (DiscordBotList) below."), components: btn);
+                await ReplyAsync(embed: Utils.QuickEmbedNormal("Voting Rewards", "You have not voted yet. Vote every 12 hours on top.gg (DiscordBotList) below for some free rewards. Note that votes might take a few minutes to register."), components: btn);
                 return;
             }
             else
             {
                 if ((DateTime.Now - stats.LastVote).TotalMinutes < 720)
                 {
-                    await ReplyAsync(embed: Utils.QuickEmbedNormal("Voting", $"You already claimed your vote rewards for today.\nYou may vote again in {(DateTime.Now - stats.LastVote).TotalHours} hours."));
+                    await ReplyAsync(embed: Utils.QuickEmbedNormal("Voting Rewards", $"You already claimed your vote rewards for today.\nYou may vote again in {(DateTime.Now - stats.LastVote).TotalHours} hours."));
                 } else
                 {
                     stats.LastVote = DateTime.Now;
-                    await ReplyAsync(embed: Utils.QuickEmbedNormal("Voting", "Claimed your voting rewards!\n+500 coins\n+50 exp"));
+                    await ReplyAsync(embed: Utils.QuickEmbedNormal("Voting Rewards", "Claimed your voting rewards!\n+500 coins\n+50 exp"));
                     stats.EXP += 50;
                     stats.Money += 500;
                 }

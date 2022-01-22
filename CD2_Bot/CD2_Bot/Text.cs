@@ -10,7 +10,8 @@ namespace CD2_Bot
     {
         public static readonly string guide_page_start = "**Welcome to CustomDungeons 2!**\n" +
             "This bot allows you to play a simple yet fun text based dungeon rpg with your friends.\n" +
-            "Use `<help` to get an overview of the commands and how they work or use the buttons below to view more pages of this guide.";
+            "Use `<help` to get an overview of the commands and how they work or use the buttons below to view more pages of this guide.\n" +
+            "Once you have a character can alse use `<vote` to get a bit of a headstart.";
 
         public static readonly string guide_page_floors = "**Floors**\n" +
             "The main mechanic of this game are floors. You can use the `<floor` command to enter a new floor and you will be able to pick a room to enter. " +
@@ -48,7 +49,8 @@ namespace CD2_Bot
             "`<reset`\nDelete your character.\n\n" +
             "`<rename [name]`\nChange your character name.\n\n" +
             "`<description [text]`\nChange your character description.\n\n" +
-            "`<server`\nSee the stats of the current server.";
+            "`<server`\nSee the stats of the current server.\n\n" +
+            "`<vote`\nVote for the bot on top.gg and claim some free rewards.";
 
         public static readonly string help_page_stats = "`<weapon [name]`\nView the stats of the given weapon.\n\n" +
             "`<armor [name]`\nView the stats of the given armor.\n\n" +
