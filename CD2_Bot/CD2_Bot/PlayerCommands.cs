@@ -129,7 +129,7 @@ namespace CD2_Bot
         }
 
         [Command("vote")]
-        [Summary("View your current quest.")]
+        [Summary("Vlaim free rewards.")]
         public async Task VoteAsync([Remainder] string xargs = null)
         {
             CharacterStructure stats = (from user in tempstorage.characters
