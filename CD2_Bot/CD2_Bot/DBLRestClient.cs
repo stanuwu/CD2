@@ -14,11 +14,11 @@ namespace CD2_Bot
         static string auth = File.ReadAllText("dbltoken.txt");
         public static async void PostGuildCount(int count)
         {
-            Uri baseUrl = new Uri("https://top.gg/api/bots/717757487482273813/stats");
-            RestClient client = new RestClient(baseUrl);
-            RestRequest request = new RestRequest("post", Method.Post);
+            RestClient client = new RestClient(new Uri("https://top.gg/api/"));
+            RestRequest request = new RestRequest($"bots/{Defaults.CLIENT.CurrentUser.Id}/stats", Method.Post);
             request.AddHeader("Authorization", auth);
-            request.AddJsonBody(new { server_count = count }, "application/json");
+            request.RequestFormat = DataFormat.Json;
+            request.AddParameter("server_count", count);
             RestResponse response = await client.ExecuteAsync(request);
 
             if (response.IsSuccessful)
