@@ -145,9 +145,8 @@ namespace CD2_Bot
             if ((await DBLRestClient.UserVotedStatus(stats.PlayerID)) == false)
             {
                 MessageComponent btn = new ComponentBuilder()
-                        .WithButton("Vote", "none", ButtonStyle.Link, url: "https://top.gg/bot/717757487482273813").Build();
+                        .WithButton("Vote", "voteurl", ButtonStyle.Link, url: "https://top.gg/bot/717757487482273813").Build();
                 await ReplyAsync(embed: Utils.QuickEmbedNormal("Voting Rewards", "You have not voted yet. Vote every 12 hours on top.gg (DiscordBotList) below for some free rewards. Note that votes might take a few minutes to register."), components: btn);
-                return;
             }
             else
             {
