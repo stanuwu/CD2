@@ -152,7 +152,7 @@ namespace CD2_Bot
             {
                 if ((DateTime.Now - stats.LastVote).TotalMinutes < 720)
                 {
-                    await ReplyAsync(embed: Utils.QuickEmbedNormal("Voting Rewards", $"You already claimed your vote rewards for today.\nYou may vote again in {(DateTime.Now - stats.LastVote).TotalHours} hours."));
+                    await ReplyAsync(embed: Utils.QuickEmbedNormal("Voting Rewards", $"You already claimed your vote rewards for today.\nYou may vote again in {12 - Math.Floor((DateTime.Now - stats.LastVote).TotalHours)} hours."));
                 } else
                 {
                     stats.LastVote = DateTime.Now;
