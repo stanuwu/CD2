@@ -129,7 +129,7 @@ namespace CD2_Bot
         }
 
         [Command("vote")]
-        [Summary("Vlaim free rewards.")]
+        [Summary("Claim free rewards.")]
         public async Task VoteAsync([Remainder] string xargs = null)
         {
             CharacterStructure stats = (from user in tempstorage.characters
@@ -141,7 +141,7 @@ namespace CD2_Bot
                 await ReplyAsync(embed: Utils.QuickEmbedError("You do not have a character."));
                 return;
             }
-
+            Utils.DebugLog((await DBLRestClient.UserVotedStatus(stats.PlayerID)).ToString());
             if ((await DBLRestClient.UserVotedStatus(stats.PlayerID)) == false)
             {
                 MessageComponent btn = new ComponentBuilder()
