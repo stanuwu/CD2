@@ -141,8 +141,8 @@ namespace CD2_Bot
                 await ReplyAsync(embed: Utils.QuickEmbedError("You do not have a character."));
                 return;
             }
-            Utils.DebugLog((await DBLRestClient.UserVotedStatus(stats.PlayerID)).ToString());
-            if ((await DBLRestClient.UserVotedStatus(stats.PlayerID)) == false)
+            bool hasvoted = await DBLRestClient.UserVotedStatus(stats.PlayerID);
+            if (hasvoted == false)
             {
                 MessageComponent btn = new ComponentBuilder()
                         .WithButton("Vote", "voteurl", ButtonStyle.Link, url: "https://top.gg/bot/717757487482273813").Build();

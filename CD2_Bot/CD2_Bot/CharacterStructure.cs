@@ -381,7 +381,9 @@ namespace CD2_Bot
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT last_vote FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
-                return DateTime.Parse(Convert.ToString(db.CommandString(cmd)));
+                string datestring = Convert.ToString(db.CommandString(cmd));
+                if (datestring == "") return DateTime.MinValue;
+                return DateTime.Parse(datestring);
             }
             set
             {
