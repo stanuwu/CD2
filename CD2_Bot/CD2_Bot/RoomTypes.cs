@@ -18,7 +18,6 @@ namespace CD2_Bot
             "rTrap",
             "rQuest",
             "rCraft",
-            "rBiomeRoom",
         };
         public static Tuple<Embed, Optional<MessageComponent>> ExecuteRoom(string roomtype, ulong uid, ulong gid, ISocketMessageChannel channel)
         {
