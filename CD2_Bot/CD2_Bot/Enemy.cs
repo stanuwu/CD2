@@ -320,6 +320,7 @@ namespace CD2_Bot
                 new Enemy("Black Mother Dragon", "A dragon who has been ousted by its family when it was young, who started a family of her own after killing her parents.", 300, 0, 70, 50, 80, "Severe Burn", "Causes severe extra damage depending on the strength of the player and decreases their accuracy.", new EnemyDrops("Dragon Scale", 5, 1, 10), Biome.Any),
 
                 //Plains
+                new Enemy("Plain Slime", "A slime so plain it's often not even considered as a threat.", 25, 0, 100, 0, 5, null, null, null, Biome.Plains),
                 new Enemy("Brown Wolf", "The smallest species of wolf who dares to attack humans. Only slightly bigger than a fox.", 60, 0, 100, 5, 20, null, null, new EnemyDrops("Small Wolf Pelt", 1, 0, 10), Biome.Plains),
                 new Enemy("Brown Alpha Wolf", "The leader of a pack of brown wolves. Can hold their own against larger wolf species.", 70, 0, 100, 6, 25, null, null, new EnemyDrops("Small Wolf Pelt", 1, 0, 10), Biome.Plains),
                 new Enemy("Smalltime Poacher", "A hunter without a license or ethics. Doesn't take it lightly when someones marches into their hunting grounds.", 55, 0, 100, 5, 20, null, null, new EnemyDrops("Small Wolf Pelt", 1, 0, 5), Biome.Plains),
@@ -341,6 +342,7 @@ namespace CD2_Bot
 
 
                 //Crypt
+                new Enemy("Roaming Skeleton", "A soul cursed to rot in its already rotten body.", 30, 0, 100, 0, 10, null, null, new EnemyDrops("Bone", 2, 1, 10), Biome.Crypt),
                 new Enemy("Skeleton Warrior", "The remains of a fallen warrior whose desire for blood hasn't even been quenched by their demise.", 35, 0, 80, 5, 25, null, null, new EnemyDrops("Rusty Sword", 1, 0, 15), Biome.Crypt),
                 new Enemy("Skeleton Archer", "Robbed of their eyes through their decay, they began to fire at everything the sense.", 35, 0, 100, 5, 30, null, null, new EnemyDrops("Arrow", 1, 0, 20), Biome.Crypt),
                 new Enemy("Ancient Spirit", "The ghost of a human who has forgotten their own death. Some say the ony kill in order to remember how they died.", 40, 0, 50, 16, 45, null, null, null, Biome.Crypt),
@@ -348,10 +350,12 @@ namespace CD2_Bot
 
 
                 //Desert
+                new Enemy("Sandspewer", "An aggressive reptile who lunges sand to attack its prey.", 40, 0, 100, 0, 8, null, null, null, Biome.Desert),
                 new Enemy("Yellow-Skinned Scorpion", "A subspecies of the White-Eyed Scorpion. A nocturnal threat found in most deserts.", 40, 0, 85, 5, 18, "Paralysis", "Decreases the resistance of the player.", null, Biome.Desert),
 
 
                 //Forest
+                new Enemy("Convict in Hiding", "A criminal who made the woods their new home.", 50, 0, 100, 0, 7, null, null, null, Biome.Forest),
                 new Enemy("Wandering Tree", "A tree whose roots started to become legs to hunt the fiends who destroyed their habitat.", 80, 0, 90, 10, 20, null, null, new EnemyDrops("Wood", 3, 1, 30), Biome.Forest),
                 new Enemy("Black Wolf", "The wolf species people instantly think about when you talk about wolves. The rarely attack humans.", 70, 0, 100, 10, 27, null, null, new EnemyDrops("Medium Wolf Pelt", 1, 0, 10), Biome.Forest),
                 new Enemy("Black Alpha Wolf", "The leader of a pack of black wolves. Often has scars around it eyes gained in battle over the leadership.", 80, 0, 100, 11, 30, null, null, new EnemyDrops("Medium Wolf Pelt", 1, 0, 10), Biome.Forest),
@@ -363,6 +367,7 @@ namespace CD2_Bot
 
 
                 //Tundra
+                new Enemy("Cursed Snowman", "The favorite joke of ice wizards in the area.", 30, 0, 100, 0, 3, "Melting", "Receives more damage when hit with fire.", null, Biome.Tundra),
                 new Enemy("Ice Wizard of the Order", "A member of an evil organisation who specializes in ice spells.", 55, 0, 100, 10, 20, "Freeze", "Decreases damage and resistance of the player.", null, Biome.Tundra),
                 new Enemy("Snow Golem", "A giant humanoid made out of strange hardened snow.", 80, 0, 90, 10, 20, "Melting", "Receives more damage when hit with fire.", null, Biome.Tundra),
 
@@ -372,6 +377,7 @@ namespace CD2_Bot
 
 
                 //Volcano
+                new Enemy("Optimistic Pyromaniac", "An aspirirng fire wizard wannabe, for all the wrong reasons", 50, 0, 100, 0, 10, null, null, null, Biome.Volcano),
                 new Enemy("Fire Wizard of the Order", "A member of an evil organisation who specializes in fire spells.", 55, 0, 120, 10, 30, "Light Burn", "Causes slight extra damage depending on the strength of the player and decreases their accuracy.", null, Biome.Volcano),
                 new Enemy("Fire Golem", "They look Like their cousin the stone golem, but are covered in fire and found in volcanoes rather than normal mountains.", 110, 0, 80, 15, 40, "Moderate Burn", "Causes moderate extra damage depending on the strength of the player and decreases their accuracy.", null, Biome.Volcano),
                 new Enemy("Devil's Minion", "Asked and granted to bring fear into the lives of the living by the devil himself.", 90, 0, 80, 25, 45, null, null, null, Biome.Volcano),
@@ -385,6 +391,7 @@ namespace CD2_Bot
 
 
                 //Sea
+                new Enemy("Neukenvis", "The most hated kind of fish off all fishermen, known for chewing on rods and fingers.", 30, 0, 0, 0, 8, null, null, new EnemyDrops("Fish Scale", 1, 0, 5), Biome.Sea),
                 new Enemy("Crying Siren", "A sea creature who shapeshifts into the most loved person of it's prey to lure them in.", 40, 0, 100, 10, 20, "Confusing Appearance", "Decreases the damage dealt by the the player", null, Biome.Sea),
                 new Enemy("Lion Shark", "A medium sized shark. Known for their yellow color.", 70, 0, 100, 15, 35, null, null, new EnemyDrops("Fish Scale", 3, 1, 15), Biome.Sea),
 
