@@ -255,7 +255,7 @@ namespace CD2_Bot
                 List<Enemy> possibleEnemies = new List<Enemy> { };
                 if (b != Biome.Any)
                 {
-                    possibleEnemies = (from e in Enemies where e.Minlevel <= level select e).ToList().FindAll(e => e.Biome == b || e.Biome == Biome.Any);
+                    possibleEnemies = (from e in Enemies where e.Minlevel <= level select e).ToList().FindAll(e => e.Biome == b);
                 } else
                 {
                     possibleEnemies = (from e in Enemies where e.Minlevel <= level select e).ToList();
