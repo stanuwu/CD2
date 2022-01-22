@@ -26,7 +26,7 @@ namespace CD2_Bot
                 await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Info, "DBLRestClient", $"Successfully posted guild count! ({count})"));
             } else
             {
-                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "DBLRestClient", $"Posting guild count failed:\n{response.ErrorMessage}"));
+                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "DBLRestClient", $"Posting guild count failed:\n{response.ErrorException.Message}"));
             }
         }
     }
