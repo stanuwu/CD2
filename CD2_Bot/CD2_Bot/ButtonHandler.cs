@@ -12,51 +12,59 @@ namespace CD2_Bot
     {
         static public async Task HandleButtonAsync(SocketMessageComponent btn)
         {
-            //Register buttons in this switch
-            switch (btn.Data.CustomId.Split(';')[0])
+            try
             {
-                case "testbtn1":
-                    await BtnTest(btn);
-                    break;
-                case "dropaction":
-                    await DropAction(btn);
-                    break;
-                case "chestopen":
-                    await ChestOpen(btn);
-                    break;
-                case "delchar":
-                    await DelChar(btn);
-                    break;
-                case "coinflip":
-                    await DoCoinflip(btn);
-                    break;
-                case "guide":
-                    await EditGuide(btn);
-                    break;
-                case "help":
-                    await EditHelp(btn);
-                    break;
-                case "fightdetails":
-                    await FightDetails(btn);
-                    break;
-                case "playerfightdetails":
-                    await PlayerFightDetails(btn);
-                    break;
-                case "playerfight":
-                    await InitPlayerFight(btn);
-                    break;
-                case "questview":
-                    await QuestView(btn);
-                    break;
-                case "questroom":
-                    await QuestOffer(btn);
-                    break;
-                case "trade":
-                    await Trade(btn);
-                    break;
-                case "gboard":
-                    await DisplayGlobalLeaderBoard(btn);
-                    break;
+                //Register buttons in this switch
+                switch (btn.Data.CustomId.Split(';')[0])
+                {
+                    case "testbtn1":
+                        await BtnTest(btn);
+                        break;
+                    case "dropaction":
+                        await DropAction(btn);
+                        break;
+                    case "chestopen":
+                        await ChestOpen(btn);
+                        break;
+                    case "delchar":
+                        await DelChar(btn);
+                        break;
+                    case "coinflip":
+                        await DoCoinflip(btn);
+                        break;
+                    case "guide":
+                        await EditGuide(btn);
+                        break;
+                    case "help":
+                        await EditHelp(btn);
+                        break;
+                    case "fightdetails":
+                        await FightDetails(btn);
+                        break;
+                    case "playerfightdetails":
+                        await PlayerFightDetails(btn);
+                        break;
+                    case "playerfight":
+                        await InitPlayerFight(btn);
+                        break;
+                    case "questview":
+                        await QuestView(btn);
+                        break;
+                    case "questroom":
+                        await QuestOffer(btn);
+                        break;
+                    case "trade":
+                        await Trade(btn);
+                        break;
+                    case "gboard":
+                        await DisplayGlobalLeaderBoard(btn);
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "Command Handler", e.Message));
+                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "Command Handler", e.StackTrace));
             }
         }
 

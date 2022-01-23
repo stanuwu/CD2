@@ -12,18 +12,26 @@ namespace CD2_Bot
     {
         static public async Task HandleSelectionAsync(SocketMessageComponent sel)
         {
-            //Register selections in this switch
-            switch (sel.Data.CustomId.Split(';')[0])
+            try
             {
-                case "floorroomselect":
-                    await FloorSelect(sel);
-                    break;
-                case "craft":
-                    await CraftingDrop(sel);
-                    break;
-                case "biomefight":
-                    await BiomeFight(sel);
-                    break;
+                //Register selections in this switch
+                switch (sel.Data.CustomId.Split(';')[0])
+                {
+                    case "floorroomselect":
+                        await FloorSelect(sel);
+                        break;
+                    case "craft":
+                        await CraftingDrop(sel);
+                        break;
+                    case "biomefight":
+                        await BiomeFight(sel);
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "Command Handler", e.Message));
+                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "Command Handler", e.StackTrace));
             }
         }
 
