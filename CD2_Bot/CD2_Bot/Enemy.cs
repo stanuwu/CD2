@@ -398,7 +398,7 @@ namespace CD2_Bot
 
                 //Settlement
                 new Enemy("Crazy Monk", "A monk whose mind has been corrupted by only the sins of their own clergy. Attacks random travelers to cleanse their soul.", 25, 0, 100, 0, 12 , null, null, new EnemyDrops("Torn Bible", 1, 0, 10), Biome.Settlement),
-                new Enemy("Paranoid Escapee", "A prisoner who managed to flee from their cell, using a rather extreme method to ensure that there will be no witnesses.", 50, 0, 0, 5, 18, null, null, null, Biome.Settlement),
+                new Enemy("Paranoid Escapee", "A prisoner who managed to flee from their cell, using a rather extreme method to ensure that there will be no witnesses.", 50, 0, 100, 5, 18, null, null, null, Biome.Settlement),
                 new Enemy("Corrupt Guard", "A corrupt member of the city guard.", 70, 0, 90, 10, 22, null, null, null, Biome.Settlement),
                 new Enemy("Corrupt Guard Officer", "A corrupt officer of the city guard.", 75, 0, 90, 11, 25, null, null, null, Biome.Settlement),
 
