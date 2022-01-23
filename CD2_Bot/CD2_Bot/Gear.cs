@@ -517,7 +517,7 @@ namespace CD2_Bot
             else
             {
                 recievedname = ovr;
-                switch (type)
+                switch (ovrtype)
                 {
                     case "weapon":
                         droprarity = Gear.Weapons.Find(g => g.Name == ovr).Rarity;
