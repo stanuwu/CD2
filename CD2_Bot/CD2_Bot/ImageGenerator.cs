@@ -67,10 +67,10 @@ namespace CD2_Bot
                 g.DrawImage(pfp, 40, 40, 120, 120);
 
                 //draw money
-                g.DrawString(money.ToString("N0").Replace(",", "."), gfont, brush, new Rectangle(60, 270, 240, 34));
+                g.DrawString(money.ToString("N0").Replace(",", " "), gfont, brush, new Rectangle(60, 270, 240, 34));
 
                 //draw exp
-                g.DrawString(exp.ToString("N0").Replace(",", "."), gfont, brush, new Rectangle(343, 270, 237, 34));
+                g.DrawString(exp.ToString("N0").Replace(",", " "), gfont, brush, new Rectangle(343, 270, 237, 34));
 
                 //draw level
                 g.DrawString("Lvl " + level, dfont, brush, new Rectangle(50, 175, 100, 35), center);
@@ -96,7 +96,7 @@ namespace CD2_Bot
                 g.DrawString(extra, gfont, brush, new Rectangle(60, 350, 235, 34));
 
                 //draw stat multiplier
-                g.DrawString("Multiplier: x" + multi, gfont, brush, new Rectangle(342, 350, 235, 34));
+                g.DrawString(multi*100+"%", gfont, brush, new Rectangle(342, 350, 235, 34));
 
                 //finalize
                 g.Dispose();
