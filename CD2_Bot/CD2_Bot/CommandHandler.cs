@@ -43,12 +43,21 @@ namespace CD2_Bot
 
             await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Info, "Command Handler", $"Running Command: \"{message}\""));
 
-            var context = new SocketCommandContext(_client, message);
+            try
+            {
+                var context = new SocketCommandContext(_client, message);
 
-            await _commands.ExecuteAsync(
-                context: context,
-                argPos: argPos,
-                services: null);
+                await _commands.ExecuteAsync(
+                    context: context,
+                    argPos: argPos,
+                    services: null);
+            }
+
+            catch (Exception e)
+            {
+                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "Command Handler", e.Message));
+                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "Command Handler", e.StackTrace));
+            }
         }
     }
 }

@@ -40,16 +40,12 @@ namespace CD2_Bot
                     await sel.RespondAsync(embed: Utils.QuickEmbedError("This floor is expired."), ephemeral: true);
                     return;
                 }
-                try
-                {
-                    await sel.DeferAsync();
-                    ulong gid = ((SocketGuildUser)sel.User).Guild.Id;
-                    string selOpt = string.Join(", ", sel.Data.Values);
-                    Tuple<Embed, Optional<MessageComponent>> results = Rooms.ExecuteRoom(selOpt, userid, gid, sel.Channel);
-                    await sel.Message.DeleteAsync();
-                    await sel.FollowupAsync(components: results.Item2.Value, embed: results.Item1 );
-                }
-                catch (Exception r) { Utils.DebugLog(r.Message);  }
+                await sel.DeferAsync();
+                ulong gid = ((SocketGuildUser)sel.User).Guild.Id;
+                string selOpt = string.Join(", ", sel.Data.Values);
+                Tuple<Embed, Optional<MessageComponent>> results = Rooms.ExecuteRoom(selOpt, userid, gid, sel.Channel);
+                await sel.Message.DeleteAsync();
+                await sel.FollowupAsync(components: results.Item2.Value, embed: results.Item1 );
             } else
             {
                 await sel.RespondAsync(embed: Utils.QuickEmbedError("This is not your floor!"), ephemeral: true);
