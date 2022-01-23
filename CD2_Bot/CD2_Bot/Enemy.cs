@@ -233,7 +233,7 @@ namespace CD2_Bot
 
                     break;
                 case "Melting":
-                    if (weapon.CustomEffectName.Contains("Burn"))
+                    if (weapon.CustomEffectName != null && weapon.CustomEffectName.Contains("Burn"))
                     {
                         this.Resistance = this.Resistance*2;
                     }
