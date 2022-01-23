@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,24 +63,10 @@ namespace CD2_Bot
         [Summary("View your character.")]
         public async Task CharacterAsync(ulong uid = 0, [Remainder] string xargs = null)
         {
-            string avatarurl = "";
-
-            if (uid == 0) {
-                avatarurl = Context.User.GetAvatarUrl();
-                uid = Context.User.Id;
-            }
-            else
+            if (uid == 0)
             {
-                IUser founduser = Defaults.CLIENT.GetUser(uid);
-                if (founduser != null) {
-                    avatarurl = founduser.GetAvatarUrl();
-                } else
-                {
-                    avatarurl = Defaults.CLIENT.CurrentUser.GetDefaultAvatarUrl();
-                }
-                
-            }
-
+                uid = Context.User.Id;
+            } 
             CharacterStructure stats = (from user in tempstorage.characters
                                             where user.PlayerID == uid
                                             select user).SingleOrDefault();
@@ -90,25 +77,11 @@ namespace CD2_Bot
             }
             else
             {
-                var embed = new EmbedBuilder
+                using (MemoryStream ms = await ImageGenerator.MakeCharacterImage(stats))
                 {
-                    Title = $"{stats.CharacterName} [LVL {stats.Lvl.ToString()}]",
-                    Description = stats.Description,
-                    ThumbnailUrl = avatarurl,
-                };
-
-                embed.AddField("Title", Convert.ToString(stats.Title));
-                embed.AddField("Class", $"{Convert.ToString(stats.CharacterClass)} ");
-                embed.AddField("Money", Convert.ToString(stats.Money),true);
-                embed.AddField("EXP", Convert.ToString(stats.EXP), true);
-                embed.AddField("HP", Convert.ToString(stats.HP) + "/" + Convert.ToString(stats.MaxHP), true);
-                embed.AddField("Weapon", $"{Convert.ToString(stats.Weapon.Name)} ", true);
-                embed.AddField("Armor", $"{Convert.ToString(stats.Armor.Name)} ", true);
-                embed.AddField("Extra", $"{Convert.ToString(stats.Extra.Name)} ", true);
-                embed.AddField("Stat Multiplier", Convert.ToString(stats.StatMultiplier));
-                embed.WithColor(Color.DarkMagenta);
-                embed.WithFooter(Defaults.FOOTER);
-                await ReplyAsync(embed: embed.Build());
+                    ms.Position = 0;
+                    await Context.Channel.SendFileAsync(ms, stats.PlayerID + "_character.png");
+                }
             }
         }
 
