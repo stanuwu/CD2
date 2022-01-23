@@ -241,6 +241,17 @@ namespace CD2_Bot
                 case "Confusing Appearance":
                     weapon.BaseDamage -= weapon.BaseDamage/2;
                     break;
+                 case "Feeling Watched":
+                    armor.Resistance -= armor.Resistance/2;
+                    break;
+                case "The Fear":
+                    weapon.BaseDamage -= weapon.BaseDamage/3.3;
+                    armor.Resistance -= armor.Resistance/3.3;
+                    extra.Damage -= extra.Damage/3.3;
+                    break;
+                case "Constant Echo":
+                    armor.Resistance -= armor.Resistance/2;
+                    break;
             }
             return 0;
             } 
@@ -318,27 +329,36 @@ namespace CD2_Bot
                 new Enemy("Golden Mimic", "A chest made of gold corrupted by evil, engaging everyone who tries to open it", 100, 0, 80, 30, 50, "Massive Money Drop", "The player gets a massive amount of money", new EnemyDrops("Gold", 1, 0, 20), Biome.Any),
                 new Enemy("Platinum Mimic", "A chest made of platinum corrupted by evil, engaging everyone who tries to open it", 130, 0, 75, 40, 50, "Tremendous Money Drop", "The player gets a tremendous amount of money", new EnemyDrops("Platinum", 1, 0, 20), Biome.Any),
                 new Enemy("Black Mother Dragon", "A dragon who has been ousted by its family when it was young, who started a family of her own after killing her parents.", 300, 0, 70, 50, 80, "Severe Burn", "Causes severe extra damage depending on the strength of the player and decreases their accuracy.", new EnemyDrops("Dragon Scale", 5, 1, 10), Biome.Any),
+                new Enemy("Quejuku", "A creature so strange no one ever manged to describe it accurately on paper. The accounts differ so much that many scholars belief that it changes certains aspect of its body regarding to what their opponent fears the most.", 999, 0, 100, 100, 100, "The Fear", "All of the player stats fall down to a third of their power.", null, Biome.Any),
 
                 //Plains
-                new Enemy("Plain Slime", "A slime so plain it's often not even considered as a threat.", 25, 0, 100, 0, 5, null, null, null, Biome.Plains),
+                new Enemy("Plain Slime", "A slime so plain it's often not even considered as a threat.", 45, 0, 100, 0, 5, null, null, null, Biome.Plains),
+                new Enemy("Amateurish Bandit", "Even a regular slime is a more dangerous threat than this good for nothing. They often give up the life of crime after one lost battle", 40, 0, 100, 0, 7, null, null, null, Biome.Plains),
+                new Enemy("Corrupted Critter", "Small mammals like rabbits or rats who had their once fearful mind warped into a crazy state.", 30, 0, 95, 0, 8, null, null, new EnemyDrops("Small Game Pelt", 1, 0, 15), Biome.Plains),
+                new Enemy("Little Eye", "An still functioncal eye of a watcher which was shed voluntarily in order to observe their domain.", 25, 0, 100, 0, 6, null, null, null, null),
                 new Enemy("Brown Wolf", "The smallest species of wolf who dares to attack humans. Only slightly bigger than a fox.", 60, 0, 100, 5, 20, null, null, new EnemyDrops("Small Wolf Pelt", 1, 0, 10), Biome.Plains),
                 new Enemy("Brown Alpha Wolf", "The leader of a pack of brown wolves. Can hold their own against larger wolf species.", 70, 0, 100, 6, 25, null, null, new EnemyDrops("Small Wolf Pelt", 1, 0, 10), Biome.Plains),
                 new Enemy("Smalltime Poacher", "A hunter without a license or ethics. Doesn't take it lightly when someones marches into their hunting grounds.", 55, 0, 100, 5, 20, null, null, new EnemyDrops("Small Wolf Pelt", 1, 0, 5), Biome.Plains),
                 new Enemy("Green Ogre", "A giant monster armed with an even larger club. Protective of its territory.", 75, 0, 80, 10, 20, null, null, null, Biome.Plains),
                 new Enemy("Banished Reaper", "A taker of souls who enjoyed their profession for the wrong reasons.", 100, 0, 100, 20, 50, null, null, null, Biome.Plains),
-
-
+                new Enemy("Watcher", "An enourmous beast covered with hundreds or even thousand of eyes. One the most dangerous common beasts of the realm.", 250, 0, 100, 40, 60, "Feeling Watched", "Causes the player to lose half of their resistance.", null, Biome.Plains),
+                
 
                 //Cave
                 new Enemy("Gnawing Rat", "A rat who attacks and eats everything it sees, even other rats.", 20, 0, 90, 0, 5, "Light Bleeding", "Causes sligth extra damage depending on the monster's strength, negating armor.", null, Biome.Cave),
                 new Enemy("Glowing Bug", "A flesh-eating insect, using its yellowish skin to reflect light.", 35, 0, 150, 0, 10, "Stun", "Causes a small chance for the player to miss.", null, Biome.Cave),
+                new Enemy("Hungry Ghoul", "An dwarfish creature with long limbs rotting, poisounous teeth.", 25, 0, 110, 0, 8, "Light Posion", "Causes slight extra damage and decreases the resistance of the player", null, Biome.Cave),
+                new Enemy("Cave Dweller", "An unfortunate soul which body and mind changed through their unwanted stay in a hideous cave.", 65, 0, 80, 10, 18, null, null, null, Biome.Cave),
                 new Enemy("White-Eyed Scorpion", "A scorpion who is rougly the size of a pig. Lives in caves because the sunlight hurts its eyes.", 40, 0, 85, 5, 18, "Paralysis", "Decreases the resistance of the player.", null, Biome.Cave),
                 new Enemy("Wolverine Spider", "An agressive arachne, crawling in the deepest of caves. They got their name from its deadly bite strength.", 50, 0, 100, 15, 50, null, null, null, Biome.Cave),
+                new Enemy("Atamakium", "A sentinent liquid which is able to control the cave they flowing through, using the rocky walls to attack and defend itself.", 150, 0, 50, 35, 50, null, null, new EnemyDrops("Stone", 5, 3, 100), Biome.Cave),
+                new Enemy("Hijedjen", "A large, wolf like creature covered in stone skin. It's roar constantly echoes trough a cave once it let it outh their.'", 220, 0, 70, 50, 100,  "Constant Echo", "Causes the player to lose half of their resistance.", null, Biome.Cave),
 
 
                 //Coast
                 new Enemy("Hungry Drowned", "An undead who met their demise at the bottom of the sea.", 30, 0, 110, 0, 8, null, null, null, Biome.Coast),
                 new Enemy("Washed Up Pirate", "A pirate who was nearly killed in a storm, roaming the shores.", 60, 0, 100, 10, 28, "Small Money Drop", "The player gets a small amount of money", new EnemyDrops("Small Pouch", 1, 0, 10), Biome.Coast),
+
 
 
                 //Crypt
@@ -369,6 +389,8 @@ namespace CD2_Bot
                 //Tundra
                 new Enemy("Cursed Snowman", "The favorite joke of ice wizards in the area.", 30, 0, 100, 0, 3, "Melting", "Receives more damage when hit with fire.", null, Biome.Tundra),
                 new Enemy("Ice Wizard of the Order", "A member of an evil organisation who specializes in ice spells.", 55, 0, 100, 10, 20, "Freeze", "Decreases damage and resistance of the player.", null, Biome.Tundra),
+                new Enemy("Polar Wolf", "A subspecies of the black wolf, found in could regions.", 75, 0, 100, 10, 25, null, null, new EnemyDrops("Medium Wolf Pelt", 1, 0, 10), Biome.Tundra),
+                new Enemy("Polar Alpha Wolf", "The leader of a pack of polar wolves. The blood stains in its fur prove its status.", 85, 0, 100, 11, 28, null, null, new EnemyDrops("Medium Wolf Pelt", 1, 0, 10), Biome.Tundra),
                 new Enemy("Snow Golem", "A giant humanoid made out of strange hardened snow.", 80, 0, 90, 10, 20, "Melting", "Receives more damage when hit with fire.", null, Biome.Tundra),
 
                 //Mountains
@@ -394,16 +416,19 @@ namespace CD2_Bot
                 new Enemy("Neukenvis", "The most hated kind of fish off all fishermen, known for chewing on rods and fingers.", 30, 0, 100, 0, 8, null, null, new EnemyDrops("Fish Scale", 1, 0, 5), Biome.Sea),
                 new Enemy("Crying Siren", "A sea creature who shapeshifts into the most loved person of it's prey to lure them in.", 40, 0, 100, 10, 20, "Confusing Appearance", "Decreases the damage dealt by the the player", null, Biome.Sea),
                 new Enemy("Lion Shark", "A medium sized shark. Known for their yellow color.", 70, 0, 100, 15, 35, null, null, new EnemyDrops("Fish Scale", 3, 1, 15), Biome.Sea),
-
+                new Enemy("Kirawa", "A whale known to attack ships as much as its normal prey. Their teeth are among the strongest from all marine life.", 200, 0, 60, 50, 80, null, null, null, Biome.Sea)
 
                 //Settlement
                 new Enemy("Crazy Monk", "A monk whose mind has been corrupted by only the sins of their own clergy. Attacks random travelers to cleanse their soul.", 25, 0, 100, 0, 12 , null, null, new EnemyDrops("Torn Bible", 1, 0, 10), Biome.Settlement),
                 new Enemy("Paranoid Escapee", "A prisoner who managed to flee from their cell, using a rather extreme method to ensure that there will be no witnesses.", 50, 0, 100, 5, 18, null, null, null, Biome.Settlement),
                 new Enemy("Corrupt Guard", "A corrupt member of the city guard.", 70, 0, 90, 10, 22, null, null, null, Biome.Settlement),
                 new Enemy("Corrupt Guard Officer", "A corrupt officer of the city guard.", 75, 0, 90, 11, 25, null, null, null, Biome.Settlement),
+                new Enemy("Noble Guard", "A guard who doesn't question the orders they are given from they worst of the rich.", 100, 0, 85, 20, 35, null, null, null, Biome.Settlement),
+                new Enemy("Noble Guard Officer", "An officer of the noble guard, often a low noble themself.", 120, 0, 80, 30, 45, null, null, null, Biome.Settlement),
 
 
-                // new Enemy("", "", 0, 0, 0, 0, 0, null, null, null, null)
+
+                // new Enemy("", "", 0, 0, 0, 0, 0, null, null, null, Biome.)
             };
         }
 }
