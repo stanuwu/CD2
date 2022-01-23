@@ -150,9 +150,14 @@ namespace CD2_Bot
                        .WithMinValues(1)
                        .WithMaxValues(1);
 
+                    List<Biome> biomes = ((Biome[]) (Enum.GetValues(typeof (Biome)))).ToList();
+                    biomes.Remove(Biome.Any);
+                    
+
                     for (int i = 0; i < 5; i++)
                     {
-                        Biome b1 = BiomesScaling.randomBiome();
+                        Biome b1 = biomes[Defaults.GRandom.Next(biomes.Count)];
+                        biomes.Remove(b1);
                         smb2.AddOption(b1.ToString(), b1.ToString() + ";" + i, $"Difficulty: {BiomesScaling.levels[b1]}");
                     }
                     msgc = new ComponentBuilder().WithSelectMenu(smb2).Build();
