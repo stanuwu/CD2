@@ -15,7 +15,7 @@ namespace CD2_Bot
             if (hasbooted == false)
             {
                 db.Init();
-                Utils.UpdateStatus($"Version {Defaults.VERSION}");
+                Utils.UpdateStatus($"<help | <guide | Version {Defaults.VERSION}");
                 UserFetch.FetchUniqueUsers();
                 GuildPostTask.StartPosting();
                 hasbooted = true;
