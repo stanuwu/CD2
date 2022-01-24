@@ -252,6 +252,12 @@ namespace CD2_Bot
                 case "Constant Echo":
                     armor.Resistance -= armor.Resistance/2;
                     break;
+                case "Resurrect":
+                    this.Damage += 25;
+                    break;
+                 case "Suicide?":
+                    this.Damage += this.HP;
+                    break;
             }
             return 0;
             } 
@@ -357,17 +363,22 @@ namespace CD2_Bot
 
                 //Coast
                 new Enemy("Hungry Drowned", "An undead who met their demise at the bottom of the sea.", 30, 0, 110, 0, 8, null, null, null, Biome.Coast),
+                new Enemy("Ear-Ripping Gull", "A kind of seagull know to attack humandoids. Ornothologist believe this behavior is a result of the main prey of the gulls: An ear-like shaped mollusc.", 40, 0, 85, 0, 6, null, null, new EnemyDrops("Feather", 1, 0, 20), Biome.Coast),
                 new Enemy("Washed Up Pirate", "A pirate who was nearly killed in a storm, roaming the shores.", 60, 0, 100, 10, 28, "Small Money Drop", "The player gets a small amount of money", new EnemyDrops("Small Pouch", 1, 0, 10), Biome.Coast),
-
+                new Enemy("Strandplünderer", "Scavengers of a strange speaking tribe, searching the beaches for cargo of ship wrecks. They don't like to share.", 75, 0, 100, 15, 33, null, null, null, Biome.Coast),
+                new Enemy("Lishkit-Crab", "A crab named after the giant Lishkit because of its enormous size. Its claws are known for their ability to cut nearly every material into two.", 90, 0, 80, 35, 50, null, null, null, Biome.Coast),
+                new Enemy("Lishkit-Lobster", "A lobster named after the giant Lishkit because of its enormous size. It's claws are even stronger than the claws of a Lishkit-Crab.", 130, 0, 80, 45, 65, null, null, null, Biome.Coast),
 
 
                 //Crypt
                 new Enemy("Roaming Skeleton", "A soul cursed to rot in its already rotten body.", 30, 0, 100, 0, 10, null, null, new EnemyDrops("Bone", 2, 1, 10), Biome.Crypt),
+                new Enemy("Rotting Undead", "A zombie who has been (not) alive for over a century.", 35, 0, 100, 0, 15, null, null, null, Biome.Crypt),
                 new Enemy("Skeleton Warrior", "The remains of a fallen warrior whose desire for blood hasn't even been quenched by their demise.", 35, 0, 80, 5, 25, null, null, new EnemyDrops("Rusty Sword", 1, 0, 15), Biome.Crypt),
                 new Enemy("Skeleton Archer", "Robbed of their eyes through their decay, they began to fire at everything the sense.", 35, 0, 100, 5, 30, null, null, new EnemyDrops("Arrow", 1, 0, 20), Biome.Crypt),
+                new Enemy("Fresh Undead", "A zombie who turned only moments ago. Some of them even can use some of their old moves in the afterlife.", 50, 0, 100, 10, 30, null, null, null, Biome.Crypt),
                 new Enemy("Ancient Spirit", "The ghost of a human who has forgotten their own death. Some say the ony kill in order to remember how they died.", 40, 0, 50, 16, 45, null, null, null, Biome.Crypt),
-                new Enemy("Necromancer of the Order", "A member of an evil organisation who specializes in necromancy.", 80, 0, 120, 30, 40, null, null, null, Biome.Crypt),
-
+                new Enemy("Necromancer of the Order", "A member of an evil organisation who specializes in necromancy.", 80, 0, 120, 30, 40, "Resurrect", "The necromancer summons an unkillable skeleton, dealing extra damage to the player", null, Biome.Crypt),
+                new Enemy("Mirror Portrait", "An image of yourself from a time line where you died a gruesome death.", 100, 0, 1000, 50, 0, "Suicide?", "Deals the HP of itself as damage to the player.", null, Biome.Crypt),
 
                 //Desert
                 new Enemy("Sandspewer", "An aggressive reptile who lunges sand to attack its prey.", 40, 0, 100, 0, 8, null, null, null, Biome.Desert),
