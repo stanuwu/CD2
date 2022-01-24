@@ -255,8 +255,20 @@ namespace CD2_Bot
                 case "Resurrect":
                     this.Damage += 25;
                     break;
-                 case "Suicide?":
+                case "Suicide?":
                     this.Damage += this.HP;
+                    break;
+                case "Light Stung":
+                    weapon.Damage -= 1;
+                    break;
+                case "Sandy":
+                    if (weapon.CustomEffectName != null && weapon.CustomEffectName.Contains("Burn"))
+                    {
+                        this.Resistance += 40;
+                    }
+                    break;
+                case "Egovore":
+                    this.HP += this.HP/4;
                     break;
             }
             return 0;
@@ -342,8 +354,8 @@ namespace CD2_Bot
                 new Enemy("Amateurish Bandit", "Even a regular slime is a more dangerous threat than this good for nothing. They often give up the life of crime after one lost battle", 40, 0, 100, 0, 7, null, null, null, Biome.Plains),
                 new Enemy("Corrupted Critter", "Small mammals like rabbits or rats who had their once fearful mind warped into a crazy state.", 30, 0, 95, 0, 8, null, null, new EnemyDrops("Small Game Pelt", 1, 0, 15), Biome.Plains),
                 new Enemy("Little Eye", "An still functioncal eye of a watcher which was shed voluntarily in order to observe their domain.", 25, 0, 100, 0, 6, null, null, null, Biome.Plains),
-                new Enemy("Brown Wolf", "The smallest species of wolf who dares to attack humans. Only slightly bigger than a fox.", 60, 0, 100, 5, 20, null, null, new EnemyDrops("Small Wolf Pelt", 1, 0, 10), Biome.Plains),
-                new Enemy("Brown Alpha Wolf", "The leader of a pack of brown wolves. Can hold their own against larger wolf species.", 70, 0, 100, 6, 25, null, null, new EnemyDrops("Small Wolf Pelt", 1, 0, 10), Biome.Plains),
+                new Enemy("Brown Wolf", "The smallest species of wolf who dares to attack humans. Only slightly bigger than a fox.", 60, 0, 100, 5, 15, null, null, new EnemyDrops("Small Wolf Pelt", 1, 0, 10), Biome.Plains),
+                new Enemy("Brown Alpha Wolf", "The leader of a pack of brown wolves. Can hold their own against larger wolf species.", 70, 0, 100, 6, 20, null, null, new EnemyDrops("Small Wolf Pelt", 1, 0, 10), Biome.Plains),
                 new Enemy("Smalltime Poacher", "A hunter without a license or ethics. Doesn't take it lightly when someones marches into their hunting grounds.", 55, 0, 100, 5, 20, null, null, new EnemyDrops("Small Wolf Pelt", 1, 0, 5), Biome.Plains),
                 new Enemy("Green Ogre", "A giant monster armed with an even larger club. Protective of its territory.", 75, 0, 80, 10, 20, null, null, null, Biome.Plains),
                 new Enemy("Banished Reaper", "A taker of souls who enjoyed their profession for the wrong reasons.", 100, 0, 100, 20, 50, null, null, null, Biome.Plains),
@@ -372,9 +384,9 @@ namespace CD2_Bot
 
                 //Crypt
                 new Enemy("Roaming Skeleton", "A soul cursed to rot in its already rotten body.", 30, 0, 100, 0, 10, null, null, new EnemyDrops("Bone", 2, 1, 10), Biome.Crypt),
-                new Enemy("Rotting Undead", "A zombie who has been (not) alive for over a century.", 35, 0, 100, 0, 15, null, null, null, Biome.Crypt),
-                new Enemy("Skeleton Warrior", "The remains of a fallen warrior whose desire for blood hasn't even been quenched by their demise.", 35, 0, 80, 5, 25, null, null, new EnemyDrops("Rusty Sword", 1, 0, 15), Biome.Crypt),
-                new Enemy("Skeleton Archer", "Robbed of their eyes through their decay, they began to fire at everything the sense.", 35, 0, 100, 5, 30, null, null, new EnemyDrops("Arrow", 1, 0, 20), Biome.Crypt),
+                new Enemy("Rotting Undead", "A zombie who has been (not) alive for over a century.", 35, 0, 100, 0, 12, null, null, null, Biome.Crypt),
+                new Enemy("Skeleton Warrior", "The remains of a fallen warrior whose desire for blood hasn't even been quenched by their demise.", 45, 0, 80, 5, 25, null, null, new EnemyDrops("Rusty Sword", 1, 0, 15), Biome.Crypt),
+                new Enemy("Skeleton Archer", "Robbed of their eyes through their decay, they began to fire at everything the sense.", 45, 0, 100, 5, 30, null, null, new EnemyDrops("Arrow", 1, 0, 20), Biome.Crypt),
                 new Enemy("Fresh Undead", "A zombie who turned only moments ago. Some of them even can use some of their old moves in the afterlife.", 50, 0, 100, 10, 30, null, null, null, Biome.Crypt),
                 new Enemy("Ancient Spirit", "The ghost of a human who has forgotten their own death. Some say the ony kill in order to remember how they died.", 40, 0, 50, 16, 45, null, null, null, Biome.Crypt),
                 new Enemy("Necromancer of the Order", "A member of an evil organisation who specializes in necromancy.", 80, 0, 120, 30, 40, "Resurrect", "The necromancer summons an unkillable skeleton, dealing extra damage to the player", null, Biome.Crypt),
@@ -382,30 +394,39 @@ namespace CD2_Bot
 
                 //Desert
                 new Enemy("Sandspewer", "An aggressive reptile who lunges sand to attack its prey.", 40, 0, 100, 0, 8, null, null, null, Biome.Desert),
+                new Enemy("Kakaka", "A bird like creature made out of cacti. Their claws sting like a regular cactus.", 35, 0, 100, 0, 9, "Light Stung", "Slighty decreases the attack of the player.", null, Biome.Desert),
+                new Enemy("Malnourished Mummy", "A mummy who regained their cut out organs, having regained a sense of hunger.", 35, 0, 100, 0, 12, null, null, null, Biome.Desert),
                 new Enemy("Yellow-Skinned Scorpion", "A subspecies of the White-Eyed Scorpion. A nocturnal threat found in most deserts.", 40, 0, 85, 5, 18, "Paralysis", "Decreases the resistance of the player.", null, Biome.Desert),
-
+                new Enemy("Sand Golem", "A giant humanoid made out of sand. Its hard to land a solid attack.", 80, 0, 60, 15, 20, "Sandy", "Loses its whole resistance when hit with fire attacks.", null, Biome.Tundra),
+                new Enemy("Sadwonmor", "A gigantic worm slithering on and under the giant dunes of the desert, devouring evertyhing along its way.", 300, 0, 100, 50, 80, null, null, null, Biome.Desert),
 
                 //Forest
                 new Enemy("Convict in Hiding", "A criminal who made the woods their new home.", 50, 0, 100, 0, 7, null, null, null, Biome.Forest),
                 new Enemy("Wandering Tree", "A tree whose roots started to become legs to hunt the fiends who destroyed their habitat.", 80, 0, 90, 10, 20, null, null, new EnemyDrops("Wood", 3, 1, 30), Biome.Forest),
-                new Enemy("Black Wolf", "The wolf species people instantly think about when you talk about wolves. The rarely attack humans.", 70, 0, 100, 10, 27, null, null, new EnemyDrops("Medium Wolf Pelt", 1, 0, 10), Biome.Forest),
-                new Enemy("Black Alpha Wolf", "The leader of a pack of black wolves. Often has scars around it eyes gained in battle over the leadership.", 80, 0, 100, 11, 30, null, null, new EnemyDrops("Medium Wolf Pelt", 1, 0, 10), Biome.Forest),
+                new Enemy("Black Wolf", "The wolf species people instantly think about when you talk about wolves. The rarely attack humans.", 70, 0, 100, 10, 22, null, null, new EnemyDrops("Medium Wolf Pelt", 1, 0, 10), Biome.Forest),
+                new Enemy("Black Alpha Wolf", "The leader of a pack of black wolves. Often has scars around it eyes gained in battle over the leadership.", 80, 0, 100, 11, 25, null, null, new EnemyDrops("Medium Wolf Pelt", 1, 0, 10), Biome.Forest),
                 new Enemy("Scarred Grizzly", "A big bear who lost its cubs to a hunting party. The scars show the battle which soon followed after.", 85, 0, 100, 15, 40, null, null, new EnemyDrops("Tattered Bear Pelt", 1, 0, 5), Biome.Forest),
-
+                
 
                 //Jungle
+                new Enemy("Sucking Mosquito", "The smallest and biggest pest of the jungle.", 20, 0, 70, 0, 5, "Lifesteal", "Heals itself for twice its damage before the start of the battle.", null, Biome.Jungle),
                 new Enemy("Black-Gilled Piranha", "A predator found in many rivers and streams. There black gills give off an awful stench.", 30, 0, 85, 0, 8, null, null, new EnemyDrops("Fish Scale", 1, 0, 20), Biome.Jungle),
-
+                new Enemy("Tropical Poacher", "A poacher who specialises killing mammals of the jungle.",  60, 0, 100, 5, 20, null, null, new EnemyDrops("Exotic Pelt", 1, 0, 5), Biome.Jungle),
+                new Enemy("Ancient Temple Guardian", "A sentinel made out of a violet stone, protecting an old temple of a long lost civilization.", 100, 0, 80, 30, 30, null, null, null, Biome.Jungle),
+                new Enemy("Mijulin", "A giant lizard like being made out of the vegetation of its territority. Feasts on the fruits that grows on it own body.", 230, 0, 100, 50, 70, "Egovore", "Heals itself for a quarter of its own HP.", null, Biome.Jungle),
 
                 //Tundra
                 new Enemy("Cursed Snowman", "The favorite joke of ice wizards in the area.", 30, 0, 100, 0, 3, "Melting", "Receives more damage when hit with fire.", null, Biome.Tundra),
                 new Enemy("Ice Wizard of the Order", "A member of an evil organisation who specializes in ice spells.", 55, 0, 100, 10, 20, "Freeze", "Decreases damage and resistance of the player.", null, Biome.Tundra),
-                new Enemy("Polar Wolf", "A subspecies of the black wolf, found in could regions.", 75, 0, 100, 10, 25, null, null, new EnemyDrops("Medium Wolf Pelt", 1, 0, 10), Biome.Tundra),
-                new Enemy("Polar Alpha Wolf", "The leader of a pack of polar wolves. The blood stains in its fur prove its status.", 85, 0, 100, 11, 28, null, null, new EnemyDrops("Medium Wolf Pelt", 1, 0, 10), Biome.Tundra),
+                new Enemy("Polar Wolf", "A subspecies of the black wolf, found in could regions.", 75, 0, 100, 10, 22, null, null, new EnemyDrops("Medium Wolf Pelt", 1, 0, 10), Biome.Tundra),
+                new Enemy("Polar Alpha Wolf", "The leader of a pack of polar wolves. The blood stains in its fur prove its status.", 85, 0, 100, 11, 25, null, null, new EnemyDrops("Medium Wolf Pelt", 1, 0, 10), Biome.Tundra),
                 new Enemy("Snow Golem", "A giant humanoid made out of strange hardened snow.", 80, 0, 90, 10, 20, "Melting", "Receives more damage when hit with fire.", null, Biome.Tundra),
 
                 //Mountains
                 new Enemy("Cursed Rock", "A rock that has been cursed to roll forever, crushing everything in its path.", 70, 0, 80, 0, 5, null, null, new EnemyDrops("Stone", 2, 1, 40), Biome.Mountains),
+                new Enemy("Mountain Bandit", "A human whose path led them to a life of crime in the mountains.", 65, 0, 90, 10, 25, "Small Money Drop", "The player gets a small amount of money", new EnemyDrops("Small Pouch", 1, 0, 10), Biome.Mountains),
+                new Enemy("Mountain Bandit Leader", "The leader of a small group of mountain bandits. They often command a base high up in the mountains.", 75, 0, 90, 11, 30, "Moderate Money Drop", "The player gets a moderate amount of money", new EnemyDrops("Small Pouch", 1, 0, 15), Biome.Mountains),
+                new Enemy("Mountain Troll", "A stupid and grey skined monster. Dislikes all kinds of intelligent life.", 90, 0, 80, 20, 20, null, null, null, Biome.Mountains),
                 new Enemy("Stone Golem", "A giant humanoid covered in a armor of stones and minerals. Often thought to be a defense mechanism of the mountains they roam.", 100, 0, 70, 10, 20, null, null, new EnemyDrops("Stone", 4, 1, 20), Biome.Mountains),
 
 
@@ -420,11 +441,15 @@ namespace CD2_Bot
 
                 //Swamp
                 new Enemy("Buzzing Dragonfly", "Bigger and more aggressive than normal dragonflys. Easy to kill, but their bites can cause grave wounds.", 20, 0, 150, 0, 30, null, null, null, Biome.Swamp),
+                new Enemy("Toxic Drowned", "An undead who met their demise at the bottom of the swamp. Their body is filled with toxic sludge.", 30, 0, 110, 0, 8, "Light Posion", "Causes slight extra damage and decreases the resistance of the player", null, Biome.Swamp),
+                new Enemy("Alligator Hunter", "A poacher who specialises killing alligators. They are not nice to them.",  70, 0, 100, 5, 22, null, null, new EnemyDrops("Scale", 4, 1, 10), Biome.Swamp),
                 new Enemy("Toxic Smoke", "A cloud o poisonous smoke which is controlled by an otherwise weak spirit.", 60, 0, 150, 10, 10, "Light Posion", "Causes slight extra damage and decreases the resistance of the player", null, Biome.Swamp),
+                new Enemy("Hunted Alligator", "An alligator agitated through a recent attempt on its life.", 80, 0, 90, 20, 40, null, null, new EnemyDrops("Scale", 3, 1, 15), Biome.Swamp),
 
 
                 //Sea
                 new Enemy("Neukenvis", "The most hated kind of fish off all fishermen, known for chewing on rods and fingers.", 30, 0, 100, 0, 8, null, null, new EnemyDrops("Fish Scale", 1, 0, 5), Biome.Sea),
+                new Enemy("Pirate Boat", "A small boat full of average pirates armed with sabers.", 80, 0, 100, 10, 25, null, null, null, Biome.Sea),
                 new Enemy("Crying Siren", "A sea creature who shapeshifts into the most loved person of it's prey to lure them in.", 40, 0, 100, 10, 20, "Confusing Appearance", "Decreases the damage dealt by the the player", null, Biome.Sea),
                 new Enemy("Lion Shark", "A medium sized shark. Known for their yellow color.", 70, 0, 100, 15, 35, null, null, new EnemyDrops("Fish Scale", 3, 1, 15), Biome.Sea),
                 new Enemy("Kirawa", "A whale known to attack ships as much as its normal prey. Their teeth are among the strongest from all marine life.", 200, 0, 60, 50, 80, null, null, null, Biome.Sea),
