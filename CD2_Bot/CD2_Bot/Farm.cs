@@ -70,6 +70,11 @@ namespace CD2_Bot
                         return;
                 }
 
+                if (stats.QuestData != "none")
+                {
+                    stats.Quest.UpdateProgress(stats, QuestActivations.FarmCompleteAny, arg);
+                }
+
                 stats.LastFarm = DateTime.Now;
 
                 int sam = Defaults.GRandom.Next(1, 3);

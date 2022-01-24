@@ -108,6 +108,11 @@ namespace CD2_Bot
                     Utils.SaveInv(stats, inv);
                     await sel.Message.DeleteAsync();
                     Gear.RandomDrop(userid, sel.Channel, ovr: item, ovrtype: type);
+                    //quest trigger
+                    if (stats.QuestData != "none")
+                    {
+                        stats.Quest.UpdateProgress(stats, QuestActivations.CraftItemAny, type);
+                    }
                     return;
                 }
                 else

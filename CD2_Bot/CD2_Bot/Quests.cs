@@ -28,8 +28,46 @@ namespace CD2_Bot
             new KillBiomeMonstersQuest("Kill Swamp Monsters", "KSWM", "Kill any monster from the swamp.", 7, 2, 1500, 350, 0, 0, 0, null, null, 2880, "The swamp is crawling with monsters. Please kill some of them!", "You've done well. Here is your reward!", "You were not able to kill the monsters? Sorry, but I can not offer you any reward.", "You have killed %current%/%goal% monsters so far.", 2, QuestActivations.DefeatMonster, Biome.Swamp),
             new KillBiomeMonstersQuest("Kill Settlement Monsters", "KSEM", "Kill any monster from the settlement.", 7, 2, 900, 220, 0, 0, 0, null, null, 2880, "The settlement is crawling with monsters. Please kill some of them!", "You've done well. Here is your reward!", "You were not able to kill the monsters? Sorry, but I can not offer you any reward.", "You have killed %current%/%goal% monsters so far.", 0, QuestActivations.DefeatMonster, Biome.Settlement),
 
-            //new Quest("", "", "", 0, 0, 0, 0, 0, 0, 0, null, null, 0, "", "", "", "", 0, null),
+            //craft any quests
+            new CraftItemsQuest("Crafting Beginner", "CRX1", "Craft any item.", 1, 0, 300, 70, 0, 0, 0, null, null, 2160, "You need to learn how to create your own gear! Enter a Room of Forging and craft any item.", "You sure have some talent! Take this.", "Sadly you failed. There is always another chance.", "You have crafted %current%/%goal% items.", 0, QuestActivations.CraftItemAny, "any"),
+            new CraftItemsQuest("Advanced Forgery", "CRX2", "Craft a few items.", 3, 0, 1200, 250, 0, 0, 0, null, null, 3360, "You must improve your forging skills. Make some gear and then come back to me.", "Wonderful Quality! Have this.", "At your level you should have been able to complete this task. I can not compensate you!", "You have crafted %current%/%goal% items.", 5, QuestActivations.CraftItemAny, "any"),
+            new CraftItemsQuest("Master of Creation", "CRX3", "Craft a massive amount of items.", 5, 1, 2200, 400, 0, 0, 0, null, null, 10080, "Now that you have mastered the art of forging there is many that want to learn from you. Show them how its done!", "Impeccable .", "I am gravely dissapointed in you.", "You have crafted %current%/%goal% items.", 15, QuestActivations.CraftItemAny, "any"),
+            //craft weapon quests
+            new CraftItemsQuest("Weapon Crafter", "CRW1", "Craft any weapon.", 1, 0, 300, 70, 50, 0, 0, null, null, 2160, "Set out to master the art of creation! Make yourself a weapon in a Room of Forging.", "You sure have some talent! Take this.", "Sadly you failed. There is always another chance.", "You have crafted %current%/%goal% weapons.", 0, QuestActivations.CraftItemAny, "weapon"),
+            new CraftItemsQuest("Advanced Blacksmith", "CRW2", "Craft two weapons.", 2, 0, 700, 150, 50, 0, 0, null, null, 2360, "You must improve your forging skills. Make some weapons and then come back to me.", "Wonderful Quality! Have this.", "At your level you should have been able to complete this task. I can not compensate you!", "You have crafted %current%/%goal% weapons.", 5, QuestActivations.CraftItemAny, "weapon"),
+            new CraftItemsQuest("Creator of Desctruction", "CRW3", "Craft three weapons.", 3, 0, 1700, 300, 50, 0, 0, null, null, 7080, "Now that you have mastered the art of forging there is many that want to learn from you. Show them how its done!", "Impeccable .", "I am gravely dissapointed in you.", "You have crafted %current%/%goal% weapons.", 15, QuestActivations.CraftItemAny, "weapon"),
+            //craft armor quests
+            new CraftItemsQuest("Armor Crafter", "CRA1", "Craft any armor.", 1, 0, 300, 70, 0, 50, 0, null, null, 2160, "Set out to master the art of creation! Make yourself any piece of armor in a Room of Forging.", "You sure have some talent! Take this.", "Sadly you failed. There is always another chance.", "You have crafted %current%/%goal% pieces of armor.", 0, QuestActivations.CraftItemAny, "armor"),
+            new CraftItemsQuest("Advanced Armorer", "CRA2", "Craft two pieces of armor.", 2, 0, 900, 150, 0, 50, 0, null, null, 2360, "You must improve your forging skills. Make some armor and then come back to me.", "Wonderful Quality! Have this.", "At your level you should have been able to complete this task. I can not compensate you!", "You have crafted %current%/%goal% pieces of armor.", 5, QuestActivations.CraftItemAny, "armor"),
+            new CraftItemsQuest("On the Defense", "CRA3", "Craft three pieces of armor.", 3, 0, 1700, 300, 0, 50, 0, null, null, 7080, "Now that you have mastered the art of forging there is many that want to learn from you. Show them how its done!", "Impeccable .", "I am gravely dissapointed in you.", "You have crafted %current%/%goal% pieces of armor.", 15, QuestActivations.CraftItemAny, "armor"),
+            //craft extra quests
+            new CraftItemsQuest("Extra Crafter", "CRE1", "Craft any extra.", 1, 0, 300, 70, 0, 0, 50, null, null, 2160, "Set out to master the art of creation! Make yourself an extra in a Room of Forging.", "You sure have some talent! Take this.", "Sadly you failed. There is always another chance.", "You have crafted %current%/%goal% extras.", 0, QuestActivations.CraftItemAny, "extra"),
+            new CraftItemsQuest("Advanced Enchanter", "CRE2", "Craft two extras.", 2, 0, 900, 150, 0, 0, 50, null, null, 2360, "You must improve your forging skills. Make some extras and then come back to me.", "Wonderful Quality! Have this.", "At your level you should have been able to complete this task. I can not compensate you!", "You have crafted %current%/%goal% extras.", 5, QuestActivations.CraftItemAny, "extra"),
+            new CraftItemsQuest("Darkness Forger", "CRE3", "Craft three extras.", 3, 0, 1700, 300, 0, 0, 50, null, null, 7080, "Now that you have mastered the art of forging there is many that want to learn from you. Show them how its done!", "Impeccable .", "I am gravely dissapointed in you.", "You have crafted %current%/%goal% extras.", 15, QuestActivations.CraftItemAny, "extra"),
 
+            //trade any quests
+            new CompleteTradeQuest("Rookie Trader", "TRA1", "Complete a trade.", 1, 0, 300, 70, 0, 0, 0, null, null, 2160, "If you want to make it in the world you need to be able to get what you want. Go do a trade in a Room of Deals.", "Not bad for a beginner! Trading Pays.", "Not everyone is cut out for the business lifestyle.", "You have completed %current%/%goal% trades.", 0, QuestActivations.TradeComplete),
+            new CompleteTradeQuest("Yours for Mine", "TRA2", "Complete some trades.", 3, 0, 1200, 250, 0, 0, 0, null, null, 3360, "Trading can make you rich, trading can make you happy. Get out there and make some deals.", "I see you have learned a lot! Let me give you this.", "Sometimes trading comes with losses.", "You have completed %current%/%goal% trades.", 5, QuestActivations.TradeComplete),
+            new CompleteTradeQuest("Master of Deals", "TRA3", "Complete a lot of trades.", 5, 1, 2200, 400, 0, 0, 0, null, null, 10080, "Show me how you dominate the market. Go make those deals!", "Now I believe miracles can happen.", "Truly fascinating loss. I can not reward you for this.", "You have completed %current%/%goal% trades.", 15, QuestActivations.TradeComplete),
+
+            //train any quests
+            new TrainQuest("Self-Improvement", "TNX1", "Train a few times.", 10, 3, 500, 50, 20, 20, 20, null, null, 2160, "The first step to winning is to look at yourself and improve your skills. Go and train with your gear.", "Do you see what I meant? It's that easy!", "You can't keep blaming your mistakes on others.", "You have trained %current%/%goal% times.", 0, QuestActivations.TrainCompleteAny, "any"),
+            new TrainQuest("One with the Blade", "TNW1", "Train with your weapon a few times.", 7, 3, 500, 50, 50, 0, 0, null, null, 2160, "Your Swordsmanship needs some work. Go and train with your weapon.", "Do you see what I meant? It's that easy!", "No improvements have been made here.", "You have trained with your weapon %current%/%goal% times.", 0, QuestActivations.TrainCompleteAny, "weapon"),
+            new TrainQuest("Metal Man", "TNA1", "Train with your armor a few times.", 7, 3, 500, 50, 50, 0, 0, null, null, 2160, "You do not move well in your armor. Go and train with it.", "Do you see what I meant? It's that easy!", "No improvements have been made here.", "You have trained with your armor %current%/%goal% times.", 0, QuestActivations.TrainCompleteAny, "armor"),
+            new TrainQuest("Artifact Abuser", "TNE1", "Train with your extra a few times.", 7, 3, 500, 50, 50, 0, 0, null, null, 2160, "You are not using your extra its full potential. Go tain with it.", "Do you see what I meant? It's that easy!", "No improvements have been made here.", "You have trained with your extra %current%/%goal% times.", 0, QuestActivations.TrainCompleteAny, "extra"),
+
+            //farm any quests
+            new FarmQuest("Working Hard", "FXX1", "Farm a few times.", 10, 3, 600, 60, 0, 0, 0, null, null, 2160, "Some things can only be found if you look for them. Go farming.", "There you go! Here is a reward.", "You don't need to farm but then I can not offer you a reward.", "You have farmed %current%/%goal% times.", 0, QuestActivations.FarmCompleteAny, "any"),
+            new FarmQuest("Big Catch", "FFI1", "Go fishing a few times.", 5, 1, 400, 50, 0, 0, 0, null, new EnemyDrops("Hydra Scale", 1, 0, 100), 2160, "Fishing is your best friend.", "Wonderful. I have a gift for you.", "I'm dissapointed in you.", "You have fished %current%/%goal% times.", 0, QuestActivations.FarmCompleteAny, "fishing"),
+            new FarmQuest("Mine Diamonds", "FMI1", "Go mining a few times.", 5, 1, 400, 50, 0, 0, 0, null, new EnemyDrops("Diamond", 1, 0, 100), 2160, "Mining is your best friend.", "Wonderful. I have a gift for you.", "I'm dissapointed in you.", "You have mined %current%/%goal% times.", 0, QuestActivations.FarmCompleteAny, "mining"),
+            new FarmQuest("Felling Trees", "FFO1", "Go foraging a few times.", 5, 1, 400, 50, 0, 0, 0, null, new EnemyDrops("Tropical Wood", 1, 0, 100), 2160, "Foraging is your best friend.", "Wonderful. I have a gift for you.", "I'm dissapointed in you.", "You have foraged %current%/%goal% times.", 0, QuestActivations.FarmCompleteAny, "foraging"),
+            new FarmQuest("Looking and Finding", "FCO1", "Go fishing a few times.", 5, 1, 400, 50, 0, 0, 0, null, new EnemyDrops("Rare Root", 1, 0, 100), 2160, "Collecting is your best friend.", "Wonderful. I have a gift for you.", "I'm dissapointed in you.", "You have collected %current%/%goal% times.", 0, QuestActivations.FarmCompleteAny, "collecting"),
+            new FarmQuest("The Game is On", "FHU1", "Go hunting a few times.", 5, 1, 400, 50, 0, 0, 0, null, new EnemyDrops("Bear Pelt", 1, 0, 100), 2160, "Hunting is your best friend.", "Wonderful. I have a gift for you.", "I'm dissapointed in you.", "You have hunted %current%/%goal% times.", 0, QuestActivations.FarmCompleteAny, "hunting"),
+
+            //enter floor quests
+            new EnterFloorQuest("Dungeon Master", "EFX1", "Explore some floors.", 3, 0, 800, 90, 0, 0, 0, null, null, 2160, "The Dungeons is calling. Go explore some new floors!", "Very brave of you.", "You must not be scard of what might happen. Go on, try again.", "You have opened %current%/%goal% floors.", 0, QuestActivations.EnterFloor),
+
+            //new Quest("", "", "", 0, 0, 0, 0, 0, 0, 0, null, null, 0, "", "", "", "", 0, null),
         };
 
         //get what quest the player has from stored quest data value
@@ -49,6 +87,11 @@ namespace CD2_Bot
     public enum QuestActivations
     { 
         DefeatMonster,
+        CraftItemAny,
+        TradeComplete,
+        TrainCompleteAny,
+        FarmCompleteAny,
+        EnterFloor,
     }
 
     public class Quest {
@@ -298,7 +341,7 @@ namespace CD2_Bot
     }
 
      public class KillBiomeMonstersQuest : Quest
-    {
+     {
         public KillBiomeMonstersQuest(string name, string descriminator, string description, int progress, int progressMargin, int moneyReward, int xpReward, int weaponXpReward, int armorXpReward, int extraXpReward, Quest questReward, EnemyDrops dropReward, int completionTimeInMinutes, string obtainingDialogue, string completionDialogue, string questFailedDialogue, string questGoalDialogue, int levelLimit, QuestActivations activate, Biome biome) : base(name, descriminator, description, progress, progressMargin, moneyReward, xpReward, weaponXpReward, armorXpReward, extraXpReward, questReward, dropReward, completionTimeInMinutes, obtainingDialogue, completionDialogue, questFailedDialogue, questGoalDialogue, levelLimit, activate)
         {
             Biome = biome;
@@ -357,6 +400,366 @@ namespace CD2_Bot
             if ((DateTime.Now - ((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item2).TotalMinutes > this.CompletionTimeInMinutes) {
                 return true;
             } else
+            {
+                return false;
+            }
+        }
+
+        public override TimeSpan timeLeft(CharacterStructure stats)
+        {
+            return (TimeSpan.FromMinutes(this.CompletionTimeInMinutes)) - (DateTime.Now - ((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item2);
+        }
+    }
+
+    public class CraftItemsQuest : Quest
+    {
+        public string Type { get; set; }
+
+        public CraftItemsQuest(string name, string descriminator, string description, int progress, int progressMargin, int moneyReward, int xpReward, int weaponXpReward, int armorXpReward, int extraXpReward, Quest questReward, EnemyDrops dropReward, int completionTimeInMinutes, string obtainingDialogue, string completionDialogue, string questFailedDialogue, string questGoalDialogue, int levelLimit, QuestActivations activate, string type = "any") : base(name, descriminator, description, progress, progressMargin, moneyReward, xpReward, weaponXpReward, armorXpReward, extraXpReward, questReward, dropReward, completionTimeInMinutes, obtainingDialogue, completionDialogue, questFailedDialogue, questGoalDialogue, levelLimit, activate)
+        {
+            Type = type;
+        }
+        public override void generateQuest(CharacterStructure stats)
+        {
+            int margin = this.Progress + Defaults.GRandom.Next(this.ProgressMargin * -1, this.ProgressMargin);
+            stats.QuestData = $"{this.Descriminator};{DateTime.Now.ToString()};0;{margin.ToString()}";
+        }
+        public override string ShowProgress(CharacterStructure stats)
+        {
+            int progress = ((ValueTuple<string, DateTime, int, int>)LoadProgress(stats)).Item3;
+            int goal = ((ValueTuple<string, DateTime, int, int>)LoadProgress(stats)).Item4;
+            return this.QuestGoalDialogue.Replace("%current%", progress.ToString()).Replace("%goal%", goal.ToString());
+        }
+        public override object LoadProgress(CharacterStructure stats)
+        {
+            string[] data = stats.QuestData.Split(';');
+            ValueTuple<string, DateTime, int, int> rdata;
+            rdata.Item1 = data[0];
+            rdata.Item2 = DateTime.Parse(data[1]);
+            rdata.Item3 = Convert.ToInt32(data[2]);
+            rdata.Item4 = Convert.ToInt32(data[3]);
+            return rdata;
+        }
+        public void SaveProgress(CharacterStructure stats, string d, DateTime s, int p, int g)
+        {
+            stats.QuestData = $"{d};{s.ToString()};{p.ToString()};{g.ToString()}";
+        }
+        public override bool UpdateProgress(CharacterStructure stats, QuestActivations source, object param = null)
+        {
+            bool gainprogress = base.UpdateProgress(stats, source, param);
+            if (gainprogress == false)
+            {
+                return false;
+            }
+            else if (Type == "any" || Type == (string) param)
+            {
+                ValueTuple<string, DateTime, int, int> data = (ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats);
+                data.Item3++;
+                this.SaveProgress(stats, data.Item1, data.Item2, data.Item3, data.Item4);
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+        public override bool isQuestCompleted(CharacterStructure stats)
+        {
+            return (((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item3) >= (((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item4);
+        }
+
+        public override bool isQuestExpired(CharacterStructure stats)
+        {
+            if ((DateTime.Now - ((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item2).TotalMinutes > this.CompletionTimeInMinutes)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override TimeSpan timeLeft(CharacterStructure stats)
+        {
+            return (TimeSpan.FromMinutes(this.CompletionTimeInMinutes)) - (DateTime.Now - ((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item2);
+        }
+    }
+
+    public class CompleteTradeQuest : Quest
+    {
+        public CompleteTradeQuest(string name, string descriminator, string description, int progress, int progressMargin, int moneyReward, int xpReward, int weaponXpReward, int armorXpReward, int extraXpReward, Quest questReward, EnemyDrops dropReward, int completionTimeInMinutes, string obtainingDialogue, string completionDialogue, string questFailedDialogue, string questGoalDialogue, int levelLimit, QuestActivations activate) : base(name, descriminator, description, progress, progressMargin, moneyReward, xpReward, weaponXpReward, armorXpReward, extraXpReward, questReward, dropReward, completionTimeInMinutes, obtainingDialogue, completionDialogue, questFailedDialogue, questGoalDialogue, levelLimit, activate)
+        {
+        }
+        public override void generateQuest(CharacterStructure stats)
+        {
+            int margin = this.Progress + Defaults.GRandom.Next(this.ProgressMargin * -1, this.ProgressMargin);
+            stats.QuestData = $"{this.Descriminator};{DateTime.Now.ToString()};0;{margin.ToString()}";
+        }
+        public override string ShowProgress(CharacterStructure stats)
+        {
+            int progress = ((ValueTuple<string, DateTime, int, int>)LoadProgress(stats)).Item3;
+            int goal = ((ValueTuple<string, DateTime, int, int>)LoadProgress(stats)).Item4;
+            return this.QuestGoalDialogue.Replace("%current%", progress.ToString()).Replace("%goal%", goal.ToString());
+        }
+        public override object LoadProgress(CharacterStructure stats)
+        {
+            string[] data = stats.QuestData.Split(';');
+            ValueTuple<string, DateTime, int, int> rdata;
+            rdata.Item1 = data[0];
+            rdata.Item2 = DateTime.Parse(data[1]);
+            rdata.Item3 = Convert.ToInt32(data[2]);
+            rdata.Item4 = Convert.ToInt32(data[3]);
+            return rdata;
+        }
+        public void SaveProgress(CharacterStructure stats, string d, DateTime s, int p, int g)
+        {
+            stats.QuestData = $"{d};{s.ToString()};{p.ToString()};{g.ToString()}";
+        }
+        public override bool UpdateProgress(CharacterStructure stats, QuestActivations source, object param = null)
+        {
+            bool gainprogress = base.UpdateProgress(stats, source, param);
+            if (gainprogress == false)
+            {
+                return false;
+            }
+            else
+            {
+                ValueTuple<string, DateTime, int, int> data = (ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats);
+                data.Item3++;
+                this.SaveProgress(stats, data.Item1, data.Item2, data.Item3, data.Item4);
+                return true;
+            }
+        }
+        public override bool isQuestCompleted(CharacterStructure stats)
+        {
+            return (((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item3) >= (((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item4);
+        }
+
+        public override bool isQuestExpired(CharacterStructure stats)
+        {
+            if ((DateTime.Now - ((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item2).TotalMinutes > this.CompletionTimeInMinutes)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override TimeSpan timeLeft(CharacterStructure stats)
+        {
+            return (TimeSpan.FromMinutes(this.CompletionTimeInMinutes)) - (DateTime.Now - ((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item2);
+        }
+    }
+
+    public class TrainQuest : Quest
+    {
+        public string Type { get; set; }
+
+        public TrainQuest(string name, string descriminator, string description, int progress, int progressMargin, int moneyReward, int xpReward, int weaponXpReward, int armorXpReward, int extraXpReward, Quest questReward, EnemyDrops dropReward, int completionTimeInMinutes, string obtainingDialogue, string completionDialogue, string questFailedDialogue, string questGoalDialogue, int levelLimit, QuestActivations activate, string type = "any") : base(name, descriminator, description, progress, progressMargin, moneyReward, xpReward, weaponXpReward, armorXpReward, extraXpReward, questReward, dropReward, completionTimeInMinutes, obtainingDialogue, completionDialogue, questFailedDialogue, questGoalDialogue, levelLimit, activate)
+        {
+            Type = type;
+        }
+        public override void generateQuest(CharacterStructure stats)
+        {
+            int margin = this.Progress + Defaults.GRandom.Next(this.ProgressMargin * -1, this.ProgressMargin);
+            stats.QuestData = $"{this.Descriminator};{DateTime.Now.ToString()};0;{margin.ToString()}";
+        }
+        public override string ShowProgress(CharacterStructure stats)
+        {
+            int progress = ((ValueTuple<string, DateTime, int, int>)LoadProgress(stats)).Item3;
+            int goal = ((ValueTuple<string, DateTime, int, int>)LoadProgress(stats)).Item4;
+            return this.QuestGoalDialogue.Replace("%current%", progress.ToString()).Replace("%goal%", goal.ToString());
+        }
+        public override object LoadProgress(CharacterStructure stats)
+        {
+            string[] data = stats.QuestData.Split(';');
+            ValueTuple<string, DateTime, int, int> rdata;
+            rdata.Item1 = data[0];
+            rdata.Item2 = DateTime.Parse(data[1]);
+            rdata.Item3 = Convert.ToInt32(data[2]);
+            rdata.Item4 = Convert.ToInt32(data[3]);
+            return rdata;
+        }
+        public void SaveProgress(CharacterStructure stats, string d, DateTime s, int p, int g)
+        {
+            stats.QuestData = $"{d};{s.ToString()};{p.ToString()};{g.ToString()}";
+        }
+        public override bool UpdateProgress(CharacterStructure stats, QuestActivations source, object param = null)
+        {
+            bool gainprogress = base.UpdateProgress(stats, source, param);
+            if (gainprogress == false)
+            {
+                return false;
+            }
+            else if (Type == "any" || Type == (string)param)
+            {
+                ValueTuple<string, DateTime, int, int> data = (ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats);
+                data.Item3++;
+                this.SaveProgress(stats, data.Item1, data.Item2, data.Item3, data.Item4);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override bool isQuestCompleted(CharacterStructure stats)
+        {
+            return (((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item3) >= (((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item4);
+        }
+
+        public override bool isQuestExpired(CharacterStructure stats)
+        {
+            if ((DateTime.Now - ((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item2).TotalMinutes > this.CompletionTimeInMinutes)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override TimeSpan timeLeft(CharacterStructure stats)
+        {
+            return (TimeSpan.FromMinutes(this.CompletionTimeInMinutes)) - (DateTime.Now - ((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item2);
+        }
+    }
+
+    public class FarmQuest : Quest
+    {
+        public string Type { get; set; }
+
+        public FarmQuest(string name, string descriminator, string description, int progress, int progressMargin, int moneyReward, int xpReward, int weaponXpReward, int armorXpReward, int extraXpReward, Quest questReward, EnemyDrops dropReward, int completionTimeInMinutes, string obtainingDialogue, string completionDialogue, string questFailedDialogue, string questGoalDialogue, int levelLimit, QuestActivations activate, string type = "any") : base(name, descriminator, description, progress, progressMargin, moneyReward, xpReward, weaponXpReward, armorXpReward, extraXpReward, questReward, dropReward, completionTimeInMinutes, obtainingDialogue, completionDialogue, questFailedDialogue, questGoalDialogue, levelLimit, activate)
+        {
+            Type = type;
+        }
+        public override void generateQuest(CharacterStructure stats)
+        {
+            int margin = this.Progress + Defaults.GRandom.Next(this.ProgressMargin * -1, this.ProgressMargin);
+            stats.QuestData = $"{this.Descriminator};{DateTime.Now.ToString()};0;{margin.ToString()}";
+        }
+        public override string ShowProgress(CharacterStructure stats)
+        {
+            int progress = ((ValueTuple<string, DateTime, int, int>)LoadProgress(stats)).Item3;
+            int goal = ((ValueTuple<string, DateTime, int, int>)LoadProgress(stats)).Item4;
+            return this.QuestGoalDialogue.Replace("%current%", progress.ToString()).Replace("%goal%", goal.ToString());
+        }
+        public override object LoadProgress(CharacterStructure stats)
+        {
+            string[] data = stats.QuestData.Split(';');
+            ValueTuple<string, DateTime, int, int> rdata;
+            rdata.Item1 = data[0];
+            rdata.Item2 = DateTime.Parse(data[1]);
+            rdata.Item3 = Convert.ToInt32(data[2]);
+            rdata.Item4 = Convert.ToInt32(data[3]);
+            return rdata;
+        }
+        public void SaveProgress(CharacterStructure stats, string d, DateTime s, int p, int g)
+        {
+            stats.QuestData = $"{d};{s.ToString()};{p.ToString()};{g.ToString()}";
+        }
+        public override bool UpdateProgress(CharacterStructure stats, QuestActivations source, object param = null)
+        {
+            bool gainprogress = base.UpdateProgress(stats, source, param);
+            if (gainprogress == false)
+            {
+                return false;
+            }
+            else if (Type == "any" || Type == (string)param)
+            {
+                ValueTuple<string, DateTime, int, int> data = (ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats);
+                data.Item3++;
+                this.SaveProgress(stats, data.Item1, data.Item2, data.Item3, data.Item4);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override bool isQuestCompleted(CharacterStructure stats)
+        {
+            return (((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item3) >= (((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item4);
+        }
+
+        public override bool isQuestExpired(CharacterStructure stats)
+        {
+            if ((DateTime.Now - ((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item2).TotalMinutes > this.CompletionTimeInMinutes)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override TimeSpan timeLeft(CharacterStructure stats)
+        {
+            return (TimeSpan.FromMinutes(this.CompletionTimeInMinutes)) - (DateTime.Now - ((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item2);
+        }
+    }
+
+    public class EnterFloorQuest : Quest
+    {
+        public EnterFloorQuest(string name, string descriminator, string description, int progress, int progressMargin, int moneyReward, int xpReward, int weaponXpReward, int armorXpReward, int extraXpReward, Quest questReward, EnemyDrops dropReward, int completionTimeInMinutes, string obtainingDialogue, string completionDialogue, string questFailedDialogue, string questGoalDialogue, int levelLimit, QuestActivations activate) : base(name, descriminator, description, progress, progressMargin, moneyReward, xpReward, weaponXpReward, armorXpReward, extraXpReward, questReward, dropReward, completionTimeInMinutes, obtainingDialogue, completionDialogue, questFailedDialogue, questGoalDialogue, levelLimit, activate)
+        {
+        }
+        public override void generateQuest(CharacterStructure stats)
+        {
+            int margin = this.Progress + Defaults.GRandom.Next(this.ProgressMargin * -1, this.ProgressMargin);
+            stats.QuestData = $"{this.Descriminator};{DateTime.Now.ToString()};0;{margin.ToString()}";
+        }
+        public override string ShowProgress(CharacterStructure stats)
+        {
+            int progress = ((ValueTuple<string, DateTime, int, int>)LoadProgress(stats)).Item3;
+            int goal = ((ValueTuple<string, DateTime, int, int>)LoadProgress(stats)).Item4;
+            return this.QuestGoalDialogue.Replace("%current%", progress.ToString()).Replace("%goal%", goal.ToString());
+        }
+        public override object LoadProgress(CharacterStructure stats)
+        {
+            string[] data = stats.QuestData.Split(';');
+            ValueTuple<string, DateTime, int, int> rdata;
+            rdata.Item1 = data[0];
+            rdata.Item2 = DateTime.Parse(data[1]);
+            rdata.Item3 = Convert.ToInt32(data[2]);
+            rdata.Item4 = Convert.ToInt32(data[3]);
+            return rdata;
+        }
+        public void SaveProgress(CharacterStructure stats, string d, DateTime s, int p, int g)
+        {
+            stats.QuestData = $"{d};{s.ToString()};{p.ToString()};{g.ToString()}";
+        }
+        public override bool UpdateProgress(CharacterStructure stats, QuestActivations source, object param = null)
+        {
+            bool gainprogress = base.UpdateProgress(stats, source, param);
+            if (gainprogress == false)
+            {
+                return false;
+            }
+            else
+            {
+                ValueTuple<string, DateTime, int, int> data = (ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats);
+                data.Item3++;
+                this.SaveProgress(stats, data.Item1, data.Item2, data.Item3, data.Item4);
+                return true;
+            }
+        }
+        public override bool isQuestCompleted(CharacterStructure stats)
+        {
+            return (((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item3) >= (((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item4);
+        }
+
+        public override bool isQuestExpired(CharacterStructure stats)
+        {
+            if ((DateTime.Now - ((ValueTuple<string, DateTime, int, int>)this.LoadProgress(stats)).Item2).TotalMinutes > this.CompletionTimeInMinutes)
+            {
+                return true;
+            }
+            else
             {
                 return false;
             }

@@ -34,6 +34,10 @@ namespace CD2_Bot
 
             int trainchance = Defaults.GRandom.Next(0, 100);
 
+            if (stats.QuestData != "none")
+            {
+                stats.Quest.UpdateProgress(stats, QuestActivations.TrainCompleteAny, arg.ToLower());
+            }
             switch (arg.ToLower())
             {
                 case "weapon":

@@ -39,6 +39,10 @@ namespace CD2_Bot
 
             MessageComponent menu = Rooms.getRoomSelection(Context.User.Id);
             await ReplyAsync(embed: Utils.QuickEmbedNormal("Floor", $"{stats.CharacterName} enters a new floor and is presented with 5 rooms.\nWhat one will you open?"), components:menu);
+            if (stats.QuestData != "none")
+            {
+                stats.Quest.UpdateProgress(stats, QuestActivations.EnterFloor);
+            }
         }
     }
 }

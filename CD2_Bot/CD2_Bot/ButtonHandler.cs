@@ -594,6 +594,10 @@ namespace CD2_Bot
                     Utils.SaveInv(stats, inv);
                     await btn.Message.DeleteAsync();
                     await btn.RespondAsync(embed: Utils.QuickEmbedNormal("Trade", $"Quest Accepted!\n-{giveam}x {give}\n+{getam}x {get}"));
+                    if (stats.QuestData != "none")
+                    {
+                        stats.Quest.UpdateProgress(stats, QuestActivations.TradeComplete);
+                    }
                     return;
                 }
                 else
