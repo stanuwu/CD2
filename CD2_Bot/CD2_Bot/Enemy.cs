@@ -259,7 +259,7 @@ namespace CD2_Bot
                     this.Damage += this.HP;
                     break;
                 case "Light Stung":
-                    weapon.Damage -= 1;
+                    weapon.BaseDamage -= 1;
                     break;
                 case "Sandy":
                     if (weapon.CustomEffectName != null && weapon.CustomEffectName.Contains("Burn"))
