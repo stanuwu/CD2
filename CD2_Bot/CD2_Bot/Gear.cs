@@ -93,6 +93,7 @@ namespace CD2_Bot
             CustomEffectName = customeffectname;
             CustomEffectDescription = customeffectdesc;
             Rarity = rarity;
+            CanDrop = canDrop;
         }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -190,6 +191,7 @@ namespace CD2_Bot
             CustomEffectName = customeffectname;
             CustomEffectDescription = customeffectdesc;
             Rarity = rarity;
+            CanDrop = canDrop;
         }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -609,8 +611,8 @@ namespace CD2_Bot
             // unique
 
             //handmade
-            new Weapon("Wooden Sword", "Only made for combat training.", 5, 0, null, null, Rarity.Common, true),
-            new Weapon("Hardened Stone Sword", "Made out of an incredible amount of stone.", 50, 0, null, null, Rarity.Epic, true),
+            new Weapon("Wooden Sword", "Only made for combat training.", 5, 0, null, null, Rarity.Common, false),
+            new Weapon("Hardened Stone Sword", "Made out of an incredible amount of stone.", 50, 0, null, null, Rarity.Epic, false),
         };
 
         public static List<Armor> Armors = new List<Armor>
