@@ -56,7 +56,9 @@ namespace CD2_Bot
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
                 StringFormat center = new StringFormat();
                 center.Alignment = StringAlignment.Center;
-
+                StringFormat centerscale = new StringFormat();
+                centerscale.Alignment = StringAlignment.Center;
+                centerscale.FormatFlags = StringFormatFlags.NoClip;
                 //draw name
                 g.DrawString(name, hfont, hbrush, new PointF(170, 20));
 
@@ -73,7 +75,7 @@ namespace CD2_Bot
                 g.DrawString(exp.ToString("N0").Replace(",", " "), gfont, brush, new Rectangle(343, 270, 237, 34));
 
                 //draw level
-                g.DrawString("Lvl " + level, dfont, brush, new Rectangle(50, 175, 100, 35), center);
+                g.DrawString("Lvl " + level, dfont, brush, new Rectangle(50, 175, 100, 35), centerscale);
 
                 //draw class
                 g.DrawString("Class: " + cclass, gfont, brush, new Rectangle(385, 180, 195, 34));
