@@ -170,6 +170,9 @@ namespace CD2_Bot
                 case "Blessing Light":
                     character.HP += (int)(((double)this.Damage)*1.5);
                     break;
+
+                case "Worldpoison":
+                    return enemy.HP / 20;
             }
 
             return 0;
@@ -340,6 +343,10 @@ namespace CD2_Bot
                             character.HP += 36;
                             break;
                     }
+                    break;
+
+                case "Sylph's Flight":
+                    enemy.Damage = enemy.Damage / 2;
                     break;
             }
 
@@ -605,9 +612,10 @@ namespace CD2_Bot
             new Weapon("Nocturnal Scythe", "Can taint the entire sky a deep, abyssal dark.", 130, 0, null, null, Rarity.Corrupted),
             new Weapon("Syzygy", "A pair of celestial swords, the sun and the moon, aligning with your very being.", 126, 0, null, null, Rarity.Corrupted),
             new Weapon("Scepter of Cores", "The inferno of the planet's core is at your disposal.", 120, 0, null, null, Rarity.Corrupted),
-            new Weapon("Dogma", "Gauntlets of plasma that destroy everything that come accross their path.", 125, 0, "Heavy Stun", "Medium chance for the enemy to not attack you.", Rarity.Corrupted),
-            new Weapon("Hammer of Tabula Rasa", "Can flatten entire cities with one attack.", 122, 0, null, null, Rarity.Corrupted),
+            new Weapon("Dogma", "Gauntlets of gleaming plasma with destructive capabilities.", 125, 0, "Heavy Stun", "Medium chance for the enemy to not attack you.", Rarity.Corrupted),
+            new Weapon("Hammer of Tabula Rasa", "Said to be able to flatten mountains.", 122, 0, null, null, Rarity.Corrupted),
             new Weapon("Astral Binding Bow", "Bound to the stars, this weapon can light up the night sky.", 124, 0, null, null, Rarity.Corrupted),
+            new Weapon("Jormungandr", "A giant longsword, unmatched in length, and an undying snake wrapped around its blade.", 121, 0, "Worldpoison", "Heavily poisons your enemy, dealing damage over time.", Rarity.Corrupted),
             // unique
 
             //handmade
@@ -622,7 +630,7 @@ namespace CD2_Bot
             new Armor("Socks", "Knee-high socks to protect the wearer from dirt and nothing else.", 99, 0, null, null, Rarity.Common),
             new Armor("Top Hat", "Stylish, but doesn't really shield all that much.", 98, 0, null, null, Rarity.Common),
             new Armor("Cape", "Makes you look like a superhero, a naked superhero...", 99, 0, null, null, Rarity.Common),
-            new Armor("\"Heavy Plated Armor\"", "Armor made out of paper and painted, no wonder it was so cheap.", 97, 0, null, null, Rarity.Common),
+            new Armor("\"Heavy Plated Armor\"", "Armor made out of paper and painted - no wonder it was so cheap.", 97, 0, null, null, Rarity.Common),
             // uncommon
             new Armor("Chainmail", "A little rusty, but it does the job.", 95, 0, null, null, Rarity.Uncommon),
             new Armor("Rock Helmet", "Good against concussions.", 94, 0, null, null, Rarity.Uncommon),
@@ -635,6 +643,7 @@ namespace CD2_Bot
             new Armor("Volcano Rock Cuirass", "Made of volcanic rocks, lava veins are still visible.", 87, 0, "Light Burn", "Causes slight extra damage depending on the strength of the enemy and decreases their accuracy.", Rarity.Rare),
             new Armor("Dragon Crown", "The horns of a young dragon.", 88, 0, "Strength", "Increases your damage by 10.", Rarity.Rare),
             new Armor("Archer's Vest", "Makes you swift, but lacking in defense.", 90, 0, "Archer's Blessing", "If your weapon is a bow, a crossbow or a bowgun, increase damage by 20%.", Rarity.Rare),
+            new Armor("Fogglass Guard", "Vanish in the fog.", 86, 0, null, null, Rarity.Rare),
             // epic
             new Armor("Golem Skin", "Made from the body of a rock creature.", 82, 0, null, null, Rarity.Epic),
             new Armor("Bone Armor", "An armor-set made of skeleton bones.", 84, 0, null, null, Rarity.Epic),
@@ -658,6 +667,7 @@ namespace CD2_Bot
             new Armor("Core Smelter Armor", "Made of the innermost layer of earth.", 65, 0, "Core's Heat", "Increases your weapon's damage by 25.", Rarity.Corrupted),
             new Armor("Wyvern's Aegis", "Able to withstand even meteorites.", 55, 0, null, null, Rarity.Corrupted),
             new Armor("Adaptive Bioarmor", "Hi-tech, adapts to every situation that comes your way.", 75, 0, "Modifier", "Increases your damage and your healing depending on the rarity of your weapon and your extra.", Rarity.Corrupted),
+            new Armor("Sylphid Wings", "Once belonging to a wind elemental, you can now freely fly with them.", 75, 0, "Sylph's Flight", "Dodges every other attack.", Rarity.Corrupted),
             // unique
         };
 
