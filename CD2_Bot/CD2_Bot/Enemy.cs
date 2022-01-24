@@ -245,9 +245,9 @@ namespace CD2_Bot
                     armor.Resistance -= armor.Resistance/2;
                     break;
                 case "The Fear":
-                    weapon.BaseDamage -= weapon.BaseDamage/3.3;
-                    armor.Resistance -= armor.Resistance/3.3;
-                    extra.Damage -= extra.Damage/3.3;
+                    weapon.BaseDamage -= (int)Math.Round(weapon.BaseDamage/3.3);
+                    armor.Resistance -= (int)Math.Round(armor.Resistance/3.3);
+                    extra.BaseDamage -= (int)Math.Round(extra.BaseDamage/3.3);
                     break;
                 case "Constant Echo":
                     armor.Resistance -= armor.Resistance/2;
@@ -335,7 +335,7 @@ namespace CD2_Bot
                 new Enemy("Plain Slime", "A slime so plain it's often not even considered as a threat.", 45, 0, 100, 0, 5, null, null, null, Biome.Plains),
                 new Enemy("Amateurish Bandit", "Even a regular slime is a more dangerous threat than this good for nothing. They often give up the life of crime after one lost battle", 40, 0, 100, 0, 7, null, null, null, Biome.Plains),
                 new Enemy("Corrupted Critter", "Small mammals like rabbits or rats who had their once fearful mind warped into a crazy state.", 30, 0, 95, 0, 8, null, null, new EnemyDrops("Small Game Pelt", 1, 0, 15), Biome.Plains),
-                new Enemy("Little Eye", "An still functioncal eye of a watcher which was shed voluntarily in order to observe their domain.", 25, 0, 100, 0, 6, null, null, null, null),
+                new Enemy("Little Eye", "An still functioncal eye of a watcher which was shed voluntarily in order to observe their domain.", 25, 0, 100, 0, 6, null, null, null, Biome.Plains),
                 new Enemy("Brown Wolf", "The smallest species of wolf who dares to attack humans. Only slightly bigger than a fox.", 60, 0, 100, 5, 20, null, null, new EnemyDrops("Small Wolf Pelt", 1, 0, 10), Biome.Plains),
                 new Enemy("Brown Alpha Wolf", "The leader of a pack of brown wolves. Can hold their own against larger wolf species.", 70, 0, 100, 6, 25, null, null, new EnemyDrops("Small Wolf Pelt", 1, 0, 10), Biome.Plains),
                 new Enemy("Smalltime Poacher", "A hunter without a license or ethics. Doesn't take it lightly when someones marches into their hunting grounds.", 55, 0, 100, 5, 20, null, null, new EnemyDrops("Small Wolf Pelt", 1, 0, 5), Biome.Plains),
@@ -416,7 +416,7 @@ namespace CD2_Bot
                 new Enemy("Neukenvis", "The most hated kind of fish off all fishermen, known for chewing on rods and fingers.", 30, 0, 100, 0, 8, null, null, new EnemyDrops("Fish Scale", 1, 0, 5), Biome.Sea),
                 new Enemy("Crying Siren", "A sea creature who shapeshifts into the most loved person of it's prey to lure them in.", 40, 0, 100, 10, 20, "Confusing Appearance", "Decreases the damage dealt by the the player", null, Biome.Sea),
                 new Enemy("Lion Shark", "A medium sized shark. Known for their yellow color.", 70, 0, 100, 15, 35, null, null, new EnemyDrops("Fish Scale", 3, 1, 15), Biome.Sea),
-                new Enemy("Kirawa", "A whale known to attack ships as much as its normal prey. Their teeth are among the strongest from all marine life.", 200, 0, 60, 50, 80, null, null, null, Biome.Sea)
+                new Enemy("Kirawa", "A whale known to attack ships as much as its normal prey. Their teeth are among the strongest from all marine life.", 200, 0, 60, 50, 80, null, null, null, Biome.Sea),
 
                 //Settlement
                 new Enemy("Crazy Monk", "A monk whose mind has been corrupted by only the sins of their own clergy. Attacks random travelers to cleanse their soul.", 25, 0, 100, 0, 12 , null, null, new EnemyDrops("Torn Bible", 1, 0, 10), Biome.Settlement),
