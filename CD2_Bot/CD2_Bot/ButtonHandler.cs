@@ -41,7 +41,7 @@ namespace CD2_Bot
                     case "fightdetails":
                         await FightDetails(btn);
                         break;
-                    case "playerfightdetails":
+                    case "pvpdetails":
                         await PlayerFightDetails(btn);
                         break;
                     case "playerfight":
@@ -389,14 +389,20 @@ namespace CD2_Bot
         public static async Task PlayerFightDetails(SocketMessageComponent btn)
         {
             string[] btndata = btn.Data.CustomId.Split(';');
-            ulong userid = (ulong)Convert.ToInt64(btndata[7]);
-            ulong userid2 = (ulong)Convert.ToInt64(btndata[8]);
+            ulong userid = (ulong)Convert.ToInt64(btndata[5]);
+            ulong userid2 = (ulong)Convert.ToInt64(btndata[6]);
+            CharacterStructure stats = (from user in tempstorage.characters
+                                        where user.PlayerID == userid
+                                        select user).SingleOrDefault();
+            CharacterStructure stats2 = (from user in tempstorage.characters
+                                         where user.PlayerID == userid2
+                                         select user).SingleOrDefault();
             if (userid == btn.User.Id || userid2 == btn.User.Id)
             {
                 Embed om = btn.Message.Embeds.First();
                 EmbedBuilder newembed = om.ToEmbedBuilder();
-                newembed.AddField($"{btndata[5]} Damage", btndata[1]);
-                newembed.AddField($"{btndata[6]} Damage", btndata[2]);
+                newembed.AddField($"{stats.CharacterName} Damage", btndata[1]);
+                newembed.AddField($"{stats2.CharacterName} Damage", btndata[2]);
                 if (newembed.Color.ToString() == "#2ECC71")
                 {
                     newembed.AddField("Rounds", btndata[3]);

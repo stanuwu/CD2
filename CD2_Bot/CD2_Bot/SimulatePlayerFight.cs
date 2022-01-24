@@ -116,7 +116,7 @@ namespace CD2_Bot
             embedB.WithFooter(Defaults.FOOTER);
 
             //generate extra stats button
-            ComponentBuilder btnb = new ComponentBuilder().WithButton("Details", $"playerfightdetails;{p1damage};{p2damage};{p1dpr};{p2dpr};{p1.CharacterName};{p2.CharacterName};" + p1.PlayerID + ";" + p2.PlayerID, ButtonStyle.Primary);
+            ComponentBuilder btnb = new ComponentBuilder().WithButton("Details", $"pvpdetails;{p1damage};{p2damage};{p1dpr};{p2dpr};" + p1.PlayerID + ";" + p2.PlayerID, ButtonStyle.Primary);
 
             //return room screen
             return new Tuple<Embed, MessageComponent>(embedB.Build(), btnb.Build());
