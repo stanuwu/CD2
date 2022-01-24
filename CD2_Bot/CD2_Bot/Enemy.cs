@@ -331,9 +331,9 @@ namespace CD2_Bot
                 new Enemy("Goblin Bandit", "Hostile goblin wielding a melee weapon.", 50, 0, 100, 5, 15, "Small Money Drop", "The player gets a small amount of money", null, Biome.Any),
                 new Enemy("Stabbing Goblin ", "A goblin with murderous intent, enjoying the sounds of their shiv.", 45, 0, 100, 6, 15, "Light Bleeding", "Causes sligth extra damage depending on the monster's strength, negating armor.", null, Biome.Any), 
                 new Enemy("Roaming Thundercloud", "The creation of a wizard's spell, forgotten by its caster.", 30, 0, 150, 5, 50, null, null, null, Biome.Any),
+                new Enemy("Steel Mimic", "A steel chest corrupted by evil, engaging everyone who tries to open it", 70, 0, 90, 0, 18, "Moderate Money Drop", "The player gets a moderate amount of money", new EnemyDrops("Steel", 1, 0, 20), Biome.Any),
                 new Enemy("Bandit", "A human whose path led them to a life of crime.", 65, 0, 100, 10, 25, "Small Money Drop", "The player gets a small amount of money", new EnemyDrops("Small Pouch", 1, 0, 10), Biome.Any),
                 new Enemy("Bandit Leader", "The leader of a small group of bandits. Some are indepent, some are lieutenants of a larger bandit group.", 75, 0, 100, 11, 30, "Moderate Money Drop", "The player gets a moderate amount of money", new EnemyDrops("Small Pouch", 1, 0, 15), Biome.Any),
-                new Enemy("Grand Wizard of the Order", "An officer of an evil organisation who specializes in a variety of spells.", 70, 0, 110, 11, 25, null, null, null, Biome.Settlement),
                 new Enemy("Conjoined Blorbs", "Two blorbs who conjoined completely by accident", 80, 0, 100, 15, 21, "Disgusting Appearance", "Increases the damage the player deals", null, Biome.Any),
                 new Enemy("Lost Spirit", "The ghost of a human who found a horrifying death, trapped in the world of the living until the kill another unfortunate soul.", 50, 0, 50, 15, 40, null, null, null, Biome.Any),
                 new Enemy("Hungry Vampire", "A vampire who has lost their mind through starving for too long. They may never recover again, even if they manage to drink blood.", 50, 0, 120, 15, 50, "Lifesteal", "Heals itself for twice its damage before the start of the battle.", null, Biome.Any),
@@ -460,7 +460,9 @@ namespace CD2_Bot
                 new Enemy("Corrupt Guard", "A corrupt member of the city guard.", 70, 0, 90, 10, 22, null, null, null, Biome.Settlement),
                 new Enemy("Corrupt Guard Officer", "A corrupt officer of the city guard.", 75, 0, 90, 11, 25, null, null, null, Biome.Settlement),
                 new Enemy("Noble Guard", "A guard who doesn't question the orders they are given from they worst of the rich.", 100, 0, 85, 20, 35, null, null, null, Biome.Settlement),
+                new Enemy("Grand Wizard of the Order", "An officer of an evil organisation who specializes in a variety of spells.", 70, 0, 110, 11, 25, null, null, null, Biome.Settlement),
                 new Enemy("Noble Guard Officer", "An officer of the noble guard, often a low noble themself.", 120, 0, 80, 30, 45, null, null, null, Biome.Settlement),
+
 
 
 

@@ -620,7 +620,8 @@ namespace CD2_Bot
 
             //handmade
             new Weapon("Wooden Sword", "Only made for combat training.", 5, 0, null, null, Rarity.Common, false),
-            new Weapon("Hardened Stone Sword", "Made out of an incredible amount of stone.", 50, 0, null, null, Rarity.Epic, false),
+            new Weapon("Restored Sword", "An old sword, restored to its former glory.", 13, 0, null, null, Rarity.Common, false),
+            new Weapon("Diamond Tip Sword", "Made out of an incredible amount of stone and one diamond.", 50, 0, null, null, Rarity.Epic, false),
         };
 
         public static List<Armor> Armors = new List<Armor>
@@ -634,9 +635,7 @@ namespace CD2_Bot
             // uncommon
             new Armor("Chainmail", "A little rusty, but it does the job.", 95, 0, null, null, Rarity.Uncommon),
             new Armor("Rock Helmet", "Good against concussions.", 94, 0, null, null, Rarity.Uncommon),
-            new Armor("Fishscale Mail", "Really shiny.", 93, 0, null, null, Rarity.Uncommon),
             new Armor("Brass Armor", "This gilden Chestplate is prettier than it's actually useful.", 94, 0, null, null, Rarity.Uncommon),
-            new Armor("Steel Armor", "Quite hefty - good defense, but you look sort of stupid with it.", 91, 0, null, null, Rarity.Uncommon),
             new Armor("Hardened Clay Armor", "A layer burnt onto your body in exactly the right shape.", 93, 0, null, null, Rarity.Uncommon), 
             // rare
             new Armor("Thin Crystal Armor", "Shiny AND quite sturdy!", 85, 0, null, null, Rarity.Rare),
@@ -669,6 +668,12 @@ namespace CD2_Bot
             new Armor("Adaptive Bioarmor", "Hi-tech, adapts to every situation that comes your way.", 75, 0, "Modifier", "Increases your damage and your healing depending on the rarity of your weapon and your extra.", Rarity.Corrupted),
             new Armor("Sylphid Wings", "Once belonging to a wind elemental, you can now freely fly with them.", 75, 0, "Sylph's Flight", "Dodges every other attack.", Rarity.Corrupted),
             // unique
+
+            //handmade
+            new Armor("Fish Scale Mail", "Really shiny, not sturdy.", 99, 0, null, null, Rarity.Common, false),
+            new Armor("Paper Armor", "A surprisingly sturdy armor made out of paper.", 94, 0, null, null, Rarity.Uncommon, false),
+            new Armor("Steel Armor", "Quite hefty - good defense, but you look sort of stupid with it.", 89, 0, null, null, Rarity.Rare, false),
+
         };
 
         public static List<Extra> Extras = new List<Extra>
@@ -724,6 +729,12 @@ namespace CD2_Bot
             new Extra("The Fool's Errand", "Only a madman would accept the challenge.", 20, 20, 0, "Guts", "Doubles EXP gained from fights.", Rarity.Corrupted),
             new Extra("Nuclear Fishing Pole", "There probably aren't many sea creatures willing to be caught with this.", 55, 55, 0, "Radiation", "Deals damage to you and your enemy.", Rarity.Corrupted),
             // unique
+
+            // handmade
+            new Extra("Bunny Ears", "A ridiculous headwear, only working because your opponent will not expect any damage from you at all.", 3, 0, 0, null, null, Rarity.Common, false),
+            new Extra("Rabbit Foot", "A regular lucky charm.", 0, 3, 0, null, null, Rarity.Common, false),
+
+
         };
     }
 }
