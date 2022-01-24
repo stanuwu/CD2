@@ -62,7 +62,7 @@ namespace CD2_Bot
                     embed = Utils.QuickEmbedNormal("Room", $"Lucky! You found {mfound} coins!");
                     break;
                 case "rChest":
-                    Rarity chestrarity = Prices.buy.Keys.ToList().FindAll(f => f != Rarity.Handmade)[Defaults.GRandom.Next(Prices.buy.Count)]; //this is kinda dumb but patches recieving craftables from chests
+                    Rarity chestrarity = Prices.buy.Keys.ToList().FindAll(f => f != Rarity.Handmade)[Defaults.GRandom.Next(Prices.buy.Keys.ToList().FindAll(f => f != Rarity.Handmade).Count)]; //this is kinda dumb but patches recieving craftables from chests
                     string item = "";
                     int itemchance = Defaults.GRandom.Next(0, 3);
                     switch (itemchance)
