@@ -21,7 +21,7 @@ namespace CD2_Bot
             request.AddParameter("server_count", count);
             RestResponse response = await client.ExecuteAsync(request);
 
-            if (response.IsSuccessful)
+            if (response.get_IsSuccessful())
             {
                 await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Info, "DBLRestClient", $"Successfully posted guild count! ({count})"));
             } else
@@ -38,9 +38,9 @@ namespace CD2_Bot
             request.AddParameter("userId", uid);
             RestResponse response = await client.ExecuteAsync(request);
 
-            if (response.IsSuccessful)
+            if (response.get_IsSuccessful())
             {
-                if (response.Content == "{\"voted\":1}")
+                if (response.get_Content() == "{\"voted\":1}")
                 {
                     return true;
                 } 
