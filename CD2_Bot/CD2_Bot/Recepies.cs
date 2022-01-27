@@ -49,7 +49,7 @@ namespace CD2_Bot
             new Tuple<string, Dictionary<string, int>, int, string> ("Diamond Tip Sword", new Dictionary<string, int> { { "Stone", 200 }, { "Diamond", 1 } }, 1000, "weapon"),
 
             //Armor
-            new Tuple<string, Dictionary<string, int>, int, string> ("Fish Scale Armor", new Dictionary<string, int> { { "Fish Scale", 5 } }, 100, "armor"),
+            new Tuple<string, Dictionary<string, int>, int, string> ("Fish Scale Mail", new Dictionary<string, int> { { "Fish Scale", 5 } }, 100, "armor"),
             new Tuple<string, Dictionary<string, int>, int, string> ("Paper Armor", new Dictionary<string, int> { { "Paper", 100 } }, 500, "armor"),
             new Tuple<string, Dictionary<string, int>, int, string> ("Steel Armor", new Dictionary<string, int> { { "Steel", 10 } }, 1000, "armor"),
 
