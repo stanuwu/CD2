@@ -55,7 +55,7 @@ namespace CD2_Bot
                     default:
                         stats.Money -= wager;
                         embed.WithColor(Color.DarkRed);
-                        embed.Description = $"You loose {wager} coins!";
+                        embed.Description = $"You lose {wager} coins!";
                         break;
                 }
                 await ReplyAsync(embed: embed.Build());
@@ -131,7 +131,7 @@ namespace CD2_Bot
                 embed.Color = Color.Green;
             } else
             {
-                embed.Description += $"You loose {win} coins!";
+                embed.Description += $"You lose {win} coins!";
                 embed.Color = Color.Red;
             }
             stats.Money += win;
