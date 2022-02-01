@@ -175,7 +175,7 @@ namespace CD2_Bot
             }
             if (this.DropReward != null)
             {
-                if (this.DropReward.DropVariation > 1)
+                if (this.DropReward.DropVariation < 1)
                 {
                     tell += $"+{this.DropReward.DropAmount}x {this.DropReward.Drop} ({this.DropReward.DropChance}%)\n";
                 } else
