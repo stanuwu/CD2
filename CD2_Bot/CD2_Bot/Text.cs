@@ -19,7 +19,7 @@ namespace CD2_Bot
 
         public static readonly string guide_page_fights = "**Fights**\n" +
             "If you have entered a room of encounters you will enter a fight with a monster." +
-            " Fights are round based and and runs until the enemy defeats you or you defeat it." +
+            " Fights are round based and runs until the enemy defeats you or you defeat it." +
             " You will be shown the outcome of the fight afterwards. Note that a draw will still result in a loss!";
 
         public static readonly string guide_page_grinding = "**Grinding**\n" +
