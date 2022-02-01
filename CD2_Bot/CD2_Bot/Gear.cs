@@ -348,6 +348,10 @@ namespace CD2_Bot
                 case "Sylph's Flight":
                     enemy.Damage = enemy.Damage / 2;
                     break;
+
+                case "Lethal Gamble":
+                    this.Resistance = Defaults.GRandom.Next(25,125);
+                    break;
             }
 
             return 0;
@@ -656,7 +660,7 @@ namespace CD2_Bot
             new Armor("Sage's Robe", "Really comfy. Strenghtens your natural healing powers.", 76, 0, "Sage Magic", "Increase your healing by 20%.", Rarity.Legendary),
             new Armor("Goldwitch Overcoat", "Enchanted by witches, this piece of armor is sure to bring you financial luck.", 78, 0, "Moneymaker", "Increases gained money per fight.", Rarity.Legendary),
             // unstable
-            new Armor("Gambler's Ruin", "It's all or nothing.", 100, 0, null, null, Rarity.Unstable), // Custom Effect: 50% chance to fully negate damage, returns 200% if negated. // Bro Wie?
+            new Armor("Gambler's Ruin", "It's all or nothing.", 100, 0, "Lethal Gamble", "Sets the resistanceto a random value between 25 and 125.", Rarity.Unstable), // Custom Effect: 50% chance to fully negate damage, returns 200% if negated. // Bro Wie?
             new Armor("§!#+$=ERR", "This isn't supposed to happen...", 100, 0, "Fault in the System", "Gives you a random resistance and a random damage buff every fight", Rarity.Unstable),
             new Armor("Pima Longcoat", "The fluffiest, most comfortable piece of clothing around.", 68, 0, "Comfy Cotton", "Increases your healing by 25%.", Rarity.Unstable),
             new Armor("Blazing Fireguard", "The flames of this chestplate keep foes at bay.", 69, 0, null, null, Rarity.Unstable),

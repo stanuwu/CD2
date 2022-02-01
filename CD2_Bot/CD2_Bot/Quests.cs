@@ -175,7 +175,13 @@ namespace CD2_Bot
             }
             if (this.DropReward != null)
             {
-                tell += $"+{this.DropReward.DropAmount-this.DropReward.DropVariation}-{this.DropReward.DropAmount+this.DropReward.DropVariation}x {this.DropReward.Drop}\n ({this.DropReward.DropChance}%)";
+                if (this.DropReward.DropVariation > 1)
+                {
+                    tell += $"+{this.DropReward.DropAmount}x {this.DropReward.Drop} ({this.DropReward.DropChance}%)\n";
+                } else
+                {
+                    tell += $"+{this.DropReward.DropAmount - this.DropReward.DropVariation}-{this.DropReward.DropAmount + this.DropReward.DropVariation}x {this.DropReward.Drop} ({this.DropReward.DropChance}%)\n";
+                }
             }
             if (tell == "")
             {
