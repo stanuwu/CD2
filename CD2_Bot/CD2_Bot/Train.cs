@@ -85,7 +85,7 @@ namespace CD2_Bot
                     else if (trainchance < 90 && trainchance >= 10)
                     {
                         stats.ExtraXP += 15;
-                        await ReplyAsync(embed: Utils.QuickEmbedNormal("Train", $"Success! Your {stats.Weapon.Name} earns 15 XP!"));
+                        await ReplyAsync(embed: Utils.QuickEmbedNormal("Train", $"Success! Your {stats.Extra.Name} earns 15 XP!"));
                     }
                     else
                     {
