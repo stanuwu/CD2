@@ -234,7 +234,7 @@ namespace CD2_Bot
 
                 case "Berserker's Fury":
                     character.HP = character.MaxHP/2;
-                    weapon.BaseDamage += character.HP/4;
+                    weapon.BaseDamage += character.HP/3.34;
                     break;
 
                 case "Chilly":
@@ -654,7 +654,7 @@ namespace CD2_Bot
             new Armor("Deepforest Cloak", "Protective, but still meant for mobility. Comes with healing herbs.", 86, 0, "Healthy Herbs", "Increases your healing by 10%.", Rarity.Epic),
             new Armor("Aquatic Robe", "Cloak yourself in flowing waters.", 85, 0, "Calming Waters", "Increases HP by 5%.", Rarity.Epic),
             // legendary
-            new Armor("Berserker's Guard", "Focus fully on fighting with little regard for your survival.", 75, 0, "Berserker's Fury", "Decreases your HP by 50%, but increases your damage by 5% of that.", Rarity.Legendary),
+            new Armor("Berserker's Guard", "Focus fully on fighting with little regard for your survival.", 75, 0, "Berserker's Fury", "Decreases your HP by 50%, but increases your damage by 30% of that.", Rarity.Legendary),
             new Armor("Mask of the Purveyor", "Spread the truth you believe in.", 74, 0, null, null, Rarity.Legendary),
             new Armor("Diamond Dust Cuirass", "You'll freeze a little bit, but it's worth the good defense.", 71, 0, "Chilly", "The cold hurts you a little bit every fight.", Rarity.Legendary),
             new Armor("Sage's Robe", "Really comfy. Strenghtens your natural healing powers.", 76, 0, "Sage Magic", "Increase your healing by 20%.", Rarity.Legendary),
