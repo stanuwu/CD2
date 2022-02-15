@@ -234,7 +234,7 @@ namespace CD2_Bot
 
                 case "Berserker's Fury":
                     character.HP = character.MaxHP/2;
-                    weapon.BaseDamage += (int)(character.HP/3.34);
+                    weapon.BaseDamage += (int)(character.HP/4);
                     break;
 
                 case "Chilly":
