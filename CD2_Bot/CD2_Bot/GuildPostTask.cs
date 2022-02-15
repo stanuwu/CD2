@@ -10,11 +10,11 @@ namespace CD2_Bot
     {
         public static async void StartPosting()
         {
-            // while (true)
-            // {
-            //    DBLRestClient.PostGuildCount(await Utils.GuildCount());
-            //   await Task.Delay(TimeSpan.FromMinutes(Defaults.POSTGUILDCOUNTDELAY));
-            // }
+            while (true)
+            {
+               DBLRestClient.PostGuildCount(await Utils.GuildCount());
+              await Task.Delay(TimeSpan.FromMinutes(Defaults.POSTGUILDCOUNTDELAY));
+            }
         }
     }
 }
