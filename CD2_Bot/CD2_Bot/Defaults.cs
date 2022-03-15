@@ -11,7 +11,7 @@ namespace CD2_Bot
     public static class Defaults
     {
         public static readonly char dPrefix = '<';
-        public static readonly List<ulong> STAFF = new List<ulong> { 159355703016947713, 255732879525412865, 623984743914012712 };
+        public static readonly List<ulong> STAFF = new List<ulong> { 159355703016947713, 255732879525412865, 623984743914012712, 691662766788051010 };
         public static DiscordSocketClient CLIENT;
         public static readonly string VERSION = "1.0.1";
         public static readonly string FOOTER = $"CustomDungeons 2 - Ver. {VERSION}";
