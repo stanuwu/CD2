@@ -11,32 +11,35 @@ using Npgsql;
 
 namespace CD2_Bot
 {
-    public class CharacterManagement : ModuleBase<SocketCommandContext>
+    public static class CharacterManagement
     {
-        [Command("start")]
-        [Summary("Creates a character to start the game with.")]
-        public async Task StartAsync([Remainder] string charname = null)
+        //"start" command
+        public static async Task StartAsync(SocketSlashCommand cmd)
         {
-            if (string.IsNullOrWhiteSpace(charname))
+            string charname = "";
+            if (cmd.Data.Options.Count < 1)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("Please enter a name for your character. \n(usage: `<start [Name]`)"));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("Please enter a name for your character. \n(usage: `<start [Name]`)"));
                 return;
+            } else
+            {
+                charname = (string)cmd.Data.Options.First().Value;
             }
-            else if(tempstorage.characters.Any(x => x.PlayerID == Context.User.Id))
+            if(tempstorage.characters.Any(x => x.PlayerID == cmd.User.Id))
             {
                 CharacterStructure statst = (from user in tempstorage.characters
-                                            where user.PlayerID == Context.User.Id
+                                            where user.PlayerID == cmd.User.Id
                                             select user).SingleOrDefault();
                 if (statst.Deleted == true)
                 {
                     NpgsqlCommand cmd2 = new NpgsqlCommand("DELETE FROM public.\"Character\" WHERE \"UserID\" = @id", db.dbc);
-                    cmd2.Parameters.AddWithValue("@id", (Int64)Context.User.Id);
+                    cmd2.Parameters.AddWithValue("@id", (Int64)cmd.User.Id);
                     db.CommandVoid(cmd2);
-                    tempstorage.characters.RemoveAll(c => c.PlayerID == Context.User.Id);
+                    tempstorage.characters.RemoveAll(c => c.PlayerID == cmd.User.Id);
                 }
                 else
                 {
-                    await ReplyAsync(embed: Utils.QuickEmbedError("You already have a character! \n If you want to delete this character and create a new one, use <reset."));
+                    await cmd.RespondAsync(embed: Utils.QuickEmbedError("You already have a character! \n If you want to delete this character and create a new one, use <reset."));
                     return;
                 }
             }
@@ -45,60 +48,63 @@ namespace CD2_Bot
                  charname = charname.Substring(0, 20);
              }
 
-             NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO public.\"Character\" VALUES (@id, '', 'Player', 'Commoner', 0, 0, '', 0, 'Stick', 'Rags', 'Pendant', ARRAY[]::varchar[], 0, false, 100, 0, 0, 0, @dt, 'none');", db.dbc);
-             cmd.Parameters.AddWithValue("@id", (Int64)Context.User.Id);
-             cmd.Parameters.AddWithValue("@dt", DateTime.Now.ToString());
-             db.CommandVoid(cmd);
+             NpgsqlCommand dbcmd = new NpgsqlCommand("INSERT INTO public.\"Character\" VALUES (@id, '', 'Player', 'Commoner', 0, 0, '', 0, 'Stick', 'Rags', 'Pendant', ARRAY[]::varchar[], 0, false, 100, 0, 0, 0, @dt, 'none');", db.dbc);
+             dbcmd.Parameters.AddWithValue("@id", (Int64)cmd.User.Id);
+             dbcmd.Parameters.AddWithValue("@dt", DateTime.Now.ToString());
+             db.CommandVoid(dbcmd);
 
-             tempstorage.characters.Add(new CharacterStructure(Context.User.Id));
+             tempstorage.characters.Add(new CharacterStructure(cmd.User.Id));
              CharacterStructure stats = (from user in tempstorage.characters
-                                         where user.PlayerID == Context.User.Id
+                                         where user.PlayerID == cmd.User.Id
                                          select user).SingleOrDefault();
              stats.CharacterName = charname;
-             await ReplyAsync(embed: Utils.QuickEmbedNormal("Character created", $"Your character {charname} has been created!"));
+             await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Character created", $"Your character {charname} has been created!"));
          }
 
 
-        [Command("character")]
-        [Summary("View your character.")]
-        public async Task CharacterAsync(ulong uid = 0, [Remainder] string xargs = null)
+        //"character" command
+        public static async Task CharacterAsync(SocketSlashCommand cmd)
         {
-            if (uid == 0)
+            ulong uid = 0;
+            if (cmd.Data.Options.Count < 1)
             {
-                uid = Context.User.Id;
-            } 
+                uid = cmd.User.Id;
+            } else
+            {
+                uid = ((SocketUser)cmd.Data.Options.First().Value).Id;
+            }
+            
             CharacterStructure stats = (from user in tempstorage.characters
                                             where user.PlayerID == uid
                                             select user).SingleOrDefault();
 
             if (stats == null || stats.Deleted == true)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character! Create one with <start."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character! Create one with <start."));
             }
             else
             {
                 using (MemoryStream ms = await ImageGenerator.MakeCharacterImage(stats))
                 {
-                    ms.Position = 0;
-                    await Context.Channel.SendFileAsync(ms, stats.PlayerID + "_character.png");
+                    Utils.SendFileAsyncFast(cmd, ms.ToArray(), stats.PlayerID + "_character.png");
                 }
             }
         }
 
 
-        [Command("stats")]
-        [Summary("View your gear.")]
-        public async Task StatsAsync(ulong uid = 0, [Remainder] string xargs = null)
+        //"stats" command
+        public static async Task StatsAsync(SocketSlashCommand cmd)
         {
             string avatarurl = "";
-
-            if (uid == 0)
+            ulong uid = 0;
+            if (cmd.Data.Options.Count < 1)
             {
-                avatarurl = Context.User.GetAvatarUrl();
-                uid = Context.User.Id;
+                avatarurl = cmd.User.GetAvatarUrl();
+                uid = cmd.User.Id;
             }
             else
             {
+                uid = ((SocketUser)cmd.Data.Options.First().Value).Id;
                 IUser founduser = Defaults.CLIENT.GetUser(uid);
                 if (founduser != null)
                 {
@@ -116,7 +122,7 @@ namespace CD2_Bot
 
             if (stats == null || stats.Deleted == true)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character! Create one with <start."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character! Create one with <start."));
             }
             else
             {
@@ -147,35 +153,33 @@ namespace CD2_Bot
                     $"Heal: {stats.Extra.Heal}";
                 embed.WithColor(Color.DarkMagenta);
                 embed.WithFooter(Defaults.FOOTER);
-                await ReplyAsync(embed: embed.Build());
+                await cmd.RespondAsync(embed: embed.Build());
             }
         }
 
 
-        [Command("server")]
-        [Summary("View ythe server you are currently in.")]
-        public async Task ServerAsync([Remainder] string xargs = null)
+        //"server" command
+        public static async Task ServerAsync(SocketSlashCommand cmd)
         {
-            GuildStructure gstats = tempstorage.guilds.Find(g => g.GuildID == Context.Guild.Id);
+            GuildStructure gstats = tempstorage.guilds.Find(g => g.GuildID == ((IGuildChannel)cmd.Channel).Guild.Id);
 
             var embed = new EmbedBuilder
             {
-                Title = $"{Context.Guild.Name} - Stats",
+                Title = $"{((IGuildChannel)cmd.Channel).Guild.Name} - Stats",
                 Description = $"Doors Opened: {gstats.DoorsOpened}\nBosses Slain: {gstats.BossesSlain}\nQuests Finished: {gstats.QuestsFinished}",
-                ThumbnailUrl = Context.Guild.IconUrl,
+                ThumbnailUrl = ((IGuildChannel)cmd.Channel).Guild.IconUrl,
             };
             embed.WithColor(Color.DarkMagenta);
             embed.WithFooter(Defaults.FOOTER);
-            await ReplyAsync(embed: embed.Build());
+            await cmd.RespondAsync(embed: embed.Build());
         }
 
 
-        [Command("inventory")]
-        [Summary("View your inventory.")]
-        public async Task InventoryAsync([Remainder] string xargs = null)
+        //"inventory" command
+        public static async Task InventoryAsync(SocketSlashCommand cmd)
         {
-            string avatarurl = Context.User.GetAvatarUrl();
-            ulong uid = Context.User.Id;
+            string avatarurl = cmd.User.GetAvatarUrl();
+            ulong uid = cmd.User.Id;
 
             CharacterStructure stats = (from user in tempstorage.characters
                                         where user.PlayerID == uid
@@ -183,7 +187,7 @@ namespace CD2_Bot
 
             if (stats == null || stats.Deleted == true)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character! Create one with <start."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character! Create one with <start."));
             }
             else
             {
@@ -200,95 +204,96 @@ namespace CD2_Bot
                 }
                 embed.WithColor(Color.DarkMagenta);
                 embed.WithFooter(Defaults.FOOTER);
-                await ReplyAsync(embed: embed.Build());
+                await cmd.RespondAsync(embed: embed.Build());
             }
         }
 
 
-        [Command("reset")]
-        [Summary("Deletes your character after asking for confirmation.")]
-        public async Task ResetAsync([Remainder] string xargs = null)
+        //"reset" command
+        public static async Task ResetAsync(SocketSlashCommand cmd)
         {
             CharacterStructure stats = (from user in tempstorage.characters
-                                        where user.PlayerID == Context.User.Id
+                                        where user.PlayerID == cmd.User.Id
                                         select user).SingleOrDefault();
 
             if (stats == null || stats.Deleted == true)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character to delete."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character to delete."));
                 return;
             }
             MessageComponent btnb = new ComponentBuilder()
-                        .WithButton("Delete", "delchar;confirm;" + Context.User.Id.ToString(), ButtonStyle.Danger)
-                        .WithButton("Cancel", "delchar;cancel;" + Context.User.Id.ToString(), ButtonStyle.Secondary)
+                        .WithButton("Delete", "delchar;confirm;" + cmd.User.Id.ToString(), ButtonStyle.Danger)
+                        .WithButton("Cancel", "delchar;cancel;" + cmd.User.Id.ToString(), ButtonStyle.Secondary)
                         .Build();
 
-            await ReplyAsync(embed: Utils.QuickEmbedNormal("Confirmation", "Are you sure you want to reset your character?\n" +
+            await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Confirmation", "Are you sure you want to reset your character?\n" +
                 "**This will delete ALL your data!**" +
                 "\nExpires in 5 minutes."), components: btnb);
         }
 
-        [Command("rename")]
-        [Summary("Renames your character.")]
-        public async Task RenameAsync([Remainder] string charname = null)
+        //"rename" command
+        public static async Task RenameAsync(SocketSlashCommand cmd)
         {
-            if (string.IsNullOrWhiteSpace(charname))
+            if (cmd.Data.Options.Count < 1)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("Please enter a name for your character!"));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("Please enter a name for your character!"));
             }
-            else if (tempstorage.characters.Any(x => x.PlayerID == Context.User.Id))
+            else if (tempstorage.characters.Any(x => x.PlayerID == cmd.User.Id))
             {
+                string charname = (string)cmd.Data.Options.First().Value;
                 if (charname.Length > 20)
                 {
                     charname = charname.Substring(0, 20);
                 }
 
                 CharacterStructure stats = (from user in tempstorage.characters
-                                            where user.PlayerID == Context.User.Id
+                                            where user.PlayerID == cmd.User.Id
                                             select user).SingleOrDefault();
                 stats.CharacterName = charname;
-                await ReplyAsync(embed: Utils.QuickEmbedNormal("Success", $"Your character has been renamed to {charname}!"));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Success", $"Your character has been renamed to {charname}!"));
             }
             else
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character yet! Create one with <start."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character yet! Create one with <start."));
             }
         }
 
-        [Command("description")]
-        [Summary("Edit your character's description.")]
-        public async Task DescriptionAsync([Remainder] string chardesc = null)
+        //"description" command
+        public static async Task DescriptionAsync(SocketSlashCommand cmd)
         {
-            if (string.IsNullOrWhiteSpace(chardesc))
+            if (cmd.Data.Options.Count < 1)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("Please enter a description."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("Please enter a description."));
             }
-            else if (tempstorage.characters.Any(x => x.PlayerID == Context.User.Id))
+            else if (tempstorage.characters.Any(x => x.PlayerID == cmd.User.Id))
             {
+                string chardesc = (string)cmd.Data.Options.First().Value;
                 if (chardesc.Length > 50)
                 {
                     chardesc = chardesc.Substring(0, 50);
                 }
 
                 CharacterStructure stats = (from user in tempstorage.characters
-                                            where user.PlayerID == Context.User.Id
+                                            where user.PlayerID == cmd.User.Id
                                             select user).SingleOrDefault();
                 stats.Description = chardesc;
-                await ReplyAsync(embed: Utils.QuickEmbedNormal("Success", "A new description has been set!"));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Success", "A new description has been set!"));
             }
             else
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character yet! Create one with <start."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character yet! Create one with <start."));
             }
         }
 
-        [Command("editcharacter")]
-        [Summary("Change a character's stats.")]
-        public async Task EditcharacterAsync(ulong userid = 0, string toedit = null, [Remainder] string xargs = null)
+        //"editcharacter" command
+        public static async Task EditcharacterAsync(SocketSlashCommand cmd)
         {
-            if (!Defaults.STAFF.Contains(Context.User.Id)) { return; }
-            if (userid != 0 && toedit != null && xargs != null)
+            if (!Defaults.STAFF.Contains(cmd.User.Id)) { return; }
+            if (cmd.Data.Options.Count >= 3)
             {
+                ulong userid = Convert.ToUInt64((string)cmd.Data.Options.First().Value);
+                string toedit = (string)cmd.Data.Options.ToList()[1].Value;
+                string xargs = (string)cmd.Data.Options.ToList()[2].Value;
                 CharacterStructure stats = (from user in tempstorage.characters
                                             where user.PlayerID == userid
                                             select user).SingleOrDefault();
@@ -353,19 +358,19 @@ namespace CD2_Bot
                     }
                     else
                     {
-                        await ReplyAsync(embed: Utils.QuickEmbedError("Invalid argument"));
+                        await cmd.RespondAsync(embed: Utils.QuickEmbedError("Invalid argument"));
                         return;
                     }
-                    await ReplyAsync(embed: Utils.QuickEmbedNormal("Success", "Stat changed"));
+                    await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Success", "Stat changed"));
                 }
                 else
                 {
-                    await ReplyAsync(embed: Utils.QuickEmbedError("Invalid User"));
+                    await cmd.RespondAsync(embed: Utils.QuickEmbedError("Invalid User"));
                 }
             }
             else
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("Missing Arguments"));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("Missing Arguments"));
             }
         }
     }

@@ -10,11 +10,10 @@ using Npgsql;
 
 namespace CD2_Bot
 {
-    public class Guide : ModuleBase<SocketCommandContext>
+    public static class Guide
     {
-        [Command("guide")]
-        [Summary("opens the guide.")]
-        public async Task GuideAsync([Remainder] string xargs = null)
+        //"guide" command
+        public static async Task GuideAsync(SocketSlashCommand cmd)
         {
             Embed guideembed = Utils.QuickEmbedNormal("Guide", "Select a guide page.");
             ComponentBuilder guidebuttons = new ComponentBuilder()
@@ -29,7 +28,7 @@ namespace CD2_Bot
 
             MessageComponent btn = guidebuttons.Build();
 
-            await ReplyAsync(embed: guideembed,components: btn);
+            await cmd.RespondAsync(embed: guideembed,components: btn);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.Commands;
+using Discord.WebSocket;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -9,24 +10,25 @@ using System.Threading.Tasks;
 
 namespace CD2_Bot
 {
-    public class MiscStats : ModuleBase<SocketCommandContext>
+    public static class MiscStats
     {
-        [Command("weapon")]
-        [Summary("View a weapons stats.")]
-        public async Task ViewWeaponAsync([Remainder] string tv = null)
+        //"weapon" command
+        public static async Task ViewWeaponAsync(SocketSlashCommand cmd)
         {
-            if (tv == null)
+            if (cmd.Data.Options.Count < 1)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("No weapon name entered."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("No weapon name entered."));
                 return;
             }
+
+            string tv = (string)cmd.Data.Options.First().Value;
 
             Weapon thisweapon = (from w in Gear.Weapons
                                  where w.Name.ToLower().Contains(tv.ToLower())
                                  select w).FirstOrDefault();
             if (thisweapon == null)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("No weapon with this name was found."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("No weapon with this name was found."));
             } else
             {
                 EmbedBuilder embed = new EmbedBuilder
@@ -48,26 +50,27 @@ namespace CD2_Bot
                 }
                 embed.WithColor(Color.DarkMagenta);
                 embed.WithFooter(Defaults.FOOTER);
-                await ReplyAsync(embed: embed.Build());
+                await cmd.RespondAsync(embed: embed.Build());
             }
         }
 
-        [Command("armor")]
-        [Summary("View an armors stats.")]
-        public async Task ViewArmorAsync([Remainder] string tv = null)
+        //"armor" command
+        public static async Task ViewArmorAsync(SocketSlashCommand cmd)
         {
-            if (tv == null)
+            if (cmd.Data.Options.Count < 1)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("No armor name entered."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("No armor name entered."));
                 return;
             }
+
+            string tv = (string)cmd.Data.Options.First().Value;
 
             Armor thisarmor = (from w in Gear.Armors
                                  where w.Name.ToLower().Contains(tv.ToLower())
                                  select w).FirstOrDefault();
             if (thisarmor == null)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("No armor with this name was found."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("No armor with this name was found."));
             }
             else
             {
@@ -90,26 +93,27 @@ namespace CD2_Bot
                 }
                 embed.WithColor(Color.DarkMagenta);
                 embed.WithFooter(Defaults.FOOTER);
-                await ReplyAsync(embed: embed.Build());
+                await cmd.RespondAsync(embed: embed.Build());
             }
         }
 
-        [Command("extra")]
-        [Summary("View an extras stats.")]
-        public async Task ViewExtraAsync([Remainder] string tv = null)
+        //"extra" command
+        public static async Task ViewExtraAsync(SocketSlashCommand cmd)
         {
-            if (tv == null)
+            if (cmd.Data.Options.Count < 1)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("No extra name entered."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("No extra name entered."));
                 return;
             }
+
+            string tv = (string)cmd.Data.Options.First().Value;
 
             Extra thisextra = (from w in Gear.Extras
                                  where w.Name.ToLower().Contains(tv.ToLower())
                                  select w).FirstOrDefault();
             if (thisextra == null)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("No extra with this name was found."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("No extra with this name was found."));
             }
             else
             {
@@ -133,19 +137,20 @@ namespace CD2_Bot
                 }
                 embed.WithColor(Color.DarkMagenta);
                 embed.WithFooter(Defaults.FOOTER);
-                await ReplyAsync(embed: embed.Build());
+                await cmd.RespondAsync(embed: embed.Build());
             }
         }
 
-        [Command("monster")]
-        [Summary("View a monsters stats.")]
-        public async Task ViewmonsterAsync([Remainder] string tv = null)
+        //"monster" command
+        public static async Task ViewMonsterAsync(SocketSlashCommand cmd)
         {
-            if (tv == null)
+            if (cmd.Data.Options.Count < 1)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("No monster name entered."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("No monster name entered."));
                 return;
             }
+
+            string tv = (string)cmd.Data.Options.First().Value;
 
             Enemy thisenemy = (from w in EnemyGen.Enemies
                                where w.Type.ToLower().Contains(tv.ToLower())
@@ -153,7 +158,7 @@ namespace CD2_Bot
 
             if (thisenemy == null)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("No enemy with this name was found."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("No enemy with this name was found."));
             }
             else
             {
@@ -189,15 +194,14 @@ namespace CD2_Bot
                 }
                 embed.WithColor(Color.DarkMagenta);
                 embed.WithFooter(Defaults.FOOTER);
-                await ReplyAsync(embed: embed.Build());
+                await cmd.RespondAsync(embed: embed.Build());
             }
         }
 
-        [Command("lvltop")]
-        [Summary("View the level leaderboard.")]
-        public async Task LevelTopAsync([Remainder] string xargs = null)
+        //"lvltop" command
+        public static async Task LevelTopAsync(SocketSlashCommand cmd)
         {
-            List<IGuildUser> tgp = (await Context.Guild.GetUsersAsync().FlattenAsync()).ToList().FindAll(u => tempstorage.characters.Exists(x => x.PlayerID == u.Id));
+            List<IGuildUser> tgp = (await (((IGuildChannel)cmd.Channel).Guild.GetUsersAsync())).ToList().FindAll(u => tempstorage.characters.Exists(x => x.PlayerID == u.Id));
             List<CharacterStructure> tgc = new List<CharacterStructure>() { };
             tgp.ForEach(x => tgc.Add(tempstorage.characters.Find(p => p.PlayerID == x.Id)));
 
@@ -206,12 +210,12 @@ namespace CD2_Bot
                 Title = "Level Leaderboard"
             };
 
-            MessageComponent btn = new ComponentBuilder().WithButton("Global", "gboard;lvl;" + Context.User.Id , ButtonStyle.Primary).Build();
+            MessageComponent btn = new ComponentBuilder().WithButton("Global", "gboard;lvl;" + cmd.User.Id , ButtonStyle.Primary).Build();
 
             if (tgp.Count < 3)
             {
                 embed.Description = "There is not enough players in this guild. You can view the global leaderboards instead.";
-                await ReplyAsync(embed: embed.Build(), components: btn);
+                await cmd.RespondAsync(embed: embed.Build(), components: btn);
             }
 
             List<CharacterStructure> tco = tgc.Where(x => x.Deleted == false).OrderByDescending(c => c.EXP).ToList();
@@ -239,7 +243,7 @@ namespace CD2_Bot
                 $"Level: {t3c[2].Lvl} ({t3c[2].EXP}exp)\n\n";
 
             CharacterStructure stats = (from user in tempstorage.characters
-                                        where user.PlayerID == Context.User.Id
+                                        where user.PlayerID == cmd.User.Id
                                         select user).SingleOrDefault();
 
             if (stats != null && stats.Deleted == false && !t3c.Any(x => x.PlayerID == stats.PlayerID))
@@ -249,14 +253,13 @@ namespace CD2_Bot
 
             embed.WithColor(Color.DarkMagenta);
             embed.WithFooter(Defaults.FOOTER);
-            await ReplyAsync(embed: embed.Build(), components: btn);
+            await cmd.RespondAsync(embed: embed.Build(), components: btn);
         }
 
-        [Command("moneytop")]
-        [Summary("View the money leaderboard.")]
-        public async Task MoneyTopAsync([Remainder] string xargs = null)
+        //"moneytop" command
+        public static async Task MoneyTopAsync(SocketSlashCommand cmd)
         {
-            List<IGuildUser> tgp = (await Context.Guild.GetUsersAsync().FlattenAsync()).ToList().FindAll(u => tempstorage.characters.Exists(x => x.PlayerID == u.Id));
+            List<IGuildUser> tgp = (await (((IGuildChannel)cmd.Channel).Guild.GetUsersAsync())).ToList().FindAll(u => tempstorage.characters.Exists(x => x.PlayerID == u.Id));
             List<CharacterStructure> tgc = new List<CharacterStructure>() { };
             tgp.ForEach(x => tgc.Add(tempstorage.characters.Find(p => p.PlayerID == x.Id)));
 
@@ -265,12 +268,12 @@ namespace CD2_Bot
                 Title = "Money Leaderboard"
             };
 
-            MessageComponent btn = new ComponentBuilder().WithButton("Global", "gboard;money;" + Context.User.Id, ButtonStyle.Primary).Build();
+            MessageComponent btn = new ComponentBuilder().WithButton("Global", "gboard;money;" + cmd.User.Id, ButtonStyle.Primary).Build();
 
             if (tgp.Count < 3)
             {
                 embed.Description = "There is not enough players in this guild. You can view the global leaderboards instead.";
-                await ReplyAsync(embed: embed.Build(), components: btn);
+                await cmd.RespondAsync(embed: embed.Build(), components: btn);
             }
 
             List<CharacterStructure> tco = tgc.Where(x => x.Deleted == false).OrderByDescending(c => c.Money).ToList();
@@ -298,7 +301,7 @@ namespace CD2_Bot
                 $"Money: {t3c[2].Money} coins\n\n";
 
             CharacterStructure stats = (from user in tempstorage.characters
-                                        where user.PlayerID == Context.User.Id
+                                        where user.PlayerID == cmd.User.Id
                                         select user).SingleOrDefault();
 
             if (stats != null && stats.Deleted == false && !t3c.Any(x => x.PlayerID == stats.PlayerID))
@@ -308,14 +311,13 @@ namespace CD2_Bot
 
             embed.WithColor(Color.DarkMagenta);
             embed.WithFooter(Defaults.FOOTER);
-            await ReplyAsync(embed: embed.Build(), components: btn);
+            await cmd.RespondAsync(embed: embed.Build(), components: btn);
         }
 
-        [Command("geartop")]
-        [Summary("View the gear leaderboard.")]
-        public async Task GearTopAsync([Remainder] string xargs = null)
+        //"geartop" command
+        public static async Task GearTopAsync(SocketSlashCommand cmd)
         {
-            List<IGuildUser> tgp = (await Context.Guild.GetUsersAsync().FlattenAsync()).ToList().FindAll(u => tempstorage.characters.Exists(x => x.PlayerID == u.Id));
+            List<IGuildUser> tgp = (await (((IGuildChannel)cmd.Channel).Guild.GetUsersAsync())).ToList().FindAll(u => tempstorage.characters.Exists(x => x.PlayerID == u.Id));
             List<CharacterStructure> tgc = new List<CharacterStructure>() { };
             tgp.ForEach(x => tgc.Add(tempstorage.characters.Find(p => p.PlayerID == x.Id)));
 
@@ -324,12 +326,12 @@ namespace CD2_Bot
                 Title = "Gear Leaderboard"
             };
 
-            MessageComponent btn = new ComponentBuilder().WithButton("Global", "gboard;gear;" + Context.User.Id, ButtonStyle.Primary).Build();
+            MessageComponent btn = new ComponentBuilder().WithButton("Global", "gboard;gear;" + cmd.User.Id, ButtonStyle.Primary).Build();
 
             if (tgp.Count < 3)
             {
                 embed.Description = "There is not enough players in this guild. You can view the global leaderboards instead.";
-                await ReplyAsync(embed: embed.Build(), components: btn);
+                await cmd.RespondAsync(embed: embed.Build(), components: btn);
             }
 
             //List<CharacterStructure> tco = tempstorage.characters.Where(x => x.Deleted == false).OrderByDescending(c => Prices.sell[c.Weapon.Rarity] + Prices.sell[c.Armor.Rarity] + Prices.sell[c.Extra.Rarity]).ToList();
@@ -358,7 +360,7 @@ namespace CD2_Bot
                 $"Weapon: {t3c[2].Weapon.Name}\nArmor: {t3c[2].Armor.Name}\nExtra: {t3c[2].Extra.Name}\n\n";
 
             CharacterStructure stats = (from user in tempstorage.characters
-                                        where user.PlayerID == Context.User.Id
+                                        where user.PlayerID == cmd.User.Id
                                         select user).SingleOrDefault();
 
             if (stats != null && stats.Deleted == false && !t3c.Any(x => x.PlayerID == stats.PlayerID))
@@ -368,16 +370,15 @@ namespace CD2_Bot
 
             embed.WithColor(Color.DarkMagenta);
             embed.WithFooter(Defaults.FOOTER);
-            await ReplyAsync(embed: embed.Build(), components: btn);
+            await cmd.RespondAsync(embed: embed.Build(), components: btn);
         }
 
-        [Command("servertop")]
-        [Summary("View the server leaderboard.")]
-        public async Task ServerTopAsync([Remainder] string xargs = null)
+        //"servertop" command
+        public static async Task ServerTopAsync(SocketSlashCommand cmd)
         {
             if (tempstorage.guilds.Count < 3)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("There is not enough servers to do this."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("There is not enough servers to do this."));
                 return;
             }
 
@@ -407,14 +408,14 @@ namespace CD2_Bot
                 $"**3: {foundguild3.Name}**\n" +
                 $"Doors: {t3c[2].DoorsOpened}\nBosses: {t3c[2].BossesSlain}\nQuests: {t3c[2].QuestsFinished}\n\n";
 
-            if (!t3c.Any(x => x.GuildID == Context.Guild.Id))
+            if (!t3c.Any(x => x.GuildID == ((IGuildChannel)cmd.Channel).Guild.Id))
             {
-                embed.Description += $"**Your Place:** {tco.IndexOf(tco.Where(x => x.GuildID == Context.Guild.Id).FirstOrDefault()) + 1}";
+                embed.Description += $"**Your Place:** {tco.IndexOf(tco.Where(x => x.GuildID == ((IGuildChannel)cmd.Channel).Guild.Id).FirstOrDefault()) + 1}";
             }
 
             embed.WithColor(Color.DarkMagenta);
             embed.WithFooter(Defaults.FOOTER);
-            await ReplyAsync(embed: embed.Build());
+            await cmd.RespondAsync(embed: embed.Build());
         }
     }
 }

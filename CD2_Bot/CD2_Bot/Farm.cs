@@ -1,4 +1,5 @@
 ﻿using Discord.Commands;
+using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,31 +8,32 @@ using System.Threading.Tasks;
 
 namespace CD2_Bot
 {
-    public class Farm : ModuleBase<SocketCommandContext>
+    public class Farm
     {
-        [Command("farm")]
-        [Summary("Farm crafting/trading items.")]
-        public async Task FarmAsync(string arg = "", [Remainder] string xargs = null)
+        //"farm" command
+        public static async Task FarmAsync(SocketSlashCommand cmd)
         {
             CharacterStructure stats = (from user in tempstorage.characters
-                                        where user.PlayerID == Context.User.Id
+                                        where user.PlayerID == cmd.User.Id
                                         select user).SingleOrDefault();
 
             if (stats == null || stats.Deleted == true)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("You don't have a character yet. Create one with <start!"));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character yet. Create one with <start!"));
                 return;
             }
 
+            string arg = (string)cmd.Data.Options.First().Value;
+
             if (arg == "")
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("Please enter a category of farming."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("Please enter a category of farming."));
             } else
             {
                 int minutesago = (int)Math.Floor((DateTime.Now - stats.LastFarm).TotalMinutes);
                 if (minutesago < Defaults.FARMINGCOOLDOWN)
                 {
-                    await ReplyAsync(embed: Utils.QuickEmbedError($"You are on cooldown for {Defaults.FARMINGCOOLDOWN - minutesago} minutes."));
+                    await cmd.RespondAsync(embed: Utils.QuickEmbedError($"You are on cooldown for {Defaults.FARMINGCOOLDOWN - minutesago} minutes."));
                     return;
                 }
 
@@ -66,7 +68,7 @@ namespace CD2_Bot
                         rreward = "Bear Pelt";
                         break;
                     default:
-                        await ReplyAsync(embed: Utils.QuickEmbedError("Please enter a valid category of farming."));
+                        await cmd.RespondAsync(embed: Utils.QuickEmbedError("Please enter a valid category of farming."));
                         return;
                 }
 
@@ -105,7 +107,7 @@ namespace CD2_Bot
                 }
                 Utils.SaveInv(stats, inv);
 
-                await ReplyAsync(embed: Utils.QuickEmbedNormal("Farm", gtext + "\n" + rewards ));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Farm", gtext + "\n" + rewards ));
             }
         }
     }

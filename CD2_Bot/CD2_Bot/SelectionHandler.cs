@@ -30,8 +30,8 @@ namespace CD2_Bot
             }
             catch (Exception e)
             {
-                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "Command Handler", e.Message));
-                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "Command Handler", e.StackTrace));
+                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "Selection Handler", e.Message));
+                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "Selection Handler", e.StackTrace));
             }
         }
 

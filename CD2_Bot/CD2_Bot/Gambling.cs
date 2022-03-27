@@ -9,33 +9,34 @@ using System.Threading.Tasks;
 
 namespace CD2_Bot
 {
-    public class Gambling : ModuleBase<SocketCommandContext>
+    public static class Gambling
     {
-        [Command("coinflip")]
-        [Summary("Coinflip for money against the computer or another player.")]
-        public async Task CoinflipAsync(int wager = 0, SocketUser opponent = null, [Remainder] string xargs = null)
+        //"counflip" command
+        public static async Task CoinflipAsync(SocketSlashCommand cmd)
         {
             CharacterStructure stats = (from user in tempstorage.characters
-                                        where user.PlayerID == Context.User.Id
+                                        where user.PlayerID == cmd.User.Id
                                         select user).SingleOrDefault();
 
             if (stats == null || stats.Deleted == true)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("You do not have a character."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You do not have a character."));
                 return;
             }
+
+            int wager = Convert.ToInt32(cmd.Data.Options.First().Value);
 
             if (wager < 1)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("Enter a valid wager."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("Enter a valid wager."));
                 return;
             }
 
-            if (opponent == null)
+            if (cmd.Data.Options.Count < 2)
             {
                 if (stats.Money < wager)
                 {
-                    await ReplyAsync(embed: Utils.QuickEmbedError("You can not afford this."));
+                    await cmd.RespondAsync(embed: Utils.QuickEmbedError("You can not afford this."));
                     return;
                 }
                 EmbedBuilder embed = new EmbedBuilder
@@ -58,9 +59,10 @@ namespace CD2_Bot
                         embed.Description = $"You lose {wager} coins!";
                         break;
                 }
-                await ReplyAsync(embed: embed.Build());
+                await cmd.RespondAsync(embed: embed.Build());
             } else
             {
+                SocketUser opponent = (SocketUser)cmd.Data.Options.ToList()[1].Value;
                 EmbedBuilder embed = new EmbedBuilder
                 {
                     Title = "Coinflip",
@@ -70,38 +72,38 @@ namespace CD2_Bot
                 embed.WithColor(Color.Magenta);
 
                 ComponentBuilder btnb = new ComponentBuilder()
-                        .WithButton("Accept", "coinflip;ask;" + Context.User.Id.ToString() + ";" + opponent.Id.ToString() + ";" + wager.ToString(), ButtonStyle.Success)
-                        .WithButton("Cancel", "coinflip;cancel;" + Context.User.Id.ToString() + ";" + opponent.Id.ToString(), ButtonStyle.Danger);
+                        .WithButton("Accept", "coinflip;ask;" + cmd.User.Id.ToString() + ";" + opponent.Id.ToString() + ";" + wager.ToString(), ButtonStyle.Success)
+                        .WithButton("Cancel", "coinflip;cancel;" + cmd.User.Id.ToString() + ";" + opponent.Id.ToString(), ButtonStyle.Danger);
 
                 MessageComponent btn = btnb.Build();
 
-                await ReplyAsync(embed: embed.Build(), components:btn);
+                await cmd.RespondAsync(embed: embed.Build(), components:btn);
             }
         }
 
-        [Command("slots")]
-        [Summary("Take a spin at a slot machine.")]
-        public async Task SlotsAsync(int wager = 0, [Remainder] string xargs = null)
+        //"slots" command
+        public static async Task SlotsAsync(SocketSlashCommand cmd)
         {
+            int wager = Convert.ToInt32(cmd.Data.Options.First().Value);
             CharacterStructure stats = (from user in tempstorage.characters
-                                        where user.PlayerID == Context.User.Id
+                                        where user.PlayerID == cmd.User.Id
                                         select user).SingleOrDefault();
 
             if (stats == null || stats.Deleted == true)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("You do not have a character."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You do not have a character."));
                 return;
             }
 
             if (wager < 1)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("Enter a valid wager."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("Enter a valid wager."));
                 return;
             }
 
             if (stats.Money < wager)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("You can not afford this."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You can not afford this."));
                 return;
             }
 
@@ -135,7 +137,7 @@ namespace CD2_Bot
                 embed.Color = Color.Red;
             }
             stats.Money += win;
-            await ReplyAsync(embed: embed.Build());
+            await cmd.RespondAsync(embed: embed.Build());
         }
     }
 }

@@ -63,8 +63,8 @@ namespace CD2_Bot
             }
             catch (Exception e)
             {
-                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "Command Handler", e.Message));
-                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "Command Handler", e.StackTrace));
+                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "Button Handler", e.Message));
+                await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "Button Handler", e.StackTrace));
             }
         }
 
@@ -201,7 +201,8 @@ namespace CD2_Bot
                     await btn.RespondAsync(embed: Utils.QuickEmbedError("This prompt is expired."), ephemeral: true);
                     return;
                 }
-                await btn.Message.DeleteAsync(); ;
+                Utils.DebugLog(Convert.ToString(btn.Message.Id));
+                await btn.Message.DeleteAsync();
                 if (btndata[1] == "confirm")
                 {
                     stats.Deleted = true;

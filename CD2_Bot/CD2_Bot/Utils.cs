@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -177,6 +178,13 @@ namespace CD2_Bot
                 db.CommandVoid(cmd);
                 tempstorage.guilds.Add(new GuildStructure(guild.Id));
             }
+        }
+
+        public static async void SendFileAsyncFast(SocketSlashCommand cmd, byte[] ms, string filename)
+        {
+            MemoryStream ms2 = new MemoryStream(ms);
+            ms2.Position = 0;
+            await cmd.RespondWithFileAsync(ms2, filename, "", null, false, false, null, null, null, null);
         }
     }
 }

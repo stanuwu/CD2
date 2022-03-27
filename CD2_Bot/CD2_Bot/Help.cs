@@ -10,11 +10,10 @@ using Npgsql;
 
 namespace CD2_Bot
 {
-    public class Help : ModuleBase<SocketCommandContext>
+    public static class Help
     {
-        [Command("help")]
-        [Summary("Opens the help menu.")]
-        public async Task HelpAsync([Remainder] string xargs = null)
+        //"help" command
+        public static async Task HelpAsync(SocketSlashCommand cmd)
         {
             Embed helpembed = Utils.QuickEmbedNormal("Help", "Select a help page.");
             ComponentBuilder helpbuttons = new ComponentBuilder()
@@ -27,7 +26,7 @@ namespace CD2_Bot
 
             MessageComponent btn = helpbuttons.Build();
 
-            await ReplyAsync(embed: helpembed, components: btn);
+            await cmd.RespondAsync(embed: helpembed, components: btn);
         }
     }
 }

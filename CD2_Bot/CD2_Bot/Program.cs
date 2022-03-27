@@ -43,12 +43,12 @@ namespace CD2_Bot
             await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
 
-            CommandHandler commandHandler = new CommandHandler(_client, _commands);
-            await commandHandler.InstallCommandsAsync();
             _client.ButtonExecuted += ButtonHandler.HandleButtonAsync;
             _client.SelectMenuExecuted += SelectionHandler.HandleSelectionAsync;
             _client.JoinedGuild += JoinHandler.OnGuildJoin;
             _client.Connected += Init.Initialize;
+            _client.SlashCommandExecuted += CommandHandler.SlashCommandHandler;
+            _client.Ready += SlashCommandRegistry.Client_Ready;
             Defaults.CLIENT = _client;
             await Task.Delay(-1);
         }

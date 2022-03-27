@@ -9,31 +9,34 @@ using System.Threading.Tasks;
 
 namespace CD2_Bot
 {
-    public class PlayerCommands : ModuleBase<SocketCommandContext>
+    public static class PlayerCommands
     {
-        [Command("pvp")]
-        [Summary("Play against another user to test your strength.")]
-        public async Task PlayerFightRequestAsync(SocketUser opponent = null, int wager = 0, [Remainder] string xargs = null)
+        //"pvp" command
+        public static async Task PlayerFightRequestAsync(SocketSlashCommand cmd)
         {
             CharacterStructure stats = (from user in tempstorage.characters
-                                        where user.PlayerID == Context.User.Id
+                                        where user.PlayerID == cmd.User.Id
                                         select user).SingleOrDefault();
 
             if (stats == null || stats.Deleted == true)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("You do not have a character."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You do not have a character."));
                 return;
             }
+
+            int wager = Convert.ToInt32(cmd.Data.Options.First().Value);
 
             if (wager < 0)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("Enter a valid wager."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("Enter a valid wager."));
                 return;
             }
 
+            SocketUser opponent = (SocketUser)cmd.Data.Options.ToList()[1].Value;
+
             if (opponent == null)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("Please tag an opponent."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("Please tag an opponent."));
                 return;
             }
             else
@@ -47,32 +50,31 @@ namespace CD2_Bot
                 embed.WithColor(Color.Magenta);
 
                 ComponentBuilder btnb = new ComponentBuilder()
-                        .WithButton("Accept", "playerfight;ask;" + Context.User.Id.ToString() + ";" + opponent.Id.ToString() + ";" + wager.ToString(), ButtonStyle.Success)
-                        .WithButton("Cancel", "playerfight;cancel;" + Context.User.Id.ToString() + ";" + opponent.Id.ToString(), ButtonStyle.Danger);
+                        .WithButton("Accept", "playerfight;ask;" + cmd.User.Id.ToString() + ";" + opponent.Id.ToString() + ";" + wager.ToString(), ButtonStyle.Success)
+                        .WithButton("Cancel", "playerfight;cancel;" + cmd.User.Id.ToString() + ";" + opponent.Id.ToString(), ButtonStyle.Danger);
 
                 MessageComponent btn = btnb.Build();
 
-                await ReplyAsync(embed: embed.Build(), components: btn);
+                await cmd.RespondAsync(embed: embed.Build(), components: btn);
             }
         }
 
-        [Command("quest")]
-        [Summary("View your current quest.")]
-        public async Task PlayerViewQuestAsync([Remainder] string xargs = null)
+        //"quest" command
+        public static async Task PlayerViewQuestAsync(SocketSlashCommand cmd)
         {
             CharacterStructure stats = (from user in tempstorage.characters
-                                        where user.PlayerID == Context.User.Id
+                                        where user.PlayerID == cmd.User.Id
                                         select user).SingleOrDefault();
 
             if (stats == null || stats.Deleted == true)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("You do not have a character."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You do not have a character."));
                 return;
             }
 
             if (stats.QuestData == "none")
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("You do not have an active quest."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You do not have an active quest."));
                 return;
             } else
             {
@@ -87,7 +89,7 @@ namespace CD2_Bot
                 {
                     Embed embedf = Utils.QuickEmbedNormal("Quest Failed", q.QuestFailedDialogue);
                     stats.QuestData = "none";
-                    await ReplyAsync(embed: embedf);
+                    await cmd.RespondAsync(embed: embedf);
                 }
                 else if (q.isQuestCompleted(stats))
                 {
@@ -95,13 +97,13 @@ namespace CD2_Bot
                     Embed embedf = Utils.QuickEmbedNormal("Quest Complete!", q.CompletionDialogue);
                     EmbedBuilder b = embedf.ToEmbedBuilder();
                     b.Description += "\n" + q.GenerateRewards(stats);
-                    tempstorage.guilds.Find(g => g.GuildID == Context.Guild.Id).QuestsFinished += 1;
+                    tempstorage.guilds.Find(g => g.GuildID == ((IGuildChannel)cmd.Channel).Guild.Id).QuestsFinished += 1;
                     embedf = b.Build();
                     if (stats.QuestData == qd)
                     {
                         stats.QuestData = "none";
                     }
-                    await ReplyAsync(embed: embedf);
+                    await cmd.RespondAsync(embed: embedf);
                 }
                 else
                 {
@@ -119,26 +121,25 @@ namespace CD2_Bot
                     embed.WithColor(Color.Magenta);
 
                     ComponentBuilder btnb = new ComponentBuilder()
-                            .WithButton("Cancel", "questview;cancel;" + Context.User.Id.ToString(), ButtonStyle.Danger);
+                            .WithButton("Cancel", "questview;cancel;" + cmd.User.Id.ToString(), ButtonStyle.Danger);
 
                     MessageComponent btn = btnb.Build();
 
-                    await ReplyAsync(embed: embed.Build(), components: btn);
+                    await cmd.RespondAsync(embed: embed.Build(), components: btn);
                 }
             }
         }
 
-        [Command("vote")]
-        [Summary("Claim free rewards.")]
-        public async Task VoteAsync([Remainder] string xargs = null)
+        //"vote" command
+        public static async Task VoteAsync(SocketSlashCommand cmd)
         {
             CharacterStructure stats = (from user in tempstorage.characters
-                                        where user.PlayerID == Context.User.Id
+                                        where user.PlayerID == cmd.User.Id
                                         select user).SingleOrDefault();
 
             if (stats == null || stats.Deleted == true)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("You do not have a character."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You do not have a character."));
                 return;
             }
             bool hasvoted = await DBLRestClient.UserVotedStatus(stats.PlayerID);
@@ -146,17 +147,17 @@ namespace CD2_Bot
             {
                 MessageComponent btn = new ComponentBuilder()
                         .WithButton("Vote", null, ButtonStyle.Link, url: "https://top.gg/bot/717757487482273813").Build();
-                await ReplyAsync(embed: Utils.QuickEmbedNormal("Voting Rewards", "You have not voted yet. Vote every 12 hours on top.gg (DiscordBotList) below for some free rewards. Note that votes might take a few minutes to register."), components: btn);
+                await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Voting Rewards", "You have not voted yet. Vote every 12 hours on top.gg (DiscordBotList) below for some free rewards. Note that votes might take a few minutes to register."), components: btn);
             }
             else
             {
                 if ((DateTime.Now - stats.LastVote).TotalMinutes < 720)
                 {
-                    await ReplyAsync(embed: Utils.QuickEmbedNormal("Voting Rewards", $"You already claimed your vote rewards for today.\nYou may vote again in {12 - Math.Floor((DateTime.Now - stats.LastVote).TotalHours)} hours."));
+                    await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Voting Rewards", $"You already claimed your vote rewards for today.\nYou may vote again in {12 - Math.Floor((DateTime.Now - stats.LastVote).TotalHours)} hours."));
                 } else
                 {
                     stats.LastVote = DateTime.Now;
-                    await ReplyAsync(embed: Utils.QuickEmbedNormal("Voting Rewards", "Claimed your voting rewards!\n+500 coins\n+50 exp"));
+                    await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Voting Rewards", "Claimed your voting rewards!\n+500 coins\n+50 exp"));
                     stats.EXP += 50;
                     stats.Money += 500;
                 }
