@@ -42,37 +42,37 @@ namespace CD2_Bot
 
 
 
-        public static readonly string help_page_character = "`<start [name]`\nCreate a character with the given name.\n\n" +
-            "`<character <[userid]>`\nView your character (or someone elses if given a userid).\n\n" +
-            "`<stats <[userid]>`\nView your gear (or someone elses if given a userid).\n\n" +
-            "`<inventory`\nView your items.\n\n" +
-            "`<reset`\nDelete your character.\n\n" +
-            "`<rename [name]`\nChange your character name.\n\n" +
-            "`<description [text]`\nChange your character description.\n\n" +
-            "`<server`\nSee the stats of the current server.\n\n" +
-            "`<vote`\nVote for the bot on top.gg and claim some free rewards.";
+        public static readonly string help_page_character = "`/start [name]`\nCreate a character with the given name.\n\n" +
+            "`/character <[userid]>`\nView your character (or someone elses if given a userid).\n\n" +
+            "`/stats <[userid]>`\nView your gear (or someone elses if given a userid).\n\n" +
+            "`/inventory`\nView your items.\n\n" +
+            "`/reset`\nDelete your character.\n\n" +
+            "`/rename [name]`\nChange your character name.\n\n" +
+            "`/description [text]`\nChange your character description.\n\n" +
+            "`/server`\nSee the stats of the current server.\n\n" +
+            "`/vote`\nVote for the bot on top.gg and claim some free rewards.";
 
-        public static readonly string help_page_stats = "`<weapon [name]`\nView the stats of the given weapon.\n\n" +
-            "`<armor [name]`\nView the stats of the given armor.\n\n" +
-            "`<extra [name]`\nView the stats of the given extra.\n\n" +
-            "`<monster [name]`\nView the stats of the given monster.\n\n" +
-            "Example: `<weapon wooden`";
+        public static readonly string help_page_stats = "`/weapon [name]`\nView the stats of the given weapon.\n\n" +
+            "`/armor [name]`\nView the stats of the given armor.\n\n" +
+            "`/extra [name]`\nView the stats of the given extra.\n\n" +
+            "`/monster [name]`\nView the stats of the given monster.\n\n" +
+            "Example: `/weapon wooden`";
 
-        public static readonly string help_page_play = "`<floor`\nEnter a new floor and pick a door to open.\n\n" +
-            "`<train <[gear type]>`\nTrain with your gear to improve and gain gear xp. You can specify a gear type to ofcus on it(weapon, armor or extra).\n\n" +
-            "`<farm [activity]`\nFarm some items used for crafting and trading. Current activities are fishing, mining, foraging, harvesting and hunting.\n\n" +
-            "`<quest`\nView your current quest progress.\n\n" +
-            "`<pvp [@player] <[wager]>`\nChallange another player to a pvp match. You can wager coins if you want to.";
+        public static readonly string help_page_play = "`/floor`\nEnter a new floor and pick a door to open.\n\n" +
+            "`/train <[gear type]>`\nTrain with your gear to improve and gain gear xp. You can specify a gear type to ofcus on it(weapon, armor or extra).\n\n" +
+            "`/farm [activity]`\nFarm some items used for crafting and trading. Current activities are fishing, mining, foraging, harvesting and hunting.\n\n" +
+            "`/quest`\nView your current quest progress.\n\n" +
+            "`/pvp [@player] <[wager]>`\nChallenge another player to a pvp match, with an optional coin wager.";
 
-        public static readonly string help_page_money = "`<coinflip [wager] <[@opponent]>`\nCoinflip against an AI or another player for money.\n\n" +
-            "`<slots [wager]`\nPlay a slots game for money.";
+        public static readonly string help_page_money = "`/coinflip [wager] <[@opponent]>`\nCoinflip against an AI or another player for money.\n\n" +
+            "`/slots [wager]`\nPlay a slots game for money.";
 
-        public static readonly string help_page_misc = "`<lvltop`\nShowcases the top characters across all servers by level.\n\n" +
-            "`<moneytop`\nShowcases the top characters across all servers by money.\n\n" +
-            "`<geartop`\nShowcases the top characters across all servers by gear.\n\n" +
-            "`<servertop`\nShowcases the top servers.\n\n" +
-            "`<guide`\nA Guidebook to tell you how to get started.\n\n" +
-            "`<help`\nHelp menu to view all commands.";
+        public static readonly string help_page_misc = "`/lvltop`\nShowcases the top characters across all servers by level.\n\n" +
+            "`/moneytop`\nShowcases the top characters across all servers by money.\n\n" +
+            "`/geartop`\nShowcases the top characters across all servers by gear.\n\n" +
+            "`/servertop`\nShowcases the top servers.\n\n" +
+            "`/guide`\nA Guidebook to tell you how to get started.\n\n" +
+            "`/help`\nHelp menu to view all commands.";
 
         public static readonly string help_page_rooms = "**Wealth**\nFind some coins.\n\n" +
             "**Surprises**\nGet a random chest that you can open with coins.\n\n" +
