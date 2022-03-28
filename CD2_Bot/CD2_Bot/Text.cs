@@ -10,11 +10,11 @@ namespace CD2_Bot
     {
         public static readonly string guide_page_start = "**Welcome to CustomDungeons 2!**\n" +
             "This bot allows you to play a simple yet fun text based dungeon rpg with your friends.\n" +
-            "Use `<help` to get an overview of the commands and how they work or use the buttons below to view more pages of this guide.\n" +
-            "Once you have a character can alse use `<vote` to get a bit of a headstart.";
+            "Use `/help` to get an overview of the commands and how they work or use the buttons below to view more pages of this guide.\n" +
+            "Once you have a character you can also use `/vote` to get a bit of a headstart.";
 
         public static readonly string guide_page_floors = "**Floors**\n" +
-            "The main mechanic of this game are floors. You can use the `<floor` command to enter a new floor and you will be able to pick a room to enter. " +
+            "The main mechanic of this game are floors. You can use the `/floor` command to enter a new floor and you will be able to pick a room to enter. " +
             "There are a lot of different rooms that can help you on your journey. Note that floors have a cooldown and you can not start one if your HP are too low.";
 
         public static readonly string guide_page_fights = "**Fights**\n" +
@@ -28,7 +28,7 @@ namespace CD2_Bot
 
         public static readonly string guide_page_character = "**Character**\n" +
             "Using the character command you can view your character. You have some stats like HP. HP are drained in a fight and regenerate over time. " +
-            "You also have 3 pieces of gear. To view more information about them use `<stats`. To view your items use `<inventory`.";
+            "You also have 3 pieces of gear. To view more information about them use `/stats`. To view your items use `/inventory`.";
 
         public static readonly string guide_page_gear = "**Gear**\n" +
             "There are 3 different pieces of gear. Weapons, armor and extras. Weapons are primarily used to attack while armor determines your defense. Extras are for hp regeneration and can buff your attack. " +
@@ -37,7 +37,7 @@ namespace CD2_Bot
 
         public static readonly string guide_page_quests = "**Quests**\n" +
             "Quests are another good way to earn money, xp and other rewards. You can obtain a quest by entering a room of adventures. " +
-            "Once you have a quest you can see your progress with the `<quest` command. " +
+            "Once you have a quest you can see your progress with the `/quest` command. " +
             "Once you complete your quest in time return back to the room of adventures to obtain your reward.";
 
 
@@ -62,7 +62,7 @@ namespace CD2_Bot
             "`/train <[gear type]>`\nTrain with your gear to improve and gain gear xp. You can specify a gear type to ofcus on it(weapon, armor or extra).\n\n" +
             "`/farm [activity]`\nFarm some items used for crafting and trading. Current activities are fishing, mining, foraging, harvesting and hunting.\n\n" +
             "`/quest`\nView your current quest progress.\n\n" +
-            "`/pvp [@player] <[wager]>`\nChallenge another player to a pvp match, with an optional coin wager.";
+            "`/pvp [coin wager] [@player]`\nChallenge another player to a pvp match for coins.";
 
         public static readonly string help_page_money = "`/coinflip [wager] <[@opponent]>`\nCoinflip against an AI or another player for money.\n\n" +
             "`/slots [wager]`\nPlay a slots game for money.";
