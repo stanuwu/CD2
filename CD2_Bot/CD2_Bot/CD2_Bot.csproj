@@ -140,6 +140,7 @@
     <Compile Include="ButtonHandler.cs" />
     <Compile Include="CharacterManagement.cs" />
     <Compile Include="CharacterStructure.cs" />
+    <Compile Include="Class.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="db.cs" />
     <Compile Include="DBLRestClient.cs" />

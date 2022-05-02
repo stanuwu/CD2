@@ -116,6 +116,7 @@ namespace CD2_Bot
             CustomEffectName = customeffectname;
             CustomEffectDescription = customeffectdesc;
             Rarity = rarity;
+            Category = category;
             CanDrop = canDrop;
         }
         public string Name { get; set; }

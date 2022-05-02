@@ -40,6 +40,7 @@ namespace CD2_Bot
                 embed.Description += "\n\n" +
                     $"**Base Damage:** {thisweapon.BaseDamage}\n" +
                     $"**Rarity:** {thisweapon.Rarity.ToString()}\n" +
+                    $"**Type:** {thisweapon.Category.ToString()}\n" +
                     $"**Sell Price:** {Prices.sell[thisweapon.Rarity]}\n" +
                     $"**Infusion Worth:** {Prices.infuse[thisweapon.Rarity]}\n";
 
@@ -192,6 +193,43 @@ namespace CD2_Bot
                     $"**Amount:** {dropam}\n" +
                     $"**Chance:** {thisenemy.Drops.DropChance}%\n";
                 }
+                embed.WithColor(Color.DarkMagenta);
+                embed.WithFooter(Defaults.FOOTER);
+                await cmd.RespondAsync(embed: embed.Build());
+            }
+        }
+
+        //"class" command
+        public static async Task ViewClassAsync(SocketSlashCommand cmd)
+        {
+            if (cmd.Data.Options.Count < 1)
+            {
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("No class name entered."));
+                return;
+            }
+
+            string tv = (string)cmd.Data.Options.First().Value;
+
+            Class thisclass = (from w in Class.Classes
+                                 where w.Name.ToLower().Contains(tv.ToLower())
+                                 select w).FirstOrDefault();
+            if (thisclass == null)
+            {
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("No class with this name was found."));
+            }
+            else
+            {
+                EmbedBuilder embed = new EmbedBuilder
+                {
+                    Title = thisclass.Name,
+                    Description = thisclass.Description,
+                };
+
+                embed.Description += "\n\n" +
+                    $"**Damage:** {thisclass.DamageMultiplier * 100}%\n" +
+                    $"**Resistance:** {(thisclass.ResistanceBonus >= 0 ? "+" : "")}{thisclass.ResistanceBonus}\n" +
+                    $"**Heal:** {thisclass.HealMultiplier * 100}%\n" +
+                    $"**Level:** {thisclass.Level}";
                 embed.WithColor(Color.DarkMagenta);
                 embed.WithFooter(Defaults.FOOTER);
                 await cmd.RespondAsync(embed: embed.Build());

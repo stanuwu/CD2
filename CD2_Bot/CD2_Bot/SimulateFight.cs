@@ -19,6 +19,9 @@ namespace CD2_Bot
             Armor tarmor = stats.Armor.Clone();
             Extra textra = stats.Extra.Clone();
 
+            //class function
+            Class.beforeFight(stats, enemy, tweapon, tarmor, textra);
+
             //apply weapon effects
             double tdmge = tweapon.CustomEffect(stats, enemy, tarmor, textra);
             tdmge += tarmor.CustomEffect(stats, enemy, tweapon, textra);
@@ -28,10 +31,10 @@ namespace CD2_Bot
             double edmge = enemy.CustomEffect(stats, tweapon, tarmor, textra);
 
             //calculate total damage to specific enemy
-            double tdamage = Convert.ToDouble(tweapon.Damage + textra.Damage) * stats.StatMultiplier * ((double)enemy.Resistance/100)+0.01;
+            double tdamage = Convert.ToDouble((tweapon.Damage + textra.Damage) * (decimal) stats.CharacterClass.DamageMultiplier) * stats.StatMultiplier * ((double)enemy.Resistance/100)+0.01;
             tdamage += tdmge;
             //calculate enemies damage to you with armor
-            double edamage = enemy.Damage * ((double)tarmor.Resistance / 100)+0.01;
+            double edamage = enemy.Damage * ((double)(tarmor.Resistance + stats.CharacterClass.ResistanceBonus) / 100)+0.01;
             edamage += edmge;
 
             //calculate player rounds to kill
@@ -73,6 +76,8 @@ namespace CD2_Bot
                 stats.WeaponXP += wxgained;
                 stats.ArmorXP += wxgained;
                 stats.ExtraXP += wxgained;
+                //class function
+                Class.winFight(stats, mfound, xgained, wxgained, enemy);
             } else
             {
                 mlost = (100 + stats.Lvl * 20);
@@ -85,6 +90,7 @@ namespace CD2_Bot
                 {
                     stats.Money -= mlost;
                 }
+                Class.looseFight(stats, mlost, enemy);
             }
 
             //remove hp
@@ -119,6 +125,9 @@ namespace CD2_Bot
                 embedB.AddField("Coins Earned", Convert.ToString(mfound));
                 embedB.AddField("XP Gained", Convert.ToString(xgained));
                 embedB.AddField("Gear XP Gained", Convert.ToString(wxgained));
+
+
+
                 if (drops.Key!="none" && drops.Value > 0)
                 {
                     Dictionary<string, int> inventory = Utils.InvAsDict(stats);

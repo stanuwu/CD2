@@ -109,6 +109,12 @@ namespace CD2_Bot
                     case "shop":
                         await Shop.ShopAsync(command);
                         break;
+                    case "class":
+                        await MiscStats.ViewClassAsync(command);
+                        break;
+                    case "setclass":
+                        await Class.SetClassAsync(command);
+                        break;
                     default:
                         await command.RespondAsync($"The command {command.CommandName} has not been created or linked.");
                         break;

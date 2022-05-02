@@ -20,7 +20,7 @@ namespace CD2_Bot
             int level = stats.Lvl;
             string description = stats.Description;
             string title = stats.Title;
-            string cclass = stats.CharacterClass;
+            string cclass = stats.CharacterClass.Name;
             int money = stats.Money;
             int exp = stats.EXP;
             int maxhp = stats.MaxHP;

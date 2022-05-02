@@ -233,6 +233,31 @@ namespace CD2_Bot
             await guild.CreateApplicationCommandAsync(shopCommand.Build());
 
 
+            //"class" command
+            SlashCommandBuilder classCommand = new SlashCommandBuilder()
+                .WithName("class")
+                .WithDescription("Search classes by name.")
+                .AddOption("name", ApplicationCommandOptionType.String, "Name of the class.", isRequired: true);
+            await guild.CreateApplicationCommandAsync(classCommand.Build());
+
+
+            //"setclass" command
+            SlashCommandBuilder setclassCommand = new SlashCommandBuilder()
+                .WithName("setclass")
+                .WithDescription("Set your class.");
+            SlashCommandOptionBuilder setclassOptions = new SlashCommandOptionBuilder()
+                    .WithName("class")
+                    .WithDescription("What class do you want to use?")
+                    .WithRequired(true)
+                    .WithType(ApplicationCommandOptionType.String);
+            foreach (Class c in Class.Classes)
+            {
+                setclassOptions.AddChoice($"{c.Name} (Lvl. {c.Level})", c.Name);
+            }
+            setclassCommand.AddOption(setclassOptions);
+            await guild.CreateApplicationCommandAsync(setclassCommand.Build());
+
+
             //#############
             //real commands
             //#############

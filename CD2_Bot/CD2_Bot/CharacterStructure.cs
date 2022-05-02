@@ -73,18 +73,19 @@ namespace CD2_Bot
                 db.CommandVoid(cmd);
             }
         }
-        public string CharacterClass
+        public Class CharacterClass
         {
             get
             {
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT class FROM public.\"Character\" WHERE \"UserID\" = @id;", db.dbc);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
-                return db.CommandString(cmd);
+                return Class.Classes.Find(x => x.Name == db.CommandString(cmd));
             }
             set
             {
+                string charclass = value.Name;
                 NpgsqlCommand cmd = new NpgsqlCommand("UPDATE public.\"Character\" SET class = @class WHERE \"UserID\" = @id;", db.dbc);
-                cmd.Parameters.AddWithValue("@class", value);
+                cmd.Parameters.AddWithValue("@class", charclass);
                 cmd.Parameters.AddWithValue("@id", (Int64)this.PlayerID);
                 db.CommandVoid(cmd);
             }
@@ -167,7 +168,7 @@ namespace CD2_Bot
                     }
                     else
                     {
-                        this.HP += regen;
+                        this.HP += (int)(regen * this.CharacterClass.HealMultiplier);
                     }
                 }
 
