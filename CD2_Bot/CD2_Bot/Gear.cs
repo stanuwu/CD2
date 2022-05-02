@@ -38,6 +38,13 @@ namespace CD2_Bot
         Scythe,
     }
 
+    public enum Archtypes
+    {
+        Close,
+        Far,
+        Magic,
+    }
+
     public static class Prices
     {
         public static Dictionary<Rarity, int> sell = new Dictionary<Rarity, int> {
@@ -496,6 +503,21 @@ namespace CD2_Bot
 
     public static class Gear
     {
+        public static Dictionary<Category, Archtypes> archtypes = new Dictionary<Category, Archtypes>()
+        {
+            {Category.Axe, Archtypes.Close},
+            {Category.Sword, Archtypes.Close},
+            {Category.Blunt, Archtypes.Close},
+            {Category.Boomerang, Archtypes.Far},
+            {Category.Bow, Archtypes.Far},
+            {Category.Dagger, Archtypes.Close},
+            {Category.Firearm, Archtypes.Far},
+            {Category.Lance, Archtypes.Close},
+            {Category.Magic, Archtypes.Magic},
+            {Category.Scythe, Archtypes.Close},
+            {Category.Sicle, Archtypes.Close},
+            {Category.Wand, Archtypes.Magic},
+        };
 
         public static async void RandomDrop(ulong uid, ISocketMessageChannel channel, Rarity droprarity = Rarity.Random, string type = "random", string ovr = null, string ovrtype = null)
         {
