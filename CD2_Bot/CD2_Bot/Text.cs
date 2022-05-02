@@ -28,12 +28,12 @@ namespace CD2_Bot
 
         public static readonly string guide_page_character = "**Character**\n" +
             "Using the character command you can view your character. You have some stats like HP. HP are drained in a fight and regenerate over time. " +
-            "You also have 3 pieces of gear. To view more information about them use `/stats`. To view your items use `/inventory`.";
+            "You also have 3 pieces of gear. To view more information about them use `/stats`. To view your items use `/inventory`. You can also change your class for some stat changes.";
 
         public static readonly string guide_page_gear = "**Gear**\n" +
             "There are 3 different pieces of gear. Weapons, armor and extras. Weapons are primarily used to attack while armor determines your defense. Extras are for hp regeneration and can buff your attack. " +
             "Higher level gear can also have custom effects that can deal extra damage or have other effects. " +
-            "You can obtain gear from winning a fight as a rare drop, or from buying a chest in the room of surprises as well as from crafting in the room of forging.";
+            "You can obtain gear from winning a fight as a rare drop, or from buying a chest in the room of surprises as well as from crafting in the room of forging. Gear can also be aquired from the weeky shop.";
 
         public static readonly string guide_page_quests = "**Quests**\n" +
             "Quests are another good way to earn money, xp and other rewards. You can obtain a quest by entering a room of adventures. " +
@@ -49,6 +49,7 @@ namespace CD2_Bot
             "`/reset`\nDelete your character.\n\n" +
             "`/rename [name]`\nChange your character name.\n\n" +
             "`/description [text]`\nChange your character description.\n\n" +
+            "`/setclass [class]`\nChange your class.\n\n" +
             "`/server`\nSee the stats of the current server.\n\n" +
             "`/vote`\nVote for the bot on top.gg and claim some free rewards.";
 
@@ -56,6 +57,7 @@ namespace CD2_Bot
             "`/armor [name]`\nView the stats of the given armor.\n\n" +
             "`/extra [name]`\nView the stats of the given extra.\n\n" +
             "`/monster [name]`\nView the stats of the given monster.\n\n" +
+            "`/class [name]`\nView the stats of the given class.\n\n" +
             "Example: `/weapon wooden`";
 
         public static readonly string help_page_play = "`/floor`\nEnter a new floor and pick a door to open.\n\n" +
@@ -65,7 +67,8 @@ namespace CD2_Bot
             "`/pvp [coin wager] [@player]`\nChallenge another player to a pvp match for coins.";
 
         public static readonly string help_page_money = "`/coinflip [wager] <[@opponent]>`\nCoinflip against an AI or another player for money.\n\n" +
-            "`/slots [wager]`\nPlay a slots game for money.";
+            "`/slots [wager]`\nPlay a slots game for money.\n\n"+
+            "`/shop`\nView the weekly shop.";
 
         public static readonly string help_page_misc = "`/lvltop`\nShowcases the top characters across all servers by level.\n\n" +
             "`/moneytop`\nShowcases the top characters across all servers by money.\n\n" +
