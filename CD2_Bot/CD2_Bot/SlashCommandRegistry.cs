@@ -26,58 +26,66 @@ namespace CD2_Bot
             testCommand.WithDescription("this is a test");
             await guild.CreateApplicationCommandAsync(testCommand.Build());
 
+
+
+            //#############
+            //real commands
+            //#############
+
+            List<Task> commands = new List<Task>() {};
+
             //"character" command
             SlashCommandBuilder characterCommand = new SlashCommandBuilder()
                 .WithName("character")
                 .WithDescription("Look at your own or someone elses character.")
                 .AddOption("user", ApplicationCommandOptionType.User, "The user that you want to view the character of.", isRequired: false);
-            await guild.CreateApplicationCommandAsync(characterCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(characterCommand.Build()));
 
             //"start" command
             SlashCommandBuilder startCommand = new SlashCommandBuilder()
                 .WithName("start")
                 .WithDescription("Create a character to start your journey")
                 .AddOption("name", ApplicationCommandOptionType.String, "The name you want your character to have.", isRequired: true);
-            await guild.CreateApplicationCommandAsync(startCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(startCommand.Build()));
 
             //"stats" command
             SlashCommandBuilder statsCommand = new SlashCommandBuilder()
                 .WithName("stats")
                 .WithDescription("Have a look at your or someone elses gear.")
                 .AddOption("user", ApplicationCommandOptionType.User, "The user that you want to view the character of.", isRequired: false);
-            await guild.CreateApplicationCommandAsync(statsCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(statsCommand.Build()));
 
             //"server" command
             SlashCommandBuilder serverCommand = new SlashCommandBuilder()
                 .WithName("server")
                 .WithDescription("View the stats of the server you are currently in.");
-            await guild.CreateApplicationCommandAsync(statsCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(serverCommand.Build()));
 
             //"inventory" command
             SlashCommandBuilder inventoryCommand = new SlashCommandBuilder()
                 .WithName("inventory")
                 .WithDescription("View your inventory.");
-            await guild.CreateApplicationCommandAsync(inventoryCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(inventoryCommand.Build()));
 
             //"reset" command
             SlashCommandBuilder resetCommand = new SlashCommandBuilder()
                 .WithName("reset")
                 .WithDescription("Delete your character.");
-            await guild.CreateApplicationCommandAsync(resetCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(resetCommand.Build()));
 
             //"rename" command
             SlashCommandBuilder renameCommand = new SlashCommandBuilder()
                 .WithName("rename")
                 .WithDescription("Change the name of your character.")
                 .AddOption("name", ApplicationCommandOptionType.String, "The name you want your character to have.", isRequired: true);
-            await guild.CreateApplicationCommandAsync(renameCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(renameCommand.Build()));
 
             //"description" command
             SlashCommandBuilder descriptionCommand = new SlashCommandBuilder()
                 .WithName("description")
                 .WithDescription("Change the description of your character.")
                 .AddOption("description", ApplicationCommandOptionType.String, "Your new character description.", isRequired: true);
-            await guild.CreateApplicationCommandAsync(descriptionCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(descriptionCommand.Build()));
 
             //"editcharacter" command
             SlashCommandBuilder editcharacterCommand = new SlashCommandBuilder()
@@ -86,13 +94,13 @@ namespace CD2_Bot
                 .AddOption("userid", ApplicationCommandOptionType.String, "If of the user to edit", isRequired: true)
                 .AddOption("data", ApplicationCommandOptionType.String, "What data to edit", isRequired: true)
                 .AddOption("value", ApplicationCommandOptionType.String, "What to set the data to", isRequired: true);
-            await guild.CreateApplicationCommandAsync(editcharacterCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(editcharacterCommand.Build()));
 
             //"floor" command
             SlashCommandBuilder floorCommand = new SlashCommandBuilder()
                 .WithName("floor")
                 .WithDescription("Enter a new floor.");
-            await guild.CreateApplicationCommandAsync(floorCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(floorCommand.Build()));
 
             //"coinflip" command
             SlashCommandBuilder coinflipCommand = new SlashCommandBuilder()
@@ -100,78 +108,78 @@ namespace CD2_Bot
                 .WithDescription("Bet on a coinflip alone or against another player.")
                 .AddOption("wager", ApplicationCommandOptionType.Integer, "How much money to bet.", isRequired: true)
                 .AddOption("opponent", ApplicationCommandOptionType.User, "Who to coinflip against.", isRequired: false);
-            await guild.CreateApplicationCommandAsync(coinflipCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(coinflipCommand.Build()));
 
             //"slots" command
             SlashCommandBuilder slotsCommand = new SlashCommandBuilder()
                 .WithName("slots")
                 .WithDescription("Wager some money in a slot game.")
                 .AddOption("wager", ApplicationCommandOptionType.Integer, "How much money to bet.", isRequired: true);
-            await guild.CreateApplicationCommandAsync(slotsCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(slotsCommand.Build()));
 
             //"guide" command
             SlashCommandBuilder guideCommand = new SlashCommandBuilder()
                 .WithName("guide")
                 .WithDescription("A short guide on how to play the game.");
-            await guild.CreateApplicationCommandAsync(guideCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(guideCommand.Build()));
 
             //"help" command
             SlashCommandBuilder helpCommand = new SlashCommandBuilder()
                 .WithName("help")
                 .WithDescription("A menu with all the commands and how to use them.");
-            await guild.CreateApplicationCommandAsync(helpCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(helpCommand.Build()));
 
             //"weapon" command
             SlashCommandBuilder weaponCommand = new SlashCommandBuilder()
                 .WithName("weapon")
                 .WithDescription("View the stats of a weapon.")
                 .AddOption("name", ApplicationCommandOptionType.String, "Name of the weapon.", isRequired: true);
-            await guild.CreateApplicationCommandAsync(weaponCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(weaponCommand.Build()));
 
             //"armor" command
             SlashCommandBuilder armorCommand = new SlashCommandBuilder()
                 .WithName("armor")
                 .WithDescription("View the stats of a armor.")
                 .AddOption("name", ApplicationCommandOptionType.String, "Name of the armor.", isRequired: true);
-            await guild.CreateApplicationCommandAsync(armorCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(armorCommand.Build()));
 
             //"extra" command
             SlashCommandBuilder extraCommand = new SlashCommandBuilder()
                 .WithName("extra")
                 .WithDescription("View the stats of a extra.")
                 .AddOption("extra", ApplicationCommandOptionType.String, "Name of the extra.", isRequired: true);
-            await guild.CreateApplicationCommandAsync(extraCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(extraCommand.Build()));
 
             //"monster" command
             SlashCommandBuilder monsterCommand = new SlashCommandBuilder()
                 .WithName("monster")
                 .WithDescription("View the stats of a monster.")
                 .AddOption("name", ApplicationCommandOptionType.String, "Name of the monster.", isRequired: true);
-            await guild.CreateApplicationCommandAsync(monsterCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(monsterCommand.Build()));
 
             //"lvltop" command
             SlashCommandBuilder lvltopCommand = new SlashCommandBuilder()
                 .WithName("lvltop")
                 .WithDescription("See the level leaderboards.");
-            await guild.CreateApplicationCommandAsync(lvltopCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(lvltopCommand.Build()));
 
             //"moneytop" command
             SlashCommandBuilder moneytopCommand = new SlashCommandBuilder()
                 .WithName("moneytop")
                 .WithDescription("See the money leaderboards.");
-            await guild.CreateApplicationCommandAsync(moneytopCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(moneytopCommand.Build()));
 
             //"geartop" command
             SlashCommandBuilder geartopCommand = new SlashCommandBuilder()
                 .WithName("geartop")
                 .WithDescription("See the gear leaderboards.");
-            await guild.CreateApplicationCommandAsync(geartopCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(geartopCommand.Build()));
 
             //"servertop" command
             SlashCommandBuilder servertopCommand = new SlashCommandBuilder()
                 .WithName("servertop")
                 .WithDescription("See the server leaderboards.");
-            await guild.CreateApplicationCommandAsync(servertopCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(servertopCommand.Build()));
 
             //"pvp" command
             SlashCommandBuilder pvpCommand = new SlashCommandBuilder()
@@ -179,19 +187,19 @@ namespace CD2_Bot
                 .WithDescription("Fight against another player for money.")
                 .AddOption("wager", ApplicationCommandOptionType.Integer, "How much money to bet.", isRequired: true)
                 .AddOption("opponent", ApplicationCommandOptionType.User, "Who to coinflip against.", isRequired: true);
-            await guild.CreateApplicationCommandAsync(pvpCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(pvpCommand.Build()));
 
             //"quest" command
             SlashCommandBuilder questCommand = new SlashCommandBuilder()
                 .WithName("quest")
                 .WithDescription("View your current quest.");
-            await guild.CreateApplicationCommandAsync(questCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(questCommand.Build()));
 
             //"vote" command
             SlashCommandBuilder voteCommand = new SlashCommandBuilder()
                 .WithName("vote")
                 .WithDescription("Cliam free rewards!");
-            await guild.CreateApplicationCommandAsync(voteCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(voteCommand.Build()));
 
             //"farm" command
             SlashCommandBuilder farmCommand = new SlashCommandBuilder()
@@ -208,7 +216,7 @@ namespace CD2_Bot
                     .AddChoice("🍄 Collecting", "collecting")
                     .WithType(ApplicationCommandOptionType.String)
                     );
-            await guild.CreateApplicationCommandAsync(farmCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(farmCommand.Build()));
 
             //"train" command
             SlashCommandBuilder trainCommand = new SlashCommandBuilder()
@@ -223,14 +231,14 @@ namespace CD2_Bot
                     .AddChoice("🔮 Extra", "extra")
                     .WithType(ApplicationCommandOptionType.String)
                     );
-            await guild.CreateApplicationCommandAsync(trainCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(trainCommand.Build()));
 
 
             //"shop" command
             SlashCommandBuilder shopCommand = new SlashCommandBuilder()
                 .WithName("shop")
                 .WithDescription("Buy new gear from a random weekly selection.");
-            await guild.CreateApplicationCommandAsync(shopCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(shopCommand.Build()));
 
 
             //"class" command
@@ -238,7 +246,7 @@ namespace CD2_Bot
                 .WithName("class")
                 .WithDescription("Search classes by name.")
                 .AddOption("name", ApplicationCommandOptionType.String, "Name of the class.", isRequired: true);
-            await guild.CreateApplicationCommandAsync(classCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(classCommand.Build()));
 
 
             //"setclass" command
@@ -255,12 +263,13 @@ namespace CD2_Bot
                 setclassOptions.AddChoice($"{c.Name} (Lvl. {c.Level})", c.Name);
             }
             setclassCommand.AddOption(setclassOptions);
-            await guild.CreateApplicationCommandAsync(setclassCommand.Build());
+            commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(setclassCommand.Build()));
 
+            await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Info, "Command Registry", "Registering Commands!"));
 
-            //#############
-            //real commands
-            //#############
+            await Task.WhenAll(commands);
+
+            await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Info, "Command Registry", "Finished registering Commands!"));
         }
     }
 }
