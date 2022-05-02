@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Net;
@@ -97,6 +94,79 @@ namespace CD2_Bot
 
                 //draw stat multiplier
                 g.DrawString(multi.ToString(), gfont, brush, new Rectangle(505, 340, 277, 34));
+
+                //finalize
+                g.Dispose();
+                MemoryStream output = new MemoryStream();
+                image.Save(output, System.Drawing.Imaging.ImageFormat.Png);
+                image.Dispose();
+                return output;
+            }
+        }
+
+        public static async Task<MemoryStream> MakeStatsImage(CharacterStructure stats)
+        {
+            string backgound = "static/stats1.png";
+
+            Weapon weaponstats = stats.Weapon;
+            Armor armorstats = stats.Armor;
+            Extra extrastats = stats.Extra;
+
+            string name = stats.CharacterName;
+
+            string weapon = weaponstats.Name;
+            int wexp = weaponstats.EXP;
+            int wlevel = weaponstats.Level;
+            decimal wdamage = weaponstats.Damage;
+
+            string armor = armorstats.Name;
+            int aexp = armorstats.EXP;
+            int alevel = armorstats.Level;
+            int resistance = armorstats.Resistance;
+
+            string extra = extrastats.Name;
+            int eexp = extrastats.EXP;
+            int elevel = extrastats.Level;
+            decimal edamage = extrastats.Damage;
+            int eheal = extrastats.Heal;
+
+            using (Bitmap image = new Bitmap(backgound))
+            using (Graphics g = Graphics.FromImage(image))
+            using (Font hfont = new Font("Heebo", 40, FontStyle.Bold))
+            using (Font dfont = new Font("Rubik", 30))
+            using (Font gfont = new Font("Rubik", 20))
+            using (Brush hbrush = new SolidBrush(Color.FromArgb(20, 20, 20)))
+            using (Brush brush = new SolidBrush(Color.FromArgb(255, 255, 255)))
+            using (Brush hpbrush = new SolidBrush(Color.FromArgb(221, 46, 68)))
+            using (WebClient client = new WebClient())
+            {
+                //settings for text drawing
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+                StringFormat center = new StringFormat();
+                center.Alignment = StringAlignment.Center;
+
+                //draw name
+                g.DrawString(name, hfont, hbrush, new PointF(10, 13));
+
+                //draw weapon
+                g.DrawString(weapon, dfont, brush, new Rectangle(82, 100, 500, 34));
+                g.DrawString($"EXP: {wexp}", gfont, brush, new Rectangle(82, 140, 500, 34));
+                g.DrawString($"LVL: {wlevel}", gfont, brush, new Rectangle(82, 165, 500, 34));
+                g.DrawString($"Damage: {wdamage}", gfont, brush, new Rectangle(200, 140, 500, 34));
+
+                //draw armor
+                g.DrawString(armor, dfont, brush, new Rectangle(82, 200, 500, 34));
+                g.DrawString($"EXP: {aexp}", gfont, brush, new Rectangle(82, 240, 500, 34));
+                g.DrawString($"LVL: {alevel}", gfont, brush, new Rectangle(82, 265, 500, 34));
+                g.DrawString($"Resistance: {resistance}%", gfont, brush, new Rectangle(200, 240, 500, 34));
+
+                //draw extra
+                g.DrawString(extra, dfont, brush, new Rectangle(82, 300, 500, 34));
+                g.DrawString($"EXP: {eexp}", gfont, brush, new Rectangle(82, 340, 500, 34));
+                g.DrawString($"LVL: {elevel}", gfont, brush, new Rectangle(82, 365, 500, 34));
+                g.DrawString($"Damage: {edamage}", gfont, brush, new Rectangle(200, 340, 500, 34));
+                g.DrawString($"Heal: {eheal}", gfont, brush, new Rectangle(200, 365, 500, 34));
 
                 //finalize
                 g.Dispose();

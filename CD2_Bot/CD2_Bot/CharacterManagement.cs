@@ -126,34 +126,10 @@ namespace CD2_Bot
             }
             else
             {
-                var embed = new EmbedBuilder
+                using (MemoryStream ms = await ImageGenerator.MakeStatsImage(stats))
                 {
-                    Title = $"{stats.CharacterName} - Gear",
-                    Description = "",
-                    ThumbnailUrl = avatarurl,
-                };
-
-                embed.Description += "🗡 **Weapon**:\n" +
-                    $"Name: {stats.Weapon.Name}\n" +
-                    $"EXP: {stats.Weapon.EXP}\n" +
-                    $"Level: {stats.Weapon.Level}\n" +
-                    $"Damage: {stats.Weapon.Damage}\n\n";
-
-                embed.Description += "🛡 **Armor**:\n" +
-                    $"Name: {stats.Armor.Name}\n" +
-                    $"EXP: {stats.Armor.EXP}\n" +
-                    $"Level: {stats.Armor.Level}\n" +
-                    $"Resistance: {stats.Armor.Resistance}\n\n";
-
-                embed.Description += "🔮 **Extra**:\n" +
-                    $"Name: {stats.Extra.Name}\n" +
-                    $"EXP: {stats.Extra.EXP}\n" +
-                    $"Level: {stats.Extra.Level}\n" +
-                    $"Damage: {stats.Extra.Damage}\n" +
-                    $"Heal: {stats.Extra.Heal}";
-                embed.WithColor(Color.DarkMagenta);
-                embed.WithFooter(Defaults.FOOTER);
-                await cmd.RespondAsync(embed: embed.Build());
+                    Utils.SendFileAsyncFast(cmd, ms.ToArray(), stats.PlayerID + "_stats.png");
+                }
             }
         }
 
