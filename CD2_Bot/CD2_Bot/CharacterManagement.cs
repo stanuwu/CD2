@@ -133,19 +133,19 @@ namespace CD2_Bot
                     ThumbnailUrl = avatarurl,
                 };
 
-                embed.Description += "**Weapon**:\n" +
+                embed.Description += "🗡 **Weapon**:\n" +
                     $"Name: {stats.Weapon.Name}\n" +
                     $"EXP: {stats.Weapon.EXP}\n" +
                     $"Level: {stats.Weapon.Level}\n" +
                     $"Damage: {stats.Weapon.Damage}\n\n";
 
-                embed.Description += "**Armor**:\n" +
+                embed.Description += "🛡 **Armor**:\n" +
                     $"Name: {stats.Armor.Name}\n" +
                     $"EXP: {stats.Armor.EXP}\n" +
                     $"Level: {stats.Armor.Level}\n" +
                     $"Resistance: {stats.Armor.Resistance}\n\n";
 
-                embed.Description += "**Extra**:\n" +
+                embed.Description += "🔮 **Extra**:\n" +
                     $"Name: {stats.Extra.Name}\n" +
                     $"EXP: {stats.Extra.EXP}\n" +
                     $"Level: {stats.Extra.Level}\n" +

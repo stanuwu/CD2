@@ -226,6 +226,12 @@ namespace CD2_Bot
             await guild.CreateApplicationCommandAsync(trainCommand.Build());
 
 
+            //"shop" command
+            SlashCommandBuilder shopCommand = new SlashCommandBuilder()
+                .WithName("shop")
+                .WithDescription("Buy new gear from a random weekly selection.");
+            await guild.CreateApplicationCommandAsync(shopCommand.Build());
+
 
             //#############
             //real commands

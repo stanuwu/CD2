@@ -106,6 +106,9 @@ namespace CD2_Bot
                     case "train":
                         await Train.TrainAsync(command);
                         break;
+                    case "shop":
+                        await Shop.ShopAsync(command);
+                        break;
                     default:
                         await command.RespondAsync($"The command {command.CommandName} has not been created or linked.");
                         break;

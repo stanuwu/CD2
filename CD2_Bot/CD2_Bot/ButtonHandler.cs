@@ -59,6 +59,9 @@ namespace CD2_Bot
                     case "gboard":
                         await DisplayGlobalLeaderBoard(btn);
                         break;
+                    case "shop":
+                        await ShopButton(btn);
+                        break;
                 }
             }
             catch (Exception e)
@@ -790,6 +793,17 @@ namespace CD2_Bot
                     embedg.WithFooter(Defaults.FOOTER);
                     await btn.UpdateAsync(x => { x.Embed = embedg.Build(); x.Components = null; });
 
+                    break;
+            }
+        }
+
+        static public async Task ShopButton(SocketMessageComponent btn)
+        {
+            string[] btndata = btn.Data.CustomId.Split(';');
+            switch(btndata[1])
+            {
+                case "buy":
+                    await Shop.ShopBuy(btn, btndata[2]);
                     break;
             }
         }

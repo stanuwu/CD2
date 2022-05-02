@@ -163,6 +163,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelectionHandler.cs" />
+    <Compile Include="Shop.cs" />
     <Compile Include="SimulateFight.cs" />
     <Compile Include="MiscStats.cs" />
     <Compile Include="SimulatePlayerFight.cs" />
