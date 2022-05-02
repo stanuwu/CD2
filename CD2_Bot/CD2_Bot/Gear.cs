@@ -22,6 +22,22 @@ namespace CD2_Bot
         Handmade,
     }
 
+    public enum Category
+    {
+        Sword,
+        Bow,
+        Dagger,
+        Axe,
+        Blunt,
+        Wand,
+        Lance,
+        Boomerang,
+        Magic,
+        Firearm,
+        Sicle,
+        Scythe,
+    }
+
     public static class Prices
     {
         public static Dictionary<Rarity, int> sell = new Dictionary<Rarity, int> {
@@ -84,7 +100,7 @@ namespace CD2_Bot
 
     public class Weapon : IGearStats
     {
-        public Weapon(string name, string description, int damage, int exp, string customeffectname, string customeffectdesc, Rarity rarity, bool canDrop = true)
+        public Weapon(string name, string description, int damage, int exp, string customeffectname, string customeffectdesc, Rarity rarity, Category category, bool canDrop = true)
         {
             Name = name;
             Description = description;
@@ -105,6 +121,8 @@ namespace CD2_Bot
         public string CustomEffectDescription { get; set; }
         public Rarity Rarity { get; set; }
         public bool CanDrop { get; set; }
+        public Category Category { get; set; }
+
         public double CustomEffect(CharacterStructure character, Enemy enemy, Armor armor, Extra extra)
         {
             switch (this.CustomEffectName)
@@ -567,65 +585,65 @@ namespace CD2_Bot
         public static List<Weapon> Weapons = new List<Weapon>
         {
             // common
-            new Weapon("Stick", "A simple wooden stick.", 3, 0, null, null, Rarity.Common),
-            new Weapon("Stone Hatchet", "A tool generally used for cutting wood.", 7, 0, null, null, Rarity.Common),
-            new Weapon("Shortsword", "A basic blade crafted with simple iron.", 8, 0, null, null, Rarity.Common),
-            new Weapon("Wooden Wand", "Equipped to cast only the most basic of spells.", 7, 0, null, null, Rarity.Common),
-            new Weapon("Dagger", "A small dagger that can be hidden away in your sleeve.", 6, 0, null, null, Rarity.Common),
-            new Weapon("Claymore", "A large but heavy blade.", 11, 0, null, null, Rarity.Common),
-            new Weapon("Miniature Lance", "A shortened lance for short range stabbing.", 8, 0, null, null, Rarity.Common),
+            new Weapon("Stick", "A simple wooden stick.", 3, 0, null, null, Rarity.Common, Category.Blunt),
+            new Weapon("Stone Hatchet", "A tool generally used for cutting wood.", 7, 0, null, null, Rarity.Common, Category.Axe),
+            new Weapon("Shortsword", "A basic blade crafted with simple iron.", 8, 0, null, null, Rarity.Common, Category.Sword),
+            new Weapon("Wooden Wand", "Equipped to cast only the most basic of spells.", 7, 0, null, null, Rarity.Common, Category.Wand),
+            new Weapon("Dagger", "A small dagger that can be hidden away in your sleeve.", 6, 0, null, null, Rarity.Common, Category.Dagger),
+            new Weapon("Claymore", "A large but heavy blade.", 11, 0, null, null, Rarity.Common, Category.Sword),
+            new Weapon("Miniature Lance", "A shortened lance for short range stabbing.", 8, 0, null, null, Rarity.Common, Category.Lance),
             // uncommon
-            new Weapon("Bladed Boomerang", "Sharp and throwable.", 19, 0, null, null, Rarity.Uncommon),
-            new Weapon("Hunting Bow", "Shoots powerful steel arrows.", 17, 0, null, null, Rarity.Uncommon),
-            new Weapon("Mana Catalyst", "Absorbs the mana around you and channels it into magic.", 16, 0, null, null, Rarity.Uncommon),
-            new Weapon("Dreihander", "A sword so heavy that two hands aren't enough to carry it.", 18, 0, null, null, Rarity.Uncommon),
-            new Weapon("Big Cannon", "Watch out for the recoil.", 17, 0, null, null, Rarity.Uncommon),
-            new Weapon("Morning Star", "A big spikey ball on a stick.", 21, 0, null, null, Rarity.Uncommon),
+            new Weapon("Bladed Boomerang", "Sharp and throwable.", 19, 0, null, null, Rarity.Uncommon, Category.Boomerang),
+            new Weapon("Hunting Bow", "Shoots powerful steel arrows.", 17, 0, null, null, Rarity.Uncommon, Category.Bow),
+            new Weapon("Mana Catalyst", "Absorbs the mana around you and channels it into magic.", 16, 0, null, null, Rarity.Uncommon, Category.Magic),
+            new Weapon("Dreihander", "A sword so heavy that two hands aren't enough to carry it.", 18, 0, null, null, Rarity.Uncommon, Category.Sword),
+            new Weapon("Big Cannon", "Watch out for the recoil.", 17, 0, null, null, Rarity.Uncommon, Category.Firearm),
+            new Weapon("Morning Star", "A big spikey ball on a stick.", 21, 0, null, null, Rarity.Uncommon, Category.Blunt),
             // rare
-            new Weapon("Vampire Tooth", "Steal your opponents' life by slashing them apart.", 25, 0, "Lifesteal", "Heals for twice your damage before the start of the battle.", Rarity.Rare),
-            new Weapon("Darkened Lucerne", "The blood on this halberd has turned its color to a dark red.", 31, 0, null, null, Rarity.Rare),
-            new Weapon("Spiked Brass Knuckles", "Punch your enemy into the ground, leaving no room for parries.", 29, 0, null, null, Rarity.Rare),
-            new Weapon("Kusarigama", "A chain sickle to wrap and slice your enemies up with.", 29, 0, null, null, Rarity.Rare),
-            new Weapon("Flaming Scimitar", "This lightweight, curved blade burns your enemies with a slash.", 30, 0, null, null, Rarity.Rare),
-            new Weapon("Electric Crossbow", "Shoots electrically-charged, hefty bolts.", 27, 0, null, null, Rarity.Rare),
+            new Weapon("Vampire Tooth", "Steal your opponents' life by slashing them apart.", 25, 0, "Lifesteal", "Heals for twice your damage before the start of the battle.", Rarity.Rare, Category.Dagger),
+            new Weapon("Darkened Lucerne", "The blood on this halberd has turned its color to a dark red.", 31, 0, null, null, Rarity.Rare, Category.Lance),
+            new Weapon("Spiked Brass Knuckles", "Punch your enemy into the ground, leaving no room for parries.", 29, 0, null, null, Rarity.Rare, Category.Blunt),
+            new Weapon("Kusarigama", "A chain sickle to wrap and slice your enemies up with.", 29, 0, null, null, Rarity.Rare, Category.Sicle),
+            new Weapon("Flaming Scimitar", "This lightweight, curved blade burns your enemies with a slash.", 30, 0, null, null, Rarity.Rare, Category.Sword),
+            new Weapon("Electric Crossbow", "Shoots electrically-charged, hefty bolts.", 27, 0, null, null, Rarity.Rare, Category.Bow),
             // epic
-            new Weapon("Crystalrend", "The reflection of their faces on this gleaming blade is the last thing the enemy'll see.", 48, 0, null, null, Rarity.Epic),
-            new Weapon("Staff of the Elements", "Channel the eternal strength of nature and force it upon your foes.", 47, 0, null, null, Rarity.Epic),
-            new Weapon("Futurefinder", "A blade that is said to come from a time succeeding ours.", 45, 0, "Future Sight", "Has a chance to predict an enemy's attack, completely avoiding it.", Rarity.Epic), 
-            new Weapon("Lance of the Stars", "All the stars' fury gets cast upon an opponent pierced by this weapon.", 49, 0, null, null, Rarity.Epic),
-            new Weapon("Frostbite Tome", "Etches the arts of ice magic into your soul.", 44, 0, "Freeze", "Decreases damage and resistance of the enemy.", Rarity.Epic), 
-            new Weapon("Long-sunken Anchor", "Reclaimed by oceanic wildlife, but still hits like a truck.", 48, 0, null, null, Rarity.Epic),
-            new Weapon("Darkwood Staff", "You can feel the forest's power flowing through it with every hit.", 47, 0, null, null, Rarity.Epic),
+            new Weapon("Crystalrend", "The reflection of their faces on this gleaming blade is the last thing the enemy'll see.", 48, 0, null, null, Rarity.Epic, Category.Sword),
+            new Weapon("Staff of the Elements", "Channel the eternal strength of nature and force it upon your foes.", 47, 0, null, null, Rarity.Epic, Category.Wand),
+            new Weapon("Futurefinder", "A blade that is said to come from a time succeeding ours.", 45, 0, "Future Sight", "Has a chance to predict an enemy's attack, completely avoiding it.", Rarity.Epic, Category.Sword), 
+            new Weapon("Lance of the Stars", "All the stars' fury gets cast upon an opponent pierced by this weapon.", 49, 0, null, null, Rarity.Epic, Category.Lance),
+            new Weapon("Frostbite Tome", "Etches the arts of ice magic into your soul.", 44, 0, "Freeze", "Decreases damage and resistance of the enemy.", Rarity.Epic, Category.Magic), 
+            new Weapon("Long-sunken Anchor", "Reclaimed by oceanic wildlife, but still hits like a truck.", 48, 0, null, null, Rarity.Epic, Category.Blunt),
+            new Weapon("Darkwood Staff", "You can feel the forest's power flowing through it with every hit.", 47, 0, null, null, Rarity.Epic, Category.Wand),
             // legendary
-            new Weapon("Link Breaker", "No trace of a connection remains once something is cut by this blade.", 75, 0, null, null, Rarity.Legendary),
-            new Weapon("Ancient Root Hammer", "Birthed from an ancient, evergrowing tree, this hammer is nearly indestructible.", 71, 0, "Stun", "Small chance for the enemy to not attack you.", Rarity.Legendary),
-            new Weapon("Runed Greatshield", "A gigantic shield to protect you from attacks - or bash in some heads.", 69, 0, "Fortified", "Increases your Resistance.", Rarity.Legendary),
-            new Weapon("Erebus Gauntlets", "Gauntlets imbued with the power of the underworld.", 73, 0, "Critical Eye", "Chance to critically hit an enemy.", Rarity.Legendary),
-            new Weapon("Lightray Bowgun", "Beam your enemies away with the sun's shining light.", 74, 0, "Blessing Light", "Heals you on attack.", Rarity.Legendary),
-            new Weapon("Propeller Blade", "Has three modes. Can be really strong ONLY if you're lucky.", 75, 0, "Motor Function", "Chance on hit to either do 55, 75 or 90 damage on hit (Each 33.3% chance).", Rarity.Legendary),
-            new Weapon("Scythe of the Young Reaper", "Used to take away the souls of the deceased - but doesn't always work.", 20, 0, "Guide to the Afterlife", "Tiny chance to instantly kill an enemy.", Rarity.Legendary),
+            new Weapon("Link Breaker", "No trace of a connection remains once something is cut by this blade.", 75, 0, null, null, Rarity.Legendary, Category.Sword),
+            new Weapon("Ancient Root Hammer", "Birthed from an ancient, evergrowing tree, this hammer is nearly indestructible.", 71, 0, "Stun", "Small chance for the enemy to not attack you.", Rarity.Legendary, Category.Blunt),
+            new Weapon("Runed Greatshield", "A gigantic shield to protect you from attacks - or bash in some heads.", 69, 0, "Fortified", "Increases your Resistance.", Rarity.Legendary, Category.Blunt),
+            new Weapon("Erebus Gauntlets", "Gauntlets imbued with the power of the underworld.", 73, 0, "Critical Eye", "Chance to critically hit an enemy.", Rarity.Legendary, Category.Blunt),
+            new Weapon("Lightray Bowgun", "Beam your enemies away with the sun's shining light.", 74, 0, "Blessing Light", "Heals you on attack.", Rarity.Legendary, Category.Bow),
+            new Weapon("Propeller Blade", "Has three modes. Can be really strong ONLY if you're lucky.", 75, 0, "Motor Function", "Chance on hit to either do 55, 75 or 90 damage on hit (Each 33.3% chance).", Rarity.Legendary, Category.Sword),
+            new Weapon("Scythe of the Young Reaper", "Used to take away the souls of the deceased - but doesn't always work.", 20, 0, "Guide to the Afterlife", "Tiny chance to instantly kill an enemy.", Rarity.Legendary, Category.Scythe),
             // unstable
-            new Weapon("Pulsar Breaker", "Can break a star in half with magnetic powers.", 94, 0, null, null, Rarity.Unstable),
-            new Weapon("Soultracer", "Slice the edges of your opponent's soul.", 90, 0, "Critical Eye", "Chance to critically hit an enemy.", Rarity.Unstable), 
-            new Weapon("Heartstopper", "These claws are infamous for making opponents freeze in fear merely at a glance.", 90, 0, "Weakness Exploit", "Weakens the enemies Resistance.", Rarity.Unstable),
-            new Weapon("Bodybreaker", "Pulverize your opponent's bones through mere punches.", 90, 0, "Stun", "Small chance for the enemy to not attack you.", Rarity.Unstable),
-            new Weapon("Deep Ocean Geyser", "Command the waters and blast them at your foes.", 97, 0, null, null, Rarity.Unstable),
-            new Weapon("Ebony Cloud", "Thunder and lightning are yours to control.", 95, 0, null, null, Rarity.Unstable),
-            new Weapon("Sphere of the Abyss", "Absorbs the light to bring about eternal darkness.", 98, 0, null, null, Rarity.Unstable), 
+            new Weapon("Pulsar Breaker", "Can break a star in half with magnetic powers.", 94, 0, null, null, Rarity.Unstable, Category.Magic),
+            new Weapon("Soultracer", "Slice the edges of your opponent's soul.", 90, 0, "Critical Eye", "Chance to critically hit an enemy.", Rarity.Unstable, Category.Sword), 
+            new Weapon("Heartstopper", "These claws are infamous for making opponents freeze in fear merely at a glance.", 90, 0, "Weakness Exploit", "Weakens the enemies Resistance.", Rarity.Unstable, Category.Blunt),
+            new Weapon("Bodybreaker", "Pulverize your opponent's bones through mere punches.", 90, 0, "Stun", "Small chance for the enemy to not attack you.", Rarity.Unstable, Category.Blunt),
+            new Weapon("Deep Ocean Geyser", "Command the waters and blast them at your foes.", 97, 0, null, null, Rarity.Unstable, Category.Magic),
+            new Weapon("Ebony Cloud", "Thunder and lightning are yours to control.", 95, 0, null, null, Rarity.Unstable, Category.Magic),
+            new Weapon("Sphere of the Abyss", "Absorbs the light to bring about eternal darkness.", 98, 0, null, null, Rarity.Unstable, Category.Magic), 
             // corrupted
-            new Weapon("Nocturnal Scythe", "Can taint the entire sky a deep, abyssal dark.", 130, 0, null, null, Rarity.Corrupted),
-            new Weapon("Syzygy", "A pair of celestial swords, the sun and the moon, aligning with your very being.", 126, 0, null, null, Rarity.Corrupted),
-            new Weapon("Scepter of Cores", "The inferno of the planet's core is at your disposal.", 120, 0, null, null, Rarity.Corrupted),
-            new Weapon("Dogma", "Gauntlets of gleaming plasma with destructive capabilities.", 125, 0, "Heavy Stun", "Medium chance for the enemy to not attack you.", Rarity.Corrupted),
-            new Weapon("Hammer of Tabula Rasa", "Said to be able to flatten mountains.", 122, 0, null, null, Rarity.Corrupted),
-            new Weapon("Astral Binding Bow", "Bound to the stars, this weapon can light up the night sky.", 124, 0, null, null, Rarity.Corrupted),
-            new Weapon("Jormungandr", "A giant longsword, unmatched in length, and an undying snake wrapped around its blade.", 121, 0, "Worldpoison", "Heavily poisons your enemy, dealing damage over time.", Rarity.Corrupted),
+            new Weapon("Nocturnal Scythe", "Can taint the entire sky a deep, abyssal dark.", 130, 0, null, null, Rarity.Corrupted, Category.Scythe),
+            new Weapon("Syzygy", "A pair of celestial swords, the sun and the moon, aligning with your very being.", 126, 0, null, null, Rarity.Corrupted, Category.Sword),
+            new Weapon("Scepter of Cores", "The inferno of the planet's core is at your disposal.", 120, 0, null, null, Rarity.Corrupted, Category.Wand),
+            new Weapon("Dogma", "Gauntlets of gleaming plasma with destructive capabilities.", 125, 0, "Heavy Stun", "Medium chance for the enemy to not attack you.", Rarity.Corrupted, Category.Blunt),
+            new Weapon("Hammer of Tabula Rasa", "Said to be able to flatten mountains.", 122, 0, null, null, Rarity.Corrupted, Category.Blunt),
+            new Weapon("Astral Binding Bow", "Bound to the stars, this weapon can light up the night sky.", 124, 0, null, null, Rarity.Corrupted, Category.Bow),
+            new Weapon("Jormungandr", "A giant longsword, unmatched in length, and an undying snake wrapped around its blade.", 121, 0, "Worldpoison", "Heavily poisons your enemy, dealing damage over time.", Rarity.Corrupted, Category.Sword),
             // unique
 
             //handmade
-            new Weapon("Wooden Sword", "Only made for combat training.", 5, 0, null, null, Rarity.Common, false),
-            new Weapon("Restored Sword", "An old sword, restored to its former glory.", 13, 0, null, null, Rarity.Common, false),
-            new Weapon("Diamond Tip Sword", "Made out of an incredible amount of stone and one diamond.", 50, 0, null, null, Rarity.Epic, false),
+            new Weapon("Wooden Sword", "Only made for combat training.", 5, 0, null, null, Rarity.Common, Category.Sword, false),
+            new Weapon("Restored Sword", "An old sword, restored to its former glory.", 13, 0, null, null, Rarity.Common, Category.Sword, false),
+            new Weapon("Diamond Tip Sword", "Made out of an incredible amount of stone and one diamond.", 50, 0, null, null, Rarity.Epic, Category.Sword, false),
         };
 
         public static List<Armor> Armors = new List<Armor>
