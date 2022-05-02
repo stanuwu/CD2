@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Net;
 using Discord;
+using Color = System.Drawing.Color;
 
 namespace CD2_Bot
 {
@@ -14,7 +15,7 @@ namespace CD2_Bot
     {
         public static async Task<MemoryStream> MakeCharacterImage(CharacterStructure stats)
         {
-            string backgound = "static/characterbg1.png";
+            string backgound = "static/bg1.png";
 
             string name = stats.CharacterName;
             int level = stats.Lvl;
@@ -40,14 +41,13 @@ namespace CD2_Bot
                 imageurl = Defaults.CLIENT.CurrentUser.GetDefaultAvatarUrl();
             }
             using (Bitmap image = new Bitmap(backgound))
-            using (Font hfont = new Font("Dubai Light", 54))
-            using (Font dfont = new Font("Consolas", 28))
-            using (Font gfont = new Font("Consolas", 20))
+            using (Font hfont = new Font("Heebo", 8, FontStyle.Bold))
+            using (Font dfont = new Font("Rubik", 6))
+            using (Font gfont = new Font("Rubik", 5))
             using (Graphics g = Graphics.FromImage(image))
-            using (Brush hbrush = new SolidBrush(System.Drawing.Color.FromArgb(9, 255, 252)))
-            using (Brush brush = new SolidBrush(System.Drawing.Color.FromArgb(0, 210, 210)))
-            using (Brush hpbrush = new SolidBrush(System.Drawing.Color.FromArgb(221, 46, 68)))
-            using (Brush hpobrush = new SolidBrush(System.Drawing.Color.FromArgb(0, 0, 0)))
+            using (Brush hbrush = new SolidBrush(Color.FromArgb(20, 20, 20)))
+            using (Brush brush = new SolidBrush(Color.FromArgb(255, 255, 255)))
+            using (Brush hpbrush = new SolidBrush(Color.FromArgb(221, 46, 68)))
             using (WebClient client = new WebClient())
             using (Bitmap pfp = new Bitmap(client.OpenRead(imageurl)))
             {
@@ -56,46 +56,47 @@ namespace CD2_Bot
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
                 StringFormat center = new StringFormat();
                 center.Alignment = StringAlignment.Center;
+
                 //draw name
-                g.DrawString(name, hfont, hbrush, new PointF(170, 20));
+                g.DrawString(name, hfont, hbrush, new PointF(186, 65));
 
                 //draw desciption
-                g.DrawString(description, dfont, brush, new Rectangle(180, 95, 390, 70));
+                g.DrawString(description, gfont, brush, new Rectangle(350, 225, 219, 80));
 
                 //draw profile picture
-                g.DrawImage(pfp, 40, 40, 120, 120);
+                g.DrawImage(pfp, 22, 37, 163, 163);
 
                 //draw money
-                g.DrawString(money.ToString("N0").Replace(",", " "), gfont, brush, new Rectangle(60, 270, 240, 34));
+                g.DrawString(money.ToString("N0"), gfont, brush, new Rectangle(376, 322, 240, 34));
 
                 //draw exp
-                g.DrawString(exp.ToString("N0").Replace(",", " "), gfont, brush, new Rectangle(343, 270, 237, 34));
+                g.DrawString(exp.ToString("N0"), gfont, brush, new Rectangle(376, 353, 237, 34));
 
                 //draw level
-                g.DrawString("Lvl " + level, dfont, brush, new Rectangle(40, 175, 120, 35), center);
+                g.DrawString("LVL " + level, dfont, brush, new Rectangle(444, 120, 100, 35), center);
 
                 //draw class
-                g.DrawString("Class: " + cclass, gfont, brush, new Rectangle(385, 180, 195, 34));
+                g.DrawString(cclass, dfont, brush, new Rectangle(233, 120, 195, 34));
 
                 //draw title
-                g.DrawString("Title: " + title, gfont, brush, new Rectangle(172, 180, 192, 34));
+                g.DrawString(title, dfont, brush, new Rectangle(194, 33, 195, 37));
 
                 //drawhealthbar
-                int healthbarlength = (int)Math.Round(((double)512 / maxhp) * hp);
-                g.FillRectangle(hpbrush, new Rectangle(69, 218, healthbarlength, 38));
-                g.DrawString($"{hp}/{maxhp}", dfont, hpobrush, new Rectangle(70, 221, 510, 35), center);
+                int healthbarlength = (int)Math.Round(((double)361 / maxhp) * hp);
+                g.FillRectangle(hpbrush, new Rectangle(212, 172, healthbarlength, 29));
+                g.DrawString($"{hp}/{maxhp}", dfont, brush, new Rectangle(335, 172, 510, 35));
 
                 //draw weapon
-                g.DrawString(weapon, gfont, brush, new Rectangle(60, 310, 235, 34));
+                g.DrawString(weapon, gfont, brush, new Rectangle(82, 233, 235, 34));
 
                 //draw armor
-                g.DrawString(armor, gfont, brush, new Rectangle(342, 310, 235, 34));
+                g.DrawString(armor, gfont, brush, new Rectangle(82, 289, 235, 34));
 
                 //draw extra
-                g.DrawString(extra, gfont, brush, new Rectangle(60, 350, 235, 34));
+                g.DrawString(extra, gfont, brush, new Rectangle(82, 345, 360, 34));
 
                 //draw stat multiplier
-                g.DrawString(multi*100+"%", gfont, brush, new Rectangle(342, 350, 235, 34));
+                g.DrawString(multi.ToString(), gfont, brush, new Rectangle(505, 340, 277, 34));
 
                 //finalize
                 g.Dispose();
