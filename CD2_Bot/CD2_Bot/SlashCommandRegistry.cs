@@ -26,42 +26,45 @@ namespace CD2_Bot
                 //"test" command
                 SocketGuild guild = Defaults.CLIENT.GetGuild(Defaults.TESTGUILDID);
                 SlashCommandBuilder testCommand = new SlashCommandBuilder();
-                testCommand.WithName("test");
+                testCommand.WithName("test")
+                    .WithDescription("Admin Command: Test commands.");
                 commands.Add(guild.CreateApplicationCommandAsync(testCommand.Build()));
 
 
                 //"guilds" command
                 SlashCommandBuilder guildsCommand = new SlashCommandBuilder();
-                testCommand.WithName("guilds");
-                testCommand.WithDescription("Admin Command: Get the amount of guilds the bot is in.");
+                testCommand.WithName("guilds")
+                    .WithDescription("Admin Command: Get the amount of guilds the bot is in.");
                 commands.Add(guild.CreateApplicationCommandAsync(guildsCommand.Build()));
 
 
                 //"users" command
                 SlashCommandBuilder usersCommand = new SlashCommandBuilder();
-                testCommand.WithName("users");
-                testCommand.WithDescription("Admin Command: Get the amount of unique users the bot has access to.");
+                testCommand.WithName("users")
+                    .WithDescription("Admin Command: Get the amount of unique users the bot has access to.");
                 commands.Add(guild.CreateApplicationCommandAsync(usersCommand.Build()));
 
 
                 //"reload" command
                 SlashCommandBuilder reloadCommand = new SlashCommandBuilder();
-                testCommand.WithName("reload");
-                testCommand.WithDescription("Admin Command: Reload the bot.");
+                testCommand.WithName("reload")
+                    .WithDescription("Admin Command: Reload the bot.");
                 commands.Add(guild.CreateApplicationCommandAsync(reloadCommand.Build()));
 
 
                 //"status" command
                 SlashCommandBuilder statusCommand = new SlashCommandBuilder();
-                testCommand.WithName("status");
-                testCommand.WithDescription("Admin Command: Change the status of the bot.");
+                testCommand.WithName("status")
+                    .WithDescription("Admin Command: Change the status of the bot.")
+                    .AddOption("utatus", ApplicationCommandOptionType.String, "The status to set.", isRequired: true);
                 commands.Add(guild.CreateApplicationCommandAsync(statusCommand.Build()));
 
 
                 //"broadcast" command
                 SlashCommandBuilder broadcastCommand = new SlashCommandBuilder();
-                testCommand.WithName("broadcast");
-                testCommand.WithDescription("Admin Command: Send a message to all servers the bot is in.");
+                testCommand.WithName("broadcast")
+                    .WithDescription("Admin Command: Send a message to all servers the bot is in.")
+                    .AddOption("message", ApplicationCommandOptionType.String, "The message to broadcast.", isRequired: true);
                 commands.Add(guild.CreateApplicationCommandAsync(broadcastCommand.Build()));
 
 
