@@ -63,7 +63,7 @@ namespace CD2_Bot
             {
                 if (g != null) {
                     ITextChannel channel = await g.GetDefaultChannelAsync(CacheMode.AllowDownload);
-                    await channel.SendMessageAsync(msg);
+                    if (channel != null) await channel.SendMessageAsync(msg);
                 }
             }
 
