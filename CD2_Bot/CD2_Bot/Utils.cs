@@ -45,10 +45,10 @@ namespace CD2_Bot
             return uusers.Count;
         }
 
-        public static async void RestartClient(ICommandContext ctx)
+        public static async void RestartClient()
         {
-            await ctx.Client.StopAsync();
-            await ctx.Client.StartAsync();
+            await Defaults.CLIENT.StopAsync();
+            await Defaults.CLIENT.StartAsync();
         }
 
         public static async void UpdateStatus(string msg)
@@ -56,9 +56,9 @@ namespace CD2_Bot
             await Defaults.CLIENT.SetGameAsync(msg);
         }
 
-        public static async void SendBroadcast(ICommandContext ctx, string msg)
+        public static async void SendBroadcast(string msg)
         {
-            IReadOnlyCollection<Discord.IGuild> guilds = await ctx.Client.GetGuildsAsync();
+            IReadOnlyCollection<Discord.IGuild> guilds = await ((IDiscordClient)Defaults.CLIENT).GetGuildsAsync();
             foreach (IGuild g in guilds)
             {
                 ITextChannel channel = await g.GetDefaultChannelAsync();

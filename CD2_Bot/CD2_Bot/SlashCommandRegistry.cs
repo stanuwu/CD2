@@ -19,20 +19,54 @@ namespace CD2_Bot
             //test commands
             //#############
 
+            List<Task> commands = new List<Task>() { };
+
             //"test" command
             SocketGuild guild = Defaults.CLIENT.GetGuild(Defaults.TESTGUILDID);
             SlashCommandBuilder testCommand = new SlashCommandBuilder();
             testCommand.WithName("test");
-            testCommand.WithDescription("this is a test");
-            await guild.CreateApplicationCommandAsync(testCommand.Build());
+            commands.Add(guild.CreateApplicationCommandAsync(testCommand.Build()));
+
+
+            //"guilds" command
+            SlashCommandBuilder guildsCommand = new SlashCommandBuilder();
+            testCommand.WithName("guilds");
+            testCommand.WithDescription("Admin Command: Get the amount of guilds the bot is in.");
+            commands.Add(guild.CreateApplicationCommandAsync(guildsCommand.Build()));
+
+
+            //"users" command
+            SlashCommandBuilder usersCommand = new SlashCommandBuilder();
+            testCommand.WithName("users");
+            testCommand.WithDescription("Admin Command: Get the amount of unique users the bot has access to.");
+            commands.Add(guild.CreateApplicationCommandAsync(usersCommand.Build()));
+
+
+            //"reload" command
+            SlashCommandBuilder reloadCommand = new SlashCommandBuilder();
+            testCommand.WithName("reload");
+            testCommand.WithDescription("Admin Command: Reload the bot.");
+            commands.Add(guild.CreateApplicationCommandAsync(reloadCommand.Build()));
+
+
+            //"status" command
+            SlashCommandBuilder statusCommand = new SlashCommandBuilder();
+            testCommand.WithName("status");
+            testCommand.WithDescription("Admin Command: Change the status of the bot.");
+            commands.Add(guild.CreateApplicationCommandAsync(statusCommand.Build()));
+
+
+            //"broadcast" command
+            SlashCommandBuilder broadcastCommand = new SlashCommandBuilder();
+            testCommand.WithName("broadcast");
+            testCommand.WithDescription("Admin Command: Send a message to all servers the bot is in.");
+            commands.Add(guild.CreateApplicationCommandAsync(broadcastCommand.Build()));
 
 
 
             //#############
             //real commands
             //#############
-
-            List<Task> commands = new List<Task>() {};
 
             //"character" command
             SlashCommandBuilder characterCommand = new SlashCommandBuilder()

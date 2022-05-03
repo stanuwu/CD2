@@ -4,24 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Discord.Commands;
+using Discord.WebSocket;
 
 namespace CD2_Bot
 {
-    public class AdminModule : ModuleBase<SocketCommandContext>
+    public static class AdminModule
     {
-        [Command("guilds")]
-        [Summary("List the number of guilds (servers) the bot is in.")]
-        public async Task GuildsAsync([Remainder] string xargs = null)
+        //"guilds" command
+        public static async Task GuildsAsync(SocketSlashCommand cmd)
         {
-            if (!Defaults.STAFF.Contains(Context.User.Id)) { return; }
-            await ReplyAsync(embed: Utils.QuickEmbedNormal("Guilds", Convert.ToString(await Utils.GuildCount())));
+            if (!Defaults.STAFF.Contains(cmd.User.Id)) { return; }
+            await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Guilds", Convert.ToString(await Utils.GuildCount())));
         }
 
-        [Command("users")]
-        [Summary("List the number of unique users in all the bots guilds.")]
-        public async Task UsersAsync([Remainder] string xargs = null)
+        //"users" commands
+        public static async Task UsersAsync(SocketSlashCommand cmd)
         {
-            if (!Defaults.STAFF.Contains(Context.User.Id)) { return; }
+            if (!Defaults.STAFF.Contains(cmd.User.Id)) { return; }
             string text = "";
             if (Defaults.UUSERS == 0)
             {
@@ -30,49 +29,47 @@ namespace CD2_Bot
             {
                 text = "" + Defaults.UUSERS;
             }
-            await ReplyAsync(embed: Utils.QuickEmbedNormal("Users", text));
+            await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Users", text));
         }
 
-        [Command("reload")]
-        [Summary("Reconnect the client to discord to potentially solve issues.")]
-        public async Task ReloadAsync([Remainder] string xargs = null)
+        //"reload" command
+        public static async Task ReloadAsync(SocketSlashCommand cmd)
         {
-            if (!Defaults.STAFF.Contains(Context.User.Id)) { return; }
-            Utils.RestartClient(Context);
-            await ReplyAsync(embed: Utils.QuickEmbedNormal("Reloaded!", ""));
+            if (!Defaults.STAFF.Contains(cmd.User.Id)) { return; }
+            Utils.RestartClient();
+            await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Reloaded!", ""));
         }
 
-        [Command("status")]
-        [Summary("Set the GameActivity status to a string.")]
-        public async Task StatusAsync([Remainder] string xargs = null)
+        //"status" command
+        public static async Task StatusAsync(SocketSlashCommand cmd)
         {
-            if (!Defaults.STAFF.Contains(Context.User.Id)) { return; }
-            if (String.IsNullOrEmpty(xargs))
+            if (!Defaults.STAFF.Contains(cmd.User.Id)) { return; }
+            if (cmd.Data.Options.Count < 1)
             {
-                await ReplyAsync(embed: Utils.QuickEmbedError("Provide a status to set!"));
-            } else
-            {
-                Utils.UpdateStatus(xargs);
-                await ReplyAsync(embed: Utils.QuickEmbedNormal("Status updated!", ""));
-            }
-            
-        }
-
-        [Command("broadcast")]
-        [Summary("Send message to every server the bot is in.")]
-        public async Task BroadcastAsync([Remainder] string xargs = null)
-        {
-            if (!Defaults.STAFF.Contains(Context.User.Id)) { return; }
-            if (String.IsNullOrEmpty(xargs))
-            {
-                await ReplyAsync(embed: Utils.QuickEmbedError("Enter a message to send out!"));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("Provide a status to set!"));
             }
             else
             {
-                Utils.SendBroadcast(Context, xargs);
-                await ReplyAsync(embed: Utils.QuickEmbedNormal("Sent broadcast!", ""));
+                string status = (string)cmd.Data.Options.First().Value;
+                Utils.UpdateStatus(status);
+                await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Status updated!", status));
             }
+        }
 
+        //"broadcast" command
+        public static async Task BroadcastAsync(SocketSlashCommand cmd)
+        {
+            if (!Defaults.STAFF.Contains(cmd.User.Id)) { return; }
+            if (cmd.Data.Options.Count < 1)
+            {
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("Enter a message to send out!"));
+            }
+            else
+            {
+                string broadcast = (string)cmd.Data.Options.First().Value;
+                Utils.SendBroadcast(broadcast);
+                await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Broadcasted!", broadcast));
+            }
         }
     }
 }

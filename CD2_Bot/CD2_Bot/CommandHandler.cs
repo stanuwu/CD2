@@ -115,6 +115,21 @@ namespace CD2_Bot
                     case "setclass":
                         await Class.SetClassAsync(command);
                         break;
+                    case "guilds":
+                        await AdminModule.GuildsAsync(command);
+                        break;
+                    case "users":
+                        await AdminModule.UsersAsync(command);
+                        break;
+                    case "reload":
+                        await AdminModule.ReloadAsync(command);
+                        break;
+                    case "status":
+                        await AdminModule.StatusAsync(command);
+                        break;
+                    case "broadcast":
+                        await AdminModule.BroadcastAsync(command);
+                        break;
                     default:
                         await command.RespondAsync($"The command {command.CommandName} has not been created or linked.");
                         break;
