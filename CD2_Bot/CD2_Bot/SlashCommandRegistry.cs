@@ -33,7 +33,7 @@ namespace CD2_Bot
 
                 //"guilds" command
                 SlashCommandBuilder guildsCommand = new SlashCommandBuilder();
-                guildCommand.WithName("guilds")
+                guildsCommand.WithName("guilds")
                     .WithDescription("Admin Command: Get the amount of guilds the bot is in.");
                 commands.Add(guild.CreateApplicationCommandAsync(guildsCommand.Build()));
 
