@@ -58,11 +58,13 @@ namespace CD2_Bot
 
         public static async void SendBroadcast(string msg)
         {
-            IReadOnlyCollection<Discord.IGuild> guilds = await ((IDiscordClient)Defaults.CLIENT).GetGuildsAsync();
+            IReadOnlyCollection<Discord.IGuild> guilds = await ((IDiscordClient)Defaults.CLIENT).GetGuildsAsync(CacheMode.AllowDownload);
             foreach (IGuild g in guilds)
             {
-                ITextChannel channel = await g.GetDefaultChannelAsync();
-                await channel.SendMessageAsync(msg);
+                if (g != null) {
+                    ITextChannel channel = await g.GetDefaultChannelAsync(CacheMode.AllowDownload);
+                    await channel.SendMessageAsync(msg);
+                }
             }
 
         }
