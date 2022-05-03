@@ -33,28 +33,28 @@ namespace CD2_Bot
 
                 //"guilds" command
                 SlashCommandBuilder guildsCommand = new SlashCommandBuilder();
-                testCommand.WithName("guilds")
+                guildCommand.WithName("guilds")
                     .WithDescription("Admin Command: Get the amount of guilds the bot is in.");
                 commands.Add(guild.CreateApplicationCommandAsync(guildsCommand.Build()));
 
 
                 //"users" command
                 SlashCommandBuilder usersCommand = new SlashCommandBuilder();
-                testCommand.WithName("users")
+                usersCommand.WithName("users")
                     .WithDescription("Admin Command: Get the amount of unique users the bot has access to.");
                 commands.Add(guild.CreateApplicationCommandAsync(usersCommand.Build()));
 
 
                 //"reload" command
                 SlashCommandBuilder reloadCommand = new SlashCommandBuilder();
-                testCommand.WithName("reload")
+                reloadCommand.WithName("reload")
                     .WithDescription("Admin Command: Reload the bot.");
                 commands.Add(guild.CreateApplicationCommandAsync(reloadCommand.Build()));
 
 
                 //"status" command
                 SlashCommandBuilder statusCommand = new SlashCommandBuilder();
-                testCommand.WithName("status")
+                statusCommand.WithName("status")
                     .WithDescription("Admin Command: Change the status of the bot.")
                     .AddOption("utatus", ApplicationCommandOptionType.String, "The status to set.", isRequired: true);
                 commands.Add(guild.CreateApplicationCommandAsync(statusCommand.Build()));
@@ -62,7 +62,7 @@ namespace CD2_Bot
 
                 //"broadcast" command
                 SlashCommandBuilder broadcastCommand = new SlashCommandBuilder();
-                testCommand.WithName("broadcast")
+                broadcastCommand.WithName("broadcast")
                     .WithDescription("Admin Command: Send a message to all servers the bot is in.")
                     .AddOption("message", ApplicationCommandOptionType.String, "The message to broadcast.", isRequired: true);
                 commands.Add(guild.CreateApplicationCommandAsync(broadcastCommand.Build()));
