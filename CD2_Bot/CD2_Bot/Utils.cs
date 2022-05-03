@@ -70,7 +70,7 @@ namespace CD2_Bot
                     }
                 } else {
                     try {
-                        channel = (await g.GetChannelsAsync(CacheMode.AllowDownload)).First();
+                        ITextChannel channel = (ITextChannel) (await g.GetChannelsAsync(CacheMode.AllowDownload)).First();
                         await channel.SendMessageAsync(msg);
                     } catch (Exception e) {} 
                 }
