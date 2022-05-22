@@ -80,7 +80,7 @@ namespace CD2_Bot
                         await MiscStats.ViewMonsterAsync(command);
                         break;
                     case "lvltop":
-                        await MiscStats.ServerTopAsync(command);
+                        await MiscStats.LevelTopAsync(command);
                         break;
                     case "moneytop":
                         await MiscStats.MoneyTopAsync(command);
@@ -132,6 +132,9 @@ namespace CD2_Bot
                         break;
                     case "summon":
                         await BossFights.SummonBossAsync(command);
+                        break;
+                    case "boss":
+                        await MiscStats.ViewBossesAsync(command);
                         break;
                     default:
                         await command.RespondAsync($"The command {command.CommandName} has not been created or linked.");

@@ -197,5 +197,10 @@ namespace CD2_Bot
             ms2.Position = 0;
             await cmd.RespondWithFileAsync(ms2, filename, "", null, false, false, null, null, null, null);
         }
+
+        public static CharacterStructure getCharacter(ulong cid)
+        {
+            return tempstorage.characters.Find(x => x.PlayerID == cid);
+        }
     }
 }

@@ -56,7 +56,7 @@ namespace CD2_Bot
         {
             string txt = $"@{DateTime.Now} [{(msg.Severity.ToString() + "]").PadRight(9, ' ')} {msg.Source.PadRight(15, ' ').Substring(0, 15)} -> {msg.Message}";
 
-            using (var sw = new StreamWriter("log.txt", true))
+            using (StreamWriter sw = new StreamWriter("log.txt", true))
             {
                 sw.WriteLine(txt);
             }

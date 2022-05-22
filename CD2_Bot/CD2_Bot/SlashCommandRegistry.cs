@@ -19,8 +19,8 @@ namespace CD2_Bot
             //test commands
             //#############
 
-            try {
-
+            try
+            {
                 List<Task> commands = new List<Task>() { };
 
                 SocketGuild guild = Defaults.CLIENT.GetGuild(Defaults.TESTGUILDID);
@@ -30,22 +30,6 @@ namespace CD2_Bot
                 {
                     guild = betaguild;
                 }
-
-                //"summon" command
-                SlashCommandBuilder summonCommand = new SlashCommandBuilder();
-                summonCommand.WithName("summon")
-                    .WithDescription("Summon a Boss");
-                SlashCommandOptionBuilder summonOptions = new SlashCommandOptionBuilder()
-                        .WithName("boss")
-                        .WithDescription("What Boss do you want to summon?")
-                        .WithRequired(true)
-                        .WithType(ApplicationCommandOptionType.String);
-                foreach (Boss b in BossFights.Bosses)
-                {
-                    summonOptions.AddChoice($"{b.Type} (min. Lvl. {b.Minlevel})", b.Type);
-                }
-                summonCommand.AddOption(summonOptions);
-                commands.Add(guild.CreateApplicationCommandAsync(summonCommand.Build()));
 
 
                 //"test" command
@@ -90,7 +74,6 @@ namespace CD2_Bot
                     .WithDescription("Admin Command: Send a message to all servers the bot is in.")
                     .AddOption("message", ApplicationCommandOptionType.String, "The message to broadcast.", isRequired: true);
                 commands.Add(guild.CreateApplicationCommandAsync(broadcastCommand.Build()));
-
 
 
                 //#############
@@ -278,7 +261,7 @@ namespace CD2_Bot
                         .AddChoice("⛏️ Mining", "mining")
                         .AddChoice("🍄 Collecting", "collecting")
                         .WithType(ApplicationCommandOptionType.String)
-                        );
+                    );
                 commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(farmCommand.Build()));
 
                 //"train" command
@@ -293,7 +276,7 @@ namespace CD2_Bot
                         .AddChoice("🛡 Armor", "armor")
                         .AddChoice("🔮 Extra", "extra")
                         .WithType(ApplicationCommandOptionType.String)
-                        );
+                    );
                 commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(trainCommand.Build()));
 
 
@@ -317,16 +300,53 @@ namespace CD2_Bot
                     .WithName("setclass")
                     .WithDescription("Set your class.");
                 SlashCommandOptionBuilder setclassOptions = new SlashCommandOptionBuilder()
-                        .WithName("class")
-                        .WithDescription("What class do you want to use?")
-                        .WithRequired(true)
-                        .WithType(ApplicationCommandOptionType.String);
+                    .WithName("class")
+                    .WithDescription("What class do you want to use?")
+                    .WithRequired(true)
+                    .WithType(ApplicationCommandOptionType.String);
                 foreach (Class c in Class.Classes)
                 {
                     setclassOptions.AddChoice($"{c.Name} (min. Lvl. {c.Level})", c.Name);
                 }
+
                 setclassCommand.AddOption(setclassOptions);
                 commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(setclassCommand.Build()));
+
+
+                //"summon" command
+                SlashCommandBuilder summonCommand = new SlashCommandBuilder();
+                summonCommand.WithName("summon")
+                    .WithDescription("Summon a Boss");
+                SlashCommandOptionBuilder summonOptions = new SlashCommandOptionBuilder()
+                    .WithName("boss")
+                    .WithDescription("What Boss do you want to summon?")
+                    .WithRequired(true)
+                    .WithType(ApplicationCommandOptionType.String);
+                foreach (Boss b in BossFights.Bosses)
+                {
+                    summonOptions.AddChoice($"{b.Type} (min. Lvl. {b.Minlevel})", b.Type);
+                }
+
+                summonCommand.AddOption(summonOptions);
+                commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(summonCommand.Build()));
+
+                //"boss" command
+                SlashCommandBuilder bossCommand = new SlashCommandBuilder();
+                bossCommand.WithName("boss")
+                    .WithDescription("Get info on a boss");
+                SlashCommandOptionBuilder bossOptions = new SlashCommandOptionBuilder()
+                    .WithName("boss")
+                    .WithDescription("What Boss do you want to look at?")
+                    .WithRequired(true)
+                    .WithType(ApplicationCommandOptionType.String);
+                foreach (Boss b in BossFights.Bosses)
+                {
+                    bossOptions.AddChoice(b.Type, b.Type);
+                }
+
+                bossCommand.AddOption(bossOptions);
+                commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(bossCommand.Build()));
+
 
                 await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Info, "Command Registry", "Registering Commands!"));
 
@@ -334,7 +354,8 @@ namespace CD2_Bot
 
                 await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Info, "Command Registry", "Finished registering Commands!"));
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "Command Registry", e.Message));
                 await Program.Log(new Discord.LogMessage(Discord.LogSeverity.Error, "Command Registry", e.StackTrace));
             }

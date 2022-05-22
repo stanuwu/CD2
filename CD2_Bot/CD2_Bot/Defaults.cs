@@ -18,6 +18,8 @@ namespace CD2_Bot
         public static readonly string BOTIMG = "https://cdn.discordapp.com/avatars/887247576297013288/ab077ae898cf9ca26c3f035c5ebf15a2.webp?size=1024";
         public static readonly int FLOORCOOLDOWN = 10;
         public static readonly int FARMINGCOOLDOWN = 10;
+        public static readonly int BOSSPREPTIME = 1; //5
+        public static readonly int BOSSATTACKCOOLDOWN = 15;
         public static readonly int GEARDROPCHANCE = 25;
         public static readonly int POSTGUILDCOUNTDELAY = 30;
         public static readonly int FETCHEXPENSIVEDELAY = 720;

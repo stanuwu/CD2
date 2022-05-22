@@ -70,7 +70,7 @@ namespace CD2_Bot
                 g.DrawString(exp.ToString("N0"), gfont, brush, new Rectangle(376, 353, 237, 34));
 
                 //draw level
-                g.DrawString("LVL " + level, dfont, brush, new Rectangle(444, 120, 100, 35), center);
+                g.DrawString("LVL " + level, dfont, brush, new Rectangle(444, 120, 130, 35), center);
 
                 //draw class
                 g.DrawString(cclass, dfont, brush, new Rectangle(233, 120, 195, 34));
