@@ -23,8 +23,32 @@ namespace CD2_Bot
 
                 List<Task> commands = new List<Task>() { };
 
-                //"test" command
                 SocketGuild guild = Defaults.CLIENT.GetGuild(Defaults.TESTGUILDID);
+                SocketGuild betaguild = Defaults.CLIENT.GetGuild(Defaults.BETAGUILD);
+
+                if (guild == null)
+                {
+                    guild = betaguild;
+                }
+
+                //"summon" command
+                SlashCommandBuilder summonCommand = new SlashCommandBuilder();
+                summonCommand.WithName("summon")
+                    .WithDescription("Summon a Boss");
+                SlashCommandOptionBuilder summonOptions = new SlashCommandOptionBuilder()
+                        .WithName("boss")
+                        .WithDescription("What Boss do you want to summon?")
+                        .WithRequired(true)
+                        .WithType(ApplicationCommandOptionType.String);
+                foreach (Boss b in BossFights.Bosses)
+                {
+                    summonOptions.AddChoice($"{b.Type} (min. Lvl. {b.Minlevel})", b.Type);
+                }
+                summonCommand.AddOption(summonOptions);
+                commands.Add(guild.CreateApplicationCommandAsync(summonCommand.Build()));
+
+
+                //"test" command
                 SlashCommandBuilder testCommand = new SlashCommandBuilder();
                 testCommand.WithName("test")
                     .WithDescription("Admin Command: Test commands.");
@@ -299,7 +323,7 @@ namespace CD2_Bot
                         .WithType(ApplicationCommandOptionType.String);
                 foreach (Class c in Class.Classes)
                 {
-                    setclassOptions.AddChoice($"{c.Name} (Lvl. {c.Level})", c.Name);
+                    setclassOptions.AddChoice($"{c.Name} (min. Lvl. {c.Level})", c.Name);
                 }
                 setclassCommand.AddOption(setclassOptions);
                 commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(setclassCommand.Build()));

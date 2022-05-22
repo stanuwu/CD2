@@ -130,6 +130,9 @@ namespace CD2_Bot
                     case "broadcast":
                         await AdminModule.BroadcastAsync(command);
                         break;
+                    case "summon":
+                        await BossFights.SummonBossAsync(command);
+                        break;
                     default:
                         await command.RespondAsync($"The command {command.CommandName} has not been created or linked.");
                         break;

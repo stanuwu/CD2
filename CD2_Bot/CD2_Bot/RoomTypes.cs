@@ -49,7 +49,7 @@ namespace CD2_Bot
                     embed = fr.Item1;
                     msgc = fr.Item2;
 
-                    int gearroll = Defaults.GRandom.Next(1, Defaults.GEARDROPCHANCE);;
+                    int gearroll = Defaults.GRandom.Next(1, Defaults.GEARDROPCHANCE);
                     //creative way to check for win (dont ask lol)
                     if (embed.Color.ToString() == "#2ECC71" && gearroll == 1)
                     {

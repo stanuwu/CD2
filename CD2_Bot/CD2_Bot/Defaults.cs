@@ -22,6 +22,7 @@ namespace CD2_Bot
         public static readonly int POSTGUILDCOUNTDELAY = 30;
         public static readonly int FETCHEXPENSIVEDELAY = 720;
         public static readonly ulong TESTGUILDID = 717757247689588736;
+        public static readonly ulong BETAGUILD = 977865463692402778;
         public static int UUSERS = 0;
         public static Random GRandom = new Random();
     }

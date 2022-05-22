@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminModule.cs" />
+    <Compile Include="Boss.cs" />
     <Compile Include="ButtonHandler.cs" />
     <Compile Include="CharacterManagement.cs" />
     <Compile Include="CharacterStructure.cs" />
