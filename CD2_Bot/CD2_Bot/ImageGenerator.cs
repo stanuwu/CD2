@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Net;
+using System.Text;
 using Discord;
 using Color = System.Drawing.Color;
+using System.Linq;
 
 namespace CD2_Bot
 {
@@ -167,6 +170,77 @@ namespace CD2_Bot
                 g.DrawString($"LVL: {elevel}", gfont, brush, new Rectangle(82, 365, 500, 34));
                 g.DrawString($"Damage: {edamage}", gfont, brush, new Rectangle(200, 340, 500, 34));
                 g.DrawString($"Heal: {eheal}", gfont, brush, new Rectangle(200, 365, 500, 34));
+
+                //finalize
+                g.Dispose();
+                MemoryStream output = new MemoryStream();
+                image.Save(output, System.Drawing.Imaging.ImageFormat.Png);
+                image.Dispose();
+                return output;
+            }
+        }
+        
+        public static async Task<MemoryStream> MakeInventoryImage(CharacterStructure player)
+        {
+            string name = player.CharacterName;
+            Dictionary<string, int> inv = Utils.InvAsDict(player);
+
+            StringBuilder items = new StringBuilder();
+            foreach (string item in inv.Keys.Take((int)Math.Ceiling(inv.Count/2f)))
+            {
+                items.Append($"{inv[item]}x {item}\n");
+            }
+            
+            StringBuilder items2 = new StringBuilder();
+            foreach (string item in inv.Keys.Skip((int)Math.Ceiling(inv.Count/2f)))
+            {
+                items2.Append($"{inv[item]}x {item}\n");
+            }
+
+            string backgound = "static/inventory.png";
+            
+            using (Bitmap image = new Bitmap(backgound))
+            using (Font hfont = new Font("Heebo", 25, FontStyle.Bold))
+            using (Font gfont = new Font("Rubik", 100, FontStyle.Regular, GraphicsUnit.Pixel))
+            using (Graphics g = Graphics.FromImage(image))
+            using (Brush hbrush = new SolidBrush(Color.FromArgb(20, 20, 20)))
+            using (Brush brush = new SolidBrush(Color.FromArgb(255, 255, 255)))
+            {
+                //settings for text drawing
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+                StringFormat center = new StringFormat();
+                StringFormat left = new StringFormat();
+                center.Alignment = StringAlignment.Center;
+                left.Alignment = StringAlignment.Near;
+                
+
+                SizeF RealSize = g.MeasureString(items.ToString(), gfont);
+                float HeightScaleRatio = 270 / RealSize.Height;
+                float WidthScaleRatio = 280 / RealSize.Width;
+
+                float ScaleRatio = (HeightScaleRatio < WidthScaleRatio)
+                    ? HeightScaleRatio
+                    : WidthScaleRatio;
+
+                float ScaleFontSize = gfont.Size * ScaleRatio;
+
+                Font ScaledFont = new Font(gfont.FontFamily, (int)(ScaleFontSize*0.625));
+
+                Console.WriteLine(items);
+                Console.WriteLine(ScaleRatio);
+                Console.WriteLine(RealSize.Height);
+                Console.WriteLine(RealSize.Width);
+                Console.WriteLine(HeightScaleRatio);
+                Console.WriteLine(WidthScaleRatio);
+                
+                //draw name
+                g.DrawString(name, hfont, hbrush, new PointF(10, 15));
+                
+
+                //draw inventory
+                g.DrawString(items.ToString(), ScaledFont, brush, new Rectangle(10, 107, 280, 270), left);
+                g.DrawString(items2.ToString(), ScaledFont, brush, new Rectangle(310, 107, 280, 270), left);
 
                 //finalize
                 g.Dispose();
