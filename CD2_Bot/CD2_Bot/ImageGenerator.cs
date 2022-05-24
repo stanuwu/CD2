@@ -226,13 +226,6 @@ namespace CD2_Bot
                 float ScaleFontSize = gfont.Size * ScaleRatio;
 
                 Font ScaledFont = new Font(gfont.FontFamily, (int)(ScaleFontSize*0.625));
-
-                Console.WriteLine(items);
-                Console.WriteLine(ScaleRatio);
-                Console.WriteLine(RealSize.Height);
-                Console.WriteLine(RealSize.Width);
-                Console.WriteLine(HeightScaleRatio);
-                Console.WriteLine(WidthScaleRatio);
                 
                 //draw name
                 g.DrawString(name, hfont, hbrush, new PointF(10, 15));
