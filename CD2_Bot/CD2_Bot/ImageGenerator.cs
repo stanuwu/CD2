@@ -200,7 +200,7 @@ namespace CD2_Bot
             string backgound = "static/inventory.png";
             
             using (Bitmap image = new Bitmap(backgound))
-            using (Font hfont = new Font("Heebo", 25, FontStyle.Bold))
+            using (Font hfont = new Font("Heebo", 23, FontStyle.Bold))
             using (Font gfont = new Font("Rubik", 100, FontStyle.Regular, GraphicsUnit.Pixel))
             using (Graphics g = Graphics.FromImage(image))
             using (Brush hbrush = new SolidBrush(Color.FromArgb(20, 20, 20)))
@@ -228,7 +228,7 @@ namespace CD2_Bot
                 Font ScaledFont = new Font(gfont.FontFamily, (int)(ScaleFontSize*0.625));
                 
                 //draw name
-                g.DrawString(name, hfont, hbrush, new PointF(10, 15));
+                g.DrawString(name, hfont, hbrush, new PointF(10, 13));
                 
 
                 //draw inventory
