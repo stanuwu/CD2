@@ -366,7 +366,7 @@ namespace CD2_Bot
             if (fight.Cooldowns.ContainsKey(btn.User.Id) && fight.Cooldowns[btn.User.Id] > 0)
             {
                 await btn.RespondAsync(
-                    embed: Utils.QuickEmbedNormal("Bossfight", "You are on cooldown!\nPlease slow down!"), ephemeral: true);
+                    embed: Utils.QuickEmbedNormal("Bossfight", "Choice already locked in!\nPlease wait for the next phase!"), ephemeral: true);
                 return;
             }
 
@@ -422,11 +422,11 @@ namespace CD2_Bot
             action.Append($"\nShield: {shield}");
             if (fight.Cooldowns.ContainsKey(btn.User.Id))
             {
-                fight.Cooldowns[btn.User.Id] = 2;
+                fight.Cooldowns[btn.User.Id] = 5;
             }
             else
             {
-                fight.Cooldowns.Add(btn.User.Id, 2);
+                fight.Cooldowns.Add(btn.User.Id, 5);
             }
 
             await btn.RespondAsync(embed: Utils.QuickEmbedNormal("Bossfight", action.ToString()), ephemeral: true);
@@ -444,6 +444,7 @@ namespace CD2_Bot
             string status = "Press the buttons below to fight!";
             int phaseCountdown = 5;
             DateTime started = DateTime.Now;
+            DateTime nextPhaseTime = DateTime.Now + TimeSpan.FromSeconds(85);
             ulong[] membersArray = { 0ul };
             List<CharacterStructure> membersList = new List<CharacterStructure>
                 { Utils.getCharacter(fight.Members[0]) };
@@ -469,7 +470,7 @@ namespace CD2_Bot
                         int[] levels = membersList.Select(x => x.Lvl).ToArray();
                         fight.Boss.Level = (int)levels.Average();
                         await bossCommand.ModifyOriginalResponseAsync(x =>
-                            x.Embed = getBossEmbed(fight, started, nextPhase, status));
+                            x.Embed = getBossEmbed(fight, started, nextPhase, status, nextPhaseTime));
                     }
 
                     if ((DateTime.Now - started).TotalMinutes > Defaults.BOSSPREPTIME)
@@ -513,11 +514,6 @@ namespace CD2_Bot
                     }
                     else
                     {
-                        foreach (ulong e in fight.Cooldowns.Keys.ToArray())
-                        {
-                            fight.Cooldowns[e]--;
-                        }
-
                         phaseCountdown--;
                         if (phaseCountdown < 0)
                         {
@@ -569,10 +565,17 @@ namespace CD2_Bot
                                     break;
                             }
 
+                            foreach (ulong e in fight.Cooldowns.Keys.ToArray())
+                            {
+                                fight.Cooldowns[e] = 0;
+                            }
+
+                            nextPhaseTime = DateTime.Now + TimeSpan.FromSeconds(35);
+
                             phaseCountdown = 5;
                         }
 
-                        msg = await renewBossMessage(fight, channel, started, msg, btnb, nextPhase, status);
+                        msg = await renewBossMessage(fight, channel, started, msg, btnb, nextPhase, status, nextPhaseTime);
                     }
                 }
 
@@ -583,21 +586,22 @@ namespace CD2_Bot
 
         public static async Task<RestUserMessage> renewBossMessage(BossRegisterEntry fight,
             ISocketMessageChannel channel, DateTime started, RestUserMessage message, MessageComponent btnb,
-            BossPhase nextPhase, string status)
+            BossPhase nextPhase, string status, DateTime nextPhaseTime)
         {
-            RestUserMessage msg = await channel.SendMessageAsync(embed: getBossEmbed(fight, started, nextPhase, status),
+            RestUserMessage msg = await channel.SendMessageAsync(embed: getBossEmbed(fight, started, nextPhase, status, nextPhaseTime),
                 components: btnb);
             if (message != null) await message.DeleteAsync();
             return msg;
         }
 
-        static public Embed getBossEmbed(BossRegisterEntry fight, DateTime started, BossPhase nextPhase, string status)
+        static public Embed getBossEmbed(BossRegisterEntry fight, DateTime started, BossPhase nextPhase, string status, DateTime nextPhaseTime)
         {
             EmbedBuilder embedBuilder = new EmbedBuilder()
                 .WithTitle($"{fight.Boss.Type} [Lvl. {fight.Boss.Level}]");
-            TimestampTag startingIn =
-                Discord.TimestampTag.FromDateTime(started + TimeSpan.FromMinutes(Defaults.BOSSPREPTIME));
+            TimestampTag startingIn = TimestampTag.FromDateTime(started + TimeSpan.FromMinutes(Defaults.BOSSPREPTIME));
+            TimestampTag nextPhaseIn = TimestampTag.FromDateTime(nextPhaseTime);
             startingIn.Style = TimestampTagStyles.Relative;
+            nextPhaseIn.Style = TimestampTagStyles.Relative;
             if (fight.Started == false)
             {
                 embedBuilder.AddField("Players", fight.Members.Count, inline: true);
@@ -613,7 +617,7 @@ namespace CD2_Bot
                 embedBuilder.AddField("HP", fight.Boss.HP);
                 embedBuilder.AddField("Damage", fight.Boss.Damage);
                 embedBuilder.AddField("Phase", fight.Phase.ToString());
-                embedBuilder.AddField("Next Phase", nextPhase.ToString());
+                embedBuilder.AddField("Next Phase", nextPhase + "\n" + nextPhaseIn);
             }
 
             return embedBuilder.Build();
