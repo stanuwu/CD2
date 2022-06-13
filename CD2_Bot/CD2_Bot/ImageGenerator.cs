@@ -32,7 +32,7 @@ namespace CD2_Bot
             decimal multi = (decimal)stats.StatMultiplier;
             string imageurl = "";
             IUser founduser = Defaults.CLIENT.GetUser(stats.PlayerID);
-            if (founduser != null)
+            if (founduser != null && founduser.GetAvatarUrl() != null)
             {
                 imageurl = founduser.GetAvatarUrl();
             }
@@ -40,6 +40,7 @@ namespace CD2_Bot
             {
                 imageurl = Defaults.CLIENT.CurrentUser.GetDefaultAvatarUrl();
             }
+
             using (Bitmap image = new Bitmap(backgound))
             using (Font hfont = new Font("Heebo", 8, FontStyle.Bold))
             using (Font dfont = new Font("Rubik", 6))
@@ -179,26 +180,26 @@ namespace CD2_Bot
                 return output;
             }
         }
-        
+
         public static async Task<MemoryStream> MakeInventoryImage(CharacterStructure player)
         {
             string name = player.CharacterName;
             Dictionary<string, int> inv = Utils.InvAsDict(player);
 
             StringBuilder items = new StringBuilder();
-            foreach (string item in inv.Keys.Take((int)Math.Ceiling(inv.Count/2f)))
+            foreach (string item in inv.Keys.Take((int)Math.Ceiling(inv.Count / 2f)))
             {
                 items.Append($"{inv[item]}x {item}\n");
             }
-            
+
             StringBuilder items2 = new StringBuilder();
-            foreach (string item in inv.Keys.Skip((int)Math.Ceiling(inv.Count/2f)))
+            foreach (string item in inv.Keys.Skip((int)Math.Ceiling(inv.Count / 2f)))
             {
                 items2.Append($"{inv[item]}x {item}\n");
             }
 
             string backgound = "static/inventory.png";
-            
+
             using (Bitmap image = new Bitmap(backgound))
             using (Font hfont = new Font("Heebo", 23, FontStyle.Bold))
             using (Font gfont = new Font("Rubik", 100, FontStyle.Regular, GraphicsUnit.Pixel))
@@ -213,7 +214,7 @@ namespace CD2_Bot
                 StringFormat left = new StringFormat();
                 center.Alignment = StringAlignment.Center;
                 left.Alignment = StringAlignment.Near;
-                
+
 
                 SizeF RealSize = g.MeasureString(items.ToString(), gfont);
                 float HeightScaleRatio = 270 / RealSize.Height;
@@ -225,11 +226,11 @@ namespace CD2_Bot
 
                 float ScaleFontSize = gfont.Size * ScaleRatio;
 
-                Font ScaledFont = new Font(gfont.FontFamily, (int)(ScaleFontSize*0.625));
-                
+                Font ScaledFont = new Font(gfont.FontFamily, (int)(ScaleFontSize * 0.625));
+
                 //draw name
                 g.DrawString(name, hfont, hbrush, new PointF(10, 13));
-                
+
 
                 //draw inventory
                 g.DrawString(items.ToString(), ScaledFont, brush, new Rectangle(10, 107, 280, 270), left);

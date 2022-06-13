@@ -40,8 +40,6 @@ namespace CD2_Bot
                 arg = (string)cmd.Data.Options.First().Value;
             }
 
-            Utils.DebugLog(arg);
-
             int trainchance = Defaults.GRandom.Next(0, 100);
 
             if (stats.QuestData != "none")
