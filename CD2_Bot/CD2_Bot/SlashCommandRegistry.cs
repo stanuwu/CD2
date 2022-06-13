@@ -76,6 +76,16 @@ namespace CD2_Bot
                 commands.Add(guild.CreateApplicationCommandAsync(broadcastCommand.Build()));
 
 
+                //"editcharacter" command
+                SlashCommandBuilder editcharacterCommand = new SlashCommandBuilder()
+                    .WithName("editcharacter")
+                    .WithDescription("ADMIN COMMAND: Modify user data.")
+                    .AddOption("userid", ApplicationCommandOptionType.String, "If of the user to edit", isRequired: true)
+                    .AddOption("data", ApplicationCommandOptionType.String, "What data to edit", isRequired: true)
+                    .AddOption("value", ApplicationCommandOptionType.String, "What to set the data to", isRequired: true);
+                commands.Add(guild.CreateApplicationCommandAsync(editcharacterCommand.Build()));
+
+
                 //#############
                 //real commands
                 //#############
@@ -132,15 +142,6 @@ namespace CD2_Bot
                     .WithDescription("Change the description of your character.")
                     .AddOption("description", ApplicationCommandOptionType.String, "Your new character description.", isRequired: true);
                 commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(descriptionCommand.Build()));
-
-                //"editcharacter" command
-                SlashCommandBuilder editcharacterCommand = new SlashCommandBuilder()
-                    .WithName("editcharacter")
-                    .WithDescription("ADMIN COMMAND: Modify user data.")
-                    .AddOption("userid", ApplicationCommandOptionType.String, "If of the user to edit", isRequired: true)
-                    .AddOption("data", ApplicationCommandOptionType.String, "What data to edit", isRequired: true)
-                    .AddOption("value", ApplicationCommandOptionType.String, "What to set the data to", isRequired: true);
-                commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(editcharacterCommand.Build()));
 
                 //"floor" command
                 SlashCommandBuilder floorCommand = new SlashCommandBuilder()
