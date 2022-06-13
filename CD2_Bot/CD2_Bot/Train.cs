@@ -15,14 +15,15 @@ namespace CD2_Bot
         public static async Task TrainAsync(SocketSlashCommand cmd)
         {
             CharacterStructure stats = (from user in tempstorage.characters
-                                        where user.PlayerID == cmd.User.Id
-                                        select user).SingleOrDefault();
+                where user.PlayerID == cmd.User.Id
+                select user).SingleOrDefault();
 
             if (stats == null || stats.Deleted == true)
             {
                 await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character yet. Create one with <start!"));
                 return;
             }
+
             int minutesago = (int)Math.Floor((DateTime.Now - stats.LastTrain).TotalMinutes);
             if (minutesago < Defaults.FLOORCOOLDOWN / 2)
             {
@@ -32,7 +33,14 @@ namespace CD2_Bot
 
             stats.LastTrain = DateTime.Now;
 
-            string arg = (string)cmd.Data.Options.First().Value;
+            string arg = "none";
+
+            if (cmd.Data.Options.Count > 0)
+            {
+                arg = (string)cmd.Data.Options.First().Value;
+            }
+
+            Utils.DebugLog(arg);
 
             int trainchance = Defaults.GRandom.Next(0, 100);
 
@@ -40,6 +48,7 @@ namespace CD2_Bot
             {
                 stats.Quest.UpdateProgress(stats, QuestActivations.TrainCompleteAny, arg.ToLower());
             }
+
             switch (arg.ToLower())
             {
                 case "weapon":
@@ -58,6 +67,7 @@ namespace CD2_Bot
                         stats.WeaponXP += 7;
                         await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Train", $"That didn't go so well... Your {stats.Weapon.Name} earns 7 XP!"));
                     }
+
                     break;
 
                 case "armor":
@@ -76,6 +86,7 @@ namespace CD2_Bot
                         stats.ArmorXP += 7;
                         await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Train", $"That didn't go so well... Your {stats.Armor.Name} earns 7 XP!"));
                     }
+
                     break;
 
                 case "extra":
@@ -94,6 +105,7 @@ namespace CD2_Bot
                         stats.ExtraXP += 7;
                         await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Train", $"That didn't go so well... Your {stats.Extra.Name} earns 7 XP!"));
                     }
+
                     break;
 
                 default:
@@ -118,6 +130,7 @@ namespace CD2_Bot
                         stats.ExtraXP += 5;
                         await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Train", $"That didn't go so well... Your gear earns 5 XP!"));
                     }
+
                     break;
             }
         }
