@@ -167,20 +167,10 @@ namespace CD2_Bot
             }
             else
             {
-                var embed = new EmbedBuilder
+                using (MemoryStream ms = await ImageGenerator.MakeInventoryImage(stats))
                 {
-                    Title = $"{stats.CharacterName} - Inventory",
-                    Description = "",
-                    ThumbnailUrl = avatarurl,
-                };
-                Dictionary<string, int> inv = Utils.InvAsDict(stats);
-                foreach (string k in inv.Keys)
-                {
-                    embed.Description += $"{inv[k]}x {k}\n";
+                    Utils.SendFileAsyncFast(cmd, ms.ToArray(), stats.PlayerID + "_inventory.png");
                 }
-                embed.WithColor(Color.DarkMagenta);
-                embed.WithFooter(Defaults.FOOTER);
-                await cmd.RespondAsync(embed: embed.Build());
             }
         }
 
