@@ -14,12 +14,12 @@ namespace CD2_Bot
         public static async Task FarmAsync(SocketSlashCommand cmd)
         {
             CharacterStructure stats = (from user in tempstorage.characters
-                                        where user.PlayerID == cmd.User.Id
-                                        select user).SingleOrDefault();
+                where user.PlayerID == cmd.User.Id
+                select user).SingleOrDefault();
 
             if (stats == null || stats.Deleted == true)
             {
-                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character yet. Create one with <start!"));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character yet. Create one with /start!"));
                 return;
             }
 
@@ -28,7 +28,8 @@ namespace CD2_Bot
             if (arg == "")
             {
                 await cmd.RespondAsync(embed: Utils.QuickEmbedError("Please enter a category of farming."));
-            } else
+            }
+            else
             {
                 int minutesago = (int)Math.Floor((DateTime.Now - stats.LastFarm).TotalMinutes);
                 if (minutesago < Defaults.FARMINGCOOLDOWN)
@@ -93,7 +94,7 @@ namespace CD2_Bot
                 }
 
                 rewards += $"+{sam}x {sreward}\n";
-                if (Defaults.GRandom.Next(1,10) == 5)
+                if (Defaults.GRandom.Next(1, 10) == 5)
                 {
                     if (inv.ContainsKey(rreward))
                     {
@@ -103,11 +104,13 @@ namespace CD2_Bot
                     {
                         inv.Add(rreward, 1);
                     }
+
                     rewards += $"+1x {rreward}";
                 }
+
                 Utils.SaveInv(stats, inv);
 
-                await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Farm", gtext + "\n" + rewards ));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Farm", gtext + "\n" + rewards));
             }
         }
     }

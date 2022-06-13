@@ -33,8 +33,9 @@ namespace CD2_Bot
                 case "Berserker":
                     if (weapon.Category == Category.Axe)
                     {
-                        weapon.BaseDamage = (int)(weapon.BaseDamage*1.2);
+                        weapon.BaseDamage = (int)(weapon.BaseDamage * 1.2);
                     }
+
                     break;
 
                 case "Thief":
@@ -42,6 +43,7 @@ namespace CD2_Bot
                     {
                         weapon.BaseDamage = (int)(weapon.BaseDamage * 1.2);
                     }
+
                     break;
             }
         }
@@ -62,10 +64,10 @@ namespace CD2_Bot
 
         public static void looseFight(CharacterStructure player, int money, Enemy enemy)
         {
-
         }
 
-        public static List<Class> Classes = new List<Class>() {
+        public static List<Class> Classes = new List<Class>()
+        {
             new Class("Commoner", "A normal guy.", 1, 0, 1, 0),
             new Class("Adventurer", "Gets 10% bonus XP from fights.", 1, 0, 1, 0),
             new Class("Berserker", "Brute that does bonus damage with axe type weapons.", 1.15, -10, 1, 5),
@@ -76,12 +78,12 @@ namespace CD2_Bot
         public static async Task SetClassAsync(SocketSlashCommand cmd)
         {
             CharacterStructure stats = (from user in tempstorage.characters
-                                        where user.PlayerID == cmd.User.Id
-                                        select user).SingleOrDefault();
+                where user.PlayerID == cmd.User.Id
+                select user).SingleOrDefault();
 
             if (stats == null || stats.Deleted == true)
             {
-                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character yet. Create one with <start!"));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character yet. Create one with /start!"));
                 return;
             }
 
@@ -101,7 +103,8 @@ namespace CD2_Bot
                 else if (stats.Lvl < charclass.Level)
                 {
                     await cmd.RespondAsync(embed: Utils.QuickEmbedError($"You need to be level {charclass.Level} to use this class."));
-                } else
+                }
+                else
                 {
                     stats.CharacterClass = charclass;
                     await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Class", $"Set your class to {charclass.Name}!"));

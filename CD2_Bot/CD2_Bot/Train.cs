@@ -20,7 +20,7 @@ namespace CD2_Bot
 
             if (stats == null || stats.Deleted == true)
             {
-                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character yet. Create one with <start!"));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character yet. Create one with /start!"));
                 return;
             }
 

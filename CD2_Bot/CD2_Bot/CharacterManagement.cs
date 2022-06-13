@@ -19,17 +19,19 @@ namespace CD2_Bot
             string charname = "";
             if (cmd.Data.Options.Count < 1)
             {
-                await cmd.RespondAsync(embed: Utils.QuickEmbedError("Please enter a name for your character. \n(usage: `<start [Name]`)"));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("Please enter a name for your character. \n(usage: `/start [Name]`)"));
                 return;
-            } else
+            }
+            else
             {
                 charname = (string)cmd.Data.Options.First().Value;
             }
-            if(tempstorage.characters.Any(x => x.PlayerID == cmd.User.Id))
+
+            if (tempstorage.characters.Any(x => x.PlayerID == cmd.User.Id))
             {
                 CharacterStructure statst = (from user in tempstorage.characters
-                                            where user.PlayerID == cmd.User.Id
-                                            select user).SingleOrDefault();
+                    where user.PlayerID == cmd.User.Id
+                    select user).SingleOrDefault();
                 if (statst.Deleted == true)
                 {
                     NpgsqlCommand cmd2 = new NpgsqlCommand("DELETE FROM public.\"Character\" WHERE \"UserID\" = @id", db.dbc);
@@ -39,27 +41,33 @@ namespace CD2_Bot
                 }
                 else
                 {
-                    await cmd.RespondAsync(embed: Utils.QuickEmbedError("You already have a character! \n If you want to delete this character and create a new one, use <reset."));
+                    await cmd.RespondAsync(
+                        embed: Utils.QuickEmbedError(
+                            "You already have a character! \n If you want to delete this character and create a new one, use <reset."));
                     return;
                 }
             }
-             if(charname.Length > 20)
-             {
-                 charname = charname.Substring(0, 20);
-             }
 
-             NpgsqlCommand dbcmd = new NpgsqlCommand("INSERT INTO public.\"Character\" VALUES (@id, '', 'Player', 'Commoner', 0, 0, '', 0, 'Stick', 'Rags', 'Pendant', ARRAY[]::varchar[], 0, false, 100, 0, 0, 0, @dt, 'none');", db.dbc);
-             dbcmd.Parameters.AddWithValue("@id", (Int64)cmd.User.Id);
-             dbcmd.Parameters.AddWithValue("@dt", DateTime.Now.ToString());
-             db.CommandVoid(dbcmd);
+            if (charname.Length > 20)
+            {
+                charname = charname.Substring(0, 20);
+            }
 
-             tempstorage.characters.Add(new CharacterStructure(cmd.User.Id));
-             CharacterStructure stats = (from user in tempstorage.characters
-                                         where user.PlayerID == cmd.User.Id
-                                         select user).SingleOrDefault();
-             stats.CharacterName = charname;
-             await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Character created", $"Your character {charname} has been created!"));
-         }
+            NpgsqlCommand dbcmd =
+                new NpgsqlCommand(
+                    "INSERT INTO public.\"Character\" VALUES (@id, '', 'Player', 'Commoner', 0, 0, '', 0, 'Stick', 'Rags', 'Pendant', ARRAY[]::varchar[], 0, false, 100, 0, 0, 0, @dt, 'none');",
+                    db.dbc);
+            dbcmd.Parameters.AddWithValue("@id", (Int64)cmd.User.Id);
+            dbcmd.Parameters.AddWithValue("@dt", DateTime.Now.ToString());
+            db.CommandVoid(dbcmd);
+
+            tempstorage.characters.Add(new CharacterStructure(cmd.User.Id));
+            CharacterStructure stats = (from user in tempstorage.characters
+                where user.PlayerID == cmd.User.Id
+                select user).SingleOrDefault();
+            stats.CharacterName = charname;
+            await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Character created", $"Your character {charname} has been created!"));
+        }
 
 
         //"character" command
@@ -69,18 +77,19 @@ namespace CD2_Bot
             if (cmd.Data.Options.Count < 1)
             {
                 uid = cmd.User.Id;
-            } else
+            }
+            else
             {
                 uid = ((SocketUser)cmd.Data.Options.First().Value).Id;
             }
-            
+
             CharacterStructure stats = (from user in tempstorage.characters
-                                            where user.PlayerID == uid
-                                            select user).SingleOrDefault();
+                where user.PlayerID == uid
+                select user).SingleOrDefault();
 
             if (stats == null || stats.Deleted == true)
             {
-                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character! Create one with <start."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character! Create one with /start."));
             }
             else
             {
@@ -117,12 +126,12 @@ namespace CD2_Bot
             }
 
             CharacterStructure stats = (from user in tempstorage.characters
-                                        where user.PlayerID == uid
-                                        select user).SingleOrDefault();
+                where user.PlayerID == uid
+                select user).SingleOrDefault();
 
             if (stats == null || stats.Deleted == true)
             {
-                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character! Create one with <start."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character! Create one with /start."));
             }
             else
             {
@@ -158,12 +167,12 @@ namespace CD2_Bot
             ulong uid = cmd.User.Id;
 
             CharacterStructure stats = (from user in tempstorage.characters
-                                        where user.PlayerID == uid
-                                        select user).SingleOrDefault();
+                where user.PlayerID == uid
+                select user).SingleOrDefault();
 
             if (stats == null || stats.Deleted == true)
             {
-                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character! Create one with <start."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character! Create one with /start."));
             }
             else
             {
@@ -179,22 +188,23 @@ namespace CD2_Bot
         public static async Task ResetAsync(SocketSlashCommand cmd)
         {
             CharacterStructure stats = (from user in tempstorage.characters
-                                        where user.PlayerID == cmd.User.Id
-                                        select user).SingleOrDefault();
+                where user.PlayerID == cmd.User.Id
+                select user).SingleOrDefault();
 
             if (stats == null || stats.Deleted == true)
             {
                 await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character to delete."));
                 return;
             }
+
             MessageComponent btnb = new ComponentBuilder()
-                        .WithButton("Delete", "delchar;confirm;" + cmd.User.Id.ToString(), ButtonStyle.Danger)
-                        .WithButton("Cancel", "delchar;cancel;" + cmd.User.Id.ToString(), ButtonStyle.Secondary)
-                        .Build();
+                .WithButton("Delete", "delchar;confirm;" + cmd.User.Id.ToString(), ButtonStyle.Danger)
+                .WithButton("Cancel", "delchar;cancel;" + cmd.User.Id.ToString(), ButtonStyle.Secondary)
+                .Build();
 
             await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Confirmation", "Are you sure you want to reset your character?\n" +
-                "**This will delete ALL your data!**" +
-                "\nExpires in 5 minutes."), components: btnb);
+                                                                                 "**This will delete ALL your data!**" +
+                                                                                 "\nExpires in 5 minutes."), components: btnb);
         }
 
         //"rename" command
@@ -213,14 +223,14 @@ namespace CD2_Bot
                 }
 
                 CharacterStructure stats = (from user in tempstorage.characters
-                                            where user.PlayerID == cmd.User.Id
-                                            select user).SingleOrDefault();
+                    where user.PlayerID == cmd.User.Id
+                    select user).SingleOrDefault();
                 stats.CharacterName = charname;
                 await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Success", $"Your character has been renamed to {charname}!"));
             }
             else
             {
-                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character yet! Create one with <start."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character yet! Create one with /start."));
             }
         }
 
@@ -240,38 +250,43 @@ namespace CD2_Bot
                 }
 
                 CharacterStructure stats = (from user in tempstorage.characters
-                                            where user.PlayerID == cmd.User.Id
-                                            select user).SingleOrDefault();
+                    where user.PlayerID == cmd.User.Id
+                    select user).SingleOrDefault();
                 stats.Description = chardesc;
                 await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Success", "A new description has been set!"));
             }
             else
             {
-                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character yet! Create one with <start."));
+                await cmd.RespondAsync(embed: Utils.QuickEmbedError("You don't have a character yet! Create one with /start."));
             }
         }
 
         //"editcharacter" command
         public static async Task EditcharacterAsync(SocketSlashCommand cmd)
         {
-            if (!Defaults.STAFF.Contains(cmd.User.Id)) { return; }
+            if (!Defaults.STAFF.Contains(cmd.User.Id))
+            {
+                return;
+            }
+
             if (cmd.Data.Options.Count >= 3)
             {
                 ulong userid = Convert.ToUInt64((string)cmd.Data.Options.First().Value);
                 string toedit = (string)cmd.Data.Options.ToList()[1].Value;
                 string xargs = (string)cmd.Data.Options.ToList()[2].Value;
                 CharacterStructure stats = (from user in tempstorage.characters
-                                            where user.PlayerID == userid
-                                            select user).SingleOrDefault();
+                    where user.PlayerID == userid
+                    select user).SingleOrDefault();
 
                 if (stats != null)
                 {
-                    if(toedit == "name")
+                    if (toedit == "name")
                     {
                         if (xargs.Length > 20)
                         {
                             xargs = xargs.Substring(0, 20);
                         }
+
                         stats.CharacterName = xargs;
                     }
                     else if (toedit == "title")
@@ -284,6 +299,7 @@ namespace CD2_Bot
                         {
                             xargs = xargs.Substring(0, 50);
                         }
+
                         stats.Description = xargs;
                     }
                     else if (toedit == "money")
@@ -327,6 +343,7 @@ namespace CD2_Bot
                         await cmd.RespondAsync(embed: Utils.QuickEmbedError("Invalid argument"));
                         return;
                     }
+
                     await cmd.RespondAsync(embed: Utils.QuickEmbedNormal("Success", "Stat changed"));
                 }
                 else
