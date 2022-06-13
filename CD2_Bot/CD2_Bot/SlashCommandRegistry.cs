@@ -257,10 +257,10 @@ namespace CD2_Bot
                         .WithDescription("What to farm?")
                         .WithRequired(true)
                         .AddChoice("🐟 Fishing", "fishing")
-                        .AddChoice("🥔 Farming", "farming")
+                        .AddChoice("🏹 Hunting", "hunting")
                         .AddChoice("🌲 Foraging", "foraging")
-                        .AddChoice("⛏️ Mining", "mining")
-                        .AddChoice("🍄 Collecting", "collecting")
+                        .AddChoice("⛏ Mining", "mining")
+                        .AddChoice("🍄 Harvesting", "harvesting")
                         .WithType(ApplicationCommandOptionType.String)
                     );
                 commands.Add(Defaults.CLIENT.CreateGlobalApplicationCommandAsync(farmCommand.Build()));
