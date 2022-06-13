@@ -42,7 +42,7 @@ namespace CD2_Bot
 
         public static readonly string guide_page_bosses = "**Bosses**\n" +
                                                           "You can summon bosses and fight them alone or with friends, but it is going to be a bit harder alone." +
-                                                          "Once in a fight there are 3 options. Attack and deal damage to the boss, Parry to deal half your damage and put your damage into blocking or Blocking and putting all your energy into defending." +
+                                                          "Once in a fight there are 3 options. You can pick any of these once per phase. Attack and deal damage to the boss, Parry to deal half your damage and put your damage into blocking or Blocking and putting all your energy into defending." +
                                                           "Any option that defends you adds shield that will be used before HP when the boss attacks.";
 
 
